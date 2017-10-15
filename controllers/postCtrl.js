@@ -9,6 +9,19 @@ class PostController extends BaseController {
         return 'post'
     }
 
+    static get permissions () {
+        return {
+            admin: [
+                ...this.baseActions,
+                `${this.name}:add-tag`
+            ],
+            editor: [
+                ...this.baseActions,
+                `${this.name}:add-tag`
+            ]
+        }
+    }
+
     static get router () {
         router.get('/', this.index())
         router.get('/lol', this.lol())
@@ -21,13 +34,12 @@ class PostController extends BaseController {
             res.json({ data: 'hello post' })
         }
     }
-
+    
     static lol () {
         return (req, res, next) => {
             res.json({ data: 'post lol' })
         }
     }
-
 }
 
 module.exports = PostController.router
