@@ -23,22 +23,22 @@ class PostController extends BaseController {
     }
 
     static get router () {
-        router.get('/', this.index())
-        router.get('/lol', this.lol())
-        
+        router.get('/', index())
+        router.get('/lol', lol())
+
         return router
     }
+}
 
-    static index () {
-        return (req, res, next) => {
-            res.json({ data: 'hello post!!!' })
-        }
+function index () {
+    return (req, res, next) => {
+        res.json({ data: 'hello post!!!' })
     }
-    
-    static lol () {
-        return (req, res, next) => {
-            res.json({ data: 'post lol' })
-        }
+}
+
+function lol () {
+    return (req, res, next) => {
+        res.json({ data: 'post lol' })
     }
 }
 
