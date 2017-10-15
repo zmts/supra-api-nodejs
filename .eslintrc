@@ -1,0 +1,18 @@
+{
+    "extends": "eslint:recommended",
+    "commonjs": true,
+    "root": true,
+    "env": {
+        "node": true,
+        "es6": true
+    },
+    "rules": {
+        "indent": ["error", 4, { "SwitchCase": 1 }],
+        "quotes": ["error", "single"],
+        "semi": ["error", "never"],
+        "object-curly-spacing": ["error", "always"],
+        "key-spacing": ["error", {"afterColon": true}],
+        "no-multi-spaces": "error"
+    }
+}
+
