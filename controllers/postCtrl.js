@@ -31,7 +31,7 @@ class PostController extends BaseController {
 
     static index () {
         return (req, res, next) => {
-            res.json({ data: 'hello post' })
+            res.json({ data: 'hello post!!!' })
         }
     }
     
