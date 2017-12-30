@@ -4,15 +4,15 @@ const express = require('express')
 const router = express.Router()
 
 const authCtrl = require('./authCtrl')
-const postCtrl = require('./postCtrl')
-const userCtrl = require('./userCtrl')
+const postsCtrl = require('./postsCtrl')
+const usersCtrl = require('./usersCtrl')
 
 router.get('/', function (req, res) {
-    res.json({ success: true, data: 'hello root' })
+  res.json({ success: true, data: 'hello root' })
 })
 
 router.use('/auth', authCtrl)
-router.use('/posts', postCtrl)
-router.use('/users', userCtrl)
+router.use('/posts', postsCtrl)
+router.use('/users', usersCtrl)
 
 module.exports = router
