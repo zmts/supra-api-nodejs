@@ -18,13 +18,13 @@ run (req, res, next) {
  * @description base action
  */
 class BaseAction {
-  basePermissions () {
+  get basePermissions () {
     return {
       anonymous: false
     }
   }
 
-  baseValidationRules () {
+  get baseValidationRules () {
     return {
       params: Joi.object().keys({
         id: Joi.number().integer()
@@ -45,7 +45,7 @@ class BaseAction {
    * @param next
    */
   run (req, res, next) {
-    this.validate(req, this.validationRules())
+    this.validate(req, this.validationRules)
       .then(() => res.json({ data: 'base action, needs to be redefined' }))
       .catch(error => next(error))
   }

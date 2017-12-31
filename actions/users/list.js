@@ -5,11 +5,11 @@ const BaseAction = require('../base')
  * @description return users list
  */
 class List extends BaseAction {
-  name () {
+  get name () {
     return 'users-list'
   }
 
-  permissions () {
+  get permissions () {
     return {
       anonymous: false,
       admin: true,
@@ -17,9 +17,9 @@ class List extends BaseAction {
     }
   }
 
-  validationRules () {
+  get validationRules () {
     return {
-      ...this.baseValidationRules(),
+      ...this.baseValidationRules,
       query: Joi.object().keys({
         q: Joi.string().min(2).max(50)
       })
@@ -27,7 +27,7 @@ class List extends BaseAction {
   }
 
   run (req, res, next) {
-    this.validate(req, this.validationRules())
+    this.validate(req, this.validationRules)
       .then(() => res.json({ data: 'users list' }))
       .catch(error => next(error))
   }
