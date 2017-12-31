@@ -1,3 +1,6 @@
+const Joi = require('joi')
+const _ = require('lodash')
+
 /*
 request flow:
 sanitize(in global middleware) >>
@@ -23,18 +26,28 @@ class Base {
 
   baseValidationRules () {
     return {
-      baseRule: 'bbbb'
+      params: Joi.object().keys({
+        id: Joi.number().integer()
+      }),
+      query: Joi.object().keys({
+        q: Joi.string().min(2).max(50)
+      }),
+      body: Joi.object().keys({
+        id: Joi.number().integer()
+      })
     }
   }
 
   /**
-   * @description default run method, needs to be redefined
+   * @description example run method, needs to be redefined in each action
    * @param req
    * @param res
    * @param next
    */
   run (req, res, next) {
-    res.json({ data: 'base action, needs to be redefined' })
+    this.validate(req, this.validationRules())
+      .then(() => res.json({ data: 'base action, needs to be redefined' }))
+      .catch(error => next(error))
   }
 
   /**
@@ -43,20 +56,25 @@ class Base {
    */
   checkPermissions (permissions) {
     console.log(permissions)
-    // if has permissions >> resolve
-    // else >> reject
   }
 
   /**
-   * @description validate request(params, query, body)
-   * @param res
+   * @description validate request
+   * @param req
    * @param rules
    */
-  validate (res, rules) {
-    console.log(rules)
-    console.log(this.permissions())
-    // if valid >> resolve
-    // else >> reject
+  validate (req, rules) {
+    // map list of validation schemas
+    const validationSchemas = _.map(rules, (rulesSchema, key) => {
+      return Joi.validate(req[key], rulesSchema)
+    })
+
+    // execute validation
+    return new Promise((resolve, reject) => {
+      Promise.all(validationSchemas)
+        .then(result => resolve(result))
+        .catch(error => reject(error))
+    })
   }
 }
 

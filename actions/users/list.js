@@ -1,3 +1,4 @@
+const Joi = require('joi')
 const BaseAction = require('../base')
 
 /**
@@ -19,13 +20,16 @@ class List extends BaseAction {
   validationRules () {
     return {
       ...this.baseValidationRules(),
-      someValidationRule: 'lol'
+      query: Joi.object().keys({
+        q: Joi.string().min(2).max(50)
+      })
     }
   }
 
   run (req, res, next) {
-    this.validate(res, this.validationRules())
-    res.json({ data: 'users list' })
+    this.validate(req, this.validationRules())
+      .then(() => res.json({ data: 'users list' }))
+      .catch(error => next(error))
   }
 }
 

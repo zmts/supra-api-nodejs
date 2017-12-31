@@ -9,6 +9,7 @@ const logger = require('morgan')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const config = require('./config')
+const chalk = require('chalk')
 
 const controllers = require('./controllers')
 
@@ -44,15 +45,18 @@ app.use(function (req, res, next) {
 if (app.get('env') === 'development') {
   app.use(function (error, req, res, next) {
     if (error.stack) {
-      global.console.log('error.stack >>')
-      global.console.log(error.stack)
+      console.log(chalk.red('##############################'))
+      console.log(chalk.red(`### ${new Date} env:development/regular error`))
+      console.log(chalk.red(`###  ${error.message}`))
+      console.log(chalk.red('### error.stack'))
+      console.log(chalk.blue(error.stack))
+      console.log(chalk.red('##############################'))
     }
 
     res.status(error.status || (error.isJoi ? 400 : 500)).json({
       success: false,
       description: error.message || error,
-      env: 'development/regular',
-      handled_in: 'app.js'
+      env: 'development/regular'
     })
   })
 }
@@ -62,16 +66,18 @@ app.use(function (error, req, res, next) {
   res.status(error.status || 500).json({
     success: false,
     description: error.message || error,
-    env: 'production/regular',
-    handled_in: 'app.js'
+    env: 'production/regular'
   })
 })
 
 // uncaughtException error handler
 process.on('uncaughtException', function (error) {
-  global.console.error((new Date).toUTCString() + ' uncaughtException:', error.message)
-  global.console.log('error.stack >>')
-  global.console.error(error.stack)
+  console.log(chalk.red('##############################'))
+  console.log(chalk.red(`### ${new Date} uncaughtException`))
+  console.log(chalk.red(`###  ${error.message}`))
+  console.log('### error.stack')
+  console.log(chalk.blue(error.stack))
+  console.log(chalk.red('##############################'))
   process.exit(1)
 })
 
