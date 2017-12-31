@@ -23,8 +23,8 @@ class List extends BaseAction {
     }
   }
 
-  execute (req, res, next) {
-    this.validate(this.validationRules())
+  run (req, res, next) {
+    this.validate(res, this.validationRules())
     res.json({ data: 'users list' })
   }
 }
