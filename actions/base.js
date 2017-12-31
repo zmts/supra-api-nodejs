@@ -17,7 +17,7 @@ run (req, res, next) {
 /**
  * @description base action
  */
-class Base {
+class BaseAction {
   basePermissions () {
     return {
       anonymous: false
@@ -78,4 +78,4 @@ class Base {
   }
 }
 
-module.exports = Base
+module.exports = BaseAction
