@@ -16,8 +16,8 @@ router.use(function (req, res, next) {
   next()
 })
 
-router.use('/', function (req, res) {
-  res.json({ success: true, data: 'hello root' })
+router.get('/', (req, res) => {
+  res.json({ success: true, message: '(>___<)' })
 })
 
 router.use('/auth', authCtrl)
