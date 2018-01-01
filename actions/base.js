@@ -20,6 +20,14 @@ run (req, res, next) {
  * @description base action
  */
 class BaseAction {
+  /* example run method
+  run (req, res, next) {
+    this.checkAccess(req, this.permissions)
+      .then(() => this.validate(req, this.validationRules))
+      .then(() => res.json({ data: 'base action, needs to be redefined' }))
+      .catch(error => next(error))
+  } */
+
   get basePermissions () {
     return {
       anonymous: false
@@ -38,19 +46,6 @@ class BaseAction {
         id: Joi.number().integer()
       })
     }
-  }
-
-  /**
-   * @description example run method, needs to be redefined in each action
-   * @param req
-   * @param res
-   * @param next
-   */
-  run (req, res, next) {
-    this.checkAccess(req, this.permissions)
-      .then(() => this.validate(req, this.validationRules))
-      .then(() => res.json({ data: 'base action, needs to be redefined' }))
-      .catch(error => next(error))
   }
 
   /**
