@@ -1,6 +1,8 @@
 const Joi = require('joi')
 const _ = require('lodash')
 
+const { ErrorWrapper } = require('../util/error')
+
 /*
 request flow:
 sanitize(in global middleware) >>
@@ -45,17 +47,23 @@ class BaseAction {
    * @param next
    */
   run (req, res, next) {
-    this.validate(req, this.validationRules)
+    this.checkAccess(req, this.permissions)
+      .then(() => this.validate(req, this.validationRules))
       .then(() => res.json({ data: 'base action, needs to be redefined' }))
       .catch(error => next(error))
   }
 
   /**
    * @description check action permissions
+   * @param user
    * @param permissions
    */
-  checkPermissions (permissions) {
-    console.log(permissions)
+  checkAccess (user, permissions) {
+    return new Promise((resolve, reject) => {
+      if (user.isOwner) return resolve()
+      if (permissions[user.role]) return resolve()
+      return reject(new ErrorWrapper('Access denied', 403))
+    })
   }
 
   /**

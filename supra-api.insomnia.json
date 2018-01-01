@@ -1,0 +1,88 @@
+{
+	"_type": "export",
+	"__export_format": 3,
+	"__export_date": "2017-12-31T19:16:01.400Z",
+	"__export_source": "insomnia.desktop.app:v5.12.4",
+	"resources": [
+		{
+			"_id": "wrk_f41ba130885b45bbb5fc2d2f5eb34d99",
+			"created": 1514667974669,
+			"description": "",
+			"modified": 1514667974669,
+			"name": "supra-api-nodejs",
+			"parentId": null,
+			"_type": "workspace"
+		},
+		{
+			"_id": "env_f8b14970cec24c2a8033bf6df9ba01a7",
+			"color": null,
+			"created": 1514667974688,
+			"data": {},
+			"isPrivate": false,
+			"modified": 1514667974688,
+			"name": "New Environment",
+			"parentId": "wrk_f41ba130885b45bbb5fc2d2f5eb34d99",
+			"_type": "environment"
+		},
+		{
+			"_id": "jar_bb8e8ca53b1a42d79a82b9a6cdb2b162",
+			"cookies": [],
+			"created": 1514667974694,
+			"modified": 1514667974694,
+			"name": "Default Jar",
+			"parentId": "wrk_f41ba130885b45bbb5fc2d2f5eb34d99",
+			"_type": "cookie_jar"
+		},
+		{
+			"_id": "fld_56874bbff37e40e0a7e2976f04a0da7a",
+			"created": 1514668005881,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1514668005881,
+			"modified": 1514668005881,
+			"name": "users",
+			"parentId": "wrk_f41ba130885b45bbb5fc2d2f5eb34d99",
+			"_type": "request_group"
+		},
+		{
+			"_id": "req_7cf6818e33cd4bc98c8b39e515495ac0",
+			"authentication": {},
+			"body": {},
+			"created": 1514667994670,
+			"description": "",
+			"headers": [],
+			"metaSortKey": -1514668005856,
+			"method": "GET",
+			"modified": 1514737475762,
+			"name": "users/",
+			"parameters": [],
+			"parentId": "fld_56874bbff37e40e0a7e2976f04a0da7a",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "localhost:4000/users/?q=222",
+			"_type": "request"
+		},
+		{
+			"_id": "req_f7efb6a332c847698db0d16b96933669",
+			"authentication": {},
+			"body": {},
+			"created": 1514671149530,
+			"description": "",
+			"headers": [],
+			"metaSortKey": -1505878053737.5,
+			"method": "POST",
+			"modified": 1514671158167,
+			"name": "users/",
+			"parameters": [],
+			"parentId": "fld_56874bbff37e40e0a7e2976f04a0da7a",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "localhost:4000/users/",
+			"_type": "request"
+		}
+	]
+}

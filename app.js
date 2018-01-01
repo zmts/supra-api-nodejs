@@ -1,5 +1,3 @@
-'use strict'
-
 require('dotenv').config()
 
 const express = require('express')
@@ -47,7 +45,7 @@ if (app.get('env') === 'development') {
     if (error.stack) {
       console.log(chalk.red('##############################'))
       console.log(chalk.red(`### ${new Date} env:development/regular error`))
-      console.log(chalk.red(`###  ${error.message}`))
+      console.log(chalk.red(`### ${error.message}`))
       console.log(chalk.red('### error.stack'))
       console.log(chalk.blue(error.stack))
       console.log(chalk.red('##############################'))
@@ -74,7 +72,7 @@ app.use(function (error, req, res, next) {
 process.on('uncaughtException', function (error) {
   console.log(chalk.red('##############################'))
   console.log(chalk.red(`### ${new Date} uncaughtException`))
-  console.log(chalk.red(`###  ${error.message}`))
+  console.log(chalk.red(`### ${error.message}`))
   console.log('### error.stack')
   console.log(chalk.blue(error.stack))
   console.log(chalk.red('##############################'))

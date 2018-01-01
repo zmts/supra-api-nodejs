@@ -5,15 +5,11 @@ const BaseAction = require('../base')
  * @description return users list
  */
 class List extends BaseAction {
-  get name () {
-    return 'users-list'
-  }
-
   get permissions () {
     return {
       anonymous: false,
       admin: true,
-      editor: true
+      editor: false
     }
   }
 
@@ -27,7 +23,10 @@ class List extends BaseAction {
   }
 
   run (req, res, next) {
-    this.validate(req, this.validationRules)
+    req.meta.user.role = 'editor' // temp mock data
+
+    this.checkAccess(req.meta.user, this.permissions)
+      .then(() => this.validate(req, this.validationRules))
       .then(() => res.json({ data: 'users list' }))
       .catch(error => next(error))
   }

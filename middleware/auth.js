@@ -1,5 +1,3 @@
-'use strict'
-
 const bcrypt = require('bcryptjs')
 const jwtp = require('../util/jwt')
 const jwt = require('jsonwebtoken')
