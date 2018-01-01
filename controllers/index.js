@@ -1,21 +1,14 @@
 const express = require('express')
 const router = express.Router()
 
+const { initialMetaData } = require('../middleware/initialMetaData')
+
 const authCtrl = require('./authCtrl')
 const postsCtrl = require('./postsCtrl')
 const usersCtrl = require('./usersCtrl')
 
 // initial meta object
-router.use(function (req, res, next) {
-  req.meta = {
-    user: {
-      id: false,
-      role: 'anonymous',
-      isOwner: false
-    }
-  }
-  next()
-})
+router.use(initialMetaData())
 
 // auth middleware
 router.use(function (req, res, next) {

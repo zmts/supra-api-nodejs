@@ -67,6 +67,17 @@ class BaseAction {
   }
 
   /**
+   * @description check is logged in user status
+   * @param user
+   */
+  isLoggedIn (user) {
+    return new Promise((resolve, reject) => {
+      if (user.id) return resolve()
+      return reject(new ErrorWrapper('Anonymous user. Access denied', 403))
+    })
+  }
+
+  /**
    * @description validate request
    * @param req
    * @param rules
