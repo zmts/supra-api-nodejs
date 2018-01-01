@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-01-01T14:28:04.833Z",
+	"__export_date": "2018-01-01T18:04:05.745Z",
 	"__export_source": "insomnia.desktop.app:v5.12.4",
 	"resources": [
 		{
@@ -45,6 +45,26 @@
 			"_type": "request_group"
 		},
 		{
+			"_id": "req_7fd426d7e09e42a0b80ce0b191c5908c",
+			"authentication": {},
+			"body": {},
+			"created": 1514820014708,
+			"description": "",
+			"headers": [],
+			"metaSortKey": -1514820014708,
+			"method": "GET",
+			"modified": 1514820022320,
+			"name": "localhost:4000",
+			"parameters": [],
+			"parentId": "wrk_f41ba130885b45bbb5fc2d2f5eb34d99",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "localhost:4000",
+			"_type": "request"
+		},
+		{
 			"_id": "req_7cf6818e33cd4bc98c8b39e515495ac0",
 			"authentication": {},
 			"body": {},
@@ -82,7 +102,7 @@
 			],
 			"metaSortKey": -1505878053737.5,
 			"method": "POST",
-			"modified": 1514814870728,
+			"modified": 1514825282305,
 			"name": "users/",
 			"parameters": [],
 			"parentId": "fld_56874bbff37e40e0a7e2976f04a0da7a",
