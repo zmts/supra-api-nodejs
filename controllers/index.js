@@ -16,7 +16,7 @@ router.use(function (req, res, next) {
   next()
 })
 
-router.get('/', function (req, res) {
+router.use('/', function (req, res) {
   res.json({ success: true, data: 'hello root' })
 })
 
