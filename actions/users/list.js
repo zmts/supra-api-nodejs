@@ -5,7 +5,7 @@ const BaseAction = require('../base')
  * @description return users list
  */
 class List extends BaseAction {
-  get permissions () {
+  static get permissions () {
     return {
       anonymous: false,
       admin: true,
@@ -13,7 +13,7 @@ class List extends BaseAction {
     }
   }
 
-  get validationRules () {
+  static get validationRules () {
     return {
       ...this.baseValidationRules,
       query: Joi.object().keys({
@@ -22,7 +22,7 @@ class List extends BaseAction {
     }
   }
 
-  run (req, res, next) {
+  static run (req, res, next) {
     req.meta.user.role = 'editor' // temp mock data
 
     this.checkAccess(req.meta.user, this.permissions)

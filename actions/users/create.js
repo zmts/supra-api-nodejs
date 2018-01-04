@@ -5,7 +5,7 @@ const BaseAction = require('../base')
  * @description create user entity
  */
 class Create extends BaseAction {
-  get validationRules () {
+  static get validationRules () {
     return {
       ...this.baseValidationRules,
       body: Joi.object().keys({
@@ -16,7 +16,7 @@ class Create extends BaseAction {
     }
   }
 
-  run (req, res, next) {
+  static run (req, res, next) {
     req.meta.user.id = 1 // mock user_id
 
     this.isLoggedIn(req.meta.user)

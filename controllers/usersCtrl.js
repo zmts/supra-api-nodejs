@@ -7,8 +7,8 @@ const BaseController = require('./baseCtrl')
 
 class UsersController extends BaseController {
   static get router () {
-    router.get('/', actionRunner(new actions.List()))
-    router.post('/', actionRunner(new actions.Create()))
+    router.get('/', actionRunner(actions.List))
+    router.post('/', actionRunner(actions.Create))
 
     return router
   }
