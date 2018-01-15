@@ -68,7 +68,7 @@ class BaseAction {
    * @param {Object} req
    * @param {Object} rules
    */
-  static validate (req, rules) {
+  validate (req, rules) {
     if (!req) throw new ErrorWrapper('\'validate\' method requires \'req\' param', 500)
     if (!rules) throw new ErrorWrapper('\'validate\' method requires \'rules\' param', 500)
 
@@ -91,11 +91,11 @@ class BaseAction {
    * ------------------------------
    */
 
-  static checkAccess (user, permissions) {
+  checkAccess (user, permissions) {
     return securityServices.checkAccess(user, permissions)
   }
 
-  static isLoggedIn (user) {
+  isLoggedIn (user) {
     return securityServices.isLoggedIn(user)
   }
 }

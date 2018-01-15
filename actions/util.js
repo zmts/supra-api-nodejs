@@ -1,5 +1,5 @@
-module.exports.actionRunner = (action) => {
+module.exports.actionRunner = (Action) => {
   return (req, res, next) => {
-    action.run(req, res, next)
+    return new Action().run(req, res, next)
   }
 }
