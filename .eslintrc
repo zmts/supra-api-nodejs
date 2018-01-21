@@ -1,5 +1,5 @@
 {
-  "extends": "eslint:standard",
+  "extends": "standard",
   "commonjs": true,
   "root": true,
   "env": {
@@ -7,7 +7,7 @@
     "es6": true
   },
   "rules": {
-    "indent": ["error", 4, { "SwitchCase": 1 }],
+    "indent": ["error", 2, { "SwitchCase": 1 }],
     "quotes": ["error", "single"],
     "semi": ["error", "never"],
     "object-curly-spacing": ["error", "always"],

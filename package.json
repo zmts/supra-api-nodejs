@@ -32,6 +32,6 @@
   },
   "devDependencies": {
     "eslint": "^3.17.1",
-    "standard": "^8.6.0"
+    "standart": "^6.1.0"
   }
 }
