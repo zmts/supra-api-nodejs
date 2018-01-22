@@ -10,8 +10,12 @@ const config = require('./config')
 const chalk = require('chalk')
 
 const controllers = require('./controllers')
+const registry = require('./registry')
 
 const app = express()
+
+// init registry data
+registry.set('user', {})
 
 // uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));

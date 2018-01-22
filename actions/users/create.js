@@ -1,5 +1,6 @@
 const Joi = require('joi')
 const BaseAction = require('../base')
+// const registry = require('../../registry')
 
 /**
  * @description create user entity
@@ -18,6 +19,7 @@ class Create extends BaseAction {
 
   run (req, res, next) {
     req.meta.user.id = 1 // mock user_id
+    // console.log(registry.list())
 
     this.isLoggedIn(req.meta.user)
       .then(() => this.validate(req, this.validationRules))
