@@ -8,11 +8,14 @@ const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const config = require('./config')
 const chalk = require('chalk')
+const wetland = require('./wetland')
 
 const controllers = require('./controllers')
 const registry = require('./registry')
 
 const app = express()
+
+wetland.getManager()
 
 // init registry data
 registry.set('user', {})
