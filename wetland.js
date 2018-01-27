@@ -1,9 +1,8 @@
 const path = require('path')
-const Wetland = require('wetland').Wetland
 
-const wetland = new Wetland({
+module.exports = {
   debug: true,
-  entityPath: `${path.resolve()}/entities`,
+  entityPath: path.resolve(process.cwd(), 'entities'),
   mapping: {
     defaultNamesToUnderscore: true
   },
@@ -18,6 +17,4 @@ const wetland = new Wetland({
       }
     }
   }
-})
-
-module.exports = wetland
+}
