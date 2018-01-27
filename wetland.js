@@ -1,7 +1,7 @@
 const path = require('path')
 
 module.exports = {
-  debug: true,
+  // debug: true,
   entityPath: path.resolve(process.cwd(), 'entities'),
   mapping: {
     defaultNamesToUnderscore: true

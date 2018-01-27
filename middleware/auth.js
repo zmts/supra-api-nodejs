@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 const crypto = require('crypto')
 
 const SECRET = require('../config').tokenSecret
-const ENCRYPTPASSWORD = require('../config').tokenSecret.encryptpassword
+const ENCRYPTPASSWORD = require('../config').token.encryptpassword
 // const User = require('../models/user')
 
 /**

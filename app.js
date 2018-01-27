@@ -48,7 +48,7 @@ if (app.get('env') === 'development') {
   app.use(function (error, req, res, next) {
     if (error.stack) {
       console.log(chalk.red('##############################'))
-      console.log(chalk.red(`### ${new Date} env:development/regular error`))
+      console.log(chalk.red(`### ${new Date()} env:development/regular error`))
       console.log(chalk.red(`### ${error.message}`))
       console.log(chalk.red('### error.stack'))
       console.log(chalk.blue(error.stack))
@@ -75,7 +75,7 @@ app.use(function (error, req, res, next) {
 // uncaughtException error handler
 process.on('uncaughtException', function (error) {
   console.log(chalk.red('##############################'))
-  console.log(chalk.red(`### ${new Date} uncaughtException`))
+  console.log(chalk.red(`### ${new Date()} uncaughtException`))
   console.log(chalk.red(`### ${error.message}`))
   console.log('### error.stack')
   console.log(chalk.blue(error.stack))
