@@ -1,4 +1,4 @@
-module.exports.ErrorWrapper = class ErrorWrapper extends Error {
+class ErrorWrapper extends Error {
   constructor (message, status) {
     super()
     this.stack = new Error().stack
@@ -6,3 +6,5 @@ module.exports.ErrorWrapper = class ErrorWrapper extends Error {
     this.status = status
   }
 }
+
+module.exports = ErrorWrapper

@@ -1,4 +1,4 @@
-const { ErrorWrapper } = require('../util/error')
+const ErrorWrapper = require('../util/error')
 
 /**
  * @description check is logged in user status

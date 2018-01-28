@@ -1,7 +1,7 @@
 const Joi = require('joi')
 const _ = require('lodash')
 
-const { ErrorWrapper } = require('../util/error')
+const ErrorWrapper = require('../util/error')
 const securityServices = require('../services/security')
 
 /*

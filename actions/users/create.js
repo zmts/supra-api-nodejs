@@ -1,5 +1,6 @@
 const Joi = require('joi')
 const BaseAction = require('../base')
+const UserRepo = require('../../repository/user')
 // const registry = require('../../registry')
 
 /**
@@ -10,9 +11,8 @@ class Create extends BaseAction {
     return {
       ...this.baseValidationRules,
       body: Joi.object().keys({
-        name: Joi.string().min(3).max(30),
-        email: Joi.string().email().min(6).max(30),
-        password: Joi.string().required()
+        username: Joi.string().min(3).max(30),
+        email: Joi.string().email().min(6).max(30)
       })
     }
   }
@@ -23,7 +23,8 @@ class Create extends BaseAction {
 
     this.isLoggedIn(req.meta.user)
       .then(() => this.validate(req, this.validationRules))
-      .then(() => res.json({ data: 'user created' }))
+      .then(() => UserRepo.CREATE(req.body))
+      .then(model => res.json({ data: model }))
       .catch(error => next(error))
   }
 }
