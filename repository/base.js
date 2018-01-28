@@ -7,7 +7,7 @@ const ErrorWrapper = require('../util/error')
 class BaseRepository extends EntityRepository {
   /**
    * ------------------------------
-   * @HELP
+   * @HELPERS
    * ------------------------------
    */
   static get Entity () {
