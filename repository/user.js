@@ -1,6 +1,4 @@
-// const { EntityRepository } = require('wetland')
 // const ErrorWrapper = require('../util/error')
-// const manager = require('./manager')
 const User = require('../entities/user')
 const BaseRepository = require('./base')
 

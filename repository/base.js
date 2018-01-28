@@ -1,5 +1,5 @@
 const Wetland = require('wetland').Wetland
-const { EntityRepository } = require('wetland')
+const EntityRepository = require('wetland').EntityRepository
 
 const config = require('../wetland')
 const ErrorWrapper = require('../util/error')
