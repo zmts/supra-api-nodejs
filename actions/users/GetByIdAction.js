@@ -2,7 +2,7 @@ const BaseAction = require('../BaseAction')
 const UserRepository = require('../../repository/UserRepository')
 
 /**
- * @description create user entity
+ * @description return user by id
  */
 class GetByIdAction extends BaseAction {
   get validationRules () {
