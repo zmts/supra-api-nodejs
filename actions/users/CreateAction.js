@@ -24,7 +24,7 @@ class CreateAction extends BaseAction {
     this.isLoggedIn(req.meta.user)
       .then(() => this.validate(req, this.validationRules))
       .then(() => UserRepository.CREATE(req.body))
-      .then(data => res.json({ data }))
+      .then(data => res.json({ data, success: true }))
       .catch(error => next(error))
   }
 }

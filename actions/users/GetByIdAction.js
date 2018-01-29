@@ -14,7 +14,7 @@ class GetByIdAction extends BaseAction {
   run (req, res, next) {
     this.validate(req, this.validationRules)
       .then(() => UserRepository.GETById(req.params.id))
-      .then(data => res.json({ data }))
+      .then(data => res.json({ data, success: true }))
       .catch(error => next(error))
   }
 }

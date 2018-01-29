@@ -29,7 +29,7 @@ class ListAction extends BaseAction {
     this.checkAccess(req.meta.user, this.permissions)
       .then(() => this.validate(req, this.validationRules))
       .then(() => UserRepository.GETall())
-      .then(data => res.json({ data }))
+      .then(data => res.json({ data, success: true }))
       .catch(error => next(error))
   }
 }
