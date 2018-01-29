@@ -16,7 +16,7 @@ class BaseRepository extends EntityRepository {
     if (!entity) throw new ErrorWrapper('requires entity param', 500)
     if (!data) throw new ErrorWrapper('requires data param', 500)
 
-    return Object.keys(data).forEach(key => {
+    Object.keys(data).forEach(key => {
       entity[key] = data[key]
     })
   }
