@@ -1,10 +1,10 @@
-const List = require('./List')
-const GetById = require('./GetById')
-const Create = require('./Create')
+const ListAction = require('./ListAction')
+const GetByIdAction = require('./GetByIdAction')
+const CreateAction = require('./CreateAction')
 
 module.exports = {
-  List,
-  GetById,
-  Create
+  ListAction,
+  GetByIdAction,
+  CreateAction
 }
 

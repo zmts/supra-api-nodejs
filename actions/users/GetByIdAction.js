@@ -1,10 +1,10 @@
 const BaseAction = require('../Base')
-const UserRepo = require('../../repository/User')
+const UserRepository = require('../../repository/UserRepository')
 
 /**
  * @description create user entity
  */
-class GetById extends BaseAction {
+class GetByIdAction extends BaseAction {
   get validationRules () {
     return {
       ...this.baseValidationRules
@@ -13,10 +13,10 @@ class GetById extends BaseAction {
 
   run (req, res, next) {
     this.validate(req, this.validationRules)
-      .then(() => UserRepo.GETById(req.params.id))
-      .then(model => res.json({ data: model }))
+      .then(() => UserRepository.GETById(req.params.id))
+      .then(data => res.json({ data }))
       .catch(error => next(error))
   }
 }
 
-module.exports = GetById
+module.exports = GetByIdAction

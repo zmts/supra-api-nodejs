@@ -3,9 +3,9 @@ const router = express.Router()
 
 const { initialMetaData } = require('../middleware/initialMetaData')
 
-const AuthCtrl = require('./AuthCtrl')
-const PostsCtrl = require('./PostsCtrl')
-const UsersCtrl = require('./UsersCtrl')
+const AuthController = require('./AuthController')
+const PostsController = require('./PostsController')
+const UsersController = require('./UsersController')
 
 // initial meta object
 router.use(initialMetaData())
@@ -20,8 +20,8 @@ router.get('/', (req, res) => {
   res.json({ success: true, message: '(>___<)' })
 })
 
-router.use('/auth', AuthCtrl)
-router.use('/posts', PostsCtrl)
-router.use('/users', UsersCtrl)
+router.use('/auth', AuthController)
+router.use('/posts', PostsController)
+router.use('/users', UsersController)
 
 module.exports = router

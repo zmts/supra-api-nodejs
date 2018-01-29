@@ -14,13 +14,17 @@ class BaseRepository extends EntityRepository {
     return new Wetland(config).getManager()
   }
 
-  static SET_DATA (data, entity) {
-    if (!data) throw new ErrorWrapper('requires data param', 500)
+  static SET_DATA (entity, data) {
     if (!entity) throw new ErrorWrapper('requires entity param', 500)
+    if (!data) throw new ErrorWrapper('requires data param', 500)
 
     return Object.keys(data).forEach(key => {
       entity[key] = data[key]
     })
+  }
+
+  static GET_TOTAL () {
+    return this.MANAGER.getRepository(this.Entity).getQueryBuilder().select({ count: '*' }).getQuery().getSingleScalarResult()
   }
 
   /**
@@ -30,24 +34,25 @@ class BaseRepository extends EntityRepository {
    */
   static CREATE (data) {
     if (!data) throw new ErrorWrapper('requires data param', 500)
-    if (!this.Entity) throw new ErrorWrapper('requires Entity param', 500)
 
     let entity = new this.Entity()
-    this.SET_DATA(data, entity)
+    this.SET_DATA(entity, data)
 
     return this.MANAGER.persist(entity).flush()
       .then(() => entity)
-      .catch(error => { throw new Error(error) })
+      .catch(error => {
+        throw new ErrorWrapper(error, 500)
+      })
   }
 
   static UPDATE (id, date) {
     if (!id) throw new ErrorWrapper('requires id param', 500)
-    //
+    // TODO
   }
 
   static REMOVE (id) {
     if (!id) throw new ErrorWrapper('requires id param', 500)
-    //
+    // TODO
   }
 
   static GETById (id) {
@@ -57,15 +62,27 @@ class BaseRepository extends EntityRepository {
       .then(model => {
         if (model) return model
         return new ErrorWrapper('Empty response', 404)
-      }).catch(error => { throw new ErrorWrapper(error, 500) })
+      })
+      .catch(error => {
+        throw new ErrorWrapper(error, 500)
+      })
   }
 
   static GETall () {
-    return this.MANAGER.getRepository(this.Entity).find()
-      .then(model => {
-        if (model) return model
-        return new ErrorWrapper('Empty response', 404)
-      }).catch(error => { throw new ErrorWrapper(error, 500) })
+    let list = []
+    let total = 0
+
+    return this.MANAGER.getRepository(this.Entity).find(null, {})
+      .then(result => {
+        if (result) return (list = result)
+        throw new ErrorWrapper('Empty response', 404)
+      })
+      .then(() => this.GET_TOTAL())
+      .then(result => (total = parseInt(result)))
+      .then(() => ({ list, total }))
+      .catch(error => {
+        throw new ErrorWrapper(error, 500)
+      })
   }
 }
 

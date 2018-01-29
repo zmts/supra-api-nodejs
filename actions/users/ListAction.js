@@ -1,11 +1,11 @@
 const Joi = require('joi')
 const BaseAction = require('../Base')
-const UserRepo = require('../../repository/User')
+const UserRepository = require('../../repository/UserRepository')
 
 /**
  * @description return users list
  */
-class List extends BaseAction {
+class ListAction extends BaseAction {
   get permissions () {
     return {
       anonymous: false,
@@ -28,10 +28,10 @@ class List extends BaseAction {
 
     this.checkAccess(req.meta.user, this.permissions)
       .then(() => this.validate(req, this.validationRules))
-      .then(() => UserRepo.GETall())
+      .then(() => UserRepository.GETall())
       .then(data => res.json({ data }))
       .catch(error => next(error))
   }
 }
 
-module.exports = List
+module.exports = ListAction

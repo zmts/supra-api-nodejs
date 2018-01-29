@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const BaseController = require('./BaseCtrl')
+const BaseController = require('./BaseController')
 const auth = require('../middleware/auth')
 const sec = require('../middleware/security')
 

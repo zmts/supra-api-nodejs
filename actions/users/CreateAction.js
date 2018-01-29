@@ -1,12 +1,12 @@
 const Joi = require('joi')
 const BaseAction = require('../Base')
-const UserRepo = require('../../repository/User')
+const UserRepository = require('../../repository/UserRepository')
 // const registry = require('../../registry')
 
 /**
  * @description create user entity
  */
-class Create extends BaseAction {
+class CreateAction extends BaseAction {
   get validationRules () {
     return {
       ...this.baseValidationRules,
@@ -23,10 +23,10 @@ class Create extends BaseAction {
 
     this.isLoggedIn(req.meta.user)
       .then(() => this.validate(req, this.validationRules))
-      .then(() => UserRepo.CREATE(req.body))
-      .then(model => res.json({ data: model }))
+      .then(() => UserRepository.CREATE(req.body))
+      .then(data => res.json({ data }))
       .catch(error => next(error))
   }
 }
 
-module.exports = Create
+module.exports = CreateAction

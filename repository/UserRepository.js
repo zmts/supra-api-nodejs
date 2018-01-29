@@ -1,6 +1,6 @@
 // const ErrorWrapper = require('../util/Error')
 const User = require('../entities/User')
-const BaseRepository = require('./Base')
+const BaseRepository = require('./BaseRepository')
 
 class UserRepository extends BaseRepository {
   static get Entity () {
