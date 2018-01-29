@@ -1,4 +1,4 @@
-const BaseAction = require('../Base')
+const BaseAction = require('../BaseAction')
 const UserRepository = require('../../repository/UserRepository')
 
 /**
