@@ -1,8 +1,6 @@
-const Wetland = require('wetland').Wetland
 const EntityRepository = require('wetland').EntityRepository
-
-const config = require('../wetland')
 const ErrorWrapper = require('../util/Error')
+const wetlandManagerInstance = require('../wetlandManagerInstance')
 
 class BaseRepository extends EntityRepository {
   /**
@@ -11,7 +9,7 @@ class BaseRepository extends EntityRepository {
    * ------------------------------
    */
   static get MANAGER () {
-    return new Wetland(config).getManager()
+    return wetlandManagerInstance
   }
 
   static SET_DATA (entity, data) {

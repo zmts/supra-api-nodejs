@@ -13,7 +13,8 @@ module.exports = {
         host: 'localhost',
         user: 'zandr',
         password: '',
-        database: 'wetland_test_db'
+        database: 'wetland_test_db',
+        pool: { min: 0, max: 10 }
       }
     }
   }
