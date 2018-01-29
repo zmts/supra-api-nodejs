@@ -21,8 +21,15 @@ class BaseRepository extends EntityRepository {
     })
   }
 
-  static GET_TOTAL () {
-    return this.MANAGER.getRepository(this.Entity).getQueryBuilder().select({ count: '*' }).getQuery().getSingleScalarResult()
+  static GET_TOTAL (whereParams) {
+    const where = whereParams || {}
+    return this.MANAGER
+      .getRepository(this.Entity)
+      .getQueryBuilder()
+      .select({ count: '*' })
+      .where({ ...where })
+      .getQuery()
+      .getSingleScalarResult()
   }
 
   /**
@@ -66,11 +73,14 @@ class BaseRepository extends EntityRepository {
       })
   }
 
-  static GETall () {
+  static GETall (whereParams, optionsParams) {
+    const where = whereParams || {}
+    const options = optionsParams || {}
+
     let list = []
     let total = 0
 
-    return this.MANAGER.getRepository(this.Entity).find(null, {})
+    return this.MANAGER.getRepository(this.Entity).find({ ...where }, { ...options })
       .then(result => {
         if (result) return (list = result)
         throw new ErrorWrapper('Empty response', 404)

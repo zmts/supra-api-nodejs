@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-01-01T18:04:05.745Z",
+	"__export_date": "2018-01-29T20:33:03.374Z",
 	"__export_source": "insomnia.desktop.app:v5.12.4",
 	"resources": [
 		{
@@ -73,7 +73,7 @@
 			"headers": [],
 			"metaSortKey": -1514668005856,
 			"method": "GET",
-			"modified": 1514762818731,
+			"modified": 1517227785872,
 			"name": "users/",
 			"parameters": [],
 			"parentId": "fld_56874bbff37e40e0a7e2976f04a0da7a",
@@ -81,7 +81,7 @@
 			"settingEncodeUrl": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "localhost:4000/users/?q=222",
+			"url": "localhost:4000/users/",
 			"_type": "request"
 		},
 		{
@@ -89,7 +89,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"name\": \"alex\",\n\t\"email\": \"hello@gmail.com\",\n\t\"password\": \"123456\"\n}"
+				"text": "{\n\t\"username\": \"alex\",\n\t\"email\": \"hello@gmail.com\"\n}"
 			},
 			"created": 1514671149530,
 			"description": "",
@@ -102,7 +102,7 @@
 			],
 			"metaSortKey": -1505878053737.5,
 			"method": "POST",
-			"modified": 1514825282305,
+			"modified": 1517226409673,
 			"name": "users/",
 			"parameters": [],
 			"parentId": "fld_56874bbff37e40e0a7e2976f04a0da7a",
@@ -111,6 +111,26 @@
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
 			"url": "localhost:4000/users/",
+			"_type": "request"
+		},
+		{
+			"_id": "req_b22c469ae23b48a2a9f512c0d08a69d6",
+			"authentication": {},
+			"body": {},
+			"created": 1517227773225,
+			"description": "",
+			"headers": [],
+			"metaSortKey": -1510273029796.75,
+			"method": "GET",
+			"modified": 1517252775378,
+			"name": "users/:id",
+			"parameters": [],
+			"parentId": "fld_56874bbff37e40e0a7e2976f04a0da7a",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "localhost:4000/users/93",
 			"_type": "request"
 		}
 	]
