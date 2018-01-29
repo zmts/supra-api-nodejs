@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const BaseController = require('./baseCtrl')
+const BaseController = require('./BaseCtrl')
 
 class PostController extends BaseController {
   static get name () {

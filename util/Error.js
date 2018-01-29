@@ -3,7 +3,7 @@ class ErrorWrapper extends Error {
     super()
     this.stack = new Error().stack
     this.message = message
-    this.status = status
+    this.status = status || 500
   }
 }
 

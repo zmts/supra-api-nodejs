@@ -1,6 +1,6 @@
 const Joi = require('joi')
-const BaseAction = require('../base')
-const UserRepo = require('../../repository/user')
+const BaseAction = require('../Base')
+const UserRepo = require('../../repository/User')
 // const registry = require('../../registry')
 
 /**
