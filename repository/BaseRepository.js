@@ -46,7 +46,7 @@ class BaseRepository extends EntityRepository {
     return this.MANAGER.persist(entity).flush()
       .then(() => entity)
       .catch(error => {
-        throw new ErrorWrapper(error, 500)
+        throw new ErrorWrapper(error, error.status)
       })
   }
 
@@ -66,10 +66,10 @@ class BaseRepository extends EntityRepository {
     return this.MANAGER.getRepository(this.Entity).findOne({ id })
       .then(model => {
         if (model) return model
-        return new ErrorWrapper('Empty response', 404)
+        throw new ErrorWrapper('Empty response', 404)
       })
       .catch(error => {
-        throw new ErrorWrapper(error, 500)
+        throw new ErrorWrapper(error, error.status)
       })
   }
 
@@ -89,7 +89,7 @@ class BaseRepository extends EntityRepository {
       .then(result => (total = parseInt(result)))
       .then(() => ({ list, total }))
       .catch(error => {
-        throw new ErrorWrapper(error, 500)
+        throw new ErrorWrapper(error, error.status)
       })
   }
 }

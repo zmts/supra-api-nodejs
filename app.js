@@ -46,6 +46,10 @@ app.use(function (req, res, next) {
 // development error handler
 if (app.get('env') === 'development') {
   app.use(function (error, req, res, next) {
+    if (error.status === 404) {
+      return res.status(404).json({ success: false, error: '404, Not found' })
+    }
+
     if (error.stack) {
       console.log(chalk.red('##############################'))
       console.log(chalk.red(`### ${new Date()} env:development/regular error`))
@@ -65,6 +69,10 @@ if (app.get('env') === 'development') {
 
 // production error handler
 app.use(function (error, req, res, next) {
+  if (error.status === 404) {
+    return res.status(404).json({ success: false, error: '404, Not found' })
+  }
+
   res.status(error.status || 500).json({
     success: false,
     description: error.message || error,
