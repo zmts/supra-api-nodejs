@@ -1,7 +1,5 @@
-const ErrorWrapper = require('./util/Error')
+const required = require('./util/required')
 
 module.exports = () => {
-  global.required = () => {
-    throw new ErrorWrapper('Required parameter not supplied', 500)
-  }
+  global.required = required
 }
