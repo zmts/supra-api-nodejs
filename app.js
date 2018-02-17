@@ -11,8 +11,12 @@ const chalk = require('chalk')
 
 const controllers = require('./controllers')
 const registry = require('./registry')
+const globalHelpers = require('./global.helpers')
 
 const app = express()
+
+// init global helpers
+globalHelpers()
 
 // init registry data
 registry.set('user', {})

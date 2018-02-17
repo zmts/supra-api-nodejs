@@ -1,7 +1,6 @@
 const Joi = require('joi')
 const _ = require('lodash')
 
-const ErrorWrapper = require('../util/Error')
 const securityServices = require('../services/security')
 
 /*
@@ -68,10 +67,7 @@ class BaseAction {
    * @param {Object} req
    * @param {Object} rules
    */
-  validate (req, rules) {
-    if (!req) throw new ErrorWrapper('\'validate\' method requires \'req\' param', 500)
-    if (!rules) throw new ErrorWrapper('\'validate\' method requires \'rules\' param', 500)
-
+  validate (req = global.required(), rules = global.required()) {
     // map list of validation schemas
     const validationSchemas = _.map(rules, (rulesSchema, key) => {
       return Joi.validate(req[key], rulesSchema)
@@ -91,11 +87,11 @@ class BaseAction {
    * ------------------------------
    */
 
-  checkAccess (user, permissions) {
+  checkAccess (user = global.required(), permissions = global.required()) {
     return securityServices.checkAccess(user, permissions)
   }
 
-  isLoggedIn (user) {
+  isLoggedIn (user = global.required()) {
     return securityServices.isLoggedIn(user)
   }
 }
