@@ -1,5 +1,5 @@
 const BaseAction = require('../BaseAction')
-const UserRepository = require('../../repository/UserRepository')
+const User = require('../../models/User')
 
 /**
  * @description return user by id
@@ -13,7 +13,7 @@ class GetByIdAction extends BaseAction {
 
   run (req, res, next) {
     this.validate(req, this.validationRules)
-      .then(() => UserRepository.GETById(req.params.id))
+      .then(() => User.GETbyId(req.params.id))
       .then(data => res.json({ data, success: true }))
       .catch(error => next(error))
   }

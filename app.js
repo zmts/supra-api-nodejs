@@ -8,6 +8,8 @@ const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const config = require('./config')
 const chalk = require('chalk')
+const Model = require('objection').Model
+const Knex = require('knex')
 
 const controllers = require('./controllers')
 const registry = require('./registry')
@@ -21,6 +23,7 @@ class App {
     this.initRegistry()
     this.setGlobalHelpers()
     this.setCORS()
+    this.initDbConnection()
     this.initRoutes()
     this.setNoRouteFoundHandler()
     this.setAppErrorsHandler()
@@ -36,6 +39,10 @@ class App {
     this.express.use(cookieParser())
     // use static/public folder
     this.express.use(express.static(path.join(__dirname, 'public')))
+  }
+
+  initDbConnection () {
+    Model.knex(Knex(config.knex.dev))
   }
 
   setCORS () {

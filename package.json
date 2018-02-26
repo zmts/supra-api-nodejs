@@ -29,8 +29,7 @@
     "pg": "^6.4.2",
     "pg-native": "^2.2.0",
     "serve-favicon": "~2.3.0",
-    "uuid": "^3.0.1",
-    "wetland": "^2.5.0"
+    "uuid": "^3.0.1"
   },
   "devDependencies": {
     "eslint": "^3.17.1",
