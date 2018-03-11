@@ -1,5 +1,5 @@
 const ErrorWrapper = require('../util/Error')
 
-module.exports = () => {
-  throw new ErrorWrapper('Required parameter not supplied', 500)
+module.exports = (paramName) => {
+  throw new ErrorWrapper(`${paramName || 'Required'} parameter not supplied`, 500)
 }
