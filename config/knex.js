@@ -6,7 +6,7 @@ module.exports = {
       port: 5432,
       user: 'zandr',
       password: '',
-      database: 'lovefy3_db',
+      database: 'supra_db',
       charset: 'utf8'
     },
     pool: {
