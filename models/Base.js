@@ -9,12 +9,12 @@ class BaseModel extends Model {
    * ------------------------------
    */
 
-  static error (message = global.required(), status = global.required()) {
+  static errorWrapper (message = global.required('message'), status = global.required('status')) {
     return new ErrorWrapper(message, status)
   }
 
   static errorEmptyResponse () {
-    return new ErrorWrapper('Empty response', 404)
+    return new ErrorWrapper('Empty response, not found', 404)
   }
 
   /**
@@ -33,31 +33,31 @@ class BaseModel extends Model {
    * ------------------------------
    */
 
-  static CREATE (data = global.required()) {
+  static CREATE (data = global.required('data')) {
     return this.query().insert(data)
   };
 
   static GETall () {
     return this.query().orderBy('id', 'desc')
       .then(function (data) {
-        if (!data.length) throw this.errorEmptyResponse()
+        if (!data.length) throw BaseModel.errorEmptyResponse()
         return data
       }).catch(error => { throw error })
   }
 
-  static GETbyId (id = global.required()) {
+  static GETbyId (id = global.required('id')) {
     return this.query().findById(id)
       .then(data => {
-        if (!data) throw this.errorEmptyResponse()
+        if (!data) throw BaseModel.errorEmptyResponse()
         return data
       }).catch(error => { throw error })
   }
 
-  static UPDATE (id = global.required(), data = global.required()) {
+  static UPDATE (id = global.required('id'), data = global.required('data')) {
     return this.query().patchAndFetchById(id, data)
   }
 
-  static REMOVE (id = global.required()) {
+  static REMOVE (id = global.required('id')) {
     return this.query().deleteById(id)
   }
 

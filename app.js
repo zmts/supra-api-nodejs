@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').load()
 
 const express = require('express')
 const path = require('path')
@@ -26,7 +26,7 @@ class App {
     this.initDbConnection()
     this.initRoutes()
     this.setNoRouteFoundHandler()
-    this.setAppErrorsHandler()
+    this.setDefaultErrorHandler()
     this.setUncaughtExceptionHandler()
   }
 
@@ -42,12 +42,12 @@ class App {
   }
 
   initDbConnection () {
-    Model.knex(Knex(config.knex.dev))
+    Model.knex(Knex(config.knex))
   }
 
   setCORS () {
     // enable CORS only for local client
-    this.express.use(function (req, res, next) {
+    this.express.use((req, res, next) => {
       res.header('Access-Control-Allow-Origin', config.client.host + ':' + '8080')
       res.header('Access-Control-Allow-Methods', 'GET,PATCH,POST,DELETE')
       res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, token')
@@ -68,17 +68,21 @@ class App {
   }
 
   setNoRouteFoundHandler () {
-    this.express.use(function (req, res, next) {
+    this.express.use((req, res, next) => {
       res.status(404).json({ success: false, error: '404, No route found' })
     })
   }
 
-  setAppErrorsHandler () {
+  setDefaultErrorHandler () {
     // development error handler
     if (this.express.get('env') === 'development') {
-      this.express.use(function (error, req, res, next) {
+      this.express.use((error, req, res, next) => {
         if (error.status === 404) {
-          return res.status(404).json({ success: false, error: '404, Not found' })
+          return res.status(404).json({
+            success: false,
+            error: error.message,
+            env: 'development/regular'
+          })
         }
 
         if (error.stack) {
@@ -99,9 +103,13 @@ class App {
     }
 
     // production error handler
-    this.express.use(function (error, req, res, next) {
+    this.express.use((error, req, res, next) => {
       if (error.status === 404) {
-        return res.status(404).json({ success: false, error: '404, Not found' })
+        return res.status(404).json({
+          success: false,
+          error: error.message,
+          env: 'production/regular'
+        })
       }
 
       res.status(error.status || 500).json({
@@ -113,7 +121,7 @@ class App {
   }
 
   setUncaughtExceptionHandler () {
-    process.on('uncaughtException', function (error) {
+    process.on('uncaughtException', error => {
       console.log(chalk.red('##############################'))
       console.log(chalk.red(`### ${new Date()} uncaughtException`))
       console.log(chalk.red(`### ${error.message}`))
