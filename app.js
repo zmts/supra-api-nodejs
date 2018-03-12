@@ -46,9 +46,8 @@ class App {
   }
 
   setCORS () {
-    // enable CORS only for local client
     this.express.use((req, res, next) => {
-      res.header('Access-Control-Allow-Origin', config.client.host + ':' + '8080')
+      res.header('Access-Control-Allow-Origin', '*')
       res.header('Access-Control-Allow-Methods', 'GET,PATCH,POST,DELETE')
       res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, token')
       next()
@@ -74,7 +73,9 @@ class App {
   }
 
   setDefaultErrorHandler () {
-    // development error handler
+    /**
+     * @DEVELOPMENT_ERROR_HANDLER
+     */
     if (this.express.get('env') === 'development') {
       this.express.use((error, req, res, next) => {
         if (error.status === 404) {
@@ -102,7 +103,9 @@ class App {
       })
     }
 
-    // production error handler
+    /**
+     * @PRODUCTION_ERROR_HANDLER
+     */
     this.express.use((error, req, res, next) => {
       if (error.status === 404) {
         return res.status(404).json({
