@@ -37,10 +37,10 @@ class BaseModel extends Model {
     return this.query().insert(data)
   };
 
-  static GETall () {
+  static GETList () {
     return this.query().orderBy('id', 'desc')
-      .then(function (data) {
-        if (!data.length) throw BaseModel.errorEmptyResponse()
+      .then(data => {
+        if (!data.length) throw this.errorEmptyResponse()
         return data
       }).catch(error => { throw error })
   }
@@ -48,7 +48,7 @@ class BaseModel extends Model {
   static GETbyId (id = global.required('id')) {
     return this.query().findById(id)
       .then(data => {
-        if (!data) throw BaseModel.errorEmptyResponse()
+        if (!data) throw this.errorEmptyResponse()
         return data
       }).catch(error => { throw error })
   }
