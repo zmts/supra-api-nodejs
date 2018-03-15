@@ -6,7 +6,7 @@ const User = require('../../models/User')
  * @description create user entity
  */
 class CreateAction extends BaseAction {
-  get validationRules () {
+  static get validationRules () {
     return {
       ...this.baseValidationRules,
       body: Joi.object().keys({
@@ -16,7 +16,7 @@ class CreateAction extends BaseAction {
     }
   }
 
-  run (req, res, next) {
+  static run (req = global.required('req'), res = global.required('res'), next = global.required('next')) {
     req.meta.user.id = 1 // mock user_id
     // console.log(registry.list())
 

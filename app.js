@@ -13,15 +13,15 @@ const Knex = require('knex')
 
 const controllers = require('./controllers')
 const registry = require('./registry')
-const required = require('./util/required')
+const initGlobalHelpers = require('./initGlobalHelpers')
 
 class App {
   constructor () {
     this.express = express()
 
+    initGlobalHelpers()
     this.middleware()
     this.initRegistry()
-    this.setGlobalHelpers()
     this.setCORS()
     this.initDbConnection()
     this.initRoutes()
@@ -60,10 +60,6 @@ class App {
 
   initRegistry () {
     registry.set('user', {})
-  }
-
-  setGlobalHelpers () {
-    global.required = required
   }
 
   setNoRouteFoundHandler () {

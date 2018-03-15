@@ -36,13 +36,13 @@ class BaseAction {
    * ------------------------------
    */
 
-  get basePermissions () {
+  static get basePermissions () {
     return {
       anonymous: false
     }
   }
 
-  get baseValidationRules () {
+  static get baseValidationRules () {
     return {
       params: Joi.object().keys({
         id: Joi.number().integer()
@@ -67,7 +67,11 @@ class BaseAction {
    * @param {Object} req
    * @param {Object} rules
    */
-  validate (req = global.required(), rules = global.required()) {
+  static validate (req, rules) {
+    global.typecheck(arguments, [
+      { type: 'object', name: 'req', required: true },
+      { type: 'object', name: 'rules', required: true }
+    ])
     // map list of validation schemas
     const validationSchemas = _.map(rules, (rulesSchema, key) => {
       return Joi.validate(req[key], rulesSchema)
@@ -87,11 +91,11 @@ class BaseAction {
    * ------------------------------
    */
 
-  checkAccess (user = global.required(), permissions = global.required()) {
+  static checkAccess (user = global.required(), permissions = global.required('permissions')) {
     return securityServices.checkAccess(user, permissions)
   }
 
-  isLoggedIn (user = global.required()) {
+  static isLoggedIn (user = global.required()) {
     return securityServices.isLoggedIn(user)
   }
 }
