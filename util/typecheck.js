@@ -27,9 +27,9 @@ module.exports = (args, schema) => {
   /**
    * check arguments type
    */
-  Array.from(args).forEach((actualArgumentValue, actualArgumentIndex) => {
-    if (!typeCheck(schemaLocal[actualArgumentIndex].type, actualArgumentValue)) {
-      throw new ErrorWrapper(`>> arguments[${actualArgumentIndex}] << wrong type`, 500)
+  Array.from(args).forEach((argumentValue, argumentIndex) => {
+    if (!typeCheck(schemaLocal[argumentIndex].type, argumentValue)) {
+      throw new ErrorWrapper(`>> arguments[${argumentIndex}] << wrong type`, 500)
     }
   })
 }
