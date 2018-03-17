@@ -69,8 +69,8 @@ class BaseAction {
    */
   static validate (req, rules) {
     global.typecheck(arguments, [
-      { type: 'object', name: 'req', required: true },
-      { type: 'object', name: 'rules', required: true }
+      { type: 'Object', name: 'req', required: true },
+      { type: 'Object', name: 'rules', required: true }
     ])
     // map list of validation schemas
     const validationSchemas = _.map(rules, (rulesSchema, key) => {
