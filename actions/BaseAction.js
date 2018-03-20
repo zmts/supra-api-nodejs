@@ -64,14 +64,11 @@ class BaseAction {
 
   /**
    * @description validate request
-   * @param {Object} req
-   * @param {Object} rules
    */
   static validate (req, rules) {
-    global.typecheck(arguments, [
-      { type: 'Object', required: true },
-      { type: 'Object', required: true }
-    ])
+    global.typechecker.main(req, 'Object', true)
+    global.typechecker.main(rules, 'Object', true)
+
     // map list of validation schemas
     const validationSchemas = _.map(rules, (rulesSchema, key) => {
       return Joi.validate(req[key], rulesSchema)

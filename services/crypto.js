@@ -1,11 +1,11 @@
 const crypto = require('crypto')
 
-const ENCRYPTION_KEY = '11111111112222222222333333333344'
-const IV_LENGTH = 16
+const ENCRYPTION_KEY = '11111111112222222222333333333344' // Must be 256 bytes (32 characters)
+const IV_LENGTH = 16 // For AES, this is always 16
 const iv = crypto.randomBytes(IV_LENGTH)
 
-module.exports.encrypt = function (str) {
-  global.typechecker(str, 'String', true)
+module.exports.encrypt = (str) => {
+  global.typechecker.main(str, 'String', true)
 
   let cipher = crypto.createCipheriv('aes-256-cbc', new Buffer(ENCRYPTION_KEY), iv)
   let encrypted = cipher.update(str)
@@ -15,8 +15,8 @@ module.exports.encrypt = function (str) {
   return `${iv.toString('hex')}::${encrypted.toString('hex')}`
 }
 
-module.exports.decrypt = function (str) {
-  global.typechecker(str, 'String', true)
+module.exports.decrypt = (str) => {
+  global.typechecker.main(str, 'String', true)
 
   let strings = str.split('::')
   let iv = new Buffer(strings.shift(), 'hex')
