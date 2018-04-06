@@ -11,6 +11,7 @@ const config = require('./config')
 const chalk = require('chalk')
 const Model = require('objection').Model
 const Knex = require('knex')
+const stackTrace = require('stack-trace')
 
 const controllers = require('./controllers')
 const registry = require('./registry')
@@ -93,7 +94,7 @@ class App {
         res.status(error.status || (error.isJoi ? 400 : 500)).json({
           success: false,
           message: error.message || error,
-          stack: error.stack,
+          stack: stackTrace.parse(error),
           env: 'dev/regular'
         })
       })

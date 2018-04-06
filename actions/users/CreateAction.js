@@ -20,14 +20,12 @@ class CreateAction extends BaseAction {
   }
 
   static run (req, res, next) {
-    let body = req.body
-
     this.validate(req, this.validationRules)
-      .then(() => makePasswordHash(body.password))
+      .then(() => makePasswordHash(req.body.password))
       .then(hash => {
-        delete body.password
-        body['passwordHash'] = hash
-        return body
+        delete req.body.password
+        req.body['passwordHash'] = hash
+        return req.body
       }).then(body => UserDAO.CREATE(body))
       .then(data => res.json({ data, success: true }))
       .catch(error => next(error))
