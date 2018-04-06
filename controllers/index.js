@@ -15,8 +15,8 @@ router.get('/', (req, res) => {
   res.json({ success: true, message: '(>___<)' })
 })
 
-router.use('/auth', AuthController)
-router.use('/posts', PostsController)
-router.use('/users', UsersController)
+router.use('/auth', AuthController.router)
+router.use('/posts', PostsController.router)
+router.use('/users', UsersController.router)
 
 module.exports = router

@@ -34,4 +34,4 @@ class AuthController extends BaseController {
   }
 }
 
-module.exports = AuthController.router
+module.exports = AuthController

@@ -1,8 +1,8 @@
-const BaseModel = require('./Base')
+const BaseDAO = require('./BaseDAO')
 
-class User extends BaseModel {
+class PostDAO extends BaseDAO {
   static get tableName () {
-    return 'users'
+    return 'posts'
   }
 
   /**
@@ -12,12 +12,6 @@ class User extends BaseModel {
    */
   $formatJson (json) {
     json = super.$formatJson(json)
-
-    delete json.password_hash
-    delete json.refresh_token
-    delete json.reset_token
-    delete json.avatar
-
     return json
   }
 
@@ -28,4 +22,4 @@ class User extends BaseModel {
    */
 }
 
-module.exports = User
+module.exports = PostDAO

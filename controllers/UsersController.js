@@ -15,4 +15,4 @@ class UsersController extends BaseController {
   }
 }
 
-module.exports = UsersController.router
+module.exports = UsersController

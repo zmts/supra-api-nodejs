@@ -1,7 +1,7 @@
 const Model = require('objection').Model
 const ErrorWrapper = require('../util/Error')
 
-class BaseModel extends Model {
+class BaseDAO extends Model {
 
   /**
    * ------------------------------
@@ -75,4 +75,4 @@ class BaseModel extends Model {
 
 }
 
-module.exports = BaseModel
+module.exports = BaseDAO

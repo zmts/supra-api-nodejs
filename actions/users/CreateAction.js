@@ -1,6 +1,6 @@
 const Joi = require('joi')
 const BaseAction = require('../BaseAction')
-const User = require('../../models/User')
+const UserDAO = require('../../dao/UserDAO')
 
 /**
  * @description create user entity
@@ -22,7 +22,7 @@ class CreateAction extends BaseAction {
 
     this.isLoggedIn(req.meta.user)
       .then(() => this.validate(req, this.validationRules))
-      .then(() => User.CREATE(req.body))
+      .then(() => UserDAO.CREATE(req.body))
       .then(data => res.json({ data, success: true }))
       .catch(error => next(error))
   }

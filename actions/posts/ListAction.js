@@ -1,6 +1,6 @@
 const Joi = require('joi')
 const BaseAction = require('../BaseAction')
-const UserDAO = require('../../dao/UserDAO')
+const PostDAO = require('../../dao/PostDAO')
 
 /**
  * @description return users list
@@ -28,7 +28,7 @@ class ListAction extends BaseAction {
 
     this.checkAccess(req.meta.user, this.permissions)
       .then(() => this.validate(req, this.validationRules))
-      .then(() => UserDAO.GETList())
+      .then(() => PostDAO.GETList())
       .then(data => res.json({ data, success: true }))
       .catch(error => next(error))
   }
