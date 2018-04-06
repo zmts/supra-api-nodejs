@@ -92,8 +92,9 @@ class App {
 
         res.status(error.status || (error.isJoi ? 400 : 500)).json({
           success: false,
-          description: error.message || error,
-          env: 'development/regular'
+          message: error.message || error,
+          stack: error.stack,
+          env: 'dev/regular'
         })
       })
     }
@@ -113,7 +114,7 @@ class App {
       res.status(error.status || 500).json({
         success: false,
         description: error.message || error,
-        env: 'production/regular'
+        env: 'prod/regular'
       })
     })
   }
