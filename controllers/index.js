@@ -1,14 +1,9 @@
 const express = require('express')
 const router = express.Router()
 
-const { initialMetaData } = require('../middleware/initialMetaData')
-
 const AuthController = require('./AuthController')
 const PostsController = require('./PostsController')
 const UsersController = require('./UsersController')
-
-// initial meta object
-router.use(initialMetaData())
 
 // auth middleware
 router.use(function (req, res, next) {

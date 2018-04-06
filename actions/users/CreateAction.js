@@ -10,13 +10,13 @@ class CreateAction extends BaseAction {
     return {
       ...this.baseValidationRules,
       body: Joi.object().keys({
-        name: Joi.string().min(3).max(30),
+        username: Joi.string().min(3).max(30),
         email: Joi.string().email().min(6).max(30)
       })
     }
   }
 
-  static run (req = global.required('req'), res = global.required('res'), next = global.required('next')) {
+  static run (req, res, next) {
     req.meta.user.id = 1 // mock user_id
     // console.log(registry.list())
 

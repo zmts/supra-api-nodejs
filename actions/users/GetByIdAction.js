@@ -11,9 +11,9 @@ class GetByIdAction extends BaseAction {
     }
   }
 
-  static run (req = global.required('req'), res = global.required('res'), next = global.required('next')) {
+  static run (req, res, next) {
     this.validate(req, this.validationRules)
-      .then(() => User.GETbyId(req.params.id))
+      .then(() => User.GETbyId(+req.params.id))
       .then(data => res.json({ data, success: true }))
       .catch(error => next(error))
   }

@@ -24,7 +24,6 @@ class ListAction extends BaseAction {
   }
 
   static run (req, res, next) {
-    global.typecheck(arguments, 'default')
     req.meta.user.role = 'editor' // temp mock data
 
     this.checkAccess(req.meta.user, this.permissions)

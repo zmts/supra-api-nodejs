@@ -3,29 +3,6 @@ const _ = require('lodash')
 
 const securityServices = require('../services/security')
 
-/*
-request flow:
-sanitize(in global middleware) >>
-
-run (req, res, next) {
-  return this.checkPermissions(this.permissions)
-    .then(() => this.validate(this.validationRules()))
-    .then(() => {
-      // some process with data and response to client
-    }).catch(error => next(error))
-}
-*/
-
-/*
-example run method
-run (req, res, next) {
-  this.checkAccess(req, this.permissions)
-    .then(() => this.validate(req, this.validationRules))
-    .then(() => res.json({ data: 'base action, needs to be redefined' }))
-    .catch(error => next(error))
-}
-*/
-
 /**
  * @description base action
  */
@@ -66,8 +43,8 @@ class BaseAction {
    * @description validate request
    */
   static validate (req, rules) {
-    global.typechecker.main(req, 'Object', true)
-    global.typechecker.main(rules, 'Object', true)
+    __typecheck(req, 'Object', true)
+    __typecheck(rules, 'Object', true)
 
     // map list of validation schemas
     const validationSchemas = _.map(rules, (rulesSchema, key) => {
@@ -88,11 +65,16 @@ class BaseAction {
    * ------------------------------
    */
 
-  static checkAccess (user = global.required(), permissions = global.required('permissions')) {
+  static checkAccess (user, permissions) {
+    __typecheck(user, 'Object', true)
+    __typecheck(permissions, 'Object', true)
+
     return securityServices.checkAccess(user, permissions)
   }
 
-  static isLoggedIn (user = global.required()) {
+  static isLoggedIn (user) {
+    __typecheck(user, 'Object', true)
+
     return securityServices.isLoggedIn(user)
   }
 }

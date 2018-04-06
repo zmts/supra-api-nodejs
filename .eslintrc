@@ -13,6 +13,10 @@
     "object-curly-spacing": ["error", "always"],
     "key-spacing": ["error", {"afterColon": true}],
     "no-multi-spaces": "error"
-  }
+  },
+  "globals": {
+    "__rootdir": true,
+    "__typecheck": true
+}
 }
 

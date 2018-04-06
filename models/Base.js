@@ -9,7 +9,10 @@ class BaseModel extends Model {
    * ------------------------------
    */
 
-  static errorWrapper (message = global.required('message'), status = global.required('status')) {
+  static errorWrapper (message, status) {
+    __typecheck(message, 'String', true)
+    __typecheck(status, 'Number', true)
+
     return new ErrorWrapper(message, status)
   }
 
@@ -33,7 +36,9 @@ class BaseModel extends Model {
    * ------------------------------
    */
 
-  static CREATE (data = global.required('data')) {
+  static CREATE (data) {
+    __typecheck(data, 'Object', true)
+
     return this.query().insert(data)
   };
 
@@ -45,7 +50,9 @@ class BaseModel extends Model {
       }).catch(error => { throw error })
   }
 
-  static GETbyId (id = global.required('id')) {
+  static GETbyId (id) {
+    __typecheck(id, 'Number', true)
+
     return this.query().findById(id)
       .then(data => {
         if (!data) throw this.errorEmptyResponse()
@@ -53,11 +60,16 @@ class BaseModel extends Model {
       }).catch(error => { throw error })
   }
 
-  static UPDATE (id = global.required('id'), data = global.required('data')) {
+  static UPDATE (id, data) {
+    __typecheck(id, 'Number', true)
+    __typecheck(data, 'Object', true)
+
     return this.query().patchAndFetchById(id, data)
   }
 
-  static REMOVE (id = global.required('id')) {
+  static REMOVE (id) {
+    __typecheck(id, 'Number', true)
+
     return this.query().deleteById(id)
   }
 

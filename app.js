@@ -1,4 +1,5 @@
 require('dotenv').load()
+require('./globals')()
 
 const express = require('express')
 const path = require('path')
@@ -13,13 +14,11 @@ const Knex = require('knex')
 
 const controllers = require('./controllers')
 const registry = require('./registry')
-const initGlobalHelpers = require('./initGlobalHelpers')
 
 class App {
   constructor () {
     this.express = express()
 
-    initGlobalHelpers()
     this.middleware()
     this.initRegistry()
     this.setCORS()

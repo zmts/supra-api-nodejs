@@ -1,7 +1,13 @@
 const ErrorWrapper = require('../util/Error')
 
-module.exports.actionRunner = (action = global.required('action')) => {
+module.exports.actionRunner = (action) => {
+  __typecheck(action, 'Function', true)
+
   return (req, res, next) => {
+    __typecheck(req, 'Object', true)
+    __typecheck(res, 'Object', true)
+    __typecheck(next, 'Function', true)
+
     if (!action.hasOwnProperty('run')) {
       throw new ErrorWrapper(`'run' method not declared in invoked '${action.name}' action`, 500)
     }
