@@ -1,4 +1,5 @@
 const Model = require('objection').Model
+const { wrapError, DBError, UniqueViolationError, NotNullViolationError } = require('db-errors')
 const ErrorWrapper = require('../util/Error')
 
 class BaseDAO extends Model {
@@ -18,6 +19,21 @@ class BaseDAO extends Model {
 
   static errorEmptyResponse () {
     return new ErrorWrapper('Empty response, not found', 404)
+  }
+
+  static query () {
+    return super.query.apply(this, arguments).onError(error => {
+      return Promise.reject(wrapError(error))
+        .catch(error => {
+          if (error instanceof UniqueViolationError) {
+            throw new Error(`Unique constraint '${error.constraint}' failed for table '${error.table}' and columns '${error.columns}'`)
+          }
+          if (error instanceof NotNullViolationError) {
+            throw new Error(`Not null constraint failed for table '${error.table}' and column '${error.column}'`)
+          }
+          throw new Error(`Some unknown DB error ${DBError.nativeError}`)
+        })
+    })
   }
 
   /**
