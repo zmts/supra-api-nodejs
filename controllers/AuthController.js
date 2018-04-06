@@ -6,10 +6,6 @@ const auth = require('../middleware/auth')
 const sec = require('../middleware/security')
 
 class AuthController extends BaseController {
-  static get name () {
-    return 'auth'
-  }
-
   static get router () {
     /**
      * @description: User sign in(login) system
