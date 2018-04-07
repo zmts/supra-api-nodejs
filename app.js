@@ -24,6 +24,8 @@ class App {
     this.initRegistry()
     this.setCORS()
     this.initDbConnection()
+
+    // routes and error handlers
     this.initRoutes()
     this.setNoRouteFoundHandler()
     this.setDefaultErrorHandler()
@@ -75,28 +77,36 @@ class App {
     if (this.express.get('env') === 'development') {
       this.express.use((error, req, res, next) => {
         if (error.status === 404) {
-          return res.status(404).json({
+          res.status(404).json({
             success: false,
             error: error.message,
-            env: 'development/regular'
+            env: 'dev/regular'
+          })
+        }
+        if (error.isJoi) {
+          res.status(400).json({
+            success: false,
+            valid: false,
+            message: error.details[0].message,
+            type: error.details[0].type,
+            key: error.details[0].context.key,
+            env: 'dev/regular'
+          })
+        } else {
+          res.status(error.status || 500).json({
+            success: false,
+            message: error.message || error,
+            stack: stackTrace.parse(error),
+            env: 'dev/regular'
           })
         }
 
         if (error.stack) {
-          console.log(chalk.red('##############################'))
-          console.log(chalk.red(`### ${new Date()} env:development/regular error`))
-          console.log(chalk.red(`### ${error.message}`))
-          console.log(chalk.red('### error.stack'))
+          console.log(chalk.red('>------------------------------>'))
+          console.log(chalk.red(`${new Date()} env:dev/regular error`))
           console.log(chalk.blue(error.stack))
-          console.log(chalk.red('##############################'))
+          console.log(chalk.red('<------------------------------<'))
         }
-
-        res.status(error.status || (error.isJoi ? 400 : 500)).json({
-          success: false,
-          message: error.message || error,
-          stack: stackTrace.parse(error),
-          env: 'dev/regular'
-        })
       })
     }
 
@@ -108,7 +118,7 @@ class App {
         return res.status(404).json({
           success: false,
           error: error.message,
-          env: 'production/regular'
+          env: 'prod/regular'
         })
       }
 
@@ -122,12 +132,10 @@ class App {
 
   setUncaughtExceptionHandler () {
     process.on('uncaughtException', error => {
-      console.log(chalk.red('##############################'))
-      console.log(chalk.red(`### ${new Date()} uncaughtException`))
-      console.log(chalk.red(`### ${error.message}`))
-      console.log('### error.stack')
+      console.log(chalk.red('>------------------------------>'))
+      console.log(chalk.red(`${new Date()} uncaughtException`))
       console.log(chalk.blue(error.stack))
-      console.log(chalk.red('##############################'))
+      console.log(chalk.red('<------------------------------<'))
       process.exit(1)
     })
   }
