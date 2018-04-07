@@ -31,7 +31,7 @@ class BaseDAO extends Model {
           if (error instanceof NotNullViolationError) {
             throw new Error(`Not null constraint failed for table '${error.table}' and column '${error.column}'`)
           }
-          throw new Error(`Some unknown DB error ${DBError.nativeError}`)
+          throw new Error(error)
         })
     })
   }
@@ -43,7 +43,7 @@ class BaseDAO extends Model {
    */
 
   $beforeUpdate () {
-    this.updated_at = new Date().toISOString()
+    this.updatedAt = new Date().toISOString()
   }
 
   /**

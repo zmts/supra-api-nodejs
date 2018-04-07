@@ -10,6 +10,7 @@ class UsersController extends BaseController {
     router.get('/', actionRunner(actions.ListAction))
     router.get('/:id', actionRunner(actions.GetByIdAction))
     router.post('/', actionRunner(actions.CreateAction))
+    router.patch('/', actionRunner(actions.UpdateAction))
 
     return router
   }
