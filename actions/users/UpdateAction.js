@@ -16,6 +16,7 @@ class UpdateAction extends BaseAction {
   }
 
   static run (req, res, next) {
+    // update user entity can only owner, so we take userId from token
     // let userId = 'token.id' // TODO
 
     this.validate(req, this.validationRules)

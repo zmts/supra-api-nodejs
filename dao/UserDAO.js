@@ -26,6 +26,16 @@ class UserDAO extends BaseDAO {
    * @METHODS
    * ------------------------------
    */
+
+  static GetByEmail (email) {
+    __typecheck(email, 'String', true)
+
+    return this.query().where({ email }).first()
+      .then(data => {
+        if (!data) throw this.errorEmptyResponse()
+        return data
+      }).catch(error => { throw error })
+  }
 }
 
 module.exports = UserDAO

@@ -82,8 +82,7 @@ class App {
             error: error.message,
             env: 'dev/regular'
           })
-        }
-        if (error.isJoi) {
+        } else if (error.isJoi) {
           res.status(400).json({
             success: false,
             valid: false,

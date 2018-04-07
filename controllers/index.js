@@ -6,7 +6,7 @@ const PostsController = require('./PostsController')
 const UsersController = require('./UsersController')
 
 // auth middleware
-router.use(function (req, res, next) {
+router.use((req, res, next) => {
   // check token
   next()
 })
