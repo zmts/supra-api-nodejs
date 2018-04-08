@@ -1,6 +1,9 @@
 const bcrypt = require('bcryptjs')
 const ErrorWrapper = require('../../util/Error')
 
+/**
+ * @return {Promise} true/Error
+ */
 module.exports = (password, hash) => {
   __typecheck(password, 'String', true)
   __typecheck(hash, 'String', true)

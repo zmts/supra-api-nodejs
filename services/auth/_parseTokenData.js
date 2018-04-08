@@ -1,5 +1,8 @@
 const jwt = require('jsonwebtoken')
 
+/**
+ * @return {Promise} token data object
+ */
 module.exports = token => {
   __typecheck(token, 'String', true)
 

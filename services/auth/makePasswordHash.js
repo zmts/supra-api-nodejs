@@ -1,5 +1,8 @@
 const bcrypt = require('bcryptjs')
 
+/**
+ * @return {Promise} string
+ */
 module.exports = password => {
   __typecheck(password, 'String', true)
 

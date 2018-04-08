@@ -16,7 +16,7 @@ class LoginAction extends BaseAction {
 
   static run (req, res, next) {
     let userEntity = {}
-    let tokens = { accessToken: '', refreshToken: '', expiresIn: 0 }
+    let data = { accessToken: '', refreshToken: '', expiresIn: 0 }
 
     this.validate(req, this.validationRules)
       .then(() => UserDAO.GetByEmail(req.body.email))
@@ -25,12 +25,13 @@ class LoginAction extends BaseAction {
         return auth.checkPassword(req.body.password, user.passwordHash)
       })
       .then(() => auth.makeAccessToken(userEntity))
-      .then(accessToken => (tokens.accessToken = accessToken))
-      .then(() => auth.parseTokenData(tokens.accessToken))
-      .then(accessTokenData => (tokens.expiresIn = accessTokenData.exp))
+      .then(accessTokenObj => {
+        data.accessToken = accessTokenObj.accessToken
+        data.expiresIn = accessTokenObj.expiresIn
+      })
       .then(() => auth.makeRefreshToken(userEntity))
-      .then(refreshToken => (tokens.refreshToken = refreshToken))
-      .then(() => res.json({ data: tokens, success: true }))
+      .then(refreshToken => (data.refreshToken = refreshToken))
+      .then(() => res.json({ data, success: true }))
       .catch(error => next(error))
   }
 }

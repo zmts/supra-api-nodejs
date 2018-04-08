@@ -1,9 +1,12 @@
 const crypto = require('crypto')
 
-const ENCRYPTION_KEY = require('../config/token').encryptkey
+const ENCRYPTION_KEY = require('../../config/token').encryptkey
 const IV_LENGTH = 16 // For AES, this is always 16
 const iv = crypto.randomBytes(IV_LENGTH)
 
+/**
+ * @return {string}
+ */
 module.exports.encrypt = (str) => {
   __typecheck(str, 'String', true)
 
@@ -15,6 +18,9 @@ module.exports.encrypt = (str) => {
   return `${iv.toString('hex')}::${encrypted.toString('hex')}`
 }
 
+/**
+ * @return {string}
+ */
 module.exports.decrypt = (str) => {
   __typecheck(str, 'String', true)
 
