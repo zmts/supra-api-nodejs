@@ -1,5 +1,5 @@
-const jwtp = require('./_jwtp')
-const crypto = require('./_crypto')
+const _jwtService = require('./_jwtService')
+const _cryptoService = require('./_cryptoService')
 
 const SECRET = require('../../config').token.refresh
 
@@ -21,8 +21,8 @@ module.exports = userEntity => {
     }
   }
 
-  return jwtp.sign(config.payload, SECRET, config.options)
-    .then(result => crypto.encrypt(result))
+  return _jwtService.sign(config.payload, SECRET, config.options)
+    .then(result => _cryptoService.encrypt(result))
     .catch(error => {
       throw new Error(error)
     })

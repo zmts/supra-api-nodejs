@@ -1,11 +1,11 @@
-const checkPassword = require('./checkPassword')
-const makePasswordHash = require('./makePasswordHash')
-const makeAccessToken = require('./makeAccessToken')
-const makeRefreshToken = require('./makeRefreshToken')
+const checkPasswordService = require('./checkPasswordService')
+const makePasswordHashService = require('./makePasswordHashService')
+const makeAccessTokenService = require('./makeAccessTokenService')
+const makeRefreshTokenService = require('./makeRefreshTokenService')
 
 module.exports = {
-  checkPassword,
-  makePasswordHash,
-  makeAccessToken,
-  makeRefreshToken
+  checkPasswordService,
+  makePasswordHashService,
+  makeAccessTokenService,
+  makeRefreshTokenService
 }
