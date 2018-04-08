@@ -1,6 +1,6 @@
 const crypto = require('crypto')
 
-const ENCRYPTION_KEY = '11111111112222222222333333333344' // Must be 256 bytes (32 characters)
+const ENCRYPTION_KEY = require('../config/token').encryptkey
 const IV_LENGTH = 16 // For AES, this is always 16
 const iv = crypto.randomBytes(IV_LENGTH)
 

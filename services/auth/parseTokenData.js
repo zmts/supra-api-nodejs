@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken')
 
 module.exports = token => {
+  __typecheck(token, 'String', true)
+
   let tokenData = jwt.decode(token)
 
   return new Promise((resolve, reject) => {

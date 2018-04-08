@@ -1,7 +1,9 @@
-const jwtp = require('./jwtp')
+const jwtp = require('./_jwtp')
 const SECRET = require('../../config').token.access
 
 module.exports = userEntity => {
+  __typecheck(userEntity, 'Object', true)
+
   let config = {
     payload: {
       accessToken: true,
