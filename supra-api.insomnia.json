@@ -1,8 +1,8 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-01-29T20:33:03.374Z",
-	"__export_source": "insomnia.desktop.app:v5.12.4",
+	"__export_date": "2018-04-08T05:06:24.502Z",
+	"__export_source": "insomnia.desktop.app:v5.14.9",
 	"resources": [
 		{
 			"_id": "wrk_f41ba130885b45bbb5fc2d2f5eb34d99",
@@ -45,23 +45,54 @@
 			"_type": "request_group"
 		},
 		{
+			"_id": "fld_0fca7190f61e41db9af211baa82531bf",
+			"created": 1523024351629,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1523024351629,
+			"modified": 1523024351629,
+			"name": "posts",
+			"parentId": "wrk_f41ba130885b45bbb5fc2d2f5eb34d99",
+			"_type": "request_group"
+		},
+		{
+			"_id": "fld_ea6e1c87f6be446ca026f3f945a3ceb9",
+			"created": 1523123495641,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1523123495641,
+			"modified": 1523123495641,
+			"name": "auth",
+			"parentId": "wrk_f41ba130885b45bbb5fc2d2f5eb34d99",
+			"_type": "request_group"
+		},
+		{
 			"_id": "req_7fd426d7e09e42a0b80ce0b191c5908c",
 			"authentication": {},
-			"body": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"password\": \"123456\",\n\t\"email\": \"helloss@gmail.com\"\n}"
+			},
 			"created": 1514820014708,
 			"description": "",
-			"headers": [],
-			"metaSortKey": -1514820014708,
-			"method": "GET",
-			"modified": 1514820022320,
-			"name": "localhost:4000",
+			"headers": [
+				{
+					"id": "pair_87fb7c295d5f4e429c3b9d2272432d88",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"metaSortKey": -1523024351679,
+			"method": "POST",
+			"modified": 1523126064015,
+			"name": "auth/login",
 			"parameters": [],
 			"parentId": "wrk_f41ba130885b45bbb5fc2d2f5eb34d99",
 			"settingDisableRenderRequestBody": false,
 			"settingEncodeUrl": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "localhost:4000",
+			"url": "localhost:4000/auth/login",
 			"_type": "request"
 		},
 		{
@@ -73,7 +104,7 @@
 			"headers": [],
 			"metaSortKey": -1514668005856,
 			"method": "GET",
-			"modified": 1517227785872,
+			"modified": 1520872565702,
 			"name": "users/",
 			"parameters": [],
 			"parentId": "fld_56874bbff37e40e0a7e2976f04a0da7a",
@@ -81,7 +112,7 @@
 			"settingEncodeUrl": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "localhost:4000/users/",
+			"url": "localhost:4000/users",
 			"_type": "request"
 		},
 		{
@@ -89,7 +120,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"username\": \"alex\",\n\t\"email\": \"hello@gmail.com\"\n}"
+				"text": "{\n\t\"name\": \"alex boom\",\n\t\"username\": \"alexboom111222\",\n\t\"email\": \"hellossgmail.com\",\n\t\"password\": \"11111111\"\n}"
 			},
 			"created": 1514671149530,
 			"description": "",
@@ -102,7 +133,7 @@
 			],
 			"metaSortKey": -1505878053737.5,
 			"method": "POST",
-			"modified": 1517226409673,
+			"modified": 1523104756799,
 			"name": "users/",
 			"parameters": [],
 			"parentId": "fld_56874bbff37e40e0a7e2976f04a0da7a",
@@ -122,7 +153,7 @@
 			"headers": [],
 			"metaSortKey": -1510273029796.75,
 			"method": "GET",
-			"modified": 1517252775378,
+			"modified": 1523036427386,
 			"name": "users/:id",
 			"parameters": [],
 			"parentId": "fld_56874bbff37e40e0a7e2976f04a0da7a",
@@ -130,7 +161,56 @@
 			"settingEncodeUrl": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "localhost:4000/users/93",
+			"url": "localhost:4000/users/1",
+			"_type": "request"
+		},
+		{
+			"_id": "req_8e867dc179ea445f82fe0d3161d826ba",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"name\": \"alex\"\n}"
+			},
+			"created": 1523111823002,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_e7c416562e1245068213855579f31eab",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"metaSortKey": -1501483077678.25,
+			"method": "PATCH",
+			"modified": 1523124679233,
+			"name": "users/",
+			"parameters": [],
+			"parentId": "fld_56874bbff37e40e0a7e2976f04a0da7a",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "localhost:4000/users",
+			"_type": "request"
+		},
+		{
+			"_id": "req_16671f4ea266424d9e20cfa0d26d383b",
+			"authentication": {},
+			"body": {},
+			"created": 1523024357966,
+			"description": "",
+			"headers": [],
+			"metaSortKey": -1520973267398.75,
+			"method": "GET",
+			"modified": 1523024392855,
+			"name": "posts/",
+			"parameters": [],
+			"parentId": "fld_0fca7190f61e41db9af211baa82531bf",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "localhost:4000/posts",
 			"_type": "request"
 		}
 	]

@@ -95,11 +95,10 @@ class App {
           res.status(error.status || 500).json({
             success: false,
             message: error.message || error,
-            stack: stackTrace.parse(error),
+            stack: ![403].includes(error.status) ? stackTrace.parse(error) : false,
             env: 'dev/regular'
           })
         }
-
         if (error.stack) {
           console.log(chalk.red('>------------------------------>'))
           console.log(chalk.red(`${new Date()} env:dev/regular error`))
