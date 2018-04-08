@@ -1,5 +1,6 @@
 require('dotenv').load()
 require('./globals')()
+global.Promise = require('bluebird')
 
 const express = require('express')
 const path = require('path')
