@@ -1,7 +1,7 @@
 const Joi = require('joi')
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
-const checkPassword = require('../../services/auth/checkPassword')
+const auth = require('../../services/auth')
 
 class LoginAction extends BaseAction {
   static get validationRules () {
@@ -15,14 +15,23 @@ class LoginAction extends BaseAction {
   }
 
   static run (req, res, next) {
+    let userEntity = {}
+    let tokens = { accessToken: '', refreshToken: '', expiresIn: 0 }
+
     this.validate(req, this.validationRules)
       .then(() => UserDAO.GetByEmail(req.body.email))
-      .then(user => checkPassword(req.body.password, user.passwordHash))
-      .then(result => res.json({ data: result, success: true }))
-      .catch(error => {
-        console.log('error', error)
-        next(error)
+      .then(user => {
+        userEntity = user
+        return auth.checkPassword(req.body.password, user.passwordHash)
       })
+      .then(() => auth.makeAccessToken(userEntity))
+      .then(accessToken => (tokens.accessToken = accessToken))
+      .then(() => auth.parseTokenData(tokens.accessToken))
+      .then(accessTokenData => (tokens.expiresIn = accessTokenData.exp))
+      .then(() => auth.makeRefreshToken(userEntity))
+      .then(refreshToken => (tokens.refreshToken = refreshToken))
+      .then(() => res.json({ data: tokens, success: true }))
+      .catch(error => next(error))
   }
 }
 
