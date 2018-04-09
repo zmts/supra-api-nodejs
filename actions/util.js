@@ -1,4 +1,4 @@
-const ErrorWrapper = require('../util/Error')
+const ErrorWrapper = require('../util/ErrorWrapper')
 
 module.exports.actionRunner = (action) => {
   __typecheck(action, 'Function', true)

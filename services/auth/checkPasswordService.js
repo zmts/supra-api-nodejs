@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs')
-const ErrorWrapper = require('../../util/Error')
+const ErrorWrapper = require('../../util/ErrorWrapper')
 
 /**
  * @return {Promise} true/Error

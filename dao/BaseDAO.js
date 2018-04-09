@@ -1,5 +1,5 @@
 const Model = require('objection').Model
-const ErrorWrapper = require('../util/Error')
+const ErrorWrapper = require('../util/ErrorWrapper')
 // https://github.com/Vincit/objection-db-errors
 const { wrapError, UniqueViolationError, NotNullViolationError } = require('db-errors')
 

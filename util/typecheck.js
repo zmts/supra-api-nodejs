@@ -1,5 +1,5 @@
 const typeCheck = require('type-check').typeCheck
-const ErrorWrapper = require('./Error')
+const ErrorWrapper = require('./ErrorWrapper')
 
 /**
  * validate function argument
