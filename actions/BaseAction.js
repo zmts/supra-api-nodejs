@@ -46,8 +46,8 @@ class BaseAction {
     __typecheck(rules, 'Object', true)
 
     // map list of validation schemas
-    const validationSchemas = Array.prototype.map.call(rules, (rulesSchema, key) => {
-      return Joi.validate(req[key], rulesSchema)
+    const validationSchemas = Array.prototype.map.call(rules, (schema, key) => {
+      return Joi.validate(req[key], schema)
     })
 
     // execute validation
