@@ -2,6 +2,7 @@
   "name": "supra-api-nodejs",
   "version": "0.0.0",
   "private": true,
+  "author": "Sasha Zmts",
   "scripts": {
     "start": "node --use_strict ./bin/www",
     "dev": "nodemon --use_strict ./bin/www"
