@@ -58,15 +58,15 @@ class App {
   }
 
   setDefaultErrorMiddlewares () {
-    this.express.use((req, res, next) => {
-      res.status(404).json({ success: false, error: '404, No route found' })
-    })
-
     if (this.express.get('env') === 'production') {
       this.express.use(prodErrorMiddleware)
     } else {
       this.express.use(devErrorMiddleware)
     }
+
+    this.express.use((req, res, next) => {
+      res.status(404).json({ success: false, error: '404, No route found' })
+    })
   }
 
   setUncaughtExceptionHandler () {
