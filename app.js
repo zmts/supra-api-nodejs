@@ -15,6 +15,7 @@ const Knex = require('knex')
 
 const controllers = require('./controllers')
 const registry = require('./registry')
+const corsMiddleware = require('./middlewares/corsMiddleware')
 const devErrorMiddleware = require('./middlewares/error/devErrorMiddleware')
 const prodErrorMiddleware = require('./middlewares/error/prodErrorMiddleware')
 
@@ -24,13 +25,11 @@ class App {
 
     this.middleware()
     this.initRegistry()
-    this.setCORS()
     this.initDbConnection()
 
     // routes and error handlers
     this.initRoutes()
-    this.setNoRouteFoundHandler()
-    this.setDefaultErrorMiddleware()
+    this.setDefaultErrorMiddlewares()
     this.setUncaughtExceptionHandler()
   }
 
@@ -43,19 +42,11 @@ class App {
     this.express.use(cookieParser())
     // use static/public folder
     this.express.use(express.static(path.join(__dirname, 'public')))
+    this.express.use(corsMiddleware)
   }
 
   initDbConnection () {
     Model.knex(Knex(config.knex))
-  }
-
-  setCORS () {
-    this.express.use((req, res, next) => {
-      res.header('Access-Control-Allow-Origin', '*')
-      res.header('Access-Control-Allow-Methods', 'GET,PATCH,POST,DELETE')
-      res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, token')
-      next()
-    })
   }
 
   initRoutes () {
@@ -66,18 +57,16 @@ class App {
     registry.set('user', {})
   }
 
-  setNoRouteFoundHandler () {
+  setDefaultErrorMiddlewares () {
     this.express.use((req, res, next) => {
       res.status(404).json({ success: false, error: '404, No route found' })
     })
-  }
 
-  setDefaultErrorMiddleware () {
-    if (this.express.get('env') === 'development') {
+    if (this.express.get('env') === 'production') {
+      this.express.use(prodErrorMiddleware)
+    } else {
       this.express.use(devErrorMiddleware)
     }
-
-    this.express.use(prodErrorMiddleware)
   }
 
   setUncaughtExceptionHandler () {
