@@ -1,7 +1,6 @@
 const Joi = require('joi')
-const _ = require('lodash')
 
-const securityServices = require('../services/security')
+const securityModule = require('../services/security')
 
 /**
  * @description base action
@@ -28,7 +27,7 @@ class BaseAction {
         q: Joi.string().min(2).max(50)
       }),
       body: Joi.object().keys({
-        id: Joi.number().integer()
+        id: Joi.any().forbidden()
       })
     }
   }
@@ -47,7 +46,7 @@ class BaseAction {
     __typecheck(rules, 'Object', true)
 
     // map list of validation schemas
-    const validationSchemas = _.map(rules, (rulesSchema, key) => {
+    const validationSchemas = Array.prototype.map.call(rules, (rulesSchema, key) => {
       return Joi.validate(req[key], rulesSchema)
     })
 
@@ -69,13 +68,13 @@ class BaseAction {
     __typecheck(user, 'Object', true)
     __typecheck(permissions, 'Object', true)
 
-    return securityServices.checkAccess(user, permissions)
+    return securityModule.checkAccessService(user, permissions)
   }
 
   static isLoggedIn (user) {
     __typecheck(user, 'Object', true)
 
-    return securityServices.isLoggedIn(user)
+    return securityModule.isLoggedInService(user)
   }
 }
 

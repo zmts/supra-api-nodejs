@@ -1,4 +1,3 @@
-const Joi = require('joi')
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
 
@@ -16,18 +15,15 @@ class ListAction extends BaseAction {
 
   static get validationRules () {
     return {
-      ...this.baseValidationRules,
-      query: Joi.object().keys({
-        q: Joi.string().min(2).max(50)
-      })
+      ...this.baseValidationRules
     }
   }
 
   static run (req, res, next) {
     req.meta = { user: { role: 'editor' } } // temp mock data
 
-    this.checkAccess(req.meta.user, this.permissions)
-      .then(() => this.validate(req, this.validationRules))
+    this.validate(req, this.validationRules)
+      .then(() => this.checkAccess(req.meta.user, this.permissions))
       .then(() => UserDAO.GETList())
       .then(data => res.json({ data, success: true }))
       .catch(error => next(error))

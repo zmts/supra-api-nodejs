@@ -1,4 +1,5 @@
 const Joi = require('joi')
+
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
 
@@ -20,7 +21,7 @@ class UpdateAction extends BaseAction {
     // let userId = 'token.id' // TODO
 
     this.validate(req, this.validationRules)
-      .then(body => UserDAO.UPDATE(1, req.body))
+      .then(body => UserDAO.UPDATE(1, req.body)) // temp mock data
       .then(data => res.json({ data, success: true }))
       .catch(error => next(error))
   }

@@ -1,7 +1,8 @@
 const Joi = require('joi')
+
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
-const auth = require('../../services/auth')
+const authModule = require('../../services/auth')
 
 /**
  * @description create user entity
@@ -21,7 +22,7 @@ class CreateAction extends BaseAction {
 
   static run (req, res, next) {
     this.validate(req, this.validationRules)
-      .then(() => auth.makePasswordHash(req.body.password))
+      .then(() => authModule.makePasswordHashService(req.body.password))
       .then(hash => {
         delete req.body.password
         req.body['passwordHash'] = hash
