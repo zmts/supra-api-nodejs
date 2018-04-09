@@ -12,10 +12,11 @@ const config = require('./config')
 const chalk = require('chalk')
 const Model = require('objection').Model
 const Knex = require('knex')
-const stackTrace = require('stack-trace')
 
 const controllers = require('./controllers')
 const registry = require('./registry')
+const devErrorMiddleware = require('./middlewares/error/devErrorMiddleware')
+const prodErrorMiddleware = require('./middlewares/error/prodErrorMiddleware')
 
 class App {
   constructor () {
@@ -29,7 +30,7 @@ class App {
     // routes and error handlers
     this.initRoutes()
     this.setNoRouteFoundHandler()
-    this.setDefaultErrorHandler()
+    this.setDefaultErrorMiddleware()
     this.setUncaughtExceptionHandler()
   }
 
@@ -71,62 +72,12 @@ class App {
     })
   }
 
-  setDefaultErrorHandler () {
-    /**
-     * @DEVELOPMENT_ERROR_HANDLER
-     */
+  setDefaultErrorMiddleware () {
     if (this.express.get('env') === 'development') {
-      this.express.use((error, req, res, next) => {
-        if (error.status === 404) {
-          res.status(404).json({
-            success: false,
-            error: error.message,
-            env: 'dev/regular'
-          })
-        } else if (error.isJoi) {
-          res.status(400).json({
-            success: false,
-            valid: false,
-            message: error.details[0].message,
-            type: error.details[0].type,
-            key: error.details[0].context.key,
-            env: 'dev/regular'
-          })
-        } else {
-          res.status(error.status || 500).json({
-            success: false,
-            message: error.message || error,
-            stack: ![403].includes(error.status) ? stackTrace.parse(error) : false,
-            env: 'dev/regular'
-          })
-        }
-        if (error.stack) {
-          console.log(chalk.red('>------------------------------>'))
-          console.log(chalk.red(`${new Date()} env:dev/regular error`))
-          console.log(chalk.blue(error.stack))
-          console.log(chalk.red('<------------------------------<'))
-        }
-      })
+      this.express.use(devErrorMiddleware)
     }
 
-    /**
-     * @PRODUCTION_ERROR_HANDLER
-     */
-    this.express.use((error, req, res, next) => {
-      if (error.status === 404) {
-        return res.status(404).json({
-          success: false,
-          error: error.message,
-          env: 'prod/regular'
-        })
-      }
-
-      res.status(error.status || 500).json({
-        success: false,
-        description: error.message || error,
-        env: 'prod/regular'
-      })
-    })
+    this.express.use(prodErrorMiddleware)
   }
 
   setUncaughtExceptionHandler () {
