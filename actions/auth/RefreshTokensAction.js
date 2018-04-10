@@ -2,8 +2,9 @@ const Joi = require('joi')
 
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
-const ErrorWrapper = require('../../util/ErrorWrapper')
 const { cryptoService, parseTokenService, jwtService, makeAccessTokenService, makeRefreshTokenService } = require('../../services/auth')
+const ErrorWrapper = require('../../util/ErrorWrapper')
+const errorCodes = require('../../config/errorCodes')
 
 const SECRET = require('../../config/token').refresh
 
@@ -36,7 +37,7 @@ class RefreshTokensAction extends BaseAction {
           userEntity = user
           return jwtService.verify(decodedRefreshToken, SECRET)
         }
-        throw new ErrorWrapper('badRefreshToken', 401)
+        throw new ErrorWrapper({ ...errorCodes.BAD_REFRESH_TOKEN })
       })
       .then(() => makeAccessTokenService(userEntity))
       .then(accessTokenObj => {

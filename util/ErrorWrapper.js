@@ -1,8 +1,11 @@
 class ErrorWrapper extends Error {
-  constructor (message, status) {
+  constructor (options) {
+    if (!options || !options.message) throw new Error('message param required')
+
     super()
-    this.message = message
-    this.status = status || 500
+    this.message = options.message
+    this.status = options.status || 500
+    this.code = options.code || 'SERVER_ERROR'
   }
 }
 

@@ -1,7 +1,8 @@
 const Model = require('objection').Model
-const ErrorWrapper = require('../util/ErrorWrapper')
 // https://github.com/Vincit/objection-db-errors
 const { wrapError, UniqueViolationError, NotNullViolationError } = require('db-errors')
+const ErrorWrapper = require('../util/ErrorWrapper')
+const errorCodes = require('../config/errorCodes')
 
 class BaseDAO extends Model {
 
@@ -11,15 +12,14 @@ class BaseDAO extends Model {
    * ------------------------------
    */
 
-  static errorWrapper (message, status) {
-    __typecheck(message, 'String', true)
-    __typecheck(status, 'Number', true)
+  static errorWrapper (options = {}) { // {message: '', status: 500, code: ''}
+    __typecheck(options.message, 'String', true)
 
-    return new ErrorWrapper(message, status)
+    return new ErrorWrapper(options)
   }
 
   static errorEmptyResponse () {
-    return new ErrorWrapper('Empty response, not found', 404)
+    return new ErrorWrapper({ ...errorCodes.NOT_FOUND })
   }
 
   static query () {

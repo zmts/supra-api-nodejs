@@ -9,7 +9,7 @@ module.exports.actionRunner = (action) => {
     __typecheck(next, 'Function', true)
 
     if (!action.hasOwnProperty('run')) {
-      throw new ErrorWrapper(`'run' method not declared in invoked '${action.name}' action`, 500)
+      throw new ErrorWrapper({ message: `'run' method not declared in invoked '${action.name}' action`, status: 500 })
     }
     return action.run(req, res, next)
   }

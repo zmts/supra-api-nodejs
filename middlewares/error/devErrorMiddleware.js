@@ -5,7 +5,8 @@ module.exports = (error, req, res, next) => {
   if (error.status === 404) {
     res.status(404).json({
       success: false,
-      error: error.message,
+      message: error.message,
+      code: error.code,
       env: 'dev/regular'
     })
   } else if (error.isJoi) {
@@ -13,7 +14,7 @@ module.exports = (error, req, res, next) => {
       success: false,
       valid: false,
       message: error.details[0].message,
-      type: error.details[0].type,
+      code: error.details[0].type,
       key: error.details[0].context.key,
       env: 'dev/regular'
     })
@@ -21,6 +22,7 @@ module.exports = (error, req, res, next) => {
     res.status(error.status || 500).json({
       success: false,
       message: error.message || error,
+      code: error.code,
       stack: ![401, 403].includes(error.status) ? stackTrace.parse(error) : false,
       env: 'dev/regular'
     })

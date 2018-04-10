@@ -1,4 +1,5 @@
 const ErrorWrapper = require('../../util/ErrorWrapper')
+const errorCodes = require('../../config/errorCodes')
 
 /**
  * @description check action permissions
@@ -12,6 +13,6 @@ module.exports = (user, permissions) => {
   return new Promise((resolve, reject) => {
     if (user.isOwner) return resolve()
     if (permissions[user.role]) return resolve()
-    return reject(new ErrorWrapper('Access denied', 403))
+    return reject(new ErrorWrapper({ ...errorCodes.ACCESS }))
   })
 }

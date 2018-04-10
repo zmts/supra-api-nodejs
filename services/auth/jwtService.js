@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 const ErrorWrapper = require('../../util/ErrorWrapper')
+const errorCodes = require('../../config/errorCodes')
 
 /**
  * @return {Promise} true/Error
@@ -12,7 +13,7 @@ module.exports.verify = (token, SECRET) => { // TODO test it
     jwt.verify(token, SECRET, (error, decoded) => {
       if (error) {
         if (error.name === 'TokenExpiredError') {
-          return reject(new ErrorWrapper('TokenExpiredError', 401))
+          return reject(new ErrorWrapper({ ...errorCodes.TOKEN_EXPIRED }))
         }
         return reject(new Error(error))
       }
@@ -31,7 +32,7 @@ module.exports.sign = (playload, SECRET, options) => {
 
   return new Promise((resolve, reject) => {
     jwt.sign(playload, SECRET, options, (error, token) => {
-      if (error) return reject(error)
+      if (error) return reject(new ErrorWrapper({ ...errorCodes.TOKEN_NOT_SIGNED }))
       return resolve(token)
     })
   })
