@@ -21,7 +21,7 @@ module.exports = (error, req, res, next) => {
     res.status(error.status || 500).json({
       success: false,
       message: error.message || error,
-      stack: ![403].includes(error.status) ? stackTrace.parse(error) : false,
+      stack: ![401, 403].includes(error.status) ? stackTrace.parse(error) : false,
       env: 'dev/regular'
     })
   }

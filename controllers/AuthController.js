@@ -9,7 +9,7 @@ class AuthController extends BaseController {
   static get router () {
     router.post('/login', actionRunner(actions.LoginAction))
     // router.post('/logout', auth.checkToken(), sec.isLoggedIn(), auth.signOut())
-    // router.post('/refresh-tokens', auth.refreshTokens())
+    router.post('/refresh-tokens', actionRunner(actions.RefreshTokensAction))
 
     return router
   }

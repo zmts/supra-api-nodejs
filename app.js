@@ -23,9 +23,9 @@ class App {
   constructor () {
     this.express = express()
 
-    this.middleware()
     this.initRegistry()
     this.initDbConnection()
+    this.middleware()
 
     // routes and error handlers
     this.initRoutes()

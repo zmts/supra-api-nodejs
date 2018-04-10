@@ -1,8 +1,8 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-04-08T05:06:24.502Z",
-	"__export_source": "insomnia.desktop.app:v5.14.9",
+	"__export_date": "2018-04-10T09:43:25.832Z",
+	"__export_source": "insomnia.desktop.app:v5.15.0",
 	"resources": [
 		{
 			"_id": "wrk_f41ba130885b45bbb5fc2d2f5eb34d99",
@@ -67,41 +67,13 @@
 			"_type": "request_group"
 		},
 		{
-			"_id": "req_7fd426d7e09e42a0b80ce0b191c5908c",
-			"authentication": {},
-			"body": {
-				"mimeType": "application/json",
-				"text": "{\n\t\"password\": \"123456\",\n\t\"email\": \"helloss@gmail.com\"\n}"
-			},
-			"created": 1514820014708,
-			"description": "",
-			"headers": [
-				{
-					"id": "pair_87fb7c295d5f4e429c3b9d2272432d88",
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"metaSortKey": -1523024351679,
-			"method": "POST",
-			"modified": 1523126064015,
-			"name": "auth/login",
-			"parameters": [],
-			"parentId": "wrk_f41ba130885b45bbb5fc2d2f5eb34d99",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "localhost:4000/auth/login",
-			"_type": "request"
-		},
-		{
 			"_id": "req_7cf6818e33cd4bc98c8b39e515495ac0",
 			"authentication": {},
 			"body": {},
 			"created": 1514667994670,
 			"description": "",
 			"headers": [],
+			"isPrivate": false,
 			"metaSortKey": -1514668005856,
 			"method": "GET",
 			"modified": 1520872565702,
@@ -110,6 +82,7 @@
 			"parentId": "fld_56874bbff37e40e0a7e2976f04a0da7a",
 			"settingDisableRenderRequestBody": false,
 			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
 			"url": "localhost:4000/users",
@@ -120,7 +93,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"name\": \"alex boom\",\n\t\"username\": \"alexboom111222\",\n\t\"email\": \"hellossgmail.com\",\n\t\"password\": \"11111111\"\n}"
+				"text": "{\n\t\"name\": \"alex test password\",\n\t\"username\": \"alex11\",\n\t\"email\": \"alex@gmail.com11\",\n\t\"password\": \"123456\"\n}"
 			},
 			"created": 1514671149530,
 			"description": "",
@@ -131,14 +104,16 @@
 					"value": "application/json"
 				}
 			],
+			"isPrivate": false,
 			"metaSortKey": -1505878053737.5,
 			"method": "POST",
-			"modified": 1523104756799,
+			"modified": 1523280019499,
 			"name": "users/",
 			"parameters": [],
 			"parentId": "fld_56874bbff37e40e0a7e2976f04a0da7a",
 			"settingDisableRenderRequestBody": false,
 			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
 			"url": "localhost:4000/users/",
@@ -151,14 +126,16 @@
 			"created": 1517227773225,
 			"description": "",
 			"headers": [],
+			"isPrivate": false,
 			"metaSortKey": -1510273029796.75,
 			"method": "GET",
-			"modified": 1523036427386,
+			"modified": 1523283920923,
 			"name": "users/:id",
 			"parameters": [],
 			"parentId": "fld_56874bbff37e40e0a7e2976f04a0da7a",
 			"settingDisableRenderRequestBody": false,
 			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
 			"url": "localhost:4000/users/1",
@@ -180,14 +157,16 @@
 					"value": "application/json"
 				}
 			],
+			"isPrivate": false,
 			"metaSortKey": -1501483077678.25,
 			"method": "PATCH",
-			"modified": 1523124679233,
+			"modified": 1523277969437,
 			"name": "users/",
 			"parameters": [],
 			"parentId": "fld_56874bbff37e40e0a7e2976f04a0da7a",
 			"settingDisableRenderRequestBody": false,
 			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
 			"url": "localhost:4000/users",
@@ -200,6 +179,7 @@
 			"created": 1523024357966,
 			"description": "",
 			"headers": [],
+			"isPrivate": false,
 			"metaSortKey": -1520973267398.75,
 			"method": "GET",
 			"modified": 1523024392855,
@@ -208,9 +188,72 @@
 			"parentId": "fld_0fca7190f61e41db9af211baa82531bf",
 			"settingDisableRenderRequestBody": false,
 			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
 			"url": "localhost:4000/posts",
+			"_type": "request"
+		},
+		{
+			"_id": "req_7fd426d7e09e42a0b80ce0b191c5908c",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"password\": \"123456\",\n\t\"email\": \"alex@gmail.com\"\n}"
+			},
+			"created": 1514820014708,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_87fb7c295d5f4e429c3b9d2272432d88",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1523073923710,
+			"method": "POST",
+			"modified": 1523353292863,
+			"name": "auth/login",
+			"parameters": [],
+			"parentId": "fld_ea6e1c87f6be446ca026f3f945a3ceb9",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "localhost:4000/auth/login",
+			"_type": "request"
+		},
+		{
+			"_id": "req_4ba908e195574271a8427031a0aee577",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"refreshToken\": \"123456\"\n}"
+			},
+			"created": 1523353281442,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_87fb7c295d5f4e429c3b9d2272432d88",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1523073923660,
+			"method": "POST",
+			"modified": 1523353351900,
+			"name": "auth/refresh-tokens",
+			"parameters": [],
+			"parentId": "fld_ea6e1c87f6be446ca026f3f945a3ceb9",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "localhost:4000/auth/refresh-tokens",
 			"_type": "request"
 		}
 	]
