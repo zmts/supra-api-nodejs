@@ -28,7 +28,7 @@ class RefreshTokensAction extends BaseAction {
       .then(() => cryptoService.decrypt(refreshToken))
       .then(decodedRToken => {
         decodedRefreshToken = decodedRToken
-        return parseTokenService(decodedRefreshToken)
+        return parseTokenService(decodedRToken)
       })
       .then(refreshTokenData => UserDAO.GetByEmail(refreshTokenData.email))
       .then(user => {
