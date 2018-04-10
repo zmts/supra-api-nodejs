@@ -27,12 +27,12 @@ class BaseDAO extends Model {
       return Promise.reject(wrapError(error))
         .catch(error => {
           if (error instanceof UniqueViolationError) {
-            throw new Error(`Unique constraint '${error.constraint}' failed for table '${error.table}' and columns '${error.columns}'`)
+            throw this.errorWrapper({ ...errorCodes.DB, message: `Unique constraint '${error.constraint}' failed for table '${error.table}' and columns '${error.columns}'` })
           }
           if (error instanceof NotNullViolationError) {
-            throw new Error(`Not null constraint failed for table '${error.table}' and column '${error.column}'`)
+            throw this.errorWrapper({ ...errorCodes.DB, message: `Not null constraint failed for table '${error.table}' and column '${error.column}'` })
           }
-          throw new Error(error)
+          throw this.errorWrapper({ ...errorCodes.DB, message: error.message })
         })
     })
   }
