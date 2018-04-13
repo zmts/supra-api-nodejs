@@ -42,12 +42,12 @@ class UserDAO extends BaseDAO {
       }).catch(error => { throw error })
   }
 
-  static GetRefreshTokensByUserEmail (userEmail, refreshTokenIv) {
-    __typecheck(userEmail, 'String', true)
+  static GetRefreshTokenByUserId (userId, refreshTokenIv) {
+    __typecheck(userId, 'Number', true)
     __typecheck(refreshTokenIv, 'String', true)
 
     return this.query()
-      .where({ email: userEmail })
+      .findById(userId)
       .select(ref(`${this.tableName}.tokenRefresh:${refreshTokenIv}`)
       .castText()
       .as('refreshToken'))

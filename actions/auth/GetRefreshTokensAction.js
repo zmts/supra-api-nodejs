@@ -21,7 +21,7 @@ class GetRefreshTokensAction extends BaseAction {
     this.validate(req, this.validationRules)
       .then(() => cryptoService.decrypt(refreshToken))
       .then(decodedRToken => parseTokenService(decodedRToken))
-      .then(refreshTokenData => UserDAO.GetRefreshTokensByUserEmail(refreshTokenData.email, iv))
+      .then(refreshTokenData => UserDAO.GetRefreshTokenByUserId(+refreshTokenData.sub, iv))
       .then(data => res.json({ data, success: true }))
       .catch(error => next(error))
   }

@@ -17,7 +17,8 @@ module.exports = userEntity => {
 
     options: {
       algorithm: 'HS512',
-      expiresIn: '60m'
+      expiresIn: '60m',
+      subject: userEntity.id.toString()
     }
   }
 
