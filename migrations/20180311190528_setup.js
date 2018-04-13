@@ -8,8 +8,8 @@ exports.up = (knex, Promise) => {
       table.string('role').defaultTo('user').notNull()
 
       table.text('passwordHash').notNull()
-      table.text('tokenRefresh')
-      table.text('tokenReset')
+      table.jsonb('tokenRefresh').defaultTo('{}') // rename to refreshTokensMap
+      table.text('tokenReset') // rename to resetToken
 
       table.timestamp('createdAt').defaultTo(knex.fn.now()).notNull()
       table.timestamp('updatedAt').defaultTo(knex.fn.now()).notNull()
