@@ -18,10 +18,6 @@ class UserDAO extends BaseDAO {
   $formatJson (json) {
     json = super.$formatJson(json)
 
-    if (json.tokens && Object.keys(json.tokens).length) {
-      json.tokens = JSON.parse(json.tokens)
-    }
-
     delete json.passwordHash
     delete json.tokenRefresh
     delete json.tokenReset
@@ -46,14 +42,16 @@ class UserDAO extends BaseDAO {
       }).catch(error => { throw error })
   }
 
-  static GetRefreshTokensByUserId (id) {
-    __typecheck(id, 'Number', true)
+  static GetRefreshTokensByUserEmail (userEmail, refreshTokenIv) {
+    __typecheck(userEmail, 'String', true)
+    __typecheck(refreshTokenIv, 'String', true)
 
     return this.query()
-      .findById(id)
-      .select(ref(`${this.tableName}.tokenRefresh`)
+      .where({ email: userEmail })
+      .select(ref(`${this.tableName}.tokenRefresh:${refreshTokenIv}`)
       .castText()
-      .as('tokens'))
+      .as('rtoken'))
+      .first()
       .then(data => {
         if (!data) throw this.errorEmptyResponse()
         return data
