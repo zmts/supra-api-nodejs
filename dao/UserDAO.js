@@ -64,14 +64,17 @@ class UserDAO extends BaseDAO {
    * prop name === Initialization Vector (taken from REFRESH TOKEN body)
    * store to this prop REFRESH TOKEN
    */
-  static AddRefreshTokenByUserId (id, data) {
-    __typecheck(id, 'Number', true)
+  static AddRefreshToken (userId, data) {
+    __typecheck(userId, 'Number', true)
     __typecheck(data, 'Object', true)
     __typecheck(data.iv, 'String', true)
     __typecheck(data.token, 'String', true)
 
+    console.log('userId', userId)
+    console.log('data', data)
+
     return this.query()
-      .findById(id)
+      .findById(userId)
       .patch({ [`tokenRefresh:${data.iv}`]: data.token })
   }
 
@@ -79,12 +82,6 @@ class UserDAO extends BaseDAO {
     __typecheck(id, 'Number', true)
 
     return this.query().findById(id).patch({})
-  }
-
-  static AddRefreshToken (data) {
-    __typecheck(data, 'Object', true)
-
-    return this.query().patchAndFetchById(data)
   }
 }
 

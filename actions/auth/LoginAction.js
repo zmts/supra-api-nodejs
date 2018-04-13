@@ -31,7 +31,10 @@ class LoginAction extends BaseAction {
         data.expiresIn = accessTokenObj.expiresIn
       })
       .then(() => authModule.makeRefreshTokenService(userEntity))
-      .tap(refreshToken => UserDAO.UPDATE(userEntity.id, { tokenRefresh: refreshToken }))
+      .tap(refreshToken => {
+        let iv = refreshToken.split('::')[0]
+        return UserDAO.AddRefreshToken(userEntity.id, { iv, token: refreshToken })
+      })
       .then(refreshToken => (data.refreshToken = refreshToken))
       .then(() => res.json({ data, success: true }))
       .catch(error => next(error))
