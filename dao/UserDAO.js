@@ -50,11 +50,11 @@ class UserDAO extends BaseDAO {
       .where({ email: userEmail })
       .select(ref(`${this.tableName}.tokenRefresh:${refreshTokenIv}`)
       .castText()
-      .as('rtoken'))
+      .as('refreshToken'))
       .first()
       .then(data => {
-        if (!data) throw this.errorEmptyResponse()
-        return data
+        if (!data.refreshToken) throw this.errorEmptyResponse()
+        return data.refreshToken
       }).catch(error => { throw error })
   }
   /**
