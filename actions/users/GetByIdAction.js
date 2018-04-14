@@ -13,7 +13,7 @@ class GetByIdAction extends BaseAction {
 
   static run (req, res, next) {
     this.validate(req, this.validationRules)
-      .then(() => UserDAO.GETbyId(+req.params.id))
+      .then(() => UserDAO.GET_BY_ID(+req.params.id))
       .then(data => res.json({ data, success: true }))
       .catch(error => next(error))
   }

@@ -65,7 +65,7 @@ class BaseDAO extends Model {
     return this.query().insert(data)
   };
 
-  static GETList () {
+  static GET_LIST () {
     return this.query().orderBy('id', 'desc')
       .then(data => {
         if (!data.length) throw this.errorEmptyResponse()
@@ -73,7 +73,7 @@ class BaseDAO extends Model {
       }).catch(error => { throw error })
   }
 
-  static GETbyId (id) {
+  static GET_BY_ID (id) {
     __typecheck(id, 'Number', true)
 
     return this.query().findById(id)
