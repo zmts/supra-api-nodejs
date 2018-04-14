@@ -39,9 +39,7 @@ class UserDAO extends BaseDAO {
       .then(data => {
         if (!data) throw this.errorEmptyResponse()
         return data
-      }).catch(error => {
-        throw this.errorWrapper({ message: error.message })
-      })
+      }).catch(error => { throw error })
   }
 
   static GetRefreshToken (userId, refreshTokenIv) {
@@ -54,9 +52,7 @@ class UserDAO extends BaseDAO {
       .then(data => {
         if (!data.refreshToken) throw this.errorEmptyResponse()
         return data.refreshToken
-      }).catch(() => {
-        throw this.errorEmptyResponse()
-      })
+      }).catch(error => { throw error })
   }
 
   static RemoveRefreshToken (userId, refreshTokenIv) {
@@ -78,9 +74,7 @@ class UserDAO extends BaseDAO {
         if (count === 5) { // user can have only 5 sessions(refresh tokens)
           return this._ClearRefreshTokensList(userId)
             .then(() => this._AddRefreshToken(userId, data))
-            .catch(error => {
-              throw this.errorWrapper({ message: error.message })
-            })
+            .catch(error => { throw error })
         }
         return this._AddRefreshToken(userId, data)
       })
@@ -109,11 +103,9 @@ class UserDAO extends BaseDAO {
       .findById(userId)
       .select('refreshTokensMap')
       .then(data => {
-        if (!data.refreshTokensMap) throw this.errorEmptyResponse()
+        if (!data) throw this.errorEmptyResponse()
         return Object.keys(data.refreshTokensMap).length
-      }).catch(error => {
-        throw this.errorWrapper({ message: error.message })
-      })
+      }).catch(error => { throw error })
   }
 
   static _ClearRefreshTokensList (userId) {
