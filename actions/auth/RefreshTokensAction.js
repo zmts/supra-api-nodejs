@@ -52,7 +52,10 @@ class RefreshTokensAction extends BaseAction {
       })
       .then(() => UserDAO.RemoveRefreshToken(+userEntity.id, refreshTokenIv)) // remove old refresh token
       .then(() => makeRefreshTokenService(userEntity)) // make new refresh token
-      .tap(newRefreshToken => UserDAO.AddRefreshTokenProcess(userEntity.id, { iv: newRefreshToken.split('::')[0], refreshToken: newRefreshToken })) // store new refresh token to DB
+      .tap(newRefreshToken => {
+        let iv = newRefreshToken.split('::')[0]
+        return UserDAO.AddRefreshTokenProcess(userEntity.id, { iv, refreshToken: newRefreshToken })
+      }) // store new refresh token to DB
       .then(newRefreshToken => (responseData.refreshToken = newRefreshToken))
       .then(() => res.json({ data: responseData, success: true }))
       .catch(error => next(error))

@@ -57,8 +57,8 @@ class UserDAO extends BaseDAO {
       .then(data => {
         if (!data.refreshToken) throw this.errorEmptyResponse()
         return data.refreshToken
-      }).catch(error => {
-        throw this.errorWrapper({ message: error.message })
+      }).catch(() => {
+        throw this.errorEmptyResponse()
       })
   }
 
