@@ -1,9 +1,9 @@
 const LoginAction = require('./LoginAction')
 const RefreshTokensAction = require('./RefreshTokensAction')
-const GetRefreshTokensAction = require('./GetRefreshTokensAction')
+const TestRefreshTokenAction = require('./TestRefreshTokenAction')
 
 module.exports = {
   LoginAction,
   RefreshTokensAction,
-  GetRefreshTokensAction
+  TestRefreshTokenAction
 }

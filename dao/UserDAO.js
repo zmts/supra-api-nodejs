@@ -7,7 +7,7 @@ class UserDAO extends BaseDAO {
   }
 
   static get jsonAttributes () {
-    return ['tokenRefresh']
+    return ['refreshTokensMap']
   }
 
   /**
@@ -19,7 +19,7 @@ class UserDAO extends BaseDAO {
     json = super.$formatJson(json)
 
     delete json.passwordHash
-    delete json.tokenRefresh
+    delete json.refreshTokensMap
     delete json.tokenReset
     delete json.avatar
 
@@ -50,10 +50,7 @@ class UserDAO extends BaseDAO {
 
     return this.query()
       .findById(userId)
-      .select(ref(`${this.tableName}.tokenRefresh:${refreshTokenIv}`)
-      .castJson()
-      .as('refreshToken'))
-      .first()
+      .select(ref(`refreshTokensMap:${refreshTokenIv}`).castJson().as('refreshToken'))
       .then(data => {
         if (!data.refreshToken) throw this.errorEmptyResponse()
         return data.refreshToken
@@ -67,7 +64,7 @@ class UserDAO extends BaseDAO {
     __typecheck(refreshTokenIv, 'String', true)
 
     return this.query()
-      .patch({ tokenRefresh: raw('?? - ?', 'tokenRefresh', refreshTokenIv) })
+      .patch({ refreshTokensMap: raw('?? - ?', 'refreshTokensMap', refreshTokenIv) })
   }
 
   static AddRefreshTokenProcess (userId, data) {
@@ -90,7 +87,7 @@ class UserDAO extends BaseDAO {
   }
 
   /**
-   * add new prop to 'tokenRefresh' jsonb field
+   * add new prop to 'refreshTokensMap' jsonb field
    * prop name === Initialization Vector (taken from REFRESH TOKEN body)
    * store to this prop REFRESH TOKEN
    */
@@ -102,7 +99,7 @@ class UserDAO extends BaseDAO {
 
     return this.query()
       .findById(userId)
-      .patch({ [`tokenRefresh:${data.iv}`]: data.refreshToken })
+      .patch({ [`refreshTokensMap:${data.iv}`]: data.refreshToken })
   }
 
   static _GetRefreshTokensCount (userId) {
@@ -110,13 +107,10 @@ class UserDAO extends BaseDAO {
 
     return this.query()
       .findById(userId)
-      .select(ref(`${this.tableName}.tokenRefresh`)
-      .castJson()
-      .as('refreshToken'))
-      .first()
+      .select('refreshTokensMap')
       .then(data => {
-        if (!data.refreshToken) throw this.errorEmptyResponse()
-        return Object.keys(data.refreshToken).length
+        if (!data.refreshTokensMap) throw this.errorEmptyResponse()
+        return Object.keys(data.refreshTokensMap).length
       }).catch(error => {
         throw this.errorWrapper({ message: error.message })
       })
@@ -125,7 +119,7 @@ class UserDAO extends BaseDAO {
   static _ClearRefreshTokensList (userId) {
     __typecheck(userId, 'Number', true)
 
-    return this.query().findById(userId).patch({ tokenRefresh: {} })
+    return this.query().findById(userId).patch({ refreshTokensMap: {} })
   }
 }
 

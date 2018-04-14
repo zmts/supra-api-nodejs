@@ -3,7 +3,7 @@
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
 
-class GetRefreshTokensAction extends BaseAction {
+class TestRefreshTokenAction extends BaseAction {
   static get validationRules () {
     return {
       ...this.baseValidationRules
@@ -15,10 +15,10 @@ class GetRefreshTokensAction extends BaseAction {
 
   static run (req, res, next) {
     this.validate(req, this.validationRules)
-      .then(() => UserDAO._GetRefreshTokensCount(2))
+      .then(() => UserDAO._GetRefreshTokensCount(1))
       .then(data => res.json({ data, success: true }))
       .catch(error => next(error))
   }
 }
 
-module.exports = GetRefreshTokensAction
+module.exports = TestRefreshTokenAction
