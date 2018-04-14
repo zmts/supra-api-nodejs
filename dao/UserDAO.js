@@ -42,7 +42,7 @@ class UserDAO extends BaseDAO {
       }).catch(error => { throw error })
   }
 
-  static GetRefreshTokenByUserId (userId, refreshTokenIv) {
+  static GetRefreshToken (userId, refreshTokenIv) {
     __typecheck(userId, 'Number', true)
     __typecheck(refreshTokenIv, 'String', true)
 

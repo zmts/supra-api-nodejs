@@ -35,7 +35,7 @@ class RefreshTokensAction extends BaseAction {
       })
       .then(refreshTokenData => {
         parsedRefreshTokenData = refreshTokenData
-        return UserDAO.GetRefreshTokenByUserId(+refreshTokenData.sub, refreshTokenIv) // get refresh token from DB by userId and refreshTokenIv
+        return UserDAO.GetRefreshToken(+refreshTokenData.sub, refreshTokenIv) // get refresh token from DB by userId and refreshTokenIv
       })
       .then(refreshTokenFromDB => {
         if (refreshTokenFromDB === refreshToken) { // compare refresh token from DB and refresh token from request
