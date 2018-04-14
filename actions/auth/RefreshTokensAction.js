@@ -54,8 +54,8 @@ class RefreshTokensAction extends BaseAction {
       .then(() => makeRefreshTokenService(userEntity)) // make new refresh token
       .tap(newRefreshToken => {
         let iv = newRefreshToken.split('::')[0]
-        return UserDAO.AddRefreshTokenProcess(userEntity.id, { iv, refreshToken: newRefreshToken })
-      }) // store new refresh token to DB
+        return UserDAO.AddRefreshTokenProcess(userEntity.id, { iv, refreshToken: newRefreshToken }) // store new refresh token to DB
+      })
       .then(newRefreshToken => (responseData.refreshToken = newRefreshToken))
       .then(() => res.json({ data: responseData, success: true }))
       .catch(error => next(error))
