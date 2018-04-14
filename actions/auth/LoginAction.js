@@ -33,7 +33,7 @@ class LoginAction extends BaseAction {
       .then(() => authModule.makeRefreshTokenService(userEntity))
       .tap(refreshToken => {
         let iv = refreshToken.split('::')[0]
-        return UserDAO.AddRefreshToken(userEntity.id, { iv, token: refreshToken })
+        return UserDAO.AddRefreshToken(+userEntity.id, { iv, refreshToken })
       })
       .then(refreshToken => (data.refreshToken = refreshToken))
       .then(() => res.json({ data, success: true }))

@@ -1,5 +1,5 @@
 const BaseDAO = require('./BaseDAO')
-const { ref } = require('objection')
+const { ref, raw } = require('objection')
 
 class UserDAO extends BaseDAO {
   static get tableName () {
@@ -66,14 +66,19 @@ class UserDAO extends BaseDAO {
     __typecheck(userId, 'Number', true)
     __typecheck(data, 'Object', true)
     __typecheck(data.iv, 'String', true)
-    __typecheck(data.token, 'String', true)
-
-    console.log('userId', userId)
-    console.log('data', data)
+    __typecheck(data.refreshToken, 'String', true)
 
     return this.query()
       .findById(userId)
-      .patch({ [`tokenRefresh:${data.iv}`]: data.token })
+      .patch({ [`tokenRefresh:${data.iv}`]: data.refreshToken })
+  }
+
+  static RemoveRefreshToken (userId, refreshTokenIv) {
+    __typecheck(userId, 'Number', true)
+    __typecheck(refreshTokenIv, 'String', true)
+
+    return this.query()
+      .patch({ tokenRefresh: raw('?? - ?', 'tokenRefresh', refreshTokenIv) })
   }
 
   static ClearRefreshTokensListByUserId (id) {
