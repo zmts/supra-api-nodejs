@@ -15,7 +15,7 @@ class GetRefreshTokensAction extends BaseAction {
 
   static run (req, res, next) {
     this.validate(req, this.validationRules)
-      .then(() => UserDAO.RemoveRefreshToken(2, '60f4e6d2599521096e7b5e2c90b33e0d'))
+      .then(() => UserDAO.GetRefreshTokensCount(2))
       .then(data => res.json({ data, success: true }))
       .catch(error => next(error))
   }

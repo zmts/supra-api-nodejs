@@ -57,6 +57,7 @@ class UserDAO extends BaseDAO {
         return data.refreshToken
       }).catch(error => { throw error })
   }
+
   /**
    * add new prop to 'tokenRefresh' jsonb field
    * prop name === Initialization Vector (taken from REFRESH TOKEN body)
@@ -71,6 +72,21 @@ class UserDAO extends BaseDAO {
     return this.query()
       .findById(userId)
       .patch({ [`tokenRefresh:${data.iv}`]: data.refreshToken })
+  }
+
+  static GetRefreshTokensCount (userId) {
+    __typecheck(userId, 'Number', true)
+
+    return this.query()
+      .findById(userId)
+      .select(ref(`${this.tableName}.tokenRefresh`)
+      .castText()
+      .as('refreshToken'))
+      .first()
+      .then(data => {
+        if (!data.refreshToken) throw this.errorEmptyResponse()
+        return Object.keys(JSON.parse(data.refreshToken)).length
+      }).catch(error => { throw error })
   }
 
   static RemoveRefreshToken (userId, refreshTokenIv) {
