@@ -2,7 +2,7 @@ const Joi = require('joi')
 
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
-const { cryptoService, parseTokenService, jwtService, makeAccessTokenService, makeRefreshTokenService } = require('../../services/auth')
+const { cryptoDecryptServiceSync, parseTokenService, jwtService, makeAccessTokenService, makeRefreshTokenService } = require('../../services/auth')
 const ErrorWrapper = require('../../util/ErrorWrapper')
 const errorCodes = require('../../config/errorCodes')
 
@@ -28,7 +28,7 @@ class RefreshTokensAction extends BaseAction {
     let responseData = { accessToken: '', refreshToken: '', expiresIn: 0 }
 
     this.validate(req, this.validationRules)
-      .then(() => cryptoService.decrypt(refreshToken)) // decode refresh token taken from request
+      .then(() => cryptoDecryptServiceSync(refreshToken)) // decode refresh token taken from request
       .then(decodedRToken => {
         decodedRefreshToken = decodedRToken
         return parseTokenService(decodedRToken) // parse refresh token data (taken from request)

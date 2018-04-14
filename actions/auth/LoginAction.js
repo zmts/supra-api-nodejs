@@ -2,7 +2,7 @@ const Joi = require('joi')
 
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
-const authModule = require('../../services/auth')
+const { checkPasswordService, makeAccessTokenService, makeRefreshTokenService } = require('../../services/auth')
 
 class LoginAction extends BaseAction {
   static get validationRules () {
@@ -23,14 +23,14 @@ class LoginAction extends BaseAction {
       .then(() => UserDAO.GetByEmail(req.body.email))
       .then(user => {
         userEntity = user
-        return authModule.checkPasswordService(req.body.password, user.passwordHash)
+        return checkPasswordService(req.body.password, user.passwordHash)
       })
-      .then(() => authModule.makeAccessTokenService(userEntity))
+      .then(() => makeAccessTokenService(userEntity))
       .then(accessTokenObj => {
         data.accessToken = accessTokenObj.accessToken
         data.expiresIn = accessTokenObj.expiresIn
       })
-      .then(() => authModule.makeRefreshTokenService(userEntity))
+      .then(() => makeRefreshTokenService(userEntity))
       .tap(refreshToken => {
         let iv = refreshToken.split('::')[0]
         return UserDAO.AddRefreshTokenProcess(+userEntity.id, { iv, refreshToken })
