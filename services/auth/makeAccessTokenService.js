@@ -33,13 +33,11 @@ module.exports = userEntity => {
       accessTokenStr = token
       return cryptoEncryptService(token)
     })
-    .then(encryptedToken => {
-      tokenObj.accessToken = encryptedToken
-    })
+    .then(encryptedToken => (tokenObj.accessToken = encryptedToken))
     .then(() => parseTokenService(accessTokenStr))
-    .then(parsedTokenObj => (tokenObj.expiresIn = parsedTokenObj.exp))
-    .then(() => tokenObj)
-    .catch(error => {
-      throw new Error(error)
+    .then(parsedTokenObj => {
+      tokenObj.expiresIn = parsedTokenObj.exp
+      return tokenObj
     })
+    .catch(error => { throw new Error(error) })
 }
