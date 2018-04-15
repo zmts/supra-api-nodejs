@@ -38,6 +38,5 @@ module.exports = userEntity => {
     .then(parsedTokenObj => {
       tokenObj.expiresIn = parsedTokenObj.exp
       return tokenObj
-    })
-    .catch(error => { throw new Error(error) })
+    }).catch(error => { throw new Error(error) })
 }
