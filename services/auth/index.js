@@ -3,8 +3,8 @@ const makePasswordHashService = require('./makePasswordHashService')
 const makeAccessTokenService = require('./makeAccessTokenService')
 const makeRefreshTokenService = require('./makeRefreshTokenService')
 const parseTokenService = require('./parseTokenService.js')
-const cryptoEncryptServiceSync = require('./cryptoEncryptServiceSync')
-const cryptoDecryptServiceSync = require('./cryptoDecryptServiceSync')
+const cryptoEncryptService = require('./cryptoEncryptService')
+const cryptoDecryptService = require('./cryptoDecryptService')
 const jwtService = require('./jwtService')
 
 module.exports = {
@@ -13,7 +13,7 @@ module.exports = {
   makeAccessTokenService,
   makeRefreshTokenService,
   parseTokenService,
-  cryptoEncryptServiceSync,
-  cryptoDecryptServiceSync,
+  cryptoEncryptService,
+  cryptoDecryptService,
   jwtService
 }

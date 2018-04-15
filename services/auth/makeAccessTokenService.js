@@ -1,5 +1,5 @@
 const jwtService = require('./jwtService')
-const cryptoEncryptServiceSync = require('./cryptoEncryptServiceSync')
+const cryptoEncryptService = require('./cryptoEncryptService')
 const parseTokenService = require('./parseTokenService')
 
 const SECRET = require('../../config').token.access
@@ -26,13 +26,17 @@ module.exports = userEntity => {
   }
 
   let tokenObj = { accessToken: '', expiresIn: '' }
+  let accessToken = ''
 
   return jwtService.sign(config.payload, SECRET, config.options)
-    .then(result => {
-      tokenObj.accessToken = cryptoEncryptServiceSync(result)
-      return result
+    .then(token => {
+      accessToken = token
+      return cryptoEncryptService(token)
     })
-    .then(result => parseTokenService(result))
+    .then(encryptedToken => {
+      tokenObj.accessToken = encryptedToken
+    })
+    .then(() => parseTokenService(accessToken))
     .then(parsedTokenObj => (tokenObj.expiresIn = parsedTokenObj.exp))
     .then(() => tokenObj)
     .catch(error => {
