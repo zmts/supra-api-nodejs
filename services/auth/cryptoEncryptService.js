@@ -6,7 +6,7 @@ const ErrorWrapper = require('../../util/ErrorWrapper')
 const errorCodes = require('../../config/errorCodes')
 
 /**
- * @return {string}
+ * @return {Promise} string
  */
 module.exports = str => {
   __typecheck(str, 'String', true)
