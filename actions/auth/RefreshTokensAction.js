@@ -29,22 +29,26 @@ class RefreshTokensAction extends BaseAction {
 
     this.validate(req, this.validationRules)
       .then(() => cryptoDecryptServiceSync(refreshToken)) // decode refresh token taken from request
-      .then(decodedRToken => {
-        decodedRefreshToken = decodedRToken
-        return parseTokenService(decodedRToken) // parse refresh token data (taken from request)
+      .then(decodedRefToken => {
+        decodedRefreshToken = decodedRefToken
+        return parseTokenService(decodedRefToken) // parse refresh token data (taken from request)
       })
       .then(refreshTokenData => {
         parsedRefreshTokenData = refreshTokenData
-        return UserDAO.GetRefreshToken(+refreshTokenData.sub, refreshTokenIv) // get refresh token from DB by userId and refreshTokenIv
+        return UserDAO.GET_BY_ID(+refreshTokenData.sub) // get user entity from DB
       })
+      .then(user => (userEntity = user))
+      .then(() => UserDAO.GetRefreshToken(+parsedRefreshTokenData.sub, refreshTokenIv)) // get refresh token from DB by userId and refreshTokenIv
       .then(refreshTokenFromDB => {
         if (refreshTokenFromDB === refreshToken) { // compare refresh token from DB and refresh token from request
           return jwtService.verify(decodedRefreshToken, SECRET) // verify refresh token
+            .catch(error => {
+              UserDAO.RemoveRefreshToken(+userEntity.id, refreshTokenIv) // if not valid >> remove old refresh token
+              throw error
+            })
         }
         throw new ErrorWrapper({ ...errorCodes.BAD_REFRESH_TOKEN })
       })
-      .then(() => UserDAO.GET_BY_ID(+parsedRefreshTokenData.sub)) // get user entity from DB
-      .then(user => (userEntity = user))
       .then(() => makeAccessTokenService(userEntity))
       .then(accessTokenObj => {
         responseData.accessToken = accessTokenObj.accessToken
