@@ -26,17 +26,17 @@ module.exports = userEntity => {
   }
 
   let tokenObj = { accessToken: '', expiresIn: '' }
-  let accessToken = ''
+  let accessTokenStr = ''
 
   return jwtService.sign(config.payload, SECRET, config.options)
     .then(token => {
-      accessToken = token
+      accessTokenStr = token
       return cryptoEncryptService(token)
     })
     .then(encryptedToken => {
       tokenObj.accessToken = encryptedToken
     })
-    .then(() => parseTokenService(accessToken))
+    .then(() => parseTokenService(accessTokenStr))
     .then(parsedTokenObj => (tokenObj.expiresIn = parsedTokenObj.exp))
     .then(() => tokenObj)
     .catch(error => {
