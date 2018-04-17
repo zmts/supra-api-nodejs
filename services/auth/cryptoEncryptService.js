@@ -13,12 +13,13 @@ module.exports = str => {
 
   return new Promise((resolve, reject) => {
     try {
+      let timestamp = new Date().getTime()
       let iv = crypto.randomBytes(IV_LENGTH)
       let cipher = crypto.createCipheriv('aes-256-cbc', new Buffer(ENCRYPTION_KEY), iv)
       let encrypted = cipher.update(str)
       encrypted = Buffer.concat([encrypted, cipher.final()])
 
-      return resolve(`${iv.toString('hex')}::${encrypted.toString('hex')}`)
+      return resolve(`${timestamp}.${iv.toString('hex')}::${encrypted.toString('hex')}`)
     } catch (error) {
       return reject(new ErrorWrapper({ ...errorCodes.ENCRYPTION, message: error.message }))
     }

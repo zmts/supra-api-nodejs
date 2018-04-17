@@ -12,7 +12,8 @@ module.exports = str => {
 
   return new Promise((resolve, reject) => {
     try {
-      let strings = str.split('::')
+      let token = str.split('.')[1]
+      let strings = token.split('::')
       let iv = new Buffer(strings.shift(), 'hex')
       let encryptedString = new Buffer(strings.join('::'), 'hex')
       let decipher = crypto.createDecipheriv('aes-256-cbc', new Buffer(ENCRYPTION_KEY), iv)

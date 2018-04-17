@@ -42,31 +42,31 @@ class UserDAO extends BaseDAO {
       }).catch(error => { throw error })
   }
 
-  static GetRefreshToken (userId, refreshTokenIv) {
+  static GetRefreshToken (userId, refreshTokenTimestamp) {
     __typecheck(userId, 'Number', true)
-    __typecheck(refreshTokenIv, 'String', true)
+    __typecheck(refreshTokenTimestamp, 'String', true)
 
     return this.query()
       .findById(userId)
-      .select(ref(`refreshTokensMap:${refreshTokenIv}`).castJson().as('refreshToken'))
+      .select(ref(`refreshTokensMap:${refreshTokenTimestamp}`).castJson().as('refreshToken'))
       .then(data => {
         if (!data.refreshToken) throw this.errorEmptyResponse()
         return data.refreshToken
       }).catch(error => { throw error })
   }
 
-  static RemoveRefreshToken (userId, refreshTokenIv) {
+  static RemoveRefreshToken (userId, refreshTokenTimestamp) {
     __typecheck(userId, 'Number', true)
-    __typecheck(refreshTokenIv, 'String', true)
+    __typecheck(refreshTokenTimestamp, 'String', true)
 
     return this.query()
-      .patch({ refreshTokensMap: raw('?? - ?', 'refreshTokensMap', refreshTokenIv) })
+      .patch({ refreshTokensMap: raw('?? - ?', 'refreshTokensMap', refreshTokenTimestamp) })
   }
 
   static AddRefreshTokenProcess (userId, data) {
     __typecheck(userId, 'Number', true)
     __typecheck(data, 'Object', true)
-    __typecheck(data.iv, 'String', true)
+    __typecheck(data.timestamp, 'String', true)
     __typecheck(data.refreshToken, 'String', true)
 
     return this._GetRefreshTokensCount(userId)
@@ -82,18 +82,18 @@ class UserDAO extends BaseDAO {
 
   /**
    * add new prop to 'refreshTokensMap' jsonb field
-   * prop name === Initialization Vector (taken from REFRESH TOKEN body)
+   * prop name === token creation timestamp
    * store to this prop REFRESH TOKEN
    */
   static _AddRefreshToken (userId, data) {
     __typecheck(userId, 'Number', true)
     __typecheck(data, 'Object', true)
-    __typecheck(data.iv, 'String', true)
+    __typecheck(data.timestamp, 'String', true)
     __typecheck(data.refreshToken, 'String', true)
 
     return this.query()
       .findById(userId)
-      .patch({ [`refreshTokensMap:${data.iv}`]: data.refreshToken })
+      .patch({ [`refreshTokensMap:${data.timestamp}`]: data.refreshToken })
   }
 
   static _GetRefreshTokensCount (userId) {

@@ -32,8 +32,8 @@ class LoginAction extends BaseAction {
       })
       .then(() => makeRefreshTokenService(userEntity))
       .tap(refreshToken => {
-        let iv = refreshToken.split('::')[0]
-        return UserDAO.AddRefreshTokenProcess(+userEntity.id, { iv, refreshToken })
+        let refreshTokenTimestamp = refreshToken.split('.')[0]
+        return UserDAO.AddRefreshTokenProcess(+userEntity.id, { timestamp: refreshTokenTimestamp, refreshToken })
       })
       .then(refreshToken => (data.refreshToken = refreshToken))
       .then(() => res.json({ data, success: true }))
