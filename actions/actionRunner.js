@@ -1,6 +1,8 @@
 const ErrorWrapper = require('../util/ErrorWrapper')
-
-module.exports.actionRunner = (action) => {
+/**
+ * pass req, res, next props to run method and fire it
+ */
+module.exports = action => {
   __typecheck(action, 'Function', true)
 
   return (req, res, next) => {

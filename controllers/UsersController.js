@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const actionRunner = require('../actions/util').actionRunner
+const actionRunner = require('../actions/actionRunner')
 const actions = require('../actions/users')
 const BaseController = require('./BaseController')
 
