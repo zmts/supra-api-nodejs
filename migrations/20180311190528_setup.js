@@ -13,6 +13,7 @@ exports.up = (knex, Promise) => {
 
       table.timestamp('createdAt').defaultTo(knex.fn.now()).notNull()
       table.timestamp('updatedAt').defaultTo(knex.fn.now()).notNull()
+      table.timestamp('lastActivityAt').defaultTo(knex.fn.now()).notNull()
     })
     .createTable('posts', table => {
       table.increments()

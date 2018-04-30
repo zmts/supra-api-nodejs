@@ -93,7 +93,10 @@ class UserDAO extends BaseDAO {
 
     return this.query()
       .findById(userId)
-      .patch({ [`refreshTokensMap:${data.timestamp}`]: data.refreshToken })
+      .patch({
+        [`refreshTokensMap:${data.timestamp}`]: data.refreshToken,
+        lastActivityAt: new Date().toISOString() // on each refresh >> update lastActivityAt date field
+      })
   }
 
   static _GetRefreshTokensCount (userId) {
