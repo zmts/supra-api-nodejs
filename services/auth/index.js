@@ -6,6 +6,7 @@ const parseTokenService = require('./parseTokenService.js')
 const cryptoEncryptService = require('./cryptoEncryptService')
 const cryptoDecryptService = require('./cryptoDecryptService')
 const jwtService = require('./jwtService')
+const isExistRefreshTokenInDb = require('./isExistRefreshTokenInDb')
 
 module.exports = {
   checkPasswordService,
@@ -15,5 +16,6 @@ module.exports = {
   parseTokenService,
   cryptoEncryptService,
   cryptoDecryptService,
-  jwtService
+  jwtService,
+  isExistRefreshTokenInDb
 }

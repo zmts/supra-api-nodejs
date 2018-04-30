@@ -31,11 +31,11 @@ class LoginAction extends BaseAction {
         data.expiresIn = accessTokenObj.expiresIn
       })
       .then(() => makeRefreshTokenService(userEntity))
-      .tap(refreshToken => {
+      .then(refreshToken => {
+        data.refreshToken = refreshToken
         let refreshTokenTimestamp = refreshToken.split('.')[0]
-        return UserDAO.AddRefreshTokenProcess(+userEntity.id, { timestamp: refreshTokenTimestamp, refreshToken })
+        return UserDAO.AddRefreshTokenProcess(userEntity, { timestamp: refreshTokenTimestamp, refreshToken })
       })
-      .then(refreshToken => (data.refreshToken = refreshToken))
       .then(() => res.json({ data, success: true }))
       .catch(error => next(error))
   }

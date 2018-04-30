@@ -19,7 +19,7 @@ class UserDAO extends BaseDAO {
     json = super.$formatJson(json)
 
     delete json.passwordHash
-    delete json.refreshTokensMap
+    // delete json.refreshTokensMap
     delete json.tokenReset
     delete json.avatar
 
@@ -63,21 +63,18 @@ class UserDAO extends BaseDAO {
       .patch({ refreshTokensMap: raw('?? - ?', 'refreshTokensMap', refreshTokenTimestamp) })
   }
 
-  static AddRefreshTokenProcess (userId, data) {
-    __typecheck(userId, 'Number', true)
+  static AddRefreshTokenProcess (userEntity, data) {
+    __typecheck(userEntity, 'Object', true)
     __typecheck(data, 'Object', true)
     __typecheck(data.timestamp, 'String', true)
     __typecheck(data.refreshToken, 'String', true)
 
-    return this._GetRefreshTokensCount(userId)
-      .then(count => {
-        if (count === 5) { // user can have only 5 sessions(refresh tokens)
-          return this._ClearRefreshTokensList(userId)
-            .then(() => this._AddRefreshToken(userId, data))
-            .catch(error => { throw error })
-        }
-        return this._AddRefreshToken(userId, data)
-      })
+    if (this._isValidRefreshTokensCount(userEntity)) {
+      return this._AddRefreshToken(userEntity.id, data)
+    }
+    return this._ClearRefreshTokensList(userEntity.id)
+        .then(() => this._AddRefreshToken(userEntity.id, data))
+        .catch(error => { throw error })
   }
 
   /**
@@ -95,11 +92,11 @@ class UserDAO extends BaseDAO {
       .findById(userId)
       .patch({
         [`refreshTokensMap:${data.timestamp}`]: data.refreshToken,
-        lastActivityAt: new Date().toISOString() // on each refresh >> update lastActivityAt date field
+        lastActivityAt: new Date().toISOString() // on each refresh >> update lastActivityAt field
       })
   }
 
-  static _GetRefreshTokensCount (userId) {
+  static _GetRefreshTokensCount (userId) { // test TODO remove it
     __typecheck(userId, 'Number', true)
 
     return this.query()
@@ -115,6 +112,16 @@ class UserDAO extends BaseDAO {
     __typecheck(userId, 'Number', true)
 
     return this.query().findById(userId).patch({ refreshTokensMap: {} })
+  }
+
+  /**
+   * user can have max 5 sessions(refresh tokens)
+   */
+  static _isValidRefreshTokensCount (userEntity) {
+    __typecheck(userEntity, 'Object', true)
+
+    let count = Object.keys(userEntity.refreshTokensMap).length
+    return count <= 5
   }
 }
 
