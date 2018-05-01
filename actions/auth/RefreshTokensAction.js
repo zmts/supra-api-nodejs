@@ -23,7 +23,6 @@ class RefreshTokensAction extends BaseAction {
     let userEntity = {}
     let responseData = { accessToken: '', refreshToken: '', expiresIn: 0 }
 
-    // TODO refact, make less DB queries
     this.validate(req, this.validationRules)
       .then(() => cryptoDecryptService(reqRefreshToken)) // decode refresh token taken from request
       .then(decodedRefToken => {
