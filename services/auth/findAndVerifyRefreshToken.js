@@ -22,7 +22,7 @@ module.exports = (user, reqRefreshToken, decodedRefreshToken) => {
     if (existingUserTokenFromDb !== reqRefreshToken) return reject(new ErrorWrapper({ ...errorCodes.BAD_REFRESH_TOKEN }))
     return jwtService.verify(decodedRefreshToken, SECRET)
       .then(() => resolve())
-      .catch((error) => {
+      .catch(() => {
         return reject(new ErrorWrapper({ ...errorCodes.TOKEN_EXPIRED }))
       })
   })
