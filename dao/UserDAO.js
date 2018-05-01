@@ -1,5 +1,5 @@
 const BaseDAO = require('./BaseDAO')
-const { ref, raw } = require('objection')
+const { raw } = require('objection')
 
 class UserDAO extends BaseDAO {
   static get tableName () {
@@ -42,19 +42,6 @@ class UserDAO extends BaseDAO {
       }).catch(error => { throw error })
   }
 
-  static GetRefreshToken (userId, refreshTokenTimestamp) {
-    __typecheck(userId, 'Number', true)
-    __typecheck(refreshTokenTimestamp, 'String', true)
-
-    return this.query()
-      .findById(userId)
-      .select(ref(`refreshTokensMap:${refreshTokenTimestamp}`).castJson().as('refreshToken'))
-      .then(data => {
-        if (!data.refreshToken) throw this.errorEmptyResponse()
-        return data.refreshToken
-      }).catch(error => { throw error })
-  }
-
   static RemoveRefreshToken (userId, refreshTokenTimestamp) {
     __typecheck(userId, 'Number', true)
     __typecheck(refreshTokenTimestamp, 'String', true)
@@ -94,18 +81,6 @@ class UserDAO extends BaseDAO {
         [`refreshTokensMap:${data.timestamp}`]: data.refreshToken,
         lastActivityAt: new Date().toISOString() // on each refresh >> update lastActivityAt field
       })
-  }
-
-  static _GetRefreshTokensCount (userId) { // test TODO remove it
-    __typecheck(userId, 'Number', true)
-
-    return this.query()
-      .findById(userId)
-      .select('refreshTokensMap')
-      .then(data => {
-        if (!data) throw this.errorEmptyResponse()
-        return Object.keys(data.refreshTokensMap).length
-      }).catch(error => { throw error })
   }
 
   static _ClearRefreshTokensList (userId) {

@@ -2,7 +2,7 @@ const Joi = require('joi')
 
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
-const { cryptoDecryptService, parseTokenService, jwtService, makeAccessTokenService, makeRefreshTokenService } = require('../../services/auth')
+const { cryptoDecryptService, parseTokenService, jwtService, makeAccessTokenService, makeRefreshTokenService, findAndVerifyRefreshToken } = require('../../services/auth')
 const ErrorWrapper = require('../../util/ErrorWrapper')
 const errorCodes = require('../../config/errorCodes')
 
@@ -19,36 +19,24 @@ class RefreshTokensAction extends BaseAction {
   }
 
   static run (req, res, next) {
-    let refreshToken = req.body['refreshToken']
-    let refreshTokenTimestamp = refreshToken.split('.')[0]
+    let reqRefreshToken = req.body['refreshToken']
+    let refreshTokenTimestamp = reqRefreshToken.split('.')[0]
     let decodedRefreshToken = ''
-    let parsedRefreshTokenData = {}
 
     let userEntity = {}
     let responseData = { accessToken: '', refreshToken: '', expiresIn: 0 }
 
     // TODO refact, make less DB queries
     this.validate(req, this.validationRules)
-      .then(() => cryptoDecryptService(refreshToken)) // decode refresh token taken from request
+      .then(() => cryptoDecryptService(reqRefreshToken)) // decode refresh token taken from request
       .then(decodedRefToken => {
         decodedRefreshToken = decodedRefToken
         return parseTokenService(decodedRefToken) // parse refresh token data (taken from request)
       })
-      .then(refreshTokenData => {
-        parsedRefreshTokenData = refreshTokenData
-        return UserDAO.GET_BY_ID(+refreshTokenData.sub) // get user entity from DB
-      })
-      .then(user => (userEntity = user))
-      .then(() => UserDAO.GetRefreshToken(+parsedRefreshTokenData.sub, refreshTokenTimestamp)) // get refresh token from DB by userId and refreshTokenTimestamp
-      .then(refreshTokenFromDB => {
-        if (refreshTokenFromDB === refreshToken) { // compare refresh token from DB and refresh token from request
-          return jwtService.verify(decodedRefreshToken, SECRET) // verify refresh token
-            .catch(error => {
-              UserDAO.RemoveRefreshToken(+userEntity.id, refreshTokenTimestamp) // if not valid >> remove old refresh token
-              throw error
-            })
-        }
-        throw new ErrorWrapper({ ...errorCodes.BAD_REFRESH_TOKEN })
+      .then(refreshTokenData => UserDAO.GET_BY_ID(+refreshTokenData.sub)) // get user entity from DB
+      .then(user => {
+        userEntity = user
+        return findAndVerifyRefreshToken(userEntity, reqRefreshToken, decodedRefreshToken)
       })
       .then(() => makeAccessTokenService(userEntity))
       .then(accessTokenObj => {
@@ -63,7 +51,12 @@ class RefreshTokensAction extends BaseAction {
         return UserDAO.AddRefreshTokenProcess(userEntity, { timestamp: refreshTokenTimestamp, refreshToken: newRefreshToken }) // store new refresh token to DB
       })
       .then(() => res.json({ data: responseData, success: true }))
-      .catch(error => next(error))
+      .catch(error => {
+        next(error)
+        if (error.code === errorCodes.TOKEN_EXPIRED.code) {
+          return UserDAO.RemoveRefreshToken(+userEntity.id, refreshTokenTimestamp) // if not valid >> remove old refresh token
+        }
+      })
   }
 }
 

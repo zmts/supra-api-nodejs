@@ -15,7 +15,7 @@ class TestRefreshTokenAction extends BaseAction {
 
   static run (req, res, next) {
     this.validate(req, this.validationRules)
-      .then(() => UserDAO._GetRefreshTokensCount(1))
+      .then(() => 'test')
       .then(data => res.json({ data, success: true }))
       .catch(error => next(error))
   }

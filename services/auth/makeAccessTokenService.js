@@ -3,6 +3,7 @@ const cryptoEncryptService = require('./cryptoEncryptService')
 const parseTokenService = require('./parseTokenService')
 
 const SECRET = require('../../config').token.access
+const expiresIn = require('../../config').token.accessExpiresIn
 
 /**
  * @return {Promise} { accessToken: string, expiresIn: Number }
@@ -20,8 +21,8 @@ module.exports = userEntity => {
 
     options: {
       algorithm: 'HS512',
-      expiresIn: '1m',
-      subject: userEntity.id.toString()
+      subject: userEntity.id.toString(),
+      expiresIn
     }
   }
 

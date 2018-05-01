@@ -2,6 +2,7 @@ const jwtService = require('./jwtService')
 const cryptoEncryptService = require('./cryptoEncryptService')
 
 const SECRET = require('../../config').token.refresh
+const expiresIn = require('../../config').token.refreshExpiresIn
 
 /**
  * @return {Promise} string
@@ -17,8 +18,8 @@ module.exports = userEntity => {
 
     options: {
       algorithm: 'HS512',
-      expiresIn: '60m',
-      subject: userEntity.id.toString()
+      subject: userEntity.id.toString(),
+      expiresIn
     }
   }
 
