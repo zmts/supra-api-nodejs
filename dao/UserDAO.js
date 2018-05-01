@@ -60,8 +60,8 @@ class UserDAO extends BaseDAO {
       return this._AddRefreshToken(userEntity.id, data)
     }
     return this._ClearRefreshTokensList(userEntity.id)
-        .then(() => this._AddRefreshToken(userEntity.id, data))
-        .catch(error => { throw error })
+      .then(() => this._AddRefreshToken(userEntity.id, data))
+      .catch(error => { throw error })
   }
 
   /**
