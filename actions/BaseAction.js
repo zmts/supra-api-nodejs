@@ -1,6 +1,7 @@
 const Joi = require('joi')
 
 const securityModule = require('../services/security')
+const queryResolverService = require('../services/queryResolverService.js')
 
 /**
  * @description base action
@@ -56,6 +57,12 @@ class BaseAction {
         .then(result => resolve(result))
         .catch(error => reject(error))
     })
+  }
+
+  static queryResolver (config) {
+    __typecheck(config, 'Object', true)
+
+    return queryResolverService(config)
   }
 
   /**

@@ -19,6 +19,13 @@ class ListAction extends BaseAction {
     }
   }
 
+  static get queryConfig () {
+    return {
+      limit: 20,
+      orderBy: 'name:asc'
+    }
+  }
+
   static run (req, res, next) {
     req.meta = { user: { role: 'editor' } } // temp mock data
 
