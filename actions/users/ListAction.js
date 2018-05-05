@@ -22,7 +22,10 @@ class ListAction extends BaseAction {
   static get queryConfig () {
     return {
       limit: 20,
-      orderBy: 'name:asc'
+      orderBy: 'name:asc',
+      filter: {
+        // todo
+      }
     }
   }
 
