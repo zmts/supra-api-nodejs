@@ -14,7 +14,6 @@ const Model = require('objection').Model
 const Knex = require('knex')
 
 const controllers = require('./controllers')
-const registry = require('./registry')
 const corsMiddleware = require('./middlewares/corsMiddleware')
 const devErrorMiddleware = require('./middlewares/error/devErrorMiddleware')
 const prodErrorMiddleware = require('./middlewares/error/prodErrorMiddleware')
@@ -23,7 +22,6 @@ class App {
   constructor () {
     this.express = express()
 
-    this.initRegistry()
     this.initDbConnection()
     this.middleware()
 
@@ -51,10 +49,6 @@ class App {
 
   initRoutes () {
     this.express.use(controllers)
-  }
-
-  initRegistry () {
-    registry.set('user', {})
   }
 
   setDefaultErrorMiddlewares () {

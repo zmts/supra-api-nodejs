@@ -4,12 +4,10 @@ const router = express.Router()
 const AuthController = require('./AuthController')
 const PostsController = require('./PostsController')
 const UsersController = require('./UsersController')
+const checkAccessTokenMiddleware = require('../middlewares/checkAccessTokenMiddleware')
 
-// auth middleware
-router.use((req, res, next) => {
-  // check token
-  next()
-})
+// default auth middleware
+router.use(checkAccessTokenMiddleware)
 
 router.get('/', (req, res) => {
   res.json({ success: true, message: '(>___<)' })
