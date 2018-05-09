@@ -70,9 +70,7 @@ class BaseDAO extends Model {
       .then(data => {
         if (!data.length) throw this.errorEmptyResponse()
         return data
-      }).catch(error => {
-        throw this.errorWrapper({ message: error.message })
-      })
+      }).catch(error => { throw error })
   }
 
   static GET_BY_ID (id) {
@@ -82,9 +80,7 @@ class BaseDAO extends Model {
       .then(data => {
         if (!data) throw this.errorEmptyResponse()
         return data
-      }).catch(error => {
-        throw this.errorWrapper({ message: error.message })
-      })
+      }).catch(error => { throw error })
   }
 
   static UPDATE (id, data) {

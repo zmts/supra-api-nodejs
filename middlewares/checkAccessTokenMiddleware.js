@@ -12,10 +12,17 @@ module.exports = (req, res, next) => {
       .then(tokenData => {
         registry.setCurrentUser(tokenData)
         next()
-      })
-      .catch(error => {
-        if (error.code === errorCodes.TOKEN_EXPIRED.code) return next()
-        next(error)
+      }).catch(error => {
+        if (error.code === errorCodes.TOKEN_EXPIRED.code) {
+          /**
+           * pass request if token is not valid
+           * in that case current user data in registry will be empty
+           * and security service will be consider that request as guest request
+           */
+          next()
+        } else {
+          next(error)
+        }
       })
   }
   next()
