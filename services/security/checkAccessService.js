@@ -1,18 +1,31 @@
 const ErrorWrapper = require('../../util/ErrorWrapper')
-const errorCodes = require('../../config/errorCodes')
+const errorCodes = require('../../config').errorCodes
+
+const permissions = require('../../config').permissions
+const roles = require('../../config').roles
+const registry = require('../../registry')
 
 /**
  * @description check action permissions
- * @param {Object} user
- * @param {Object} permissions
+ * @param {String} accessTag
  */
-module.exports = (user, permissions) => {
-  __typecheck(user, 'Object', true)
-  __typecheck(permissions, 'Object', true)
+module.exports = accessTag => {
+  __typecheck(accessTag, 'String', true)
+
+  let user = registry.getCurrentUser()
 
   return new Promise((resolve, reject) => {
-    if (user.isOwner) return resolve()
-    if (permissions[user.role]) return resolve()
+    // validate role type
+    if (!Object.values(roles).some(item => item === user.role)) {
+      return reject(new ErrorWrapper({ ...errorCodes.BAD_ROLE }))
+    }
+    // pass owner TODO
+    // if (user.isOwner) return resolve()
+    // pass superadmin
+    if (user.role === roles.superadmin) return resolve()
+    // check other roles
+    if (permissions[user.role].includes(accessTag)) return resolve()
+    // else reject
     return reject(new ErrorWrapper({ ...errorCodes.ACCESS }))
   })
 }

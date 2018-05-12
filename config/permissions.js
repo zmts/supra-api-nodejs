@@ -1,25 +1,29 @@
-module.exports = { // TODO
-  superadmin: {
-    //
-  },
+const roles = require('./roles')
 
-  admin: {
-    //
-  },
+module.exports = {
+  [roles.superadmin]: [
+    // [roles.superadmin] have all permissions
+    // so we don't need to list it
+    // just check [roles.superadmin] in checkAccessService
+  ],
 
-  moderator: {
-    //
-  },
+  [roles.admin]: [
+    'posts:list'
+  ],
 
-  editor: {
-    //
-  },
+  [roles.moderator]: [
+    'posts:list'
+  ],
 
-  user: {
-    //
-  },
+  [roles.editor]: [
+    'posts:list'
+  ],
 
-  guest: {
+  [roles.user]: [
+    'posts:list'
+  ],
+
+  [roles.guest]: [
     //
-  }
+  ]
 }

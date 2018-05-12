@@ -1,7 +1,7 @@
 const { cryptoDecryptService, jwtService } = require('../services/auth')
 const SECRET = require('../config').token.access
 const registry = require('../registry')
-const errorCodes = require('../config/errorCodes')
+const errorCodes = require('../config').errorCodes
 
 module.exports = (req, res, next) => {
   let token = req.headers['token']
@@ -13,6 +13,8 @@ module.exports = (req, res, next) => {
         registry.setCurrentUser(tokenData)
         next()
       }).catch(error => {
+        registry.resetCurrentUser()
+
         if (error.code === errorCodes.TOKEN_EXPIRED.code) {
           /**
            * pass request if token is not valid

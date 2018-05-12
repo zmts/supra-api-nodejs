@@ -1,3 +1,5 @@
+const roles = require('./config').roles
+
 class Registry {
   constructor () {
     this._registry = new Map()
@@ -20,7 +22,7 @@ class Registry {
     return this._registry.get('user') || {
       id: null,
       name: null,
-      role: null,
+      role: roles.guest,
       email: null,
       expiresIn: null
     }
@@ -36,6 +38,10 @@ class Registry {
       email: user.email,
       expiresIn: user.exp
     })
+  }
+
+  resetCurrentUser () {
+    this._registry.set('user', null)
   }
 
   list () {

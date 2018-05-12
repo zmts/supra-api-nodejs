@@ -71,11 +71,10 @@ class BaseAction {
    * ------------------------------
    */
 
-  static checkAccess (user, permissions) {
-    __typecheck(user, 'Object', true)
-    __typecheck(permissions, 'Object', true)
+  static checkAccess (accessTag) {
+    __typecheck(accessTag, 'String', true)
 
-    return securityModule.checkAccessService(user, permissions)
+    return securityModule.checkAccessService(accessTag)
   }
 
   static isLoggedIn (user) {

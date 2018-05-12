@@ -5,7 +5,7 @@ exports.up = (knex, Promise) => {
       table.string('username', 25).unique().notNull()
       table.string('name', 50)
       table.string('email', 50).unique().notNull()
-      table.string('role').defaultTo('user').notNull()
+      table.string('role').defaultTo('ROLE_USER').notNull()
 
       table.text('passwordHash').notNull()
       table.jsonb('refreshTokensMap').defaultTo('{}')
