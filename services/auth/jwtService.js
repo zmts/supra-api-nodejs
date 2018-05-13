@@ -5,7 +5,7 @@ const errorCodes = require('../../config/errorCodes')
 /**
  * @return {Promise} true/Error
  */
-module.exports.verify = (token, SECRET) => { // TODO test it
+module.exports.verify = (token, SECRET) => {
   __typecheck(token, 'String', true)
   __typecheck(SECRET, 'String', true)
 

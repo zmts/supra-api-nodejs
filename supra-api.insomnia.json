@@ -1,8 +1,8 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-04-10T09:43:25.832Z",
-	"__export_source": "insomnia.desktop.app:v5.15.0",
+	"__export_date": "2018-05-13T17:28:36.517Z",
+	"__export_source": "insomnia.desktop.app:v5.16.2",
 	"resources": [
 		{
 			"_id": "wrk_f41ba130885b45bbb5fc2d2f5eb34d99",
@@ -76,8 +76,8 @@
 			"isPrivate": false,
 			"metaSortKey": -1514668005856,
 			"method": "GET",
-			"modified": 1520872565702,
-			"name": "users/",
+			"modified": 1526232076148,
+			"name": "list",
 			"parameters": [],
 			"parentId": "fld_56874bbff37e40e0a7e2976f04a0da7a",
 			"settingDisableRenderRequestBody": false,
@@ -93,7 +93,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"name\": \"alex test password\",\n\t\"username\": \"alex11\",\n\t\"email\": \"alex@gmail.com11\",\n\t\"password\": \"123456\"\n}"
+				"text": "{\n\t\"name\": \"alex\",\n\t\"username\": \"alexname\",\n\t\"email\": \"alex@gmail.com\",\n\t\"password\": \"123456\"\n}"
 			},
 			"created": 1514671149530,
 			"description": "",
@@ -105,10 +105,10 @@
 				}
 			],
 			"isPrivate": false,
-			"metaSortKey": -1505878053737.5,
+			"metaSortKey": -1514668005906,
 			"method": "POST",
-			"modified": 1523280019499,
-			"name": "users/",
+			"modified": 1526232071708,
+			"name": "create",
 			"parameters": [],
 			"parentId": "fld_56874bbff37e40e0a7e2976f04a0da7a",
 			"settingDisableRenderRequestBody": false,
@@ -129,8 +129,8 @@
 			"isPrivate": false,
 			"metaSortKey": -1510273029796.75,
 			"method": "GET",
-			"modified": 1523283920923,
-			"name": "users/:id",
+			"modified": 1526232081100,
+			"name": "get by id",
 			"parameters": [],
 			"parentId": "fld_56874bbff37e40e0a7e2976f04a0da7a",
 			"settingDisableRenderRequestBody": false,
@@ -160,8 +160,8 @@
 			"isPrivate": false,
 			"metaSortKey": -1501483077678.25,
 			"method": "PATCH",
-			"modified": 1523277969437,
-			"name": "users/",
+			"modified": 1526232085996,
+			"name": "update",
 			"parameters": [],
 			"parentId": "fld_56874bbff37e40e0a7e2976f04a0da7a",
 			"settingDisableRenderRequestBody": false,
@@ -178,12 +178,19 @@
 			"body": {},
 			"created": 1523024357966,
 			"description": "",
-			"headers": [],
+			"headers": [
+				{
+					"disabled": false,
+					"id": "pair_d88fa982d57f45029a6cc6981715ce61",
+					"name": "token",
+					"value": "1526216874268.10051a4bd9cbe96cf5faa233d8cb5a0e::5d60df03d84d77734e645469b838b70d91fde33356c117dce376f773be8cf7ada7ed2abcfb166f8faa1364464dcb005790664ec8a0722c31133f235ccb859be56aedb138ca60dccf422a1b88b2bbae65dfb3d12b0dd7354967802616ca2bca531737b6f11eaed64aeeaf712a37b832e55704563c48cac2cca13f3af9f8498911f61c0e8cb933d929ca7e08057cbc452c0bf7c42dd1e6e2e4c6be8ab016ac248d1a090b724fd6c93df55366a385db102902f6ef05410d76ea58eb1c492e5bef9b59b8313d4a9cd30166f6e8f1380f8c49ad4e9cf96dc966aca903d90887055866d55b1d97d6f3145f9b5cc62e15ed2f5a0c01d644f31c4bda415222ab0ee2e0054ca04f0542bd2cc972d0913afd22f74d2d5ac59914d1f12533684fd1878c52ebc377f9f752988f1a0c9e978a0c00c4c6"
+				}
+			],
 			"isPrivate": false,
 			"metaSortKey": -1520973267398.75,
 			"method": "GET",
-			"modified": 1523024392855,
-			"name": "posts/",
+			"modified": 1526232045812,
+			"name": "list",
 			"parameters": [],
 			"parentId": "fld_0fca7190f61e41db9af211baa82531bf",
 			"settingDisableRenderRequestBody": false,
@@ -192,6 +199,108 @@
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
 			"url": "localhost:4000/posts",
+			"_type": "request"
+		},
+		{
+			"_id": "req_3a9dac7781b64e10bd56142483a736d5",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"title\": \"hello\",\n\t\"content\": \"ololoooo\"\n}"
+			},
+			"created": 1526207121804,
+			"description": "",
+			"headers": [
+				{
+					"disabled": false,
+					"id": "pair_d88fa982d57f45029a6cc6981715ce61",
+					"name": "token",
+					"value": "1526224681582.d90bad6772048fa35c832239241ec0b7::01f35ed6300b22b2b5cb1b4dcd4a472fe33d04903422e988cd97c6a0b2ea4177c1b7c7b87d9e8045e285841a065bb4775a9746c71a6a1f1303d23cf59a36a6c2632606dfe6e0237e60138aee622a0d54e88d310a5c4f05f8da34fd46fc7dc451e1993aee3b275e95824e2a37f0bc8fc0d93394536d2192e0e1d8341f79e8b6b0f83cabfdb71e0ce617495bbac1d0cac03431b4b766b21adb03c2adff313bcd94f470c947e583c79a2961e6fb75c0fe08f77a3dc97a4ea403ce0428a2701b4739bc0b9a59b3f887e9e1983f3a9fa5de42bf01f6c84cc0141f4a50411a8d777cce32c3840caa60a94f6ddb5e62fccc5a7362cac3d0f30fac467b4dce2434b850f52d432643122f2c7c7e05625c7c1cef2b27703af8e4b84df3d0a6918e08258873180238d907079a288efd7cab9e0be300"
+				},
+				{
+					"id": "pair_cb6d7a21ccfe4ba192a9015a477ad2cf",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1520973267448.75,
+			"method": "POST",
+			"modified": 1526232040749,
+			"name": "create",
+			"parameters": [],
+			"parentId": "fld_0fca7190f61e41db9af211baa82531bf",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "localhost:4000/posts",
+			"_type": "request"
+		},
+		{
+			"_id": "req_e97d64d22ac045c4b79d8c33314e68e7",
+			"authentication": {},
+			"body": {},
+			"created": 1526207143474,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_d88fa982d57f45029a6cc6981715ce61",
+					"name": "token",
+					"value": "1526221774594.702e0e3a340c54ea40bfd77a09dade1e::0cd89f1f4d2b6bb3f8aba5ec931dfa5f3ca15b0ae40c85ed83c2f7ad25bd2a26353fca7768c752e81a564e47cad18cb6707d79634e5010099e68b1a4bf7b5ab58562e11069e208209c5da760969682a185fd7f1c298a96e3ca23713f5f2e3ca017c4dabc399525b3ea1415dddfe2cf59205e8b6a66ebaf4e9f36b624b815ce2d44d87e004407358adfb739bd274ad1fcd2cafd1b3627672c178f30088135cedee48a602a1fd6e749e1da4565007b3de09188075cf2a85ab149989bfdc499c0fd9cc671af99827d63f1f0b2c1c929ee362b057fd789b31c97ec03741fc975b01bedb26c06ff1139111cd3d5b84a5e9a23b4e2ac993f2916c3e1eae5bc77bd8dc4f43d87105fba2d4d0f69fa2484f8f9e0be8d203d5f8fa4e3f2ed6cf3c7a4cb971564773fe50ddbb488d47850cd38de6d"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1520759908975.375,
+			"method": "GET",
+			"modified": 1526232051276,
+			"name": "get by id",
+			"parameters": [],
+			"parentId": "fld_0fca7190f61e41db9af211baa82531bf",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "localhost:4000/posts/1",
+			"_type": "request"
+		},
+		{
+			"_id": "req_15e8eefe7d5d4c7a9b1c8ab3bf16ac3e",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"title\": \"new!!!\"\n}"
+			},
+			"created": 1526217692296,
+			"description": "",
+			"headers": [
+				{
+					"disabled": false,
+					"id": "pair_d88fa982d57f45029a6cc6981715ce61",
+					"name": "token",
+					"value": "1526217818420.5f4138c8a527f4e25120b83e49e8928d::6d6ea2b6ad88c9ac05a4438f50a5b300f6a54828d8225d3d440d030df06937531d47320c6fe864e663a69a8ca637c4abeba205a59c68c0ce44bb756e319f21e1e156db97f0886b1caa61be1466125ed2c2a5e938af327f22012c675aa72c2082f99e06ccfc6b9aae0d76a3584b0e40490ff340139894a6c7afcf53493a44a27cc759b99bc47387025fcccccf9bd2e109e18ce3917dc6b8dfd1474caa9e4d8c6a9c788c51eb9609d2657d3f0adc334a2d63c52cb5b1b0ded42076e26951e9f27ee7b56bc3c4d43c9e286dbbae5468d107eee507152fb9f6609d52fff407841bf3ad3b49ddff67bc3b1f8ae26e2f4159413e4c1427e79fb79522b3d942bf67a09551db2c21df6c96977da0fc847694bc3f893d7e13a28a194e862f3a7740b4542840e56ae24de1ed420824e546c7be357f"
+				},
+				{
+					"id": "pair_a199b49f40db4257a649f2bbb4cc1d34",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1520653229763.6875,
+			"method": "PATCH",
+			"modified": 1526232059620,
+			"name": "update",
+			"parameters": [],
+			"parentId": "fld_0fca7190f61e41db9af211baa82531bf",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "localhost:4000/posts/1",
 			"_type": "request"
 		},
 		{
@@ -213,7 +322,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1523073923710,
 			"method": "POST",
-			"modified": 1523353292863,
+			"modified": 1523360856437,
 			"name": "auth/login",
 			"parameters": [],
 			"parentId": "fld_ea6e1c87f6be446ca026f3f945a3ceb9",
@@ -230,7 +339,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"refreshToken\": \"123456\"\n}"
+				"text": "{\n\t\"refreshToken\":\"1525191140304.a452a9bf5500980cdcc09bae4b714995::fa81b35c49a58cb0513245069e4071606092126c30fe7ff9184790fa6b080db63c6981dda770ae780736b97ba742c4904306697656f493df04245b170a44dbcafe96ec54110033aa0ac37dc9e316cc90b427a53f2a3f6536701e12ea8d39a4bdf1a4271c0bf058f7cc615c2dfaf1374043b7b7e9ef26365adc2c9a5e8f94baf09ee8b6ac0c1360893fd9914292930b9eca7af72bbcc53b59c7cb30ffee5f8f885b6e86e85882d2d9131607a945f1bd4528dde56f0a6875ca4c07641bf790b90635c56cea94550c0a69c61230ae2a803c9c7f130f86cb225aad4c8ce5a66635c90d122488f1854d5bad63942fa778226922bb406bce3728fd16ed91c2a4c540f0\"\n}"
 			},
 			"created": 1523353281442,
 			"description": "",
@@ -244,7 +353,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1523073923660,
 			"method": "POST",
-			"modified": 1523353351900,
+			"modified": 1525200840198,
 			"name": "auth/refresh-tokens",
 			"parameters": [],
 			"parentId": "fld_ea6e1c87f6be446ca026f3f945a3ceb9",
@@ -254,6 +363,34 @@
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
 			"url": "localhost:4000/auth/refresh-tokens",
+			"_type": "request"
+		},
+		{
+			"_id": "req_a49c055117584d98becd29b90522ac9c",
+			"authentication": {},
+			"body": {},
+			"created": 1523460418686,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_9e7b57574a2a4337b8f5c9caef2163d8",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1523460418686,
+			"method": "GET",
+			"modified": 1523733576315,
+			"name": "auth/test-refresh-token",
+			"parameters": [],
+			"parentId": "fld_ea6e1c87f6be446ca026f3f945a3ceb9",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "localhost:4000/auth/test-refresh-token/",
 			"_type": "request"
 		}
 	]
