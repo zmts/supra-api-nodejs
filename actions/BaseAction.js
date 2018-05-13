@@ -1,7 +1,7 @@
 const Joi = require('joi')
 
 const securityModule = require('../services/security')
-const queryResolverService = require('../services/queryResolverService.js')
+const queryResolverService = require('../services/queryResolverService')
 
 /**
  * @description base action
@@ -71,26 +71,25 @@ class BaseAction {
    * ------------------------------
    */
 
+  // use with all actions by default
   static checkAccessByTag (accessTag) {
     __typecheck(accessTag, 'String', true)
 
     return securityModule.checkAccessByTagService(accessTag)
   }
 
+  // use with PATCH, DELETE
   static checkAccessByOwnerId (model) {
     __typecheck(model, 'Object', true)
 
     return securityModule.checkAccessByOwnerIdService(model)
   }
 
+  // use with GET
   static checkAccessToPrivateItem (model) {
     __typecheck(model, 'Object', true)
 
     return securityModule.checkAccessToPrivateItem(model)
-  }
-
-  static isLoggedIn () {
-    return securityModule.isLoggedInService()
   }
 }
 

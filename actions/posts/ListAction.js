@@ -2,9 +2,6 @@ const Joi = require('joi')
 const BaseAction = require('../BaseAction')
 const PostDAO = require('../../dao/PostDAO')
 
-/**
- * @description return users list
- */
 class ListAction extends BaseAction {
   static get accessTag () {
     return 'posts:list'

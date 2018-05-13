@@ -1,4 +1,6 @@
 const roles = require('./config').roles
+const ErrorWrapper = require('./util/ErrorWrapper')
+const errorCodes = require('./config').errorCodes
 
 class Registry {
   constructor () {
@@ -30,6 +32,7 @@ class Registry {
 
   setCurrentUser (user) {
     __typecheck(user, 'Object', true)
+    this.validateUserRole(user.userRole)
 
     this._registry.set('user', {
       id: +user.sub,
@@ -42,6 +45,13 @@ class Registry {
 
   resetCurrentUser () {
     this._registry.set('user', null)
+  }
+
+  validateUserRole (userRole) {
+    // throw error if user role type not exist
+    if (!Object.values(roles).some(item => item === userRole)) {
+      throw new ErrorWrapper({ ...errorCodes.BAD_ROLE })
+    }
   }
 
   list () {

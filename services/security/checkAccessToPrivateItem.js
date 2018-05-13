@@ -3,7 +3,6 @@ const errorCodes = require('../../config').errorCodes
 
 const roles = require('../../config').roles
 const registry = require('../../registry')
-const validateRoleType = require('./util').validateRoleType
 
 /**
  * @description to private item have access only owner and superadmin
@@ -16,7 +15,6 @@ module.exports = model => {
   let user = registry.getCurrentUser()
 
   return new Promise((resolve, reject) => {
-    validateRoleType(reject)
     // pass to superadmin
     if (user.role === roles.superadmin) return resolve(model)
     // anyway pass to owner
