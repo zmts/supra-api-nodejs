@@ -1,3 +1,5 @@
+const roles = require('../config').roles
+
 exports.up = (knex, Promise) => {
   return knex.schema
     .createTable('users', table => {
@@ -5,7 +7,7 @@ exports.up = (knex, Promise) => {
       table.string('username', 25).unique().notNull()
       table.string('name', 50)
       table.string('email', 50).unique().notNull()
-      table.string('role').defaultTo('ROLE_USER').notNull()
+      table.string('role').defaultTo(roles.user).notNull()
 
       table.text('passwordHash').notNull()
       table.jsonb('refreshTokensMap').defaultTo('{}')
