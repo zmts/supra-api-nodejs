@@ -8,31 +8,19 @@ module.exports = {
   ],
 
   [roles.admin]: [
-    'posts:list',
-    'posts:create',
-    'posts:update',
-    'posts:get-by-id'
+    'posts:all'
   ],
 
   [roles.moderator]: [
-    'posts:list',
-    'posts:create',
-    'posts:update',
-    'posts:get-by-id'
+    'posts:all'
   ],
 
   [roles.editor]: [
-    'posts:list',
-    'posts:create',
-    'posts:update',
-    'posts:get-by-id'
+    'posts:all'
   ],
 
   [roles.user]: [
-    'posts:list',
-    'posts:create',
-    'posts:update',
-    'posts:get-by-id'
+    'posts:all'
   ],
 
   [roles.anonymous]: [
