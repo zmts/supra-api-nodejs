@@ -33,7 +33,7 @@ class ListAction extends BaseAction {
     req.meta = { user: { role: 'editor' } } // temp mock data
 
     this.validate(req, this.validationRules)
-      .then(() => this.checkAccess(req.meta.user, this.permissions))
+      .then(() => this.checkAccessByTag(req.meta.user, this.permissions))
       .then(() => UserDAO.GET_LIST())
       .then(data => res.json({ data, success: true }))
       .catch(error => next(error))

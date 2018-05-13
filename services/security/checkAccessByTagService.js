@@ -4,9 +4,10 @@ const errorCodes = require('../../config').errorCodes
 const permissions = require('../../config').permissions
 const roles = require('../../config').roles
 const registry = require('../../registry')
+const validateRoleType = require('./util').validateRoleType
 
 /**
- * @description check action permissions
+ * @description check permissions to action by access tag
  * @param {String} accessTag
  */
 module.exports = accessTag => {
@@ -15,12 +16,7 @@ module.exports = accessTag => {
   let user = registry.getCurrentUser()
 
   return new Promise((resolve, reject) => {
-    // validate role type
-    if (!Object.values(roles).some(item => item === user.role)) {
-      return reject(new ErrorWrapper({ ...errorCodes.BAD_ROLE }))
-    }
-    // pass owner TODO
-    // if (user.isOwner) return resolve()
+    validateRoleType(reject)
     // pass superadmin
     if (user.role === roles.superadmin) return resolve()
     // check other roles

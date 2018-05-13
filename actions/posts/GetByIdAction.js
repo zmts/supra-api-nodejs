@@ -1,31 +1,25 @@
-const Joi = require('joi')
 const BaseAction = require('../BaseAction')
 const PostDAO = require('../../dao/PostDAO')
 
-/**
- * @description return users list
- */
-class ListAction extends BaseAction {
+class GetByIdAction extends BaseAction {
   static get accessTag () {
-    return 'posts:list'
+    return 'posts:get-by-id'
   }
 
   static get validationRules () {
     return {
-      ...this.baseValidationRules,
-      query: Joi.object().keys({
-        q: Joi.string().min(2).max(50)
-      })
+      ...this.baseValidationRules
     }
   }
 
   static run (req, res, next) {
     this.validate(req, this.validationRules)
       .then(() => this.checkAccessByTag(this.accessTag))
-      .then(() => PostDAO.GET_LIST())
+      .then(() => PostDAO.GET_BY_ID(+req.params.id))
+      .then(model => this.checkAccessToPrivateItem(model))
       .then(data => res.json({ data, success: true }))
       .catch(error => next(error))
   }
 }
 
-module.exports = ListAction
+module.exports = GetByIdAction

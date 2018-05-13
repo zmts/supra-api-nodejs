@@ -8,22 +8,35 @@ module.exports = {
   ],
 
   [roles.admin]: [
-    'posts:list'
+    'posts:list',
+    'posts:create',
+    'posts:update',
+    'posts:get-by-id'
   ],
 
   [roles.moderator]: [
-    'posts:list'
+    'posts:list',
+    'posts:create',
+    'posts:update',
+    'posts:get-by-id'
   ],
 
   [roles.editor]: [
-    'posts:list'
+    'posts:list',
+    'posts:create',
+    'posts:update',
+    'posts:get-by-id'
   ],
 
   [roles.user]: [
-    'posts:list'
+    'posts:list',
+    'posts:create',
+    'posts:update',
+    'posts:get-by-id'
   ],
 
-  [roles.guest]: [
-    //
+  [roles.anonymous]: [
+    'posts:list',
+    'posts:get-by-id'
   ]
 }

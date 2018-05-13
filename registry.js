@@ -22,7 +22,7 @@ class Registry {
     return this._registry.get('user') || {
       id: null,
       name: null,
-      role: roles.guest,
+      role: roles.anonymous,
       email: null,
       expiresIn: null
     }

@@ -71,16 +71,26 @@ class BaseAction {
    * ------------------------------
    */
 
-  static checkAccess (accessTag) {
+  static checkAccessByTag (accessTag) {
     __typecheck(accessTag, 'String', true)
 
-    return securityModule.checkAccessService(accessTag)
+    return securityModule.checkAccessByTagService(accessTag)
   }
 
-  static isLoggedIn (user) {
-    __typecheck(user, 'Object', true)
+  static checkAccessByOwnerId (model) {
+    __typecheck(model, 'Object', true)
 
-    return securityModule.isLoggedInService(user)
+    return securityModule.checkAccessByOwnerIdService(model)
+  }
+
+  static checkAccessToPrivateItem (model) {
+    __typecheck(model, 'Object', true)
+
+    return securityModule.checkAccessToPrivateItem(model)
+  }
+
+  static isLoggedIn () {
+    return securityModule.isLoggedInService()
   }
 }
 
