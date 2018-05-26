@@ -17,7 +17,7 @@ class GetByIdAction extends BaseAction {
       .then(() => this.checkAccessByTag(this.accessTag))
       .then(() => PostDAO.GET_BY_ID(+req.params.id))
       .then(model => this.checkAccessToPrivateItem(model))
-      .then(data => res.json({ data, success: true }))
+      .then(model => res.json({ data: model, success: true }))
       .catch(error => next(error))
   }
 }

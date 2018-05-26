@@ -22,7 +22,7 @@ class CreateAction extends BaseAction {
     this.validate(req, this.validationRules)
       .then(() => this.checkAccessByTag(this.accessTag))
       .then(() => PostDAO.CREATE(req.body))
-      .then(data => res.json({ data, success: true }))
+      .then(createdModel => res.json({ data: createdModel, success: true }))
       .catch(error => next(error))
   }
 }
