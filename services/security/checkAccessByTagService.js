@@ -7,6 +7,7 @@ const registry = require('../../registry')
 
 /**
  * @description check permissions to action by access tag
+ * @case uses in each action class
  * @param {String} accessTag
  */
 module.exports = accessTag => {

@@ -5,7 +5,9 @@ const roles = require('../../config').roles
 const registry = require('../../registry')
 
 /**
- * @description model userId must equals current user id
+ * @description model userId === current user id
+ * @access owner, superadmin
+ * @case update or delete model
  * @param {Object} model
  */
 module.exports = model => {

@@ -5,7 +5,10 @@ const roles = require('../../config').roles
 const registry = require('../../registry')
 
 /**
- * @description to private item have access only owner and superadmin
+ * @description check access to model by id
+ * @public_access any user
+ * @private_access owner, superadmin
+ * @case get model by id
  * @param {Object} model
  * @returns {Promise} model
  */
@@ -17,12 +20,12 @@ module.exports = model => {
   return new Promise((resolve, reject) => {
     // pass to superadmin
     if (user.role === roles.superadmin) return resolve(model)
-    // anyway pass to owner
+    // pass to owner
     if (user.id === model.userId) return resolve(model)
-    // pass model to other users if model is public
-    if ((user.id !== model.userId) && !model.private) return resolve(model)
-    // reject if model is private and user don't have access to it
-    if ((user.id !== model.userId) && model.private) {
+    // pass if model is public
+    if (!model.private) return resolve(model)
+    // reject if model is private
+    if (model.private) {
       return reject(new ErrorWrapper({ ...errorCodes.ACCESS, message: `User ${user.id} don't have access to model ${model.id}` }))
     }
     // else reject
