@@ -1,8 +1,8 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-05-13T17:28:36.517Z",
-	"__export_source": "insomnia.desktop.app:v5.16.2",
+	"__export_date": "2018-05-30T21:15:09.170Z",
+	"__export_source": "insomnia.desktop.app:v5.16.6",
 	"resources": [
 		{
 			"_id": "wrk_f41ba130885b45bbb5fc2d2f5eb34d99",
@@ -93,7 +93,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"name\": \"alex\",\n\t\"username\": \"alexname\",\n\t\"email\": \"alex@gmail.com\",\n\t\"password\": \"123456\"\n}"
+				"text": "{\n\t\"name\": \"sergio2\",\n\t\"username\": \"sergioname2\",\n\t\"email\": \"sergio2@gmail.com\",\n\t\"password\": \"123456\"\n}"
 			},
 			"created": 1514671149530,
 			"description": "",
@@ -102,12 +102,18 @@
 					"id": "pair_e7c416562e1245068213855579f31eab",
 					"name": "Content-Type",
 					"value": "application/json"
+				},
+				{
+					"disabled": false,
+					"id": "pair_1ef32b6347a545949b33ee4713f7e7e4",
+					"name": "token",
+					"value": "1527713278404.f193b12e4d7bab2cae3d37619e20b90c::b299a05d02ec7b6c90d2a5d1c4e9070c37394d826fecac00e022fddb762ffddd88a4b32c220ea8c2a8e212e2a2314aa53a834439aeee14072576bdcc9c1a78bb30585cf5d79090fce3b986bf47a314c7253ea991a4e2a558fe566d5d44814b019c5ec64772b6e9fc4913fe4b6e794aa1df5c6f49038a28feb699679b34d9028b9536d1f86816614b9e048c0af918d9aeeece4f5ac536cc9b15b176cec62d648c9fd57dfa5bce580d12aa72c8b2b53aa1c895d582d1c33b885e63d5b7c2f1035325f2382663ec581aa93225fb94deab53291f3781b8c50c6ed7f2b11e531161593d9dab1fd7d0a7d9b32cbc45d0c404e48e8bf713b2ef8a434cf3be9b6ef5a90032652cc8a2580a591e998b24faf17bb2100323bf156d184d0c3afad09dee9741a407e8a71f2e22851cfd080d4d3085e376e23aeaf92fe242175a02264ee5a212"
 				}
 			],
 			"isPrivate": false,
 			"metaSortKey": -1514668005906,
 			"method": "POST",
-			"modified": 1526232071708,
+			"modified": 1527713418252,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_56874bbff37e40e0a7e2976f04a0da7a",
@@ -146,13 +152,20 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"name\": \"alex\"\n}"
+				"text": "{\n\t\"name\": \"alxxxxxxx111\"\n}"
 			},
 			"created": 1523111823002,
 			"description": "",
 			"headers": [
 				{
-					"id": "pair_e7c416562e1245068213855579f31eab",
+					"disabled": false,
+					"id": "pair_78fa7850a2fb4f8889c871bc7ffc3958",
+					"name": "token",
+					"value": "1527712417484.3c3888aa53eee80789b852d12ea267e7::9a0c8d4cfc0f77f33741a792adb9a05263c86ed318d3ec5eee8b1dfbdda4a9f26965e26032a1448ba69080e7f02d3632ac7b17e89ae688e9b4953ae290e79fac8e79535edd96dcd427171b646e61563e99d75a4d12249922b196d9119469f806ba228a1dd214c4977359539e4b2d7a9d7ceb1c12005548cbecd9c2c16c2821d69be2e14ec5595c2b30d16ed4edd2054b3b3f23d1d8c086366eb48c967c873cd7522a942e6b4bd786af61cab5bff3dcc3694353c773ad27b0bd4c3d0677d34ad6623bc9627f200932d55fef89d0fdfe4e7ea1a5785156179b3559dbf27adb802f4c27624b3e2064e15abc1b4c746e375b17a2abd40b0c982a4919f001367cf16d50b88771dd9e4ec078b8277a391813247f4d58b8f73d77e666c3ffb68053506661cdc7be4eb89ac5172b32a4d4e79c6d"
+				},
+				{
+					"disabled": false,
+					"id": "pair_6920e72df1ab475a84fd2cfa86eb0042",
 					"name": "Content-Type",
 					"value": "application/json"
 				}
@@ -160,7 +173,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1501483077678.25,
 			"method": "PATCH",
-			"modified": 1526232085996,
+			"modified": 1527713937960,
 			"name": "update",
 			"parameters": [],
 			"parentId": "fld_56874bbff37e40e0a7e2976f04a0da7a",
@@ -280,7 +293,7 @@
 					"disabled": false,
 					"id": "pair_d88fa982d57f45029a6cc6981715ce61",
 					"name": "token",
-					"value": "1526217818420.5f4138c8a527f4e25120b83e49e8928d::6d6ea2b6ad88c9ac05a4438f50a5b300f6a54828d8225d3d440d030df06937531d47320c6fe864e663a69a8ca637c4abeba205a59c68c0ce44bb756e319f21e1e156db97f0886b1caa61be1466125ed2c2a5e938af327f22012c675aa72c2082f99e06ccfc6b9aae0d76a3584b0e40490ff340139894a6c7afcf53493a44a27cc759b99bc47387025fcccccf9bd2e109e18ce3917dc6b8dfd1474caa9e4d8c6a9c788c51eb9609d2657d3f0adc334a2d63c52cb5b1b0ded42076e26951e9f27ee7b56bc3c4d43c9e286dbbae5468d107eee507152fb9f6609d52fff407841bf3ad3b49ddff67bc3b1f8ae26e2f4159413e4c1427e79fb79522b3d942bf67a09551db2c21df6c96977da0fc847694bc3f893d7e13a28a194e862f3a7740b4542840e56ae24de1ed420824e546c7be357f"
+					"value": "1527710558724.d463f876652bea02d3609cc9921d4bf5::fe23f3ef57fa6e11efd5ebd15a7bec4448fd274d9186f91a688143475a25e6fec6b7b9bf2062c0ac51208704834f093134dad7190411c289f229ef0b7bf47c1166281a081e6676bd4de63f61dff0fbfad9210fae6bf8e953f4320e16f69cc9d41bddbcf14cf940451d012f02bd12e53a65ec1ad956071fe0b55b93f7f7a12648c965aa2b2e7d71eb7db5b1603d288e167fedcb830b3eddca9156b48da2b1d49410a3ad4da2f2032d9773e3575c6781ad50dc0f113ae301730b994629a74696033c5eb24c0134d9874697fa54b4049bbc2e64e2b5b775b784899bc20462316749d7b15d9c063f9ebf60650570f0f9968a6fed112fc325f93e6aef13fc1dd3494f5a41c64a7c84a6729006dc172b3f40f0a66332b0b8dd63e0bf18804ac5424ae32a47f853c69ad3ab4a011b00b87ad843"
 				},
 				{
 					"id": "pair_a199b49f40db4257a649f2bbb4cc1d34",
@@ -291,7 +304,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1520653229763.6875,
 			"method": "PATCH",
-			"modified": 1526232059620,
+			"modified": 1527711153609,
 			"name": "update",
 			"parameters": [],
 			"parentId": "fld_0fca7190f61e41db9af211baa82531bf",
