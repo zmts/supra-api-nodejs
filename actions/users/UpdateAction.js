@@ -2,11 +2,13 @@ const Joi = require('joi')
 
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
+const registry = require('../../registry')
 
-/**
- * @description update user entity
- */
 class UpdateAction extends BaseAction {
+  static get accessTag () {
+    return 'users:update'
+  }
+
   static get validationRules () {
     return {
       ...this.baseValidationRules,
@@ -17,12 +19,12 @@ class UpdateAction extends BaseAction {
   }
 
   static run (req, res, next) {
-    // update user entity can only owner, so we take userId from token
-    // let userId = 'token.id' // TODO
+    let currentUser = registry.getCurrentUser()
 
     this.validate(req, this.validationRules)
-      .then(body => UserDAO.UPDATE(1, req.body)) // temp mock data
-      .then(data => res.json({ data, success: true }))
+      .then(() => this.checkAccessByTag(this.accessTag))
+      .then(() => UserDAO.UPDATE(currentUser.id, req.body)) // user can update only itself
+      .then(updatedModel => res.json({ data: updatedModel, success: true }))
       .catch(error => next(error))
   }
 }

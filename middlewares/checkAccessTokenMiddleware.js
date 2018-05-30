@@ -5,11 +5,14 @@ const errorCodes = require('../config').errorCodes
 
 module.exports = (req, res, next) => {
   let token = req.headers['token']
+  // reset user before each request
+  registry.resetCurrentUser()
 
   if (token) {
     return cryptoDecryptService(token)
       .then(decryptedToken => jwtService.verify(decryptedToken, SECRET))
       .then(tokenData => {
+        // set user
         registry.setCurrentUser(tokenData)
         next()
       }).catch(error => {

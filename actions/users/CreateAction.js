@@ -4,10 +4,11 @@ const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
 const authModule = require('../../services/auth')
 
-/**
- * @description create user entity
- */
 class CreateAction extends BaseAction {
+  static get accessTag () {
+    return 'users:create'
+  }
+
   static get validationRules () {
     return {
       ...this.baseValidationRules,
@@ -22,6 +23,7 @@ class CreateAction extends BaseAction {
 
   static run (req, res, next) {
     this.validate(req, this.validationRules)
+      .then(() => this.checkAccessByTag(this.accessTag))
       .then(() => authModule.makePasswordHashService(req.body.password))
       .then(hash => {
         delete req.body.password

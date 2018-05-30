@@ -12,13 +12,6 @@ class BaseAction {
    * @BASE_CONFIGS
    * ------------------------------
    */
-
-  static get basePermissions () {
-    return {
-      anonymous: false
-    }
-  }
-
   static get baseValidationRules () {
     return {
       params: Joi.object().keys({
@@ -30,6 +23,9 @@ class BaseAction {
       body: Joi.object().keys({
         id: Joi.any().forbidden()
       })
+      // headers: Joi.object({ // TODO make required Content-Type as application/json
+      //   'Content-Type': Joi.string().required()
+      // })
     }
   }
 

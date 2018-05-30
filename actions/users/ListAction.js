@@ -5,12 +5,8 @@ const UserDAO = require('../../dao/UserDAO')
  * @description return users list
  */
 class ListAction extends BaseAction {
-  static get permissions () {
-    return {
-      anonymous: false,
-      admin: true,
-      editor: true
-    }
+  static get accessTag () {
+    return 'users:list'
   }
 
   static get validationRules () {
@@ -30,12 +26,10 @@ class ListAction extends BaseAction {
   }
 
   static run (req, res, next) {
-    req.meta = { user: { role: 'editor' } } // temp mock data
-
     this.validate(req, this.validationRules)
-      .then(() => this.checkAccessByTag(req.meta.user, this.permissions))
+      .then(() => this.checkAccessByTag(this.accessTag))
       .then(() => UserDAO.GET_LIST())
-      .then(data => res.json({ data, success: true }))
+      .then(list => res.json({ data: list, success: true }))
       .catch(error => next(error))
   }
 }
