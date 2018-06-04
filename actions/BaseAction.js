@@ -18,7 +18,9 @@ class BaseAction {
         id: Joi.number().integer()
       }),
       query: Joi.object().keys({
-        q: Joi.string().min(2).max(50)
+        q: Joi.string().min(2).max(50),
+        page: Joi.number().integer().min(1),
+        limit: Joi.number().integer().valid([10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
       }),
       body: Joi.object().keys({
         id: Joi.any().forbidden()
@@ -26,6 +28,12 @@ class BaseAction {
       // headers: Joi.object({ // TODO make required Content-Type as application/json
       //   'Content-Type': Joi.string().required()
       // })
+    }
+  }
+
+  static get baseQueryProps () {
+    return {
+      limit: 10
     }
   }
 
@@ -55,10 +63,11 @@ class BaseAction {
     })
   }
 
-  static queryResolver (config) {
+  static queryResolver (reqQuery, config) {
+    __typecheck(reqQuery, 'Object', true)
     __typecheck(config, 'Object', true)
 
-    return queryResolverService(config)
+    return queryResolverService(reqQuery, config)
   }
 
   /**

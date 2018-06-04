@@ -1,4 +1,3 @@
-const Joi = require('joi')
 const BaseAction = require('../BaseAction')
 const PostDAO = require('../../dao/PostDAO')
 
@@ -9,15 +8,19 @@ class ListAction extends BaseAction {
 
   static get validationRules () {
     return {
-      ...this.baseValidationRules,
-      query: Joi.object().keys({
-        q: Joi.string().min(2).max(50)
-      })
+      ...this.baseValidationRules
+    }
+  }
+
+  static get queryProps () {
+    return {
+      ...this.baseQueryProps
     }
   }
 
   static run (req, res, next) {
     this.validate(req, this.validationRules)
+      .then(() => this.queryResolver(req.query, this.queryProps))
       .then(() => this.checkAccessByTag(this.accessTag))
       .then(() => PostDAO.GET_LIST())
       .then(data => res.json({ data, success: true }))
