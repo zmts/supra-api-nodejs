@@ -1,54 +1,49 @@
 const roles = require('./roles')
 
+const usersRegularPermissions = [ // all, except creation
+  'users:list',
+  'users:update',
+  'users:get-by-id',
+  'users:remove'
+]
+
 module.exports = {
   [roles.superadmin]: [
     // [roles.superadmin] have all permissions
     // so we don't need to list it
-    // just check [roles.superadmin] in checkAccessService
+    // just check [roles.superadmin] in access services
   ],
 
   [roles.admin]: [
-    'posts:all',
+    ...usersRegularPermissions,
 
-    'users:list',
-    'users:update',
-    'users:get-by-id',
-    'users:remove'
+    'posts:all'
   ],
 
   [roles.moderator]: [
-    'posts:all',
+    ...usersRegularPermissions,
 
-    'users:list',
-    'users:update',
-    'users:get-by-id',
-    'users:remove'
+    'posts:all'
   ],
 
   [roles.editor]: [
-    'posts:all',
+    ...usersRegularPermissions,
 
-    'users:list',
-    'users:update',
-    'users:get-by-id',
-    'users:remove'
+    'posts:all'
   ],
 
   [roles.user]: [
-    'posts:all',
+    ...usersRegularPermissions,
 
-    'users:list',
-    'users:update',
-    'users:get-by-id',
-    'users:remove'
+    'posts:all'
   ],
 
   [roles.anonymous]: [
-    'posts:list',
-    'posts:get-by-id',
-
     'users:list',
     'users:get-by-id',
-    'users:create'
+    'users:create',
+
+    'posts:list',
+    'posts:get-by-id'
   ]
 }
