@@ -3,6 +3,7 @@ const Model = require('objection').Model
 const { wrapError, UniqueViolationError, NotNullViolationError } = require('db-errors')
 const ErrorWrapper = require('../util/ErrorWrapper')
 const errorCodes = require('../config/errorCodes')
+const registry = require('../registry')
 
 class BaseDAO extends Model {
 
@@ -66,9 +67,14 @@ class BaseDAO extends Model {
   };
 
   static GET_LIST () {
-    return this.query().orderBy('id', 'desc')
+    let pageNumber = +registry.get('page')
+    let limit = +registry.get('limit')
+
+    return this.query()
+      .orderBy('id', 'desc')
+      .page(pageNumber, limit)
       .then(data => {
-        if (!data.length) throw this.errorEmptyResponse()
+        if (!data.results.length) throw this.errorEmptyResponse()
         return data
       }).catch(error => { throw error })
   }

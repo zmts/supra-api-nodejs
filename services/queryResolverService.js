@@ -15,4 +15,6 @@ module.exports = (reqQuery, defaultConfig) => {
   Object.keys(config).forEach(key => {
     registry.set(key, config[key])
   })
+
+  console.log('registry.list()', registry.list())
 }

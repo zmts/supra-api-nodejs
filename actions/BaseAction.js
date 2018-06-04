@@ -33,7 +33,8 @@ class BaseAction {
 
   static get baseQueryProps () {
     return {
-      limit: 10
+      page: '0',
+      limit: '10'
     }
   }
 
@@ -63,11 +64,11 @@ class BaseAction {
     })
   }
 
-  static queryResolver (reqQuery, config) {
+  static queryResolver (reqQuery, defaultConfig) {
     __typecheck(reqQuery, 'Object', true)
-    __typecheck(config, 'Object', true)
+    __typecheck(defaultConfig, 'Object', true)
 
-    return queryResolverService(reqQuery, config)
+    return queryResolverService(reqQuery, defaultConfig)
   }
 
   /**
