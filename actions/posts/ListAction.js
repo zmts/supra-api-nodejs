@@ -20,8 +20,8 @@ class ListAction extends BaseAction {
 
   static run (req, res, next) {
     this.validate(req, this.validationRules)
-      .then(() => this.queryResolver(req.query, this.queryProps))
       .then(() => this.checkAccessByTag(this.accessTag))
+      .then(() => this.queryResolver(req.query, this.queryProps))
       .then(() => PostDAO.BaseGetList())
       .then(data => res.json({ data, success: true }))
       .catch(error => next(error))
