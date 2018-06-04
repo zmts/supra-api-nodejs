@@ -29,7 +29,7 @@ class RefreshTokensAction extends BaseAction {
         decodedRefreshToken = decodedRefToken
         return parseTokenService(decodedRefToken) // parse refresh token data (taken from request)
       })
-      .then(refreshTokenData => UserDAO.GET_BY_ID(+refreshTokenData.sub)) // get user entity from DB
+      .then(refreshTokenData => UserDAO.BaseGetById(+refreshTokenData.sub)) // get user entity from DB
       .then(user => {
         userEntity = user
         return findAndVerifyRefreshToken(userEntity, reqRefreshToken, decodedRefreshToken)

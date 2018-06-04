@@ -29,7 +29,7 @@ class CreateAction extends BaseAction {
         delete req.body.password
         req.body['passwordHash'] = hash
         return req.body
-      }).then(body => UserDAO.CREATE(body))
+      }).then(body => UserDAO.BaseCreate(body))
       .then(data => res.json({ data, success: true }))
       .catch(error => next(error))
   }

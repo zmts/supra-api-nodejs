@@ -21,7 +21,7 @@ class CreateAction extends BaseAction {
   static run (req, res, next) {
     this.validate(req, this.validationRules)
       .then(() => this.checkAccessByTag(this.accessTag))
-      .then(() => PostDAO.CREATE(req.body))
+      .then(() => PostDAO.BaseCreate(req.body))
       .then(createdModel => res.json({ data: createdModel, success: true }))
       .catch(error => next(error))
   }

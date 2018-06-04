@@ -22,7 +22,7 @@ class ListAction extends BaseAction {
     this.validate(req, this.validationRules)
       .then(() => this.queryResolver(req.query, this.queryProps))
       .then(() => this.checkAccessByTag(this.accessTag))
-      .then(() => PostDAO.GET_LIST())
+      .then(() => PostDAO.BaseGetList())
       .then(data => res.json({ data, success: true }))
       .catch(error => next(error))
   }

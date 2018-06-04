@@ -60,13 +60,13 @@ class BaseDAO extends Model {
    * ------------------------------
    */
 
-  static CREATE (data) {
+  static BaseCreate (data) {
     __typecheck(data, 'Object', true)
 
     return this.query().insert(data)
   };
 
-  static GET_LIST () {
+  static BaseGetList () {
     let pageNumber = +registry.get('page')
     let limit = +registry.get('limit')
 
@@ -79,7 +79,7 @@ class BaseDAO extends Model {
       }).catch(error => { throw error })
   }
 
-  static GET_BY_ID (id) {
+  static BaseGetById (id) {
     __typecheck(id, 'Number', true)
 
     return this.query().findById(id)
@@ -89,14 +89,14 @@ class BaseDAO extends Model {
       }).catch(error => { throw error })
   }
 
-  static UPDATE (id, data) {
+  static BaseUpdate (id, data) {
     __typecheck(id, 'Number', true)
     __typecheck(data, 'Object', true)
 
     return this.query().patchAndFetchById(id, data)
   }
 
-  static REMOVE (id) {
+  static BaseRemove (id) {
     __typecheck(id, 'Number', true)
 
     return this.query().deleteById(id)

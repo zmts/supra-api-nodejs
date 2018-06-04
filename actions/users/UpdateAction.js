@@ -23,7 +23,7 @@ class UpdateAction extends BaseAction {
 
     this.validate(req, this.validationRules)
       .then(() => this.checkAccessByTag(this.accessTag))
-      .then(() => UserDAO.UPDATE(currentUser.id, req.body)) // user can update only itself
+      .then(() => UserDAO.BaseUpdate(currentUser.id, req.body)) // user can update only itself
       .then(updatedModel => res.json({ data: updatedModel, success: true }))
       .catch(error => next(error))
   }

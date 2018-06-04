@@ -18,7 +18,7 @@ class GetByIdAction extends BaseAction {
   static run (req, res, next) {
     this.validate(req, this.validationRules)
       .then(() => this.checkAccessByTag(this.accessTag))
-      .then(() => UserDAO.GET_BY_ID(+req.params.id))
+      .then(() => UserDAO.BaseGetById(+req.params.id))
       .then(model => this.checkAccessToPrivateItem(model))
       .then(model => res.json({ data: model, success: true }))
       .catch(error => next(error))
