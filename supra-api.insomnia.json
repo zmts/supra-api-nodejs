@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-05-30T21:15:09.170Z",
+	"__export_date": "2018-06-17T19:36:26.387Z",
 	"__export_source": "insomnia.desktop.app:v5.16.6",
 	"resources": [
 		{
@@ -93,7 +93,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"name\": \"sergio2\",\n\t\"username\": \"sergioname2\",\n\t\"email\": \"sergio2@gmail.com\",\n\t\"password\": \"123456\"\n}"
+				"text": "{\n\t\"name\": \"sergio222\",\n\t\"username\": \"sergioname222\",\n\t\"email\": \"sergio222@gmail.com\",\n\t\"password\": \"123456\"\n}"
 			},
 			"created": 1514671149530,
 			"description": "",
@@ -107,13 +107,13 @@
 					"disabled": false,
 					"id": "pair_1ef32b6347a545949b33ee4713f7e7e4",
 					"name": "token",
-					"value": "1527713278404.f193b12e4d7bab2cae3d37619e20b90c::b299a05d02ec7b6c90d2a5d1c4e9070c37394d826fecac00e022fddb762ffddd88a4b32c220ea8c2a8e212e2a2314aa53a834439aeee14072576bdcc9c1a78bb30585cf5d79090fce3b986bf47a314c7253ea991a4e2a558fe566d5d44814b019c5ec64772b6e9fc4913fe4b6e794aa1df5c6f49038a28feb699679b34d9028b9536d1f86816614b9e048c0af918d9aeeece4f5ac536cc9b15b176cec62d648c9fd57dfa5bce580d12aa72c8b2b53aa1c895d582d1c33b885e63d5b7c2f1035325f2382663ec581aa93225fb94deab53291f3781b8c50c6ed7f2b11e531161593d9dab1fd7d0a7d9b32cbc45d0c404e48e8bf713b2ef8a434cf3be9b6ef5a90032652cc8a2580a591e998b24faf17bb2100323bf156d184d0c3afad09dee9741a407e8a71f2e22851cfd080d4d3085e376e23aeaf92fe242175a02264ee5a212"
+					"value": "1528127393930.1a2f79bf45dd6d5971735efda98d4211::fa336cec6906f9dceb84f3111dd731a3cb2394a5140a91b16306c16a78a2c0d69a4fdedef0b3fa7b497fba89eb624b0c83276fa4fcaa39e111e91b870323dc8067b2d6c666974cced7bd4957b48df03ce77f4606ea30d802aed4822b9791f6f59a8ea73974a847ec6841e19a59f7f43846539b53f670da11b3245f945943c74ff47f601c26173731ff0f009fd2b7f06bfe37b00a87f4982acbb06f90629a08e4c8857ef37f2afdb61b15a1ccd6138144bc1316a59f8bd063d9ad33f2e8bcc3bd5dd586806a9e91abeba62ef96f19e154101a2729cd77a681ca621d005516deb5bcfc9e01b0f1dd2bcdb37370a3c8b652693773ad46b161c51ba01f7d6b4e5b61081c8370c23db6f637fc02b5b3e2ed2abe9cc96a6447ca133f6b952eddad50b6f5fba76452a9ee7c23ab9497875af00787404dfaf556abe1bf2ae3c47074b80f"
 				}
 			],
 			"isPrivate": false,
 			"metaSortKey": -1514668005906,
 			"method": "POST",
-			"modified": 1527713418252,
+			"modified": 1528127410378,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_56874bbff37e40e0a7e2976f04a0da7a",
@@ -186,6 +186,43 @@
 			"_type": "request"
 		},
 		{
+			"_id": "req_f4c0752e8d444b308b0e0043c49dc21e",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"oldPassword\": \"123456\",\n\t\"newPassword\": \"123456\"\n}"
+			},
+			"created": 1529256874102,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_e7c416562e1245068213855579f31eab",
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"disabled": false,
+					"id": "pair_1ef32b6347a545949b33ee4713f7e7e4",
+					"name": "token",
+					"value": "1529261531006.3984dbb4429117b3d7d204ee1a2c5062::8a8ccb451ceaae809722326593790455642d8f65089a56ab96e273d5ddb24105926c45c378dacecba8824494603e01f33ce025b99fbce92406bb5b36082d96d761b8d6eb1e461aee5d57e8dc1bb1eda41c94c509fdb1778b3ac3c9b3f50609987fcb82ad9f6127faa8420d1510070b5ae26ea58c307f145e05feb9b901a5ae62cbef6c5582f7e79d81d44ffe090102dd09a01601131da1b36a581ca94589ae911b68d2d9805ba7539d4eaf7df03af2775330dbcacd805d09a314f7a1e15debc62c5ef60998f40c76dd939c33f9578c131c7997c4f1493dd3a0de54d664bfc7a29cc994ed34fff86ac66cd5e3fe303e53bb35c488acdd72ed8c428fd3b8ddfa0459f3735bb53356d2242d811d69f17a2335b7b9350739f49ae24f0964dd9db0769c4ee41d0c4675df057fa4f1ecb4176ccf0df2b2bb678fd582ff6df33fb628be"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1514668005881,
+			"method": "POST",
+			"modified": 1529261548756,
+			"name": "change-password",
+			"parameters": [],
+			"parentId": "fld_56874bbff37e40e0a7e2976f04a0da7a",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "localhost:4000/users/change-password",
+			"_type": "request"
+		},
+		{
 			"_id": "req_16671f4ea266424d9e20cfa0d26d383b",
 			"authentication": {},
 			"body": {},
@@ -202,7 +239,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1520973267398.75,
 			"method": "GET",
-			"modified": 1526232045812,
+			"modified": 1528133853328,
 			"name": "list",
 			"parameters": [],
 			"parentId": "fld_0fca7190f61e41db9af211baa82531bf",
