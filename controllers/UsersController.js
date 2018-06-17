@@ -11,6 +11,7 @@ class UsersController extends BaseController {
     router.get('/:id', actionRunner(actions.GetByIdAction))
     router.post('/', actionRunner(actions.CreateAction))
     router.patch('/', actionRunner(actions.UpdateAction))
+    router.post('/change-password', actionRunner(actions.ChangePasswordAction))
 
     return router
   }

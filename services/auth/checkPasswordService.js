@@ -3,6 +3,7 @@ const ErrorWrapper = require('../../util/ErrorWrapper')
 const errorCodes = require('../../config/errorCodes')
 
 /**
+ * @description make from req.body.password hash and compare it with existing password hash
  * @return {Promise} true/Error
  */
 module.exports = (password, hash) => {
