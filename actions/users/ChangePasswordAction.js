@@ -23,8 +23,7 @@ class ChangePasswordAction extends BaseAction {
   static run (req, res, next) {
     let currentUser = registry.getCurrentUser()
 
-    this.validate(req, this.validationRules)
-      .then(() => this.checkAccessByTag(this.accessTag))
+    this.init(req, this.validationRules, this.accessTag)
       .then(() => UserDAO.BaseGetById(currentUser.id))
       .then(userModel => authModule.checkPasswordService(req.body.oldPassword, userModel.passwordHash))
       .then(() => authModule.makePasswordHashService(req.body.newPassword))

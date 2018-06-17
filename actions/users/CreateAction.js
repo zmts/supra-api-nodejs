@@ -22,8 +22,7 @@ class CreateAction extends BaseAction {
   }
 
   static run (req, res, next) {
-    this.validate(req, this.validationRules)
-      .then(() => this.checkAccessByTag(this.accessTag))
+    this.init(req, this.validationRules, this.accessTag)
       .then(() => authModule.makePasswordHashService(req.body.password))
       .then(hash => {
         delete req.body.password

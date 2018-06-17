@@ -19,8 +19,7 @@ class UpdateAction extends BaseAction {
   }
 
   static run (req, res, next) {
-    this.validate(req, this.validationRules)
-      .then(() => this.checkAccessByTag(this.accessTag))
+    this.init(req, this.validationRules, this.accessTag)
       .then(() => PostDAO.BaseGetById(+req.params.id))
       .then(model => this.checkAccessByOwnerId(model))
       .then(() => PostDAO.BaseUpdate(+req.params.id, req.body))

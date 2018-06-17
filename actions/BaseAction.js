@@ -45,7 +45,25 @@ class BaseAction {
    */
 
   /**
+   * @description init promises chain in each action
+   * method invokes validation and checkAccessByTag services
+   */
+  static init (req, rules, accessTag) {
+    __typecheck(req, 'Object', true)
+    __typecheck(rules, 'Object', true)
+    __typecheck(accessTag, 'String', true)
+
+    return new Promise((resolve, reject) => {
+      return this.validate(req, this.validationRules)
+        .then(() => this.checkAccessByTag(accessTag))
+        .then(() => resolve())
+        .catch(error => reject(error))
+    })
+  }
+
+  /**
    * @description validate request
+   * uses by default in init method
    */
   static validate (req, rules) {
     __typecheck(req, 'Object', true)
@@ -77,7 +95,7 @@ class BaseAction {
    * ------------------------------
    */
 
-  // use with all actions by default
+  // uses by default in init method
   static checkAccessByTag (accessTag) {
     __typecheck(accessTag, 'String', true)
 
