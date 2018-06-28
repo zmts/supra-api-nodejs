@@ -43,6 +43,8 @@ module.exports = {
     'users:list',
     'users:get-by-id',
     'users:create',
+    'users:send-reset-email',
+    'users:reset-password',
 
     'posts:list',
     'posts:get-by-id'

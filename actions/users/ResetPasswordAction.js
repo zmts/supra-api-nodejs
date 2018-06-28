@@ -5,16 +5,16 @@ const BaseAction = require('../BaseAction')
 // const authModule = require('../../services/auth')
 // const registry = require('../../registry')
 
-class TemplateAction extends BaseAction {
+class ResetPasswordAction extends BaseAction {
   static get accessTag () {
-    return 'template:template'
+    return 'users:reset-password'
   }
 
   static get validationRules () {
     return {
       ...this.baseValidationRules,
       body: Joi.object().keys({
-        templateField: Joi.string().required()
+        resetPasswordToken: Joi.string().required()
       })
     }
   }
@@ -24,9 +24,9 @@ class TemplateAction extends BaseAction {
 
     this.init(req, this.validationRules, this.accessTag)
       .then(() => this.checkAccessByTag(this.accessTag))
-      .then(data => res.json({ data, success: true }))
+      .then(data => res.json({ data: 'ResetPasswordAction', success: true }))
       .catch(error => next(error))
   }
 }
 
-module.exports = TemplateAction
+module.exports = ResetPasswordAction

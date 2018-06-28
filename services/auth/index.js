@@ -2,6 +2,7 @@ const checkPasswordService = require('./checkPasswordService')
 const makePasswordHashService = require('./makePasswordHashService')
 const makeAccessTokenService = require('./makeAccessTokenService')
 const makeRefreshTokenService = require('./makeRefreshTokenService')
+const makeResetEmailTokenService = require('./makeResetEmailTokenService')
 const parseTokenService = require('./parseTokenService.js')
 const cryptoEncryptService = require('./cryptoEncryptService')
 const cryptoDecryptService = require('./cryptoDecryptService')
@@ -13,6 +14,7 @@ module.exports = {
   makePasswordHashService,
   makeAccessTokenService,
   makeRefreshTokenService,
+  makeResetEmailTokenService,
   parseTokenService,
   cryptoEncryptService,
   cryptoDecryptService,
