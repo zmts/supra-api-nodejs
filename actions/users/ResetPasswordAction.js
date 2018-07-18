@@ -1,10 +1,18 @@
 const Joi = require('joi')
 
 const BaseAction = require('../BaseAction')
-// const UserDAO = require('../../dao/UserDAO')
-// const authModule = require('../../services/auth')
-// const registry = require('../../registry')
+const { jwtService, makePasswordHashService } = require('../../services/auth')
+const config = require('../../config')
+const UserDAO = require('../../dao/UserDAO')
+const ErrorWrapper = require('../../util/ErrorWrapper')
+const errorCodes = require('../../config/errorCodes')
 
+/**
+ * 1) verify resetPasswordToken
+ * 2) compare existing resetPasswordToken from DB and resetPasswordToken from request
+ * 3) make hash from new password
+ * 4) update user entity in DB with new hash, reset resetEmailToken and refreshTokensMap
+ */
 class ResetPasswordAction extends BaseAction {
   static get accessTag () {
     return 'users:reset-password'
@@ -14,17 +22,27 @@ class ResetPasswordAction extends BaseAction {
     return {
       ...this.baseValidationRules,
       body: Joi.object().keys({
-        resetPasswordToken: Joi.string().required()
+        resetPasswordToken: Joi.string().required(),
+        password: Joi.string().required()
       })
     }
   }
 
   static run (req, res, next) {
-    // let currentUser = registry.getCurrentUser()
+    let tokenUserId = null
 
     this.init(req, this.validationRules, this.accessTag)
-      .then(() => this.checkAccessByTag(this.accessTag))
-      .then(data => res.json({ data: 'ResetPasswordAction', success: true }))
+      .then(() => jwtService.verify(req.body.resetPasswordToken, config.token.resetEmail))
+      .then(tokenData => {
+        tokenUserId = +tokenData.sub
+        return UserDAO.BaseGetById(tokenUserId)
+      })
+      .then(user => {
+        if (user.resetEmailToken === req.body.resetPasswordToken) return makePasswordHashService(req.body.password)
+        throw new ErrorWrapper({ ...errorCodes.WRONG_RESET_PASSWORD_TOKEN })
+      })
+      .then(passwordHash => UserDAO.BaseUpdate(tokenUserId, { passwordHash, resetEmailToken: '', refreshTokensMap: {} }))
+      .then(() => res.json({ data: { message: 'Reset password process was successfully applied' }, success: true }))
       .catch(error => next(error))
   }
 }

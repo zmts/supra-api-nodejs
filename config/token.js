@@ -6,5 +6,5 @@ module.exports = {
 
   accessExpiresIn: '10m',
   refreshExpiresIn: '60m',
-  resetEmailExpiresIn: '1d'
+  resetPasswordExpiresIn: '12h'
 }

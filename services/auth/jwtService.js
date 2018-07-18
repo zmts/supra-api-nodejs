@@ -15,7 +15,7 @@ module.exports.verify = (token, SECRET) => {
         if (error.name === 'TokenExpiredError') {
           return reject(new ErrorWrapper({ ...errorCodes.TOKEN_EXPIRED }))
         }
-        return reject(new Error(error))
+        return reject(new ErrorWrapper({ ...errorCodes.TOKEN_VERIFY, message: error.message }))
       }
       return resolve(decoded)
     })

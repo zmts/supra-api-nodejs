@@ -1,7 +1,7 @@
 const jwtService = require('./jwtService')
 
 const SECRET = require('../../config').token.resetEmail
-const expiresIn = require('../../config').token.resetEmailExpiresIn
+const expiresIn = require('../../config').token.resetPasswordExpiresIn
 
 /**
  * @return {Promise} string

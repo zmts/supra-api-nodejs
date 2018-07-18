@@ -11,7 +11,6 @@ const sendEmailService = require('../../services/sendEmailService')
  * 2) find user in DB by email
  * 3) generate and store resetEmailToken to DB
  * 4) send reset email
- * 5) clear refreshTokensMap
  */
 class SendResetEmailAction extends BaseAction {
   static get accessTag () {
@@ -44,7 +43,6 @@ class SendResetEmailAction extends BaseAction {
           text: `Use this token to reset password ${resetEmailToken}`
         })
       })
-      .tap(() => UserDAO.BaseUpdate(user.id, { refreshTokensMap: {} }))
       .then(data => res.json({ data, success: true }))
       .catch(error => next(error))
   }
