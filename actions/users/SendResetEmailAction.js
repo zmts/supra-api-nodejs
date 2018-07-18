@@ -3,15 +3,15 @@ const Joi = require('joi')
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
 const authModule = require('../../services/auth')
+const sendEmailService = require('../../services/sendEmailService')
 // const registry = require('../../registry')
 
 /**
  * 1) get email from request
- * 2) find user by email
+ * 2) find user in DB by email
  * 3) generate and store resetEmailToken to DB
  * 4) send reset email
- * 5) remove resetEmailToken from DB
- * 6) clear refreshTokensMap
+ * 5) clear refreshTokensMap
  */
 class SendResetEmailAction extends BaseAction {
   static get accessTag () {
@@ -31,7 +31,6 @@ class SendResetEmailAction extends BaseAction {
     let user = {}
 
     this.init(req, this.validationRules, this.accessTag)
-      .then(() => this.checkAccessByTag(this.accessTag))
       .then(() => UserDAO.GetByEmail(req.body.email))
       .then(userModel => {
         user = userModel
@@ -39,8 +38,13 @@ class SendResetEmailAction extends BaseAction {
       })
       .tap(resetEmailToken => UserDAO.BaseUpdate(user.id, { resetEmailToken }))
       .then(resetEmailToken => {
-        console.log('send email service', resetEmailToken) // TODO
+        return sendEmailService({
+          to: user.email,
+          subject: '[Supra.com] Password reset instructions',
+          text: `Use this token to reset password ${resetEmailToken}`
+        })
       })
+      .tap(() => UserDAO.BaseUpdate(user.id, { refreshTokensMap: {} }))
       .then(data => res.json({ data, success: true }))
       .catch(error => next(error))
   }

@@ -6,6 +6,7 @@ const token = require('./token')
 const url = require('./url')
 const roles = require('./roles')
 const permissions = require('./permissions')
+const email = require('./email')
 
 module.exports = {
   client,
@@ -15,5 +16,6 @@ module.exports = {
   token,
   url,
   roles,
-  permissions
+  permissions,
+  email
 }

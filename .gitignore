@@ -5,6 +5,7 @@ tmp/
 .tmp/
 tmp_files/
 public/
+.env
 .DS_Store
 .idea
 *.ai
