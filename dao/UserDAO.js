@@ -1,5 +1,7 @@
-const BaseDAO = require('./BaseDAO')
 const { raw } = require('objection')
+
+const BaseDAO = require('./BaseDAO')
+const PostDAO = require('./PostDAO')
 
 class UserDAO extends BaseDAO {
   static get tableName () {
@@ -8,6 +10,19 @@ class UserDAO extends BaseDAO {
 
   static get jsonAttributes () {
     return ['refreshTokensMap']
+  }
+
+  static get relationMappings () {
+    return {
+      posts: {
+        relation: BaseDAO.HasManyRelation,
+        modelClass: PostDAO,
+        join: {
+          from: 'users.id',
+          to: 'posts.userId'
+        }
+      }
+    }
   }
 
   /**

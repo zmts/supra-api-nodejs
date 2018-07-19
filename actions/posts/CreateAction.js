@@ -2,6 +2,7 @@ const Joi = require('joi')
 
 const BaseAction = require('../BaseAction')
 const PostDAO = require('../../dao/PostDAO')
+const registry = require('../../registry')
 
 class CreateAction extends BaseAction {
   static get accessTag () {
@@ -19,8 +20,10 @@ class CreateAction extends BaseAction {
   }
 
   static run (req, res, next) {
+    let currentUser = registry.getCurrentUser()
+
     this.init(req, this.validationRules, this.accessTag)
-      .then(() => PostDAO.BaseCreate(req.body))
+      .then(() => PostDAO.BaseCreate({ ...req.body, userId: currentUser.id }))
       .then(createdModel => res.json({ data: createdModel, success: true }))
       .catch(error => next(error))
   }
