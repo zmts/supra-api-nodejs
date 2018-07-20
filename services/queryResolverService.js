@@ -13,8 +13,15 @@ module.exports = (reqQuery, defaultConfig) => {
   }
 
   Object.keys(config).forEach(key => {
-    registry.set(key, config[key])
+    if (key === 'orderBy') {
+      let field = config[key].split(':')[0]
+      let direction = config[key].split(':')[1]
+
+      registry.set(key, { field, direction })
+    } else {
+      registry.set(key, config[key])
+    }
   })
 
-  console.log('registry.list()', registry.list())
+  console.log('queryResolverService >> registry list', registry.list())
 }

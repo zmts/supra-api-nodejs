@@ -5,7 +5,8 @@ const usersRegularPermissions = [ // all, except creation
   'users:update',
   'users:get-by-id',
   'users:remove',
-  'users:change-password'
+  'users:change-password',
+  'user:get-posts-by-user-id'
 ]
 
 module.exports = {
@@ -45,6 +46,7 @@ module.exports = {
     'users:create',
     'users:send-reset-email',
     'users:reset-password',
+    'user:get-posts-by-user-id',
 
     'posts:list',
     'posts:get-by-id'

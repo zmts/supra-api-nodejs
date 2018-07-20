@@ -20,7 +20,8 @@ class BaseAction {
       query: Joi.object().keys({
         q: Joi.string().min(2).max(50),
         page: Joi.number().integer().min(1),
-        limit: Joi.number().integer().valid([10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
+        limit: Joi.number().integer().valid([10, 20, 30, 40, 50, 60, 70, 80, 90, 100]),
+        orderBy: Joi.string().valid(['createdAt:asc', 'createdAt:desc', 'name:asc', 'name:desc'])
       }),
       body: Joi.object().keys({
         id: Joi.any().forbidden()
@@ -34,7 +35,8 @@ class BaseAction {
   static get baseQueryProps () {
     return {
       page: '0',
-      limit: '10'
+      limit: '10',
+      orderBy: 'createdAt:desc'
     }
   }
 

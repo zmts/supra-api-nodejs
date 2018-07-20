@@ -5,6 +5,7 @@ const UpdateAction = require('./UpdateAction')
 const ChangePasswordAction = require('./ChangePasswordAction')
 const SendResetEmailAction = require('./SendResetEmailAction')
 const ResetPasswordAction = require('./ResetPasswordAction')
+const GetPostsByUserIdAction = require('./GetPostsByUserIdAction')
 
 module.exports = {
   ListAction,
@@ -13,6 +14,7 @@ module.exports = {
   UpdateAction,
   ChangePasswordAction,
   SendResetEmailAction,
-  ResetPasswordAction
+  ResetPasswordAction,
+  GetPostsByUserIdAction
 }
 
