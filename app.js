@@ -48,7 +48,7 @@ class App {
   }
 
   initRoutes () {
-    this.express.use(controllers)
+    this.express.use(controllers.router)
   }
 
   setDefaultErrorMiddlewares () {
