@@ -15,7 +15,7 @@ class CreateAction extends BaseAction {
       body: Joi.object().keys({
         name: Joi.string().min(3).max(50),
         username: Joi.string().min(3).max(25).required(),
-        password: Joi.string().required(),
+        password: Joi.string().required(), // stores in DB as passwordHash
         email: Joi.string().email().min(6).max(30).required()
       })
     }
