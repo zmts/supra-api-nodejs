@@ -5,7 +5,7 @@ const actionRunner = require('../actions/actionRunner')
 const actions = require('../actions/posts')
 const BaseController = require('./BaseController')
 
-class UsersController extends BaseController {
+class PostsController extends BaseController {
   static get router () {
     router.get('/', actionRunner(actions.ListAction))
     router.get('/:id', actionRunner(actions.GetByIdAction))
@@ -16,4 +16,4 @@ class UsersController extends BaseController {
   }
 }
 
-module.exports = UsersController
+module.exports = PostsController
