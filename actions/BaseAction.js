@@ -56,7 +56,7 @@ class BaseAction {
     __typecheck(accessTag, 'String', true)
 
     return new Promise((resolve, reject) => {
-      return this.validate(req, this.validationRules)
+      return this.validate(req, rules)
         .then(() => this.checkAccessByTag(accessTag))
         .then(() => resolve())
         .catch(error => reject(error))
