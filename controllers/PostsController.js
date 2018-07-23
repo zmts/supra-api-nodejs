@@ -11,6 +11,7 @@ class PostsController extends BaseController {
     router.get('/:id', actionRunner(actions.GetByIdAction))
     router.post('/', actionRunner(actions.CreateAction))
     router.patch('/:id', actionRunner(actions.UpdateAction))
+    router.delete('/:id', actionRunner(actions.RemoveAction))
 
     return router
   }
