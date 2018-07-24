@@ -18,7 +18,7 @@ class RemoveAction extends BaseAction {
       .then(() => UserDAO.BaseGetById(+req.params.id))
       .then(model => checkAccessRemoveUserService(model))
       .then(() => UserDAO.BaseRemove(+req.params.id))
-      .then(() => res.json({ message: `${req.params.id} was removed`, success: true }))
+      .then(() => res.json(this.resJson({ message: `${req.params.id} was removed` })))
       .catch(error => next(error))
   }
 }

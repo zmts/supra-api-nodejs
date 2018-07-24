@@ -43,7 +43,7 @@ class SendResetEmailAction extends BaseAction {
           text: `Use this token to reset password ${resetEmailToken}`
         })
       })
-      .then(data => res.json({ data, success: true }))
+      .then(data => res.json(this.resJson({ data })))
       .catch(error => next(error))
   }
 }

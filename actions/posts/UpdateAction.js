@@ -23,7 +23,7 @@ class UpdateAction extends BaseAction {
       .then(() => PostDAO.BaseGetById(+req.params.id))
       .then(model => this.checkAccessByOwnerId(model))
       .then(() => PostDAO.BaseUpdate(+req.params.id, req.body))
-      .then(updatedModel => res.json({ data: updatedModel, success: true }))
+      .then(updatedModel => res.json(this.resJson({ data: updatedModel })))
       .catch(error => next(error))
   }
 }

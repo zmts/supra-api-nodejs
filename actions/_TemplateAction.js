@@ -23,7 +23,7 @@ class TemplateAction extends BaseAction {
     // let currentUser = registry.getCurrentUser()
 
     this.init(req, this.validationRules, this.accessTag)
-      .then(data => res.json({ data, success: true }))
+      .then(data => res.json(this.resJson({ data })))
       .catch(error => next(error))
   }
 }

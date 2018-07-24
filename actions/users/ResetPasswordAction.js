@@ -42,7 +42,7 @@ class ResetPasswordAction extends BaseAction {
         throw new ErrorWrapper({ ...errorCodes.WRONG_RESET_PASSWORD_TOKEN })
       })
       .then(passwordHash => UserDAO.BaseUpdate(tokenUserId, { passwordHash, resetEmailToken: '', refreshTokensMap: {} }))
-      .then(() => res.json({ data: { message: 'Reset password process was successfully applied' }, success: true }))
+      .then(() => res.json(this.resJson({ message: 'Reset password process was successfully applied' })))
       .catch(error => next(error))
   }
 }

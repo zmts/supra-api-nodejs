@@ -24,7 +24,7 @@ class CreateAction extends BaseAction {
 
     this.init(req, this.validationRules, this.accessTag)
       .then(() => PostDAO.BaseCreate({ ...req.body, userId: currentUser.id }))
-      .then(createdModel => res.json({ data: createdModel, success: true }))
+      .then(createdModel => res.json(this.resJson({ data: createdModel })))
       .catch(error => next(error))
   }
 }

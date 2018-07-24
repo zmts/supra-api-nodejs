@@ -28,7 +28,7 @@ class GetPostsByUserIdAction extends BaseAction {
     this.init(req, this.validationRules, this.accessTag)
       .then(() => this.queryResolver(req.query, this.queryProps))
       .then(() => PostDAO.GetPostsByUserId(+req.params.id))
-      .then(data => res.json({ data, success: true }))
+      .then(data => res.json(this.resJson({ data })))
       .catch(error => next(error))
   }
 }

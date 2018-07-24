@@ -28,7 +28,7 @@ class ChangePasswordAction extends BaseAction {
       .then(userModel => authModule.checkPasswordService(req.body.oldPassword, userModel.passwordHash))
       .then(() => authModule.makePasswordHashService(req.body.newPassword))
       .then(newHash => UserDAO.BaseUpdate(currentUser.id, { passwordHash: newHash }))
-      .then(data => res.json({ data, success: true }))
+      .then(data => res.json(this.resJson({ data })))
       .catch(error => next(error))
   }
 }
