@@ -1,5 +1,5 @@
 const { cryptoDecryptService, jwtService } = require('../services/auth')
-const SECRET = require('../config').token.access
+const SECRET = require('../config').token.access.secret
 const registry = require('../registry')
 const errorCodes = require('../config').errorCodes
 

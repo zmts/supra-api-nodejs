@@ -1,7 +1,7 @@
 const ErrorWrapper = require('../../util/ErrorWrapper')
 const errorCodes = require('../../config/errorCodes')
 const jwtService = require('../../services/auth/jwtService')
-const SECRET = require('../../config/token').refresh
+const SECRET = require('../../config/token').refresh.secret
 
 /**
  * 1 - find refresh token from request in user entity refreshTokensMap

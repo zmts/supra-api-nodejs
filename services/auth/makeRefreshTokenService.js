@@ -1,8 +1,9 @@
 const jwtService = require('./jwtService')
 const cryptoEncryptService = require('./cryptoEncryptService')
 
-const SECRET = require('../../config').token.refresh
-const expiresIn = require('../../config').token.refreshExpiresIn
+const SECRET = require('../../config').token.refresh.secret
+const expiresIn = require('../../config').token.refresh.expiresIn
+const type = require('../../config').token.refresh.type
 
 /**
  * @return {Promise} string
@@ -12,7 +13,7 @@ module.exports = userEntity => {
 
   let config = {
     payload: {
-      refreshToken: true,
+      tokenType: type,
       email: userEntity.email
     },
 

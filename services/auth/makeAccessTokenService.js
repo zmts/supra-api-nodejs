@@ -2,8 +2,9 @@ const jwtService = require('./jwtService')
 const cryptoEncryptService = require('./cryptoEncryptService')
 const parseTokenService = require('./parseTokenService')
 
-const SECRET = require('../../config').token.access
-const expiresIn = require('../../config').token.accessExpiresIn
+const SECRET = require('../../config').token.access.secret
+const expiresIn = require('../../config').token.access.expiresIn
+const type = require('../../config').token.access.type
 
 /**
  * @return {Promise} { accessToken: string, expiresIn: Number }
@@ -13,7 +14,7 @@ module.exports = userEntity => {
 
   let config = {
     payload: {
-      accessToken: true,
+      tokenType: type,
       username: userEntity.name,
       userRole: userEntity.role,
       email: userEntity.email
