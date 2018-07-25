@@ -6,7 +6,7 @@ const PostDAO = require('../../dao/PostDAO')
 
 class GetPostsByUserIdAction extends BaseAction {
   static get accessTag () {
-    return 'user:get-posts-by-user-id'
+    return 'users:get-posts-by-user-id'
   }
 
   static get validationRules () {

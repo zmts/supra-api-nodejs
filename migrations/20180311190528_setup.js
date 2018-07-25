@@ -9,7 +9,7 @@ exports.up = (knex, Promise) => {
       table.string('role').defaultTo(roles.user).notNull()
       table.string('email', 50).unique().notNull()
       table.boolean('isEmailConfirmed').defaultTo(false)
-      table.text('confirmEmailToken')
+      table.text('emailConfirmToken')
 
       table.text('passwordHash').notNull()
       table.jsonb('refreshTokensMap').defaultTo('{}')

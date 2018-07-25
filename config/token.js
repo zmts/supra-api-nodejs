@@ -17,8 +17,8 @@ module.exports = {
     expiresIn: '12h'
   },
 
-  confirmEmail: {
-    type: 'TOKEN_TYPE_CONFIRM_EMAIL',
+  emailConfirm: {
+    type: 'TOKEN_TYPE_EMAIL_CONFIRM',
     secret: '89tWcgj8gjiG4ikwu2nrF95g5us35BiktQdktmkf',
     expiresIn: '30d'
   },

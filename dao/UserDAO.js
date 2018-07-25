@@ -57,6 +57,19 @@ class UserDAO extends BaseDAO {
       }).catch(error => { throw error })
   }
 
+  /**
+   * @description check email availability in DB.
+   * @param email
+   * @returns {Promise<boolean>}
+   */
+  static IsEmailExist (email) {
+    __typecheck(email, 'String', true)
+
+    return this.query().where({ email }).first()
+      .then(data => Boolean(data))
+      .catch(error => { throw error })
+  }
+
   static RemoveRefreshToken (userId, refreshTokenTimestamp) {
     __typecheck(userId, 'Number', true)
     __typecheck(refreshTokenTimestamp, 'String', true)

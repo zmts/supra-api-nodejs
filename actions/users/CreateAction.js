@@ -2,7 +2,7 @@ const Joi = require('joi')
 
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
-const authModule = require('../../services/auth')
+const { makePasswordHashService, makeEmailConfirmTokenService } = require('../../services/auth')
 const sendEmailService = require('../../services/sendEmailService')
 
 class CreateAction extends BaseAction {
@@ -26,7 +26,7 @@ class CreateAction extends BaseAction {
     let user = {}
 
     this.init(req, this.validationRules, this.accessTag)
-      .then(() => authModule.makePasswordHashService(req.body.password))
+      .then(() => makePasswordHashService(req.body.password))
       .then(hash => {
         delete req.body.password
         req.body['passwordHash'] = hash
@@ -34,6 +34,8 @@ class CreateAction extends BaseAction {
       })
       .then(body => UserDAO.BaseCreate(body))
       .then(model => (user = model))
+      .then(() => makeEmailConfirmTokenService(user))
+      .then(emailConfirmToken => UserDAO.BaseUpdate(user.id, { emailConfirmToken }))
       .then(() => sendEmailService({
         to: user.email,
         subject: 'Welcome to supra.com!',
