@@ -37,7 +37,10 @@ class BaseAction {
     return {
       page: '0',
       limit: '10',
-      orderBy: 'createdAt:desc'
+      orderBy: 'createdAt:desc',
+      filter: {
+        // todo
+      }
     }
   }
 

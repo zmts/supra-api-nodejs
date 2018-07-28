@@ -15,18 +15,15 @@ class ListAction extends BaseAction {
     }
   }
 
-  static get queryConfig () {
+  static get queryProps () {
     return {
-      limit: 20,
-      orderBy: 'name:asc',
-      filter: {
-        // todo
-      }
+      ...this.baseQueryProps
     }
   }
 
   static run (req, res, next) {
     this.init(req, this.validationRules, this.accessTag)
+      .then(() => this.queryResolver(req.query, this.queryProps))
       .then(() => UserDAO.BaseGetList())
       .then(list => res.json(this.resJson({ data: list })))
       .catch(error => next(error))
