@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router()
 
+const swaggerSpec = require('../swagger')
+
 const BaseController = require('./BaseController')
 const AuthController = require('./AuthController')
 const PostsController = require('./PostsController')
@@ -12,10 +14,15 @@ class RootController extends BaseController {
     // default auth middleware
     router.use(checkAccessTokenMiddleware)
 
+    // root route
     router.get('/', (req, res) => {
       res.json({ success: true, message: '(>___<)' })
     })
 
+    // api doc route
+    router.get('/swagger.json', (req, res) => res.json(swaggerSpec))
+
+    // main routes
     router.use('/auth', AuthController.router)
     router.use('/posts', PostsController.router)
     router.use('/users', UsersController.router)

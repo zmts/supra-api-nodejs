@@ -30,6 +30,7 @@
     "pg-native": "^2.2.0",
     "serve-favicon": "~2.3.0",
     "stack-trace": "0.0.10",
+    "swagger-jsdoc": "^1.10.3",
     "type-check": "^0.3.2",
     "uuid": "^3.0.1"
   },

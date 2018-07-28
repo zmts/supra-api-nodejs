@@ -27,3 +27,101 @@ class UsersController extends BaseController {
 }
 
 module.exports = UsersController
+
+/**
+ * @swagger
+ * definitions:
+ *   User:
+ *     properties:
+ *       name:
+ *         type: string
+ *       username:
+ *         type: string
+ *       email:
+ *         type: string
+ */
+
+/**
+ * @swagger
+ * definitions:
+ *   UserCreate:
+ *     properties:
+ *       name:
+ *         type: string
+ *       username:
+ *         type: string
+ *       email:
+ *         type: string
+ *       password:
+ *         type: string
+ *         format: password
+ */
+
+/**
+ * @swagger
+ * /users:
+ *   get:
+ *     tags:
+ *       - Users
+ *     description: Returns users list
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: page
+ *         description: page number
+ *         in: path
+ *         type: integer
+ *       - name: limit
+ *         description: limit
+ *         in: path
+ *         type: integer
+ *     responses:
+ *       200:
+ *         description: An array of users
+ *         schema:
+ *           $ref: '#/definitions/User'
+ */
+
+/**
+ * @swagger
+ * /users{id}:
+ *   get:
+ *     tags:
+ *       - Users
+ *     description: Returns a single user
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: id
+ *         description: user id
+ *         in: path
+ *         required: true
+ *         type: integer
+ *     responses:
+ *       200:
+ *         description: A single user
+ *         schema:
+ *           $ref: '#/definitions/User'
+ */
+
+/**
+ * @swagger
+ * /users:
+ *   post:
+ *     tags:
+ *       - Users
+ *     description: Creates a new user
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: json
+ *         description: User object
+ *         in: body
+ *         schema:
+ *           $ref: '#/definitions/UserCreate'
+ *     responses:
+ *       200:
+ *         description: Return new user object
+ *         schema:
+ *           $ref: '#/definitions/User'
+ */
