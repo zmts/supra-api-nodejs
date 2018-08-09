@@ -270,7 +270,7 @@ module.exports = UsersController
  *   post:
  *     tags:
  *       - Users
- *     description: 1) After registration user must to confirm email. 2) After user change email user must to confirm email again
+ *     description: 1) After registration user must confirm email. 2) After user change email user must confirm email again
  *     parameters:
  *       - name: jsonData
  *         description: request object

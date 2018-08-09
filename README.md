@@ -1,12 +1,22 @@
 # Node.js API boilerplate
 
 Piece of my thoughts about Node.js architecture.
-- ES6 Classes
-- Modular
-- Actions based
-- Services based
-- PostgreSQL
 
-__Warning !!! Work in progress !!!__
+## Highlights:
+- ES6 Classes
+- Action based
+- Service based
+- SQL based (PostgreSQL with objection.js)
+- Migrations(knex.js)
+- Auth (JWT/Access-token/Refresh-token)
+- Role based access control
+- Request validation (Joi.js)
+- CRUD(users, posts resources)
+- API documentation(Swagger)
+
+### Implemented endpoints:
+![endpoints](https://i.imgur.com/GCW47z5.png)
+
+__!!! Project still in progress !!!__
 
 _2017 - ..._
