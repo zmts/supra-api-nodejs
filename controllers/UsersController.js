@@ -128,7 +128,7 @@ module.exports = UsersController
 
 /**
  * @swagger
- * /users:
+ * /users/{id}:
  *   patch:
  *     tags:
  *       - Users
@@ -149,7 +149,7 @@ module.exports = UsersController
  *       200:
  *         description: Return updated entity object
  *         schema:
- *           $ref: '#/definitions/UserUpdate'
+ *           $ref: '#/definitions/User'
  */
 
 /**

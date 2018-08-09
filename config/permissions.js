@@ -21,25 +21,37 @@ module.exports = {
   [roles.admin]: [
     ...usersRegularPermissions,
 
-    'posts:all'
+    'posts:all',
+
+    'auth:refresh-tokens',
+    'auth:logout'
   ],
 
   [roles.moderator]: [
     ...usersRegularPermissions,
 
-    'posts:all'
+    'posts:all',
+
+    'auth:refresh-tokens',
+    'auth:logout'
   ],
 
   [roles.editor]: [
     ...usersRegularPermissions,
 
-    'posts:all'
+    'posts:all',
+
+    'auth:refresh-tokens',
+    'auth:logout'
   ],
 
   [roles.user]: [
     ...usersRegularPermissions,
 
-    'posts:all'
+    'posts:all',
+
+    'auth:refresh-tokens',
+    'auth:logout'
   ],
 
   [roles.anonymous]: [
@@ -50,6 +62,8 @@ module.exports = {
     'users:reset-password',
     'users:get-posts-by-user-id',
     'users:confirm-email',
+
+    'auth:login',
 
     'posts:list',
     'posts:get-by-id'

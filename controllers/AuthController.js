@@ -8,9 +8,8 @@ const actions = require('../actions/auth')
 class AuthController extends BaseController {
   static get router () {
     router.post('/login', actionRunner(actions.LoginAction))
-    // router.post('/logout', auth.checkToken(), sec.isLoggedIn(), auth.signOut())
+    router.post('/logout', actionRunner(actions.LogoutAction))
     router.post('/refresh-tokens', actionRunner(actions.RefreshTokensAction))
-    router.get('/test-refresh-token', actionRunner(actions.TestRefreshTokenAction))
 
     return router
   }
@@ -63,6 +62,18 @@ module.exports = AuthController
  *         description: Return access and refresh tokens
  *         schema:
  *            $ref: '#/definitions/Tokens'
+ */
+
+/**
+ * @swagger
+ * /auth/logout:
+ *   post:
+ *     tags:
+ *       - Auth
+ *     description: Log out user
+ *     responses:
+ *       200:
+ *         description: Return success status
  */
 
 /**

@@ -5,6 +5,10 @@ const UserDAO = require('../../dao/UserDAO')
 const { checkPasswordService, makeAccessTokenService, makeRefreshTokenService } = require('../../services/auth')
 
 class LoginAction extends BaseAction {
+  static get accessTag () {
+    return 'auth:login'
+  }
+
   static get validationRules () {
     return {
       ...this.baseValidationRules,
@@ -19,7 +23,7 @@ class LoginAction extends BaseAction {
     let userEntity = {}
     let data = { accessToken: '', refreshToken: '', expiresIn: 0 }
 
-    this.validate(req, this.validationRules)
+    this.init(req, this.validationRules, this.accessTag)
       .then(() => UserDAO.GetByEmail(req.body.email))
       .then(user => {
         userEntity = user
