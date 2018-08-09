@@ -39,12 +39,7 @@ module.exports = UsersController
  *         type: string
  *       email:
  *         type: string
- */
-
-/**
- * @swagger
- * definitions:
- *   UserCreate:
+ *   NewUser:
  *     properties:
  *       name:
  *         type: string
@@ -55,6 +50,12 @@ module.exports = UsersController
  *       password:
  *         type: string
  *         format: password
+ *   UserUpdate:
+ *     properties:
+ *       name:
+ *         type: string
+ *       username:
+ *         type: string
  */
 
 /**
@@ -64,17 +65,16 @@ module.exports = UsersController
  *     tags:
  *       - Users
  *     description: Returns users list
- *     produces:
- *       - application/json
  *     parameters:
  *       - name: page
  *         description: page number
- *         in: path
+ *         in: query
  *         type: integer
  *       - name: limit
  *         description: limit
- *         in: path
+ *         in: query
  *         type: integer
+ *         x-example: 10
  *     responses:
  *       200:
  *         description: An array of users
@@ -84,13 +84,11 @@ module.exports = UsersController
 
 /**
  * @swagger
- * /users{id}:
+ * /users/{id}:
  *   get:
  *     tags:
  *       - Users
  *     description: Returns a single user
- *     produces:
- *       - application/json
  *     parameters:
  *       - name: id
  *         description: user id
@@ -110,18 +108,61 @@ module.exports = UsersController
  *   post:
  *     tags:
  *       - Users
- *     description: Creates a new user
- *     produces:
- *       - application/json
+ *     description: Creates a new entity
  *     parameters:
- *       - name: json
- *         description: User object
+ *       - name: jsonData
+ *         description: request object
  *         in: body
+ *         required: true
  *         schema:
- *           $ref: '#/definitions/UserCreate'
+ *           $ref: '#/definitions/NewUser'
  *     responses:
  *       200:
  *         description: Return new user object
  *         schema:
  *           $ref: '#/definitions/User'
+ */
+
+/**
+ * @swagger
+ * /users:
+ *   patch:
+ *     tags:
+ *       - Users
+ *     description: Update entity by id
+ *     parameters:
+ *       - name: id
+ *         description: id
+ *         in: path
+ *         required: true
+ *         type: integer
+ *       - name: jsonData
+ *         description: request object
+ *         in: body
+ *         required: true
+ *         schema:
+ *           $ref: '#/definitions/UserUpdate'
+ *     responses:
+ *       200:
+ *         description: Return updated entity object
+ *         schema:
+ *           $ref: '#/definitions/UserUpdate'
+ */
+
+/**
+ * @swagger
+ * /users/{id}:
+ *   delete:
+ *     tags:
+ *       - Users
+ *     description: Remove user by id
+ *     parameters:
+ *       - name: id
+ *         description: user id
+ *         in: path
+ *         required: true
+ *         type: integer
+ *     responses:
+ *       200:
+ *         description: Success status
  */
