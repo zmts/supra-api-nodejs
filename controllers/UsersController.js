@@ -66,6 +66,9 @@ module.exports = UsersController
  *       - Users
  *     description: Returns users list
  *     parameters:
+ *       - name: token
+ *         in: header
+ *         type: string
  *       - name: page
  *         description: page number
  *         in: query
@@ -165,4 +168,54 @@ module.exports = UsersController
  *     responses:
  *       200:
  *         description: Success status
+ */
+
+/**
+ * @swagger
+ * /users/{id}/posts:
+ *   get:
+ *     tags:
+ *       - Users
+ *     description: Returns post list by user id
+ *     parameters:
+ *       - name: id
+ *         description: user id
+ *         in: path
+ *         required: true
+ *         type: integer
+ *       - name: page
+ *         description: page number
+ *         in: query
+ *         type: integer
+ *       - name: limit
+ *         description: limit
+ *         in: query
+ *         type: integer
+ *         x-example: 10
+ *     responses:
+ *       200:
+ *         description: An array of posts
+ */
+
+/**
+ * @swagger
+ * /users/change-password:
+ *   post:
+ *     tags:
+ *       - Users
+ *     description: Change user password
+ *     parameters:
+ *       - name: jsonData
+ *         description: request object
+ *         in: body
+ *         required: true
+ *         schema:
+ *          properties:
+ *            oldPassword:
+ *              type: string
+ *            newPassword:
+ *              type: string
+ *     responses:
+ *       200:
+ *         description: Return new user object
  */

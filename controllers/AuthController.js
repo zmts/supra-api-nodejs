@@ -17,3 +17,12 @@ class AuthController extends BaseController {
 }
 
 module.exports = AuthController
+
+/**
+ * @swagger
+ * securityDefinitions:
+ *   ApiKeyAuth:
+ *     type: apiKey
+ *     in: header
+ *     name: token
+ */
