@@ -3,6 +3,7 @@
 Piece of my thoughts about Node.js architecture.
 
 ## Highlights:
+- RESTful API
 - ES6 Classes
 - Action based
 - Service based
