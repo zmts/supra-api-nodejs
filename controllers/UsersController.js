@@ -33,6 +33,8 @@ module.exports = UsersController
  * definitions:
  *   User:
  *     properties:
+ *       id:
+ *         type: integer
  *       name:
  *         type: string
  *       username:
@@ -81,8 +83,6 @@ module.exports = UsersController
  *     responses:
  *       200:
  *         description: An array of users
- *         schema:
- *           $ref: '#/definitions/User'
  */
 
 /**
@@ -217,5 +217,104 @@ module.exports = UsersController
  *              type: string
  *     responses:
  *       200:
- *         description: Return new user object
+ *         description: Return user object
  */
+
+/**
+ * @swagger
+ * /users/send-reset-email:
+ *   post:
+ *     tags:
+ *       - Users
+ *     description: Send email to reset user password
+ *     parameters:
+ *       - name: jsonData
+ *         description: request object
+ *         in: body
+ *         required: true
+ *         schema:
+ *          properties:
+ *            email:
+ *              type: string
+ *     responses:
+ *       200:
+ *         description: Return success status
+ */
+
+/**
+ * @swagger
+ * /users/reset-password:
+ *   post:
+ *     tags:
+ *       - Users
+ *     description: Reset password form
+ *     parameters:
+ *       - name: jsonData
+ *         description: request object
+ *         in: body
+ *         required: true
+ *         schema:
+ *          properties:
+ *            resetPasswordToken:
+ *              type: string
+ *            password:
+ *              type: string
+ *     responses:
+ *       200:
+ *         description: Success status
+ */
+
+/**
+ * @swagger
+ * /users/confirm-email:
+ *   post:
+ *     tags:
+ *       - Users
+ *     description: 1) After registration user must to confirm email. 2) After user change email user must to confirm email again
+ *     parameters:
+ *       - name: jsonData
+ *         description: request object
+ *         in: body
+ *         required: true
+ *         schema:
+ *          properties:
+ *            emailConfirmToken:
+ *              type: string
+ *     responses:
+ *       200:
+ *         description: Success status
+ */
+
+/**
+ * @swagger
+ * /users/send-email-confirm-token:
+ *   post:
+ *     tags:
+ *       - Users
+ *     description: Send email with confirmation token.
+ *     responses:
+ *       200:
+ *         description: Success status
+ */
+
+/**
+ * @swagger
+ * /users/change-email:
+ *   post:
+ *     tags:
+ *       - Users
+ *     description: We can't change email via update user entity, so to change email we use separate endpoint. After that front-end must invoke '/users/confirm-email'
+ *     parameters:
+ *       - name: jsonData
+ *         description: request object
+ *         in: body
+ *         required: true
+ *         schema:
+ *          properties:
+ *            email:
+ *              type: string
+ *     responses:
+ *       200:
+ *         description: Success status
+ */
+

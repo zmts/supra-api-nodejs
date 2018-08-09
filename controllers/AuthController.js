@@ -26,3 +26,64 @@ module.exports = AuthController
  *     in: header
  *     name: token
  */
+
+/**
+ * @swagger
+ * definitions:
+ *   Tokens:
+ *    properties:
+ *      accessToken:
+ *        type: string
+ *      refreshToken:
+ *        type: string
+ *      expiresIn:
+ *        type: integer
+ */
+
+/**
+ * @swagger
+ * /auth/login:
+ *   post:
+ *     tags:
+ *       - Auth
+ *     description: Log in
+ *     parameters:
+ *       - name: jsonData
+ *         description: request object
+ *         in: body
+ *         required: true
+ *         schema:
+ *          properties:
+ *            password:
+ *              type: string
+ *            email:
+ *              type: string
+ *     responses:
+ *       200:
+ *         description: Return access and refresh tokens
+ *         schema:
+ *            $ref: '#/definitions/Tokens'
+ */
+
+/**
+ * @swagger
+ * /auth/refresh-tokens:
+ *   post:
+ *     tags:
+ *       - Auth
+ *     description: Refresh tokens
+ *     parameters:
+ *       - name: jsonData
+ *         description: request object
+ *         in: body
+ *         required: true
+ *         schema:
+ *          properties:
+ *            refreshToken:
+ *              type: string
+ *     responses:
+ *       200:
+ *         description: Return access and refresh tokens
+ *         schema:
+ *           $ref: '#/definitions/Tokens'
+ */
