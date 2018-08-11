@@ -67,8 +67,8 @@ class BaseDAO extends Model {
   };
 
   static BaseGetList () {
-    let pageNumber = +registry.get('page')
-    let limit = +registry.get('limit')
+    let pageNumber = registry.queryParams.get().page
+    let limit = registry.queryParams.get().limit
 
     return this.query()
       .orderBy('id', 'desc')

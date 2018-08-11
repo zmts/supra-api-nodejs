@@ -9,13 +9,13 @@ module.exports = (argument, type, required) => {
   /**
    * check if required
    */
-  if (required && !argument) {
+  if ((required && !argument) && (argument !== 0)) {
     throw new ErrorWrapper({ ...errorCodes.NO_ARGUMENT })
   }
   /**
    * check arguments type
    */
-  const isArgumentExist = [null, false, NaN].includes(argument) || argument
+  const isArgumentExist = [0, null, false, NaN].includes(argument) || argument
   if (isArgumentExist && !typeCheck(type, argument)) {
     throw new ErrorWrapper({ ...errorCodes.ARGUMENT_TYPE })
   }

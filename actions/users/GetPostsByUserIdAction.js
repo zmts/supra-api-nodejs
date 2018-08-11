@@ -1,8 +1,5 @@
-// const Joi = require('joi')
-
 const BaseAction = require('../BaseAction')
 const PostDAO = require('../../dao/PostDAO')
-// const authModule = require('../../services/auth')
 
 class GetPostsByUserIdAction extends BaseAction {
   static get accessTag () {

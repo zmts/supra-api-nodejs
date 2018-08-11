@@ -27,8 +27,8 @@ class PostDAO extends BaseDAO {
 
     return this.query()
       .where({ userId })
-      .page(registry.get('page'), registry.get('limit'))
-      .orderBy(registry.get('orderBy').field, registry.get('orderBy').direction)
+      .page(registry.queryParams.get().page, registry.queryParams.get().limit)
+      .orderBy(registry.queryParams.get().orderBy.field, registry.queryParams.get().orderBy.direction)
       .then(data => {
         if (!data.results.length) throw this.errorEmptyResponse()
         return data

@@ -20,7 +20,7 @@ class TemplateAction extends BaseAction {
   }
 
   static run (req, res, next) {
-    // let currentUser = registry.getCurrentUser()
+    // let currentUser = registry.get()
 
     this.init(req, this.validationRules, this.accessTag)
       .then(data => res.json(this.resJson({ data })))

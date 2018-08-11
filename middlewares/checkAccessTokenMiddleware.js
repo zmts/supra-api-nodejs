@@ -6,17 +6,17 @@ const errorCodes = require('../config').errorCodes
 module.exports = (req, res, next) => {
   let token = req.headers['token']
   // reset user before each request
-  registry.resetCurrentUser()
+  registry.currentUser.reset()
 
   if (token) {
     return cryptoDecryptService(token)
       .then(decryptedToken => jwtService.verify(decryptedToken, SECRET))
       .then(tokenData => {
         // set user
-        registry.setCurrentUser(tokenData)
+        registry.currentUser.set(tokenData)
         next()
       }).catch(error => {
-        registry.resetCurrentUser()
+        registry.currentUser.reset()
 
         if (error.code === errorCodes.TOKEN_EXPIRED.code) {
           /**

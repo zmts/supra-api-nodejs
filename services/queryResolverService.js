@@ -17,11 +17,12 @@ module.exports = (reqQuery, defaultConfig) => {
       let field = config[key].split(':')[0]
       let direction = config[key].split(':')[1]
 
-      registry.set(key, { field, direction })
+      registry.queryParams.set(key, { field, direction })
     } else {
-      registry.set(key, config[key])
+      registry.queryParams.set(key, config[key])
     }
   })
 
-  console.log('queryResolverService >> registry list', registry.list())
+  console.log('queryResolverService >> registry.currentUser list', registry.currentUser.list())
+  console.log('queryResolverService >> registry.queryParams list', registry.queryParams.list())
 }

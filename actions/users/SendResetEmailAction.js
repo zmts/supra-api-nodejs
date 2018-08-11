@@ -4,7 +4,6 @@ const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
 const authModule = require('../../services/auth')
 const sendEmailService = require('../../services/sendEmailService')
-// const registry = require('../../registry')
 
 /**
  * 1) get email from request

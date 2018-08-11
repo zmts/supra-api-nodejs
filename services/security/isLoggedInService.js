@@ -6,10 +6,10 @@ const registry = require('../../registry')
  * @description check is logged in user status
  */
 module.exports = () => {
-  let user = registry.getCurrentUser()
+  let currentUser = registry.currentUser.get()
 
   return new Promise((resolve, reject) => {
-    if (user.id) return resolve()
+    if (currentUser.id) return resolve()
     return reject(new ErrorWrapper({ ...errorCodes.NO_ANONYMOUS_ACCESS }))
   })
 }

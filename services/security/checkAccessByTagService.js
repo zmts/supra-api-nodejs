@@ -15,14 +15,14 @@ module.exports = accessTag => {
 
   let accessTagBaseName = accessTag.split(':')[0]
   let accessTagAll = `${accessTagBaseName}:all`
-  let user = registry.getCurrentUser()
+  let currentUser = registry.currentUser.get()
 
   return new Promise((resolve, reject) => {
     // pass superadmin
-    if (user.role === roles.superadmin) return resolve()
+    if (currentUser.role === roles.superadmin) return resolve()
     // if current user role have access tag >> pass
-    if (permissions[user.role].includes(accessTagAll)) return resolve()
-    if (permissions[user.role].includes(accessTag)) return resolve()
+    if (permissions[currentUser.role].includes(accessTagAll)) return resolve()
+    if (permissions[currentUser.role].includes(accessTag)) return resolve()
     // else reject
     return reject(new ErrorWrapper({ ...errorCodes.ACCESS }))
   })

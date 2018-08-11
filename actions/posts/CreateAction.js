@@ -20,7 +20,7 @@ class CreateAction extends BaseAction {
   }
 
   static run (req, res, next) {
-    let currentUser = registry.getCurrentUser()
+    let currentUser = registry.currentUser.get()
 
     this.init(req, this.validationRules, this.accessTag)
       .then(() => PostDAO.BaseCreate({ ...req.body, userId: currentUser.id }))

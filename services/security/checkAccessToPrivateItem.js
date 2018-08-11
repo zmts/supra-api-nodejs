@@ -15,18 +15,18 @@ const registry = require('../../registry')
 module.exports = model => {
   __typecheck(model, 'Object', true)
 
-  let user = registry.getCurrentUser()
+  let currentUser = registry.currentUser.get()
 
   return new Promise((resolve, reject) => {
     // pass to superadmin
-    if (user.role === roles.superadmin) return resolve(model)
+    if (currentUser.role === roles.superadmin) return resolve(model)
     // pass to owner
-    if (user.id === model.userId) return resolve(model)
+    if (currentUser.id === model.userId) return resolve(model)
     // pass if model is public
     if (!model.private) return resolve(model)
     // reject if model is private
     if (model.private) {
-      return reject(new ErrorWrapper({ ...errorCodes.ACCESS, message: `User ${user.id} don't have access to model ${model.id}` }))
+      return reject(new ErrorWrapper({ ...errorCodes.ACCESS, message: `User ${currentUser.id} don't have access to model ${model.id}` }))
     }
     // else reject
     return reject(new ErrorWrapper({ ...errorCodes.ACCESS }))

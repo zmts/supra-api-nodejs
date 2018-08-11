@@ -16,7 +16,7 @@ class SendEmailConfirmToken extends BaseAction {
   }
 
   static run (req, res, next) {
-    let currentUser = registry.getCurrentUser()
+    let currentUser = registry.currentUser.get()
     let emailConfirmToken = ''
 
     this.init(req, this.validationRules, this.accessTag)

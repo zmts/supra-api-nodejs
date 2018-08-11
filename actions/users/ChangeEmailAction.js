@@ -21,7 +21,7 @@ class ChangeEmailAction extends BaseAction {
   }
 
   static run (req, res, next) {
-    let currentUser = registry.getCurrentUser()
+    let currentUser = registry.currentUser.get()
 
     this.init(req, this.validationRules, this.accessTag)
       .then(() => UserDAO.IsEmailExist(req.body.email))
