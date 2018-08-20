@@ -1,4 +1,4 @@
-const { cryptoDecryptService, jwtService } = require('../services/auth')
+const { jwtService } = require('../services/auth')
 const SECRET = require('../config').token.access.secret
 const registry = require('../registry')
 const errorCodes = require('../config').errorCodes
@@ -9,8 +9,7 @@ module.exports = (req, res, next) => {
   registry.currentUser.reset()
 
   if (token) {
-    return cryptoDecryptService(token)
-      .then(decryptedToken => jwtService.verify(decryptedToken, SECRET))
+    return jwtService.verify(token, SECRET)
       .then(tokenData => {
         // set user
         registry.currentUser.set(tokenData)

@@ -1,5 +1,4 @@
 const jwtService = require('./jwtService')
-const cryptoEncryptService = require('./cryptoEncryptService')
 
 const SECRET = require('../../config').token.refresh.secret
 const expiresIn = require('../../config').token.refresh.expiresIn
@@ -11,7 +10,7 @@ const type = require('../../config').token.refresh.type
 module.exports = userEntity => {
   __typecheck(userEntity, 'Object', true)
 
-  let config = {
+  const config = {
     payload: {
       tokenType: type,
       email: userEntity.email
@@ -24,7 +23,9 @@ module.exports = userEntity => {
     }
   }
 
+  const timestamp = new Date().getTime()
+
   return jwtService.sign(config.payload, SECRET, config.options)
-    .then(result => cryptoEncryptService(result))
+    .then(result => `${timestamp}::${result}`)
     .catch(error => { throw new Error(error) })
 }

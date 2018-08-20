@@ -5,8 +5,6 @@ const makeRefreshTokenService = require('./makeRefreshTokenService')
 const makeResetEmailTokenService = require('./makeResetEmailTokenService')
 const makeEmailConfirmTokenService = require('./makeEmailConfirmTokenService')
 const parseTokenService = require('./parseTokenService.js')
-const cryptoEncryptService = require('./cryptoEncryptService')
-const cryptoDecryptService = require('./cryptoDecryptService')
 const jwtService = require('./jwtService')
 const findAndVerifyRefreshToken = require('./findAndVerifyRefreshToken')
 
@@ -18,8 +16,6 @@ module.exports = {
   makeResetEmailTokenService,
   makeEmailConfirmTokenService,
   parseTokenService,
-  cryptoEncryptService,
-  cryptoDecryptService,
   jwtService,
   findAndVerifyRefreshToken
 }

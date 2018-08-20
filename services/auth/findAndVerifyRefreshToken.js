@@ -8,22 +8,22 @@ const SECRET = require('../../config/token').refresh.secret
  * 2 - compare refresh token from request and refresh token from DB
  * 3 - verify refresh token
  */
-module.exports = (user, reqRefreshToken, decodedRefreshToken) => {
+module.exports = (user, reqRefreshToken) => {
   __typecheck(user, 'Object', true)
   __typecheck(user.refreshTokensMap, 'Object', true)
   __typecheck(reqRefreshToken, 'String', true)
-  __typecheck(decodedRefreshToken, 'String', true)
 
   return new Promise((resolve, reject) => {
-    let tokenTimestamp = reqRefreshToken.split('.')[0]
-    let existingUserTokenFromDb = user.refreshTokensMap[tokenTimestamp]
+    const tokenTimestamp = reqRefreshToken.split('::')[0]
+    const refreshToken = reqRefreshToken.split('::')[1]
+    const existingUserTokenFromDb = user.refreshTokensMap[tokenTimestamp]
 
     if (!existingUserTokenFromDb) return reject(new ErrorWrapper({ ...errorCodes.NOT_FOUND }))
     if (existingUserTokenFromDb !== reqRefreshToken) return reject(new ErrorWrapper({ ...errorCodes.BAD_REFRESH_TOKEN }))
-    return jwtService.verify(decodedRefreshToken, SECRET)
+    return jwtService.verify(refreshToken, SECRET)
       .then(() => resolve())
-      .catch(() => {
-        return reject(new ErrorWrapper({ ...errorCodes.TOKEN_EXPIRED }))
+      .catch(error => {
+        return reject(new ErrorWrapper({ ...errorCodes.TOKEN_VERIFY, message: error.message }))
       })
   })
 }

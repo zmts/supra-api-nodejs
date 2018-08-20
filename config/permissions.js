@@ -23,7 +23,6 @@ module.exports = {
 
     'posts:all',
 
-    'auth:refresh-tokens',
     'auth:logout'
   ],
 
@@ -32,7 +31,6 @@ module.exports = {
 
     'posts:all',
 
-    'auth:refresh-tokens',
     'auth:logout'
   ],
 
@@ -41,7 +39,6 @@ module.exports = {
 
     'posts:all',
 
-    'auth:refresh-tokens',
     'auth:logout'
   ],
 
@@ -50,7 +47,6 @@ module.exports = {
 
     'posts:all',
 
-    'auth:refresh-tokens',
     'auth:logout'
   ],
 
@@ -64,6 +60,7 @@ module.exports = {
     'users:confirm-email',
 
     'auth:login',
+    'auth:refresh-tokens',
 
     'posts:list',
     'posts:get-by-id'
