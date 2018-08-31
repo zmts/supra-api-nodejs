@@ -8,11 +8,13 @@ const path = require('path')
 const logger = require('morgan')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
-const config = require('./config')
 const chalk = require('chalk')
 const Model = require('objection').Model
 const Knex = require('knex')
 
+const config = require('./config')
+const errorCodes = require('./config').errorCodes
+const ErrorWrapper = require('./util/ErrorWrapper')
 const controllers = require('./controllers')
 const corsMiddleware = require('./middlewares/corsMiddleware')
 const devErrorMiddleware = require('./middlewares/error/devErrorMiddleware')
@@ -59,7 +61,7 @@ class App {
     }
 
     this.express.use((req, res, next) => {
-      res.status(404).json({ success: false, error: '404, No route found' })
+      res.status(404).json(new ErrorWrapper({ ...errorCodes.ROUTE_NOT_FOUND }))
     })
   }
 
