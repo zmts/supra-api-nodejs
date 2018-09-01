@@ -5,7 +5,6 @@ const folders = require('./folders')
 const token = require('./token')
 const url = require('./url')
 const roles = require('./roles')
-const permissions = require('./permissions')
 const email = require('./email')
 
 module.exports = {
@@ -16,6 +15,5 @@ module.exports = {
   token,
   url,
   roles,
-  permissions,
   email
 }

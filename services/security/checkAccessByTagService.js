@@ -1,7 +1,7 @@
 const ErrorWrapper = require('../../util/ErrorWrapper')
 const errorCodes = require('../../config').errorCodes
 
-const permissions = require('../../config').permissions
+const permissions = require('../../permissions')
 const roles = require('../../config').roles
 const registry = require('../../registry')
 
@@ -13,9 +13,9 @@ const registry = require('../../registry')
 module.exports = accessTag => {
   __typecheck(accessTag, 'String', true)
 
-  let accessTagBaseName = accessTag.split(':')[0]
-  let accessTagAll = `${accessTagBaseName}:all`
-  let currentUser = registry.currentUser.get()
+  const accessTagBaseName = accessTag.split(':')[0]
+  const accessTagAll = `${accessTagBaseName}:all`
+  const currentUser = registry.currentUser.get()
 
   return new Promise((resolve, reject) => {
     // pass superadmin

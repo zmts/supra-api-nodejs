@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-07-20T15:23:29.400Z",
+	"__export_date": "2018-09-01T11:52:32.497Z",
 	"__export_source": "insomnia.desktop.app:v5.16.6",
 	"resources": [
 		{
@@ -313,6 +313,172 @@
 			"_type": "request"
 		},
 		{
+			"_id": "req_e7b0a9f1f0cd4bcd9510baafdb0ab628",
+			"authentication": {},
+			"body": {},
+			"created": 1532372405201,
+			"description": "",
+			"headers": [
+				{
+					"disabled": false,
+					"id": "pair_78fa7850a2fb4f8889c871bc7ffc3958",
+					"name": "token",
+					"value": "1532372340112.7a9a560d43760d29849c5aa6111acc66::1b6c4c019500e8ee52a78714ed1d239edb52e34fa7a2bec6cd2e734c83e883206e3a4f71ed092312a1f3cca47811cbbc269101f759eb4643fd357a2ebdcd877f0ff4704c441a5b4cf7ace198ea8f1281107611ca4354e877c5cf565269e764983a0fc298918173f2eaaedde02bf857621f7bb1144be305a75b7188ec9f11060267aa816b38df78b56f0dfde08780da0b74fe39ff701b3c23c8d6fae3b00bd3fa9392876e543e913f011a0a9e98643ef4306fa002faad367d095dbcb96f776cb084a6094db5bfaec2a3d7fcdc0fe34d0e6d9f5de90d88c350e162ad0af2cc622b4eee81126a7f2ff095fe65ce7b8cfa20e8e32c19400ab59f7d04f947ecc3229acbec06686820886da3e1ac81d033b55ba9f61d55f31c663e36bada8783f4260882859f166278b8a3b85a7c13f771fab4c55b60d3a1ab0bb3360d0597d1927c76"
+				},
+				{
+					"disabled": false,
+					"id": "pair_6920e72df1ab475a84fd2cfa86eb0042",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1501483077653.25,
+			"method": "DELETE",
+			"modified": 1532372879963,
+			"name": "delete",
+			"parameters": [],
+			"parentId": "fld_56874bbff37e40e0a7e2976f04a0da7a",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "localhost:4000/users/22",
+			"_type": "request"
+		},
+		{
+			"_id": "req_6534977cdb014261b9845ec1c7e66be3",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"emailConfirmToken\": \"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ0b2tlblR5cGUiOiJUT0tFTl9UWVBFX0VNQUlMX0NPTkZJUk0iLCJlbWFpbCI6InNhLnptdHNAZ21haWwuY29tIiwiaWF0IjoxNTMyNTM2ODMxLCJleHAiOjE1MzUxMjg4MzEsInN1YiI6IjEifQ.NJfvk2ZyvLg6voiBG9TJ5oA0jgoFAQh1ABfrZWxYp1l5qaB0-w2sHT1nwD8kYcRwjEQQ0idbJJ4JDCerpbzKkA\"\n}"
+			},
+			"created": 1532532028933,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_e7c416562e1245068213855579f31eab",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1497637473620.1562,
+			"method": "POST",
+			"modified": 1532536863591,
+			"name": "confirm-email",
+			"parameters": [],
+			"parentId": "fld_56874bbff37e40e0a7e2976f04a0da7a",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "localhost:4000/users/confirm-email",
+			"_type": "request"
+		},
+		{
+			"_id": "req_c262a8adfdfe43c5bab03b0c82c1128e",
+			"authentication": {},
+			"body": {},
+			"created": 1532535968058,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_e7c416562e1245068213855579f31eab",
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"id": "pair_fe71ef653039421d92373e828bdba61e",
+					"name": "token",
+					"value": "1533834595838.d9d9ce7a9aaf2eece9242e8adcae37ea::07d0cbbdb11eb2c23d73891139f98d75b756cde04a33bf1de1930004d9fc5bcf4f73cf582136272fbaafc50d920a6aa95a907a66a146aab26324ad38b55f51a5405aab01f9a86cb7183f7d6bd883f1cf6402766b1630b9700307cbada0a686a1bc94efd17a371d580870b8c19779d9b0a374bc0c1a4f90b1c260a8368da49dc284a0700de904711271f977ebae0982ec232dfc94beb57ad448e6637eb21a683296ab52b25fc9ab1b482ed900a4a0acf600141fe6f8caafbcabc363a67f6f2dfde68362e8017c5c0e4227d82c40d01a165200b7a27850723b621cc6393ab0d1f3f06dd034a4dae6785832813974388b9a59425f53f1a598781857f5c3945ef5b5f7f6c1f809095d57084dd1138dd76f2bbf68cf4b77c88637fcf15c97dce43b76dc8ff183d18cd43d4830542e421dee7ab6e0f5ab749d48414bf906d1cd002dacccac7bf45ab52e26574576e2071c4d2d"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1497362787619.5781,
+			"method": "POST",
+			"modified": 1533834606554,
+			"name": "send-email-confirm-token",
+			"parameters": [],
+			"parentId": "fld_56874bbff37e40e0a7e2976f04a0da7a",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "localhost:4000/users/send-email-confirm-token",
+			"_type": "request"
+		},
+		{
+			"_id": "req_2a0e9d677d204a148820dc478a16f552",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"email\": \"sa.zmts@gmail.com\"\n}"
+			},
+			"created": 1532537557520,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_e7c416562e1245068213855579f31eab",
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"id": "pair_fe71ef653039421d92373e828bdba61e",
+					"name": "token",
+					"value": "1532539474593.a49ffc0cce51e38b30d507c135d3305e::1ffe4deacf477c170860829cb9f9bac096ee4c66d0078556937f09c7c3ff754aa3c7c4529938e62f61017d467cd2eb2045a6f061c2e4cd76301a92223e2d94dce8cd457845b85167e6012341fc9ced83a1104a434c9fed09c817cb39792bd24affa47f1e89010a27c49a2fa1c32a09adaa11b7b7486db1fbaec3e97f45ffd8563460e6f37efb2578324a5d52f6d995ec928b3f1f0c16f51e1d47d69df017e23ac83e30dd3e82dfe54da0815200879a31cd4a513821e6e36bb4fe6acba40012d056681d73799102d43790d9975cd4e9c97aa93f1baba46f7993357dd398b3d3a9a9f7ffac92f57b9799bdf89df070075d079874d8e45dd9f58d85929bb98484478122e78f303ba3e2bc0dfeb48f5c64e1d418c9a0ea7def7065244ab3c690b029acfcc32c72e4f629a3794d0543161451f07be1ed06325ce835fb5ba4a858607ef457ecd71132c846d9a17efbce84972e"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1497225444619.289,
+			"method": "POST",
+			"modified": 1532539606770,
+			"name": "change-email",
+			"parameters": [],
+			"parentId": "fld_56874bbff37e40e0a7e2976f04a0da7a",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "localhost:4000/users/change-email",
+			"_type": "request"
+		},
+		{
+			"_id": "req_a126492df7994b7ca8b6067dbd20cd44",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"email\": \"sa.zmts@gmail.com\"\n}"
+			},
+			"created": 1534961054152,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_e7c416562e1245068213855579f31eab",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1497225444569.289,
+			"method": "POST",
+			"modified": 1534968749352,
+			"name": "check-email-availability",
+			"parameters": [],
+			"parentId": "fld_56874bbff37e40e0a7e2976f04a0da7a",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "localhost:4000/users/check-email-availability",
+			"_type": "request"
+		},
+		{
 			"_id": "req_16671f4ea266424d9e20cfa0d26d383b",
 			"authentication": {},
 			"body": {},
@@ -346,7 +512,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"title\": \"next text\",\n\t\"content\": \"boom\"\n}"
+				"text": "{\n\t\"title\": \"ololooo 123\",\n\t\"content\": \"boom\"\n}"
 			},
 			"created": 1526207121804,
 			"description": "",
@@ -355,7 +521,7 @@
 					"disabled": false,
 					"id": "pair_d88fa982d57f45029a6cc6981715ce61",
 					"name": "token",
-					"value": "1532092264276.e8653807e3b03460cf70c0ad50b10d9b::bb17adc71de14d5b371cf3196540b958ef874d2c0c2e12bd6ea28a3c2be7e35682dc30f055a4ef03d9ff66c222daa6d39b98f94f1febb619adebace593ed95692db14137710918f062d98c21bcdef30ab6fb41d6e62389992977978eb8cdcf11082d5a9a8090cf9c42d2d8f9382f6680e65b3dc200ea496175b87b059e3186d3b5629574630ccc327127ffb6bef7af9ac1381c0e28bc5ffc19c4e7fad4da86891b071455cbfaf5b796834fea9a1024ec179cbc0de3ac701ae361beff741555b66c7653de5fb4830cc87b52d6f0a5ed850906d55c0a60b06e6cf77ed1863f9f29569067a101523df6c824acbcc3853874b498831de9974183b788eb0e23fd3615e1022c1aec24fc8ce38b6586fcaf222bab39c4482e4169f33a18c7b108af2111256006e743bfa7d9b4eb78ff6ae6107ff30b665db3764ae94957facea7263098"
+					"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ0b2tlblR5cGUiOiJUT0tFTl9UWVBFX0FDQ0VTUyIsInVzZXJuYW1lIjoic2FzaGEiLCJ1c2VyUm9sZSI6IlJPTEVfVVNFUiIsImVtYWlsIjoic2Euem10c0BnbWFpbC5jb20iLCJpYXQiOjE1MzU4MDIyNDAsImV4cCI6MTUzNTgwMjg0MCwic3ViIjoiMSJ9.seYrVdqTjlbVzcgCh1XFPpn8HPZSo2g_r-Y_AzzZFxvauNywL-hHPnV3BV22xqJdVOkSK3YK3SGJcOGWUDVObg"
 				},
 				{
 					"id": "pair_cb6d7a21ccfe4ba192a9015a477ad2cf",
@@ -366,7 +532,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1520973267448.75,
 			"method": "POST",
-			"modified": 1532092295561,
+			"modified": 1535802265733,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_0fca7190f61e41db9af211baa82531bf",
@@ -438,11 +604,46 @@
 			"_type": "request"
 		},
 		{
+			"_id": "req_9bfb118453484d99947221ac8d67b2e0",
+			"authentication": {},
+			"body": {},
+			"created": 1532369866456,
+			"description": "",
+			"headers": [
+				{
+					"disabled": false,
+					"id": "pair_78fa7850a2fb4f8889c871bc7ffc3958",
+					"name": "token",
+					"value": "1532370014002.4374bc1cc3ccb2ed6b6c98197e23f328::0b2a67c5799ca2636a0ba226c77e4e7bcd554a850ac33133573dfd4b82e41250e6627a7d2911dc7724ecad22023d1ae432b1330168d868be3fe55f8574a829f3ae9932464753cb5e491abecc2cbf10f56b933cabe12fdc9f35e678df1a39cf143ae6277eefc62f55ba6ef891df76693f291f90a05c106065aa19ececd096eb1be159f6c804d04bcdda41e6d9f38e9db10be38af4cfeeae2636810b844b82adbc0360c0cf029abaadc069dd2c886c1e53cff135c2b722d6db5a3101d85c825adae109b147ad9792b1b1f661eba3dce37bb59b2aa521052e297d1d42b9b5a3fcae337f94dac20037bb4bd842caf4588566e524d334115f79b4d8e190c8da013bfe1dd49746288f66d4cc62d9401a7a733dcffd90793e99fbd00c8d67f5e5045fc07a8e8cfca64148859b039b901d5bf924accc1bf006638058a87628e513c72162"
+				},
+				{
+					"disabled": false,
+					"id": "pair_6920e72df1ab475a84fd2cfa86eb0042",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1520653229713.6875,
+			"method": "DELETE",
+			"modified": 1532372402955,
+			"name": "delete",
+			"parameters": [],
+			"parentId": "fld_0fca7190f61e41db9af211baa82531bf",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "localhost:4000/posts/21",
+			"_type": "request"
+		},
+		{
 			"_id": "req_7fd426d7e09e42a0b80ce0b191c5908c",
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"password\": \"123456\",\n\t\"email\": \"zloy.root@gmail.com\"\n}"
+				"text": "{\n\t\"password\": \"123456\",\n\t\"email\": \"sa.zmts@gmail.com\"\n}"
 			},
 			"created": 1514820014708,
 			"description": "",
@@ -456,7 +657,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1523073923710,
 			"method": "POST",
-			"modified": 1531923901697,
+			"modified": 1535802238640,
 			"name": "auth/login",
 			"parameters": [],
 			"parentId": "fld_ea6e1c87f6be446ca026f3f945a3ceb9",
@@ -525,6 +726,39 @@
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
 			"url": "localhost:4000/auth/test-refresh-token/",
+			"_type": "request"
+		},
+		{
+			"_id": "req_046393e4c2264fd38c58f61d4f18f5c4",
+			"authentication": {},
+			"body": {},
+			"created": 1533843558424,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_87fb7c295d5f4e429c3b9d2272432d88",
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"id": "pair_34d76fd7b1824f1a92d32e741346205b",
+					"name": "token",
+					"value": "1533844255012.02143e5984fe74b0f023c65a5abe2fb8::c0e28772c8abc7389aebaabcacbff00dcb0fa52c9e3938a672a9fd472b2c97fcdf18e26c71f65131cfa231bbf70b07d3e87c32ff5ba1ea5d0702711d075c9da3422f8452933abd43e536aba0e719e7fce88c6ebd254c32eca3336d064db1095bd64f9526414938f72b5a0eacc241da176a1bde553a31d7e15ca7cfa400d5374d92c51c8637a805bf727dfa1dbb31936a6fa36aa92c28e9ea29f36e1c7386ffd8afe7f4a67790b53803edc2fafed42c69517f1ee1859d4ab2e0f346ec4cbfc54bdc8dcdaa17997a84efb84e549d3f64de110a41019511bc734b78957eb38a20cbfdfa8bc3561fbdb6ef78809bfe11debfed3b601317bad1c7203c128543571eb1a3407794c474a4dcaade000716717f6c7405bfb766e4d595daf900e9b3cbab4ed1d269be2b1bd101463c2dc687a6c597891db3af821b8982d59328d5e316f46a1637a6661318bad45a5688be7f5bb521"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1523073923685,
+			"method": "POST",
+			"modified": 1533844286624,
+			"name": "auth/logout",
+			"parameters": [],
+			"parentId": "fld_ea6e1c87f6be446ca026f3f945a3ceb9",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "localhost:4000/auth/logout",
 			"_type": "request"
 		}
 	]

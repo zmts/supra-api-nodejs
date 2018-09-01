@@ -7,7 +7,7 @@ const registry = require('../../registry')
 /**
  * @description model id === current user id
  * @access owner, superadmin
- * @case delete user model
+ * @case update user model
  * @param {Object} model
  */
 module.exports = model => {
