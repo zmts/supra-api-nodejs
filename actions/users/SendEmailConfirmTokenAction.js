@@ -4,7 +4,7 @@ const { makeEmailConfirmTokenService } = require('../../services/auth')
 const registry = require('../../registry')
 const sendEmailService = require('../../services/sendEmailService')
 
-class SendEmailConfirmToken extends BaseAction {
+class SendEmailConfirmTokenAction extends BaseAction {
   static get accessTag () {
     return 'users:send-email-confirm-token'
   }
@@ -35,4 +35,4 @@ class SendEmailConfirmToken extends BaseAction {
   }
 }
 
-module.exports = SendEmailConfirmToken
+module.exports = SendEmailConfirmTokenAction

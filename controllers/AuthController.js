@@ -1,15 +1,13 @@
-const express = require('express')
-const router = express.Router()
+const router = require('express').Router()
 
 const BaseController = require('./BaseController')
-const actionRunner = require('../actions/actionRunner')
 const actions = require('../actions/auth')
 
 class AuthController extends BaseController {
   static get router () {
-    router.post('/login', actionRunner(actions.LoginAction))
-    router.post('/logout', actionRunner(actions.LogoutAction))
-    router.post('/refresh-tokens', actionRunner(actions.RefreshTokensAction))
+    router.post('/login', this.actionRunner(actions.LoginAction))
+    router.post('/logout', this.actionRunner(actions.LogoutAction))
+    router.post('/refresh-tokens', this.actionRunner(actions.RefreshTokensAction))
 
     return router
   }

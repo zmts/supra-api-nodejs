@@ -1,26 +1,24 @@
-const express = require('express')
-const router = express.Router()
+const router = require('express').Router()
 
-const actionRunner = require('../actions/actionRunner')
 const actions = require('../actions/users')
 const BaseController = require('./BaseController')
 
 class UsersController extends BaseController {
   static get router () {
-    router.get('/', actionRunner(actions.ListAction))
-    router.get('/:id', actionRunner(actions.GetByIdAction))
-    router.post('/', actionRunner(actions.CreateAction))
-    router.patch('/', actionRunner(actions.UpdateAction))
-    router.delete('/:id', actionRunner(actions.RemoveAction))
-    router.get('/:id/posts', actionRunner(actions.GetPostsByUserIdAction))
+    router.get('/', this.actionRunner(actions.ListAction))
+    router.get('/:id', this.actionRunner(actions.GetByIdAction))
+    router.post('/', this.actionRunner(actions.CreateAction))
+    router.patch('/', this.actionRunner(actions.UpdateAction))
+    router.delete('/:id', this.actionRunner(actions.RemoveAction))
+    router.get('/:id/posts', this.actionRunner(actions.GetPostsByUserIdAction))
 
-    router.post('/change-password', actionRunner(actions.ChangePasswordAction))
-    router.post('/send-reset-email', actionRunner(actions.SendResetEmailAction))
-    router.post('/reset-password', actionRunner(actions.ResetPasswordAction))
+    router.post('/change-password', this.actionRunner(actions.ChangePasswordAction))
+    router.post('/send-reset-email', this.actionRunner(actions.SendResetEmailAction))
+    router.post('/reset-password', this.actionRunner(actions.ResetPasswordAction))
 
-    router.post('/confirm-email', actionRunner(actions.ConfirmEmailAction))
-    router.post('/send-email-confirm-token', actionRunner(actions.SendEmailConfirmTokenAction))
-    router.post('/change-email', actionRunner(actions.ChangeEmailAction))
+    router.post('/confirm-email', this.actionRunner(actions.ConfirmEmailAction))
+    router.post('/send-email-confirm-token', this.actionRunner(actions.SendEmailConfirmTokenAction))
+    router.post('/change-email', this.actionRunner(actions.ChangeEmailAction))
 
     return router
   }

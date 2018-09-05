@@ -19,6 +19,7 @@
     "express": "^4.16.3",
     "fs-extra": "^5.0.0",
     "joi": "^13.2.0",
+    "joi-to-json-schema": "^3.4.0",
     "jsonwebtoken": "^8.2.1",
     "knex": "^0.14.4",
     "mailgun-js": "^0.20.0",

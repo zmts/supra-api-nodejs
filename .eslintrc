@@ -16,7 +16,8 @@
   },
   "globals": {
     "__rootdir": true,
-    "__typecheck": true
+    "__typecheck": true,
+    "__type": true
 }
 }
 

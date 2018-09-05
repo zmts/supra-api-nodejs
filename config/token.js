@@ -21,7 +21,5 @@ module.exports = {
     type: 'TOKEN_TYPE_EMAIL_CONFIRM',
     secret: '89tWcgj8gjiG4ikwu2nrF95g5us35BiktQdktmkf',
     expiresIn: '30d'
-  },
-
-  encryptkey: '11111111112222222222333333333344' // Must be 256 bytes (32 characters)
+  }
 }

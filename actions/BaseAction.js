@@ -2,7 +2,7 @@ const Joi = require('joi')
 
 const securityModule = require('../services/security')
 const queryResolverService = require('../services/queryResolverService')
-const ResponseJson = require('../util/ResponseJson')
+const BaseResponseJson = require('./BaseResponseJson')
 
 /**
  * @description base action
@@ -51,9 +51,9 @@ class BaseAction {
    */
 
   static resJson (options = {}) {
-    __typecheck(options, 'Object', true)
+    __typecheck(options, __type.object, true)
 
-    return new ResponseJson(options)
+    return new BaseResponseJson(options)
   }
 
   /**

@@ -1,6 +1,6 @@
-class ResponseJson {
+class BaseResponseJson {
   constructor (options) {
-    __typecheck(options, 'Object', true)
+    __typecheck(options, __type.object, true)
 
     this.success = options.success || true
     this.data = options.data || undefined
@@ -8,4 +8,4 @@ class ResponseJson {
   }
 }
 
-module.exports = ResponseJson
+module.exports = BaseResponseJson

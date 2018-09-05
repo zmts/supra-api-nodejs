@@ -1,6 +1,14 @@
 class BaseRoleAccess {
   static get usersResource () {
-    return [ // all actions, except creation
+    return [ // all action tags, except creation
+      // usersActions.ListAction.accessTag,
+      // usersActions.UpdateAction.accessTag,
+      // usersActions.GetByIdAction.accessTag,
+      // usersActions.RemoveAction.accessTag,
+      // usersActions.ChangePasswordAction.accessTag,
+      // usersActions.GetPostsByUserIdAction.accessTag,
+      // usersActions.SendEmailConfirmTokenAction.accessTag,
+      // usersActions.ChangeEmailAction.accessTag
       'users:list',
       'users:update',
       'users:get-by-id',
@@ -22,3 +30,4 @@ class BaseRoleAccess {
 }
 
 module.exports = BaseRoleAccess
+
