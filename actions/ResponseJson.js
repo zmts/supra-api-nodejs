@@ -1,4 +1,4 @@
-class BaseResponseJson {
+class ResponseJson {
   constructor (options) {
     __typecheck(options, __type.object, true)
 
@@ -8,4 +8,4 @@ class BaseResponseJson {
   }
 }
 
-module.exports = BaseResponseJson
+module.exports = ResponseJson
