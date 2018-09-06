@@ -11,11 +11,8 @@ class BaseModel {
     if (dataObj.isSchema) return this.schemaToJson
 
     const validationResult = this.joi.validate(dataObj, this.schema)
-    if (!validationResult.error) {
-      this.buildModelProps(dataObj, this.schema, this)
-    } else {
-      throw new Error(validationResult.error)
-    }
+    if (validationResult.error) { throw new Error(validationResult.error) }
+    this.buildModelProps(dataObj, this.schema, this)
   }
 
   get joi () {
@@ -40,11 +37,8 @@ class BaseModel {
         get: () => dataObj[propName],
         set: value => {
           const isValidValue = this.joi.validate(value, schema[propName])
-          if (!isValidValue.error) {
-            dataObj[propName] = value
-          } else {
-            throw new Error(isValidValue.error)
-          }
+          if (isValidValue.error) { throw new Error(isValidValue.error) }
+          dataObj[propName] = value
         },
         enumerable: true,
         configurable: false
