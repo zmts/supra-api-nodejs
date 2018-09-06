@@ -13,6 +13,7 @@ module.exports = {
   WRONG_EMAIL_CONFIRM_TOKEN: { message: 'Wrong confirm email token', status: 401, code: 'WRONG_EMAIL_CONFIRM_TOKEN_ERROR' },
   PARSE_TOKEN: { message: 'Trying get data from access token. Something wrong', status: 401, code: 'PARSE_TOKEN_ERROR' },
   EMAIL_ALREADY_TAKEN: { message: 'This email already taken, try use another', status: 409, code: 'EMAIL_ALREADY_TAKEN_ERROR' },
+  SEND_EMAIL: { message: 'Send email error', status: 500, code: 'SEND_EMAIL_ERROR' },
   DECRYPTION: { message: 'Decryption error', status: 500, code: 'DECRYPTION_ERROR' },
   ROUTE_NOT_FOUND: { message: 'Route not found', status: 404, code: 'ROUTE_NOT_FOUND_ERROR' },
   NOT_FOUND: { message: 'Empty response, not found', status: 404, code: 'NOT_FOUND_ERROR' },
