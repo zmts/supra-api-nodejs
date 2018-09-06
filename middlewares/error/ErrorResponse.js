@@ -13,4 +13,4 @@ class ErrorResponse {
   }
 }
 
-exports.module = ErrorResponse
+module.exports = ErrorResponse

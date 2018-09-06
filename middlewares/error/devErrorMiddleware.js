@@ -32,9 +32,9 @@ module.exports = (error, req, res, next) => {
     })
   }
   if (error.stack) {
-    console.log(chalk.red('>------------------------------>'))
+    console.log(chalk.red('---------------BEGIN--------------'))
     console.log(chalk.red(`${new Date()} env:dev/regular error`))
     console.log(chalk.blue(error.stack))
-    console.log(chalk.red('<------------------------------<'))
+    console.log(chalk.red('----------------END---------------'))
   }
 }
