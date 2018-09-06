@@ -8,7 +8,7 @@ class BaseModel {
     /**
      * if front-end needs model schema break model initialization and return schema json
      */
-    if (dataObj.isSchema) return Object.freeze(this.schemaToJson)
+    if (dataObj.isSchema) return this.schemaToJson
 
     const validationResult = this.joi.validate(dataObj, this.schema)
     if (!validationResult.error) {
@@ -50,7 +50,7 @@ class BaseModel {
         configurable: false
       })
     })
-    return Object.freeze(context)
+    return context
   }
 }
 
