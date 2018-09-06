@@ -21,12 +21,13 @@ class ListAction extends BaseAction {
     }
   }
 
-  static run (req, res, next) {
-    this.init(req, this.validationRules, this.accessTag)
-      .then(() => this.queryResolver(req.query, this.queryProps))
-      .then(() => UserDAO.BaseGetList())
-      .then(list => res.json(this.resJson({ data: list })))
-      .catch(error => next(error))
+  static async run (req, res, next) {
+    try {
+      await this.init(req, this.validationRules, this.accessTag)
+      await this.queryResolver(req.query, this.queryProps)
+      const list = await UserDAO.BaseGetList()
+      res.json(this.resJson({ data: list }))
+    } catch (error) { next(error) }
   }
 }
 
