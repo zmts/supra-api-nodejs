@@ -2,6 +2,7 @@
  * https://documentation.mailgun.com/en/latest/api-sending.html#examples
  */
 
+const ErrorWrapper = require('../util/ErrorWrapper')
 const config = require('../config')
 const mailgun = require('mailgun-js')({ apiKey: config.email.mailgunApiKey, domain: config.email.mailgunDomain })
 
@@ -26,10 +27,10 @@ module.exports = letter => {
     text: letter.text || 'Testing some Mailgun awesomness!'
   }
 
-  return Promise.resolve(mailgun.messages().send(data, (error, response) => {
-    console.log(error)
-    // logger(error)
-    // logger(response)
-    // TODO WARNING HIGH PRIORITY FIX
-  }))
+  return new Promise((resolve, reject) => {
+    mailgun.messages().send(data, (error, response) => {
+      if (error) return reject(new ErrorWrapper({ ...config.errorCodes.SEND_EMAIL, message: error.message }))
+      return resolve(response)
+    })
+  })
 }

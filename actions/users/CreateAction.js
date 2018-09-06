@@ -32,11 +32,14 @@ class CreateAction extends BaseAction {
       const emailConfirmToken = await makeEmailConfirmTokenService(user)
       await UserDAO.BaseUpdate(user.id, { emailConfirmToken })
       res.json(this.resJson({ data: user }))
-      await sendEmailService({
-        to: user.email,
-        subject: 'Welcome to supra.com!',
-        text: `Welcome to supra.com! ${user.name} we just created new account for you. Your login: ${user.email}`
-      })
+      try {
+        const emailSendSuccess = await sendEmailService({
+          to: user.email,
+          subject: 'Welcome to supra.com!',
+          text: `Welcome to supra.com! ${user.name} we just created new account for you. Your login: ${user.email}`
+        })
+        __logger(emailSendSuccess)
+      } catch (error) { next(error) }
     } catch (error) { next(error) }
   }
 }
