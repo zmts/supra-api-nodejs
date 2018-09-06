@@ -1,5 +1,8 @@
+const uuidv4 = require('uuid/v4')
+
 class ErrorResponse {
   constructor (options = {}) {
+    this.uuid = uuidv4()
     this.success = false
     this.message = options.message || undefined
     this.code = options.code || undefined
