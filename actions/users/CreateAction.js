@@ -1,9 +1,14 @@
 const Joi = require('joi')
 
+const NewUserModel = require('../../models/user/NewUserModel').model
+const NewUserModelSchema = require('../../models/user/NewUserModel').schema
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
 const { makePasswordHashService, makeEmailConfirmTokenService } = require('../../services/auth')
 const sendEmailService = require('../../services/sendEmailService')
+
+const reqValidationSchema = { ...NewUserModelSchema }
+delete reqValidationSchema.passwordHash
 
 class CreateAction extends BaseAction {
   static get accessTag () {
@@ -14,10 +19,8 @@ class CreateAction extends BaseAction {
     return {
       ...this.baseValidationRules,
       body: Joi.object().keys({
-        name: Joi.string().min(3).max(50),
-        username: Joi.string().min(3).max(25).required(),
-        password: Joi.string().required(), // stores in DB as passwordHash
-        email: Joi.string().email().min(6).max(30).required()
+        ...reqValidationSchema,
+        password: Joi.string().required()
       })
     }
   }
@@ -28,7 +31,7 @@ class CreateAction extends BaseAction {
       const hash = await makePasswordHashService(req.body.password)
       delete req.body.password
       req.body['passwordHash'] = hash
-      const user = await UserDAO.BaseCreate(req.body)
+      const user = await UserDAO.BaseCreate(new NewUserModel(req.body))
       const emailConfirmToken = await makeEmailConfirmTokenService(user)
       await UserDAO.BaseUpdate(user.id, { emailConfirmToken })
       res.json(this.resJson({ data: user }))
