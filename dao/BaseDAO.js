@@ -30,14 +30,13 @@ class BaseDAO extends Model {
           if (error instanceof UniqueViolationError) {
             throw this.errorWrapper({
               ...errorCodes.DB_DUPLICATE_CONFLICT,
-              // message: `Unique constraint '${error.constraint}' failed for table '${error.table}' and columns '${error.columns}'`
               message: `Column '${error.columns}' duplicate in '${error.table}' table`
             })
           }
           if (error instanceof NotNullViolationError) {
             throw this.errorWrapper({
-              ...errorCodes.DB,
-              message: `Not null constraint failed for table '${error.table}' and column '${error.column}'`
+              ...errorCodes.DB_NOTNULL_CONFLICT,
+              message: `Not null conflict failed for table '${error.table}' and column '${error.column}'`
             })
           }
           throw this.errorWrapper({ ...errorCodes.DB, message: error.message })
