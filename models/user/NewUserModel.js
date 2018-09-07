@@ -9,6 +9,7 @@ const schema = {
 
 class NewUserModel extends BaseModel {
   get schema () { return schema }
+  static get schema () { return schema }
 }
 
-module.exports = { model: NewUserModel, schema }
+module.exports = NewUserModel
