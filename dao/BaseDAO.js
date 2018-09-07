@@ -29,8 +29,9 @@ class BaseDAO extends Model {
         .catch(error => {
           if (error instanceof UniqueViolationError) {
             throw this.errorWrapper({
-              ...errorCodes.DB,
-              message: `Unique constraint '${error.constraint}' failed for table '${error.table}' and columns '${error.columns}'`
+              ...errorCodes.DB_DUPLICATE_CONFLICT,
+              // message: `Unique constraint '${error.constraint}' failed for table '${error.table}' and columns '${error.columns}'`
+              message: `Column '${error.columns}' duplicate in '${error.table}' table`
             })
           }
           if (error instanceof NotNullViolationError) {
