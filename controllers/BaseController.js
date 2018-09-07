@@ -15,6 +15,9 @@ class BaseController {
       if (!action.hasOwnProperty('run')) {
         throw new ErrorWrapper({ message: `'run' method not declared in invoked '${action.name}' action`, status: 500 })
       }
+      if (req.query.schema) {
+        return res.json(action.jsonSchema)
+      }
       return action.run(req, res, next)
     }
   }

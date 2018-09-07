@@ -1,4 +1,5 @@
 const Joi = require('joi')
+const JoiToJsonSchema = require('joi-to-json-schema')
 
 const securityModule = require('../services/security')
 const queryResolverService = require('../services/queryResolverService')
@@ -42,6 +43,10 @@ class BaseAction {
         // todo
       }
     }
+  }
+
+  static get jsonSchema () {
+    return JoiToJsonSchema(this.validationRules.body)
   }
 
   /**

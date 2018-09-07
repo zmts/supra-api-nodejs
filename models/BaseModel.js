@@ -1,12 +1,8 @@
 const Joi = require('joi')
-const JoiToJsonSchema = require('joi-to-json-schema')
 
 class BaseModel {
   constructor (dataObj) {
-    /**
-     * if no input data break model initialization and return schema json
-     */
-    if (!dataObj) return this.schemaToJson
+    __typecheck(dataObj, __type.object, true)
 
     const validationResult = this.joi.validate(dataObj, this.schema)
     if (validationResult.error) { throw new Error(validationResult.error) }
@@ -22,10 +18,6 @@ class BaseModel {
 
   get schema () {
     throw new Error('Missing schema')
-  }
-
-  get schemaToJson () {
-    return JoiToJsonSchema(this.joi.object({ ...this.schema }))
   }
 }
 

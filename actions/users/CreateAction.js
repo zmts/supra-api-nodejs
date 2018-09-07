@@ -1,13 +1,13 @@
 const Joi = require('joi')
 
 const NewUserModel = require('../../models/user/NewUserModel').model
-const NewUserModelSchema = require('../../models/user/NewUserModel').schema
+const newUserModelSchema = require('../../models/user/NewUserModel').schema
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
 const { makePasswordHashService, makeEmailConfirmTokenService } = require('../../services/auth')
 const sendEmailService = require('../../services/sendEmailService')
 
-const reqValidationSchema = { ...NewUserModelSchema }
+const reqValidationSchema = { ...newUserModelSchema }
 delete reqValidationSchema.passwordHash
 
 class CreateAction extends BaseAction {
