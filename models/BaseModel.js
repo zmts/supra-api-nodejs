@@ -1,23 +1,15 @@
-const Joi = require('joi')
+const joi = require('joi')
 
 class BaseModel {
   constructor (dataObj) {
     __typecheck(dataObj, __type.object, true)
 
-    const validationResult = this.joi.validate(dataObj, this.schema)
+    const validationResult = joi.validate(dataObj, this.constructor.schema)
     if (validationResult.error) { throw new Error(validationResult.error) }
 
     if (!this.isInitialized) {
-      buildModelProps(dataObj, this.schema, this)
+      buildModelProps(dataObj, this.constructor.schema, this)
     }
-  }
-
-  get joi () {
-    return Joi
-  }
-
-  get schema () {
-    throw new Error('Missing schema')
   }
 }
 
@@ -30,7 +22,7 @@ function buildModelProps (dataObj, schema, context) {
     Object.defineProperty(context, propName, {
       get: () => dataObj[propName],
       set: value => {
-        const isValidValue = Joi.validate(value, schema[propName])
+        const isValidValue = joi.validate(value, schema[propName])
         if (isValidValue.error) { throw new Error(isValidValue.error) }
         dataObj[propName] = value
       },
@@ -44,7 +36,7 @@ function buildModelProps (dataObj, schema, context) {
     configurable: false
   })
 
-  return context
+  return Object.freeze(context)
 }
 
 module.exports = BaseModel
