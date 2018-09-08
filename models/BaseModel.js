@@ -7,7 +7,7 @@ class BaseModel {
     const validationResult = joi.validate(dataObj, this.constructor.schema)
     if (validationResult.error) { throw new Error(validationResult.error) }
 
-    if (!this.isInitialized) {
+    if (!this.constructor.isInitialized) {
       buildModelProps(dataObj, this.constructor.schema, this)
     }
   }
@@ -31,7 +31,7 @@ function buildModelProps (dataObj, schema, context) {
     })
   })
 
-  Object.defineProperty(context.__proto__, 'isInitialized', {
+  Object.defineProperty(context.constructor, 'isInitialized', {
     get: () => true,
     configurable: false
   })
