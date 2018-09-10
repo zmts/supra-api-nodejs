@@ -17,7 +17,7 @@ module.exports = {
   DECRYPTION: { message: 'Decryption error', status: 500, code: 'DECRYPTION_ERROR' },
   ROUTE_NOT_FOUND: { message: 'Route not found', status: 404, code: 'ROUTE_NOT_FOUND_ERROR' },
   NOT_FOUND: { message: 'Empty response, not found', status: 404, code: 'NOT_FOUND_ERROR' },
-  DB_DUPLICATE_CONFLICT: { message: 'Duplicate conflict', status: 500, code: 'DB_DUPLICATE_CONFLICT_ERROR' },
+  DB_DUPLICATE_CONFLICT: { message: 'Duplicate conflict. Resource already exists', status: 409, code: 'DB_DUPLICATE_CONFLICT_ERROR' },
   DB_NOTNULL_CONFLICT: { message: 'Not null conflict', status: 500, code: 'DB_NOTNULL_CONFLICT_ERROR' },
   DB: { status: 500, code: 'DB_ERROR' }
 }
