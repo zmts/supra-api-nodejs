@@ -3,7 +3,6 @@ const Joi = require('joi')
 const BaseAction = require('../BaseAction')
 const PostDAO = require('../../dao/PostDAO')
 const NewPostModel = require('../../models/post/NewPostModel')
-const PostModel = require('../../models/post/PostModel')
 const registry = require('../../registry')
 
 class CreateAction extends BaseAction {
@@ -25,7 +24,7 @@ class CreateAction extends BaseAction {
     try {
       await this.init(req, this.validationRules, this.accessTag)
       const model = await PostDAO.BaseCreate(new NewPostModel({ ...req.body, userId: currentUser.id }))
-      res.json(this.resJson({ data: new PostModel(model) }))
+      res.json(this.resJson({ data: model }))
     } catch (error) {
       next(error)
     }

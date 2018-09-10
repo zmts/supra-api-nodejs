@@ -12,13 +12,16 @@ class RemoveAction extends BaseAction {
     }
   }
 
-  static run (req, res, next) {
-    this.init(req, this.validationRules, this.accessTag)
-      .then(() => PostDAO.BaseGetById(+req.params.id))
-      .then(model => this.checkAccessByOwnerId(model))
-      .then(() => PostDAO.BaseRemove(+req.params.id))
-      .then(() => res.json(this.resJson({ message: `${req.params.id} was removed` })))
-      .catch(error => next(error))
+  static async run (req, res, next) {
+    try {
+      await this.init(req, this.validationRules, this.accessTag)
+      const model = await PostDAO.BaseGetById(+req.params.id)
+      await this.checkAccessByOwnerId(model)
+      await PostDAO.BaseRemove(+req.params.id)
+      res.json(this.resJson({ message: `${req.params.id} was removed` }))
+    } catch (error) {
+      next(error)
+    }
   }
 }
 
