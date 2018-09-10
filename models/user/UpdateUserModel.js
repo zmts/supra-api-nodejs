@@ -1,10 +1,11 @@
+// const joi = require('joi')
 const BaseModel = require('../BaseModel')
+const baseSchema = require('./baseSchema')
 
 class UpdateUserModel extends BaseModel {
-  get schema () {
+  static get schema () {
     return {
-      name: this.joi.string().min(3).max(50),
-      username: this.joi.string().min(3).max(25).required()
+      ...baseSchema
     }
   }
 }
