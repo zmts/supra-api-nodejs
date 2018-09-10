@@ -2,6 +2,8 @@ const Joi = require('joi')
 
 const BaseAction = require('../BaseAction')
 const PostDAO = require('../../dao/PostDAO')
+const NewPostModel = require('../../models/post/NewPostModel')
+const PostModel = require('../../models/post/PostModel')
 const registry = require('../../registry')
 
 class CreateAction extends BaseAction {
@@ -13,19 +15,20 @@ class CreateAction extends BaseAction {
     return {
       ...this.baseValidationRules,
       body: Joi.object().keys({
-        title: Joi.string().min(3).max(20),
-        content: Joi.string().min(3).max(5000)
+        ...this.getModelValidationRules(NewPostModel.schema)
       })
     }
   }
 
-  static run (req, res, next) {
-    let currentUser = registry.currentUser.get()
-
-    this.init(req, this.validationRules, this.accessTag)
-      .then(() => PostDAO.BaseCreate({ ...req.body, userId: currentUser.id }))
-      .then(createdModel => res.json(this.resJson({ data: createdModel })))
-      .catch(error => next(error))
+  static async run (req, res, next) {
+    const currentUser = registry.currentUser.get()
+    try {
+      await this.init(req, this.validationRules, this.accessTag)
+      const model = await PostDAO.BaseCreate(new NewPostModel({ ...req.body, userId: currentUser.id }))
+      res.json(this.resJson({ data: new PostModel(model) }))
+    } catch (error) {
+      next(error)
+    }
   }
 }
 

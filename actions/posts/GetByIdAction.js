@@ -1,5 +1,6 @@
 const BaseAction = require('../BaseAction')
 const PostDAO = require('../../dao/PostDAO')
+const PostModel = require('../../models/post/PostModel')
 
 class GetByIdAction extends BaseAction {
   static get accessTag () {
@@ -12,12 +13,15 @@ class GetByIdAction extends BaseAction {
     }
   }
 
-  static run (req, res, next) {
-    this.init(req, this.validationRules, this.accessTag)
-      .then(() => PostDAO.BaseGetById(+req.params.id))
-      .then(model => this.checkAccessToPrivateItem(model))
-      .then(model => res.json(this.resJson({ data: model })))
-      .catch(error => next(error))
+  static async run (req, res, next) {
+    try {
+      await this.init(req, this.validationRules, this.accessTag)
+      const model = await PostDAO.BaseGetById(+req.params.id)
+      await this.checkAccessToPrivateItem(model)
+      res.json(this.resJson({ data: new PostModel(model) }))
+    } catch (error) {
+      next(error)
+    }
   }
 }
 
