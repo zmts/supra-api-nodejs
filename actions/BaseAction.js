@@ -24,9 +24,6 @@ class BaseAction {
         page: Joi.number().integer().min(1),
         limit: Joi.number().integer().valid([10, 20, 30, 40, 50, 60, 70, 80, 90, 100]),
         orderBy: Joi.string().valid(['createdAt:asc', 'createdAt:desc'])
-      }),
-      body: Joi.object().keys({
-        id: Joi.any().forbidden()
       })
       // headers: Joi.object({ // TODO make required Content-Type as application/json
       //   'Content-Type': Joi.string().required()

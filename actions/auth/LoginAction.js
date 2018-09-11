@@ -11,7 +11,6 @@ class LoginAction extends BaseAction {
 
   static get validationRules () {
     return {
-      ...this.baseValidationRules,
       body: Joi.object().keys({
         password: Joi.string().required(),
         email: Joi.string().email().min(6).max(30).required()
@@ -19,26 +18,20 @@ class LoginAction extends BaseAction {
     }
   }
 
-  static run (req, res, next) {
-    let userEntity = {}
+  static async run (req, res, next) {
     let data = { accessToken: '', refreshToken: '' }
 
-    this.init(req, this.validationRules, this.accessTag)
-      .then(() => UserDAO.GetByEmail(req.body.email))
-      .then(user => {
-        userEntity = user
-        return checkPasswordService(req.body.password, user.passwordHash)
-      })
-      .then(() => makeAccessTokenService(userEntity))
-      .then(accessToken => (data.accessToken = accessToken))
-      .then(() => makeRefreshTokenService(userEntity))
-      .then(refreshToken => {
-        data.refreshToken = refreshToken
-        let refreshTokenTimestamp = refreshToken.split('::')[0]
-        return UserDAO.AddRefreshTokenProcess(userEntity, { timestamp: refreshTokenTimestamp, refreshToken })
-      })
-      .then(() => res.json(this.resJson({ data })))
-      .catch(error => next(error))
+    await this.validate(req, this.validationRules)
+    const user = await UserDAO.GetByEmail(req.body.email)
+    await checkPasswordService(req.body.password, user.passwordHash)
+    data.accessToken = await makeAccessTokenService(user)
+    data.refreshToken = await makeRefreshTokenService(user)
+    const refreshTokenTimestamp = data.refreshToken.split('::')[0]
+    await UserDAO.AddRefreshTokenProcess(user, {
+      timestamp: refreshTokenTimestamp,
+      refreshToken: data.refreshToken
+    })
+    res.json(this.resJson({ data }))
   }
 }
 
