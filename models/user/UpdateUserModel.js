@@ -1,11 +1,11 @@
 // const joi = require('joi')
 const BaseModel = require('../BaseModel')
-const baseSchema = require('./baseSchema')
+const schema = require('./schema')
 
 class UpdateUserModel extends BaseModel {
   static get schema () {
     return {
-      ...baseSchema
+      ...schema.update
     }
   }
 }

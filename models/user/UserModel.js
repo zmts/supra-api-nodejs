@@ -1,15 +1,15 @@
 const joi = require('joi')
 const BaseModel = require('../BaseModel')
-const baseSchema = require('./baseSchema')
+const schema = require('./schema')
 
-class UserModel extends BaseModel {
+class UserFullModel extends BaseModel {
   static get schema () {
     return {
-      ...baseSchema,
-      id: joi.number().required(),
-      email: joi.string().email().min(6).max(30).required()
+      ...schema.update,
+      id: joi.number(),
+      email: joi.string().email().min(6).max(30)
     }
   }
 }
 
-module.exports = UserModel
+module.exports = UserFullModel
