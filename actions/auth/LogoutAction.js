@@ -7,19 +7,10 @@ class LogoutAction extends BaseAction {
     return 'auth:logout'
   }
 
-  static get validationRules () {
-    return {
-      ...this.baseValidationRules
-    }
-  }
-
-  static run (req, res, next) {
-    let currentUser = registry.currentUser.get()
-
-    this.init(req, this.validationRules, this.accessTag)
-      .then(() => UserDAO.BaseUpdate(currentUser.id, { refreshTokensMap: {} }))
-      .then(() => res.json(this.resJson({ message: 'User is logged out' })))
-      .catch(error => next(error))
+  static async run (req, res, next) {
+    const currentUser = registry.currentUser.get()
+    await UserDAO.BaseUpdate(currentUser.id, { refreshTokensMap: {} })
+    res.json(this.resJson({ message: 'User is logged out' }))
   }
 }
 
