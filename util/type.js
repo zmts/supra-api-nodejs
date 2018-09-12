@@ -4,11 +4,17 @@
  */
 
 module.exports = {
+  any: '*',
   object: 'Object',
   array: 'Array',
   string: 'String',
   number: 'Number',
   boolean: 'Boolean',
   undefined: 'Undefined',
-  null: 'Null'
+  null: 'Null',
+  error: 'Error',
+
+  arrayOfNumbers: '[Number]',
+  arrayOfStrings: '[String]',
+  arrayOfNumbersStrings: '[Number, String]'
 }
