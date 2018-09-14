@@ -31,7 +31,7 @@ class BaseController {
         await action.checkAccessByTag(action.accessTag)
 
         /**
-         * check base validation
+         * validate base rules
          */
         await action.validate(req, action.baseValidationRules)
 
@@ -39,7 +39,7 @@ class BaseController {
          * validate custom rules
          */
         if (action.validationRules) {
-          await action.validate(req, action.baseValidationRules, action.accessTag)
+          await action.validate(req, action.validationRules)
         }
 
         /**
