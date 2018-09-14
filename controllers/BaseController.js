@@ -20,16 +20,13 @@ class BaseController {
       __typecheck(res, 'Object', true)
       __typecheck(next, 'Function', true)
 
-      if (req.query.schema) {
-        return res.json(action.jsonSchema)
-      }
-
       try {
+        if (req.query.schema && ['POST', 'PATCH'].includes(req.method)) {
+          return res.json(action.jsonSchema)
+        }
         await action.init(req, action.baseValidationRules, action.accessTag)
         await action.run(req, res, next)
-      } catch (error) {
-        next(error)
-      }
+      } catch (error) { next(error) }
     }
   }
 }
