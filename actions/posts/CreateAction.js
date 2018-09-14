@@ -12,22 +12,16 @@ class CreateAction extends BaseAction {
 
   static get validationRules () {
     return {
-      ...this.baseValidationRules,
       body: Joi.object().keys({
         ...this.clearModelSchema(NewPostModel.schema)
       })
     }
   }
 
-  static async run (req, res, next) {
+  static async run (req, res) {
     const currentUser = registry.currentUser.get()
-    try {
-      await this.init(req, this.validationRules, this.accessTag)
-      const model = await PostDAO.BaseCreate(new NewPostModel({ ...req.body, userId: currentUser.id }))
-      res.json(this.resJson({ data: model }))
-    } catch (error) {
-      next(error)
-    }
+    const data = await PostDAO.BaseCreate(new NewPostModel({ ...req.body, userId: currentUser.id }))
+    res.json(this.resJson({ data }))
   }
 }
 

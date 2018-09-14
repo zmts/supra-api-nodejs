@@ -11,23 +11,17 @@ class UpdateAction extends BaseAction {
 
   static get validationRules () {
     return {
-      ...this.baseValidationRules,
       body: Joi.object().keys({
         ...this.getModelValidationRules(UpdatePostModel.schema)
       })
     }
   }
 
-  static async run (req, res, next) {
-    try {
-      await this.init(req, this.validationRules, this.accessTag)
-      const model = await PostDAO.BaseGetById(+req.params.id)
-      this.checkAccessByOwnerId(model)
-      const updatedModel = await PostDAO.BaseUpdate(+req.params.id, new UpdatePostModel(req.body))
-      res.json(this.resJson({ data: updatedModel }))
-    } catch (error) {
-      next(error)
-    }
+  static async run (req, res) {
+    const model = await PostDAO.BaseGetById(+req.params.id)
+    this.checkAccessByOwnerId(model)
+    const data = await PostDAO.BaseUpdate(+req.params.id, new UpdatePostModel(req.body))
+    res.json(this.resJson({ data }))
   }
 }
 

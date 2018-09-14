@@ -6,27 +6,16 @@ class ListAction extends BaseAction {
     return 'posts:list'
   }
 
-  static get validationRules () {
-    return {
-      ...this.baseValidationRules
-    }
-  }
-
   static get queryProps () {
     return {
       ...this.baseQueryProps
     }
   }
 
-  static async run (req, res, next) {
-    try {
-      await this.init(req, this.validationRules, this.accessTag)
-      await this.queryResolver(req.query, this.queryProps)
-      const data = await PostDAO.BaseGetList()
-      res.json(this.resJson({ data }))
-    } catch (error) {
-      next(error)
-    }
+  static async run (req, res) {
+    this.queryResolver(req.query, this.queryProps)
+    const data = await PostDAO.BaseGetList()
+    res.json(this.resJson({ data }))
   }
 }
 
