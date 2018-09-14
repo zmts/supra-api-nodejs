@@ -13,26 +13,19 @@ class ChangeEmailAction extends BaseAction {
 
   static get validationRules () {
     return {
-      ...this.baseValidationRules,
       body: Joi.object().keys({
         email: Joi.string().email().min(6).max(30).required()
       })
     }
   }
 
-  static run (req, res, next) {
+  static async run (req, res) {
     let currentUser = registry.currentUser.get()
 
-    this.init(req, this.validationRules, this.accessTag)
-      .then(() => UserDAO.IsEmailExist(req.body.email))
-      .then(isExist => {
-        if (!isExist) {
-          return UserDAO.BaseUpdate(currentUser.id, { email: req.body.email, isEmailConfirmed: false })
-        }
-        throw new ErrorWrapper({ ...errorCodes.EMAIL_ALREADY_TAKEN })
-      })
-      .then(() => res.json(this.resJson({ message: `Email was changed to ${req.body.email}!` })))
-      .catch(error => next(error))
+    const isExist = await UserDAO.IsEmailExist(req.body.email)
+    if (isExist) throw new ErrorWrapper({ ...errorCodes.EMAIL_ALREADY_TAKEN })
+    await UserDAO.BaseUpdate(currentUser.id, { email: req.body.email, isEmailConfirmed: false })
+    res.json(this.resJson({ message: `Email was changed to ${req.body.email}!` }))
   }
 }
 
