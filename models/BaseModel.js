@@ -5,7 +5,7 @@ class BaseModel {
     __typecheck(dataObj, __type.object, true)
 
     const validationResult = joi.validate(dataObj, this.constructor.schema)
-    if (validationResult.error) { throw new Error(validationResult.error) }
+    if (validationResult.error) throw validationResult.error
     buildModelProps(dataObj, this.constructor.schema, this)
   }
 }
@@ -20,7 +20,7 @@ function buildModelProps (dataObj, schema, context) {
       get: () => dataObj[propName],
       set: value => {
         const isValidValue = joi.validate(value, schema[propName])
-        if (isValidValue.error) { throw new Error(isValidValue.error) }
+        if (isValidValue.error) throw isValidValue.error
         dataObj[propName] = value
       },
       enumerable: true,
