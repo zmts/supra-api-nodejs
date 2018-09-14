@@ -1,9 +1,6 @@
 const ErrorWrapper = require('../util/ErrorWrapper')
 
 class BaseController {
-  /**
-   * pass req, res, next props to run method and fire it
-   */
   static actionRunner (action) {
     __typecheck(action, 'Function', true)
 
@@ -21,12 +18,37 @@ class BaseController {
       __typecheck(next, 'Function', true)
 
       try {
+        /**
+         * handle json schema response only for create and update actions
+         */
         if (req.query.schema && ['POST', 'PATCH'].includes(req.method)) {
           return res.json(action.jsonSchema)
         }
-        await action.init(req, action.baseValidationRules, action.accessTag)
+
+        /**
+         * check access to action by action name
+         */
+        await action.checkAccessByTag(action.accessTag)
+
+        /**
+         * check base validation
+         */
+        await action.validate(req, action.baseValidationRules)
+
+        /**
+         * validate custom rules
+         */
+        if (action.validationRules) {
+          await action.validate(req, action.baseValidationRules, action.accessTag)
+        }
+
+        /**
+         * fire action with req, res, next props
+         */
         await action.run(req, res, next)
-      } catch (error) { next(error) }
+      } catch (error) {
+        next(error)
+      }
     }
   }
 }
