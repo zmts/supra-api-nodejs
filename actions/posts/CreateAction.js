@@ -14,7 +14,7 @@ class CreateAction extends BaseAction {
     return {
       ...this.baseValidationRules,
       body: Joi.object().keys({
-        ...this.getModelValidationRules(NewPostModel.schema)
+        ...this.clearModelSchema(NewPostModel.schema)
       })
     }
   }

@@ -46,23 +46,13 @@ class BaseAction {
     return JoiToJsonSchema(this.validationRules.body)
   }
 
-  // static get jsonSchema () {
-  //   if (this.validationRules) return JoiToJsonSchema(this.validationRules.body)
-  //   if (this.modelSchema) {
-  //     const schema = Joi.object().keys({
-  //       ...this.getModelValidationRules(this.modelSchema)
-  //     })
-  //     return JoiToJsonSchema(schema)
-  //   }
-  // }
-
   /**
    * ------------------------------
    * @BASE_METHODS
    * ------------------------------
    */
 
-  static getModelValidationRules (modelSchema) {
+  static clearModelSchema (modelSchema) {
     __typecheck(modelSchema, __type.object, true)
 
     delete modelSchema.id
