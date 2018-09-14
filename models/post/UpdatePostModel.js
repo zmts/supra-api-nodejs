@@ -1,10 +1,11 @@
-const baseSchema = require('./baseSchema')
+const joi = require('joi')
 const BaseModel = require('../BaseModel')
 
 class UpdatePostModel extends BaseModel {
   static get schema () {
     return {
-      ...baseSchema
+      title: joi.string().min(3).max(20),
+      content: joi.string().min(3).max(5000)
     }
   }
 }
