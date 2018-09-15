@@ -12,7 +12,6 @@ class GetCurrentUserAction extends BaseAction {
     })
     res.json(this.resJson({ data }))
   }
-
 }
 
 module.exports = GetCurrentUserAction
