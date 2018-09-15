@@ -20,7 +20,6 @@ class ResetPasswordAction extends BaseAction {
 
   static get validationRules () {
     return {
-      ...this.baseValidationRules,
       body: Joi.object().keys({
         resetPasswordToken: Joi.string().required(),
         password: Joi.string().required()
@@ -28,22 +27,14 @@ class ResetPasswordAction extends BaseAction {
     }
   }
 
-  static run (req, res, next) {
-    let tokenUserId = null
-
-    this.init(req, this.validationRules, this.accessTag)
-      .then(() => jwtService.verify(req.body.resetPasswordToken, config.token.resetEmail))
-      .then(tokenData => {
-        tokenUserId = +tokenData.sub
-        return UserDAO.BaseGetById(tokenUserId)
-      })
-      .then(user => {
-        if (user.resetEmailToken === req.body.resetPasswordToken) return makePasswordHashService(req.body.password)
-        throw new ErrorWrapper({ ...errorCodes.WRONG_RESET_PASSWORD_TOKEN })
-      })
-      .then(passwordHash => UserDAO.BaseUpdate(tokenUserId, { passwordHash, resetEmailToken: '', refreshTokensMap: {} }))
-      .then(() => res.json(this.resJson({ message: 'Reset password process was successfully applied' })))
-      .catch(error => next(error))
+  static async run (req, res) {
+    const tokenData = await jwtService.verify(req.body.resetPasswordToken, config.token.resetEmail)
+    const tokenUserId = +tokenData.sub
+    const user = await UserDAO.BaseGetById(tokenUserId)
+    if (user.resetEmailToken !== req.body.resetPasswordToken) throw new ErrorWrapper({ ...errorCodes.WRONG_RESET_PASSWORD_TOKEN })
+    const passwordHash = await makePasswordHashService(req.body.password)
+    await UserDAO.BaseUpdate(tokenUserId, { passwordHash, resetEmailToken: '', refreshTokensMap: {} })
+    res.json(this.resJson({ message: 'Reset password process was successfully applied' }))
   }
 }
 
