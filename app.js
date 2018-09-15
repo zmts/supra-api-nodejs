@@ -15,7 +15,7 @@ const Knex = require('knex')
 const config = require('./config')
 const errorCodes = require('./config').errorCodes
 const ErrorWrapper = require('./util/ErrorWrapper')
-const controllers = require('./controllers')
+const routers = require('./routers')
 const corsMiddleware = require('./middlewares/corsMiddleware')
 const devErrorMiddleware = require('./middlewares/error/devErrorMiddleware')
 const prodErrorMiddleware = require('./middlewares/error/prodErrorMiddleware')
@@ -50,7 +50,7 @@ class App {
   }
 
   initRoutes () {
-    this.express.use(controllers.router)
+    this.express.use(routers.router)
   }
 
   setDefaultErrorMiddlewares () {

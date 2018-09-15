@@ -3,13 +3,13 @@ const router = express.Router()
 
 const swaggerSpec = require('../swagger')
 
-const BaseController = require('./BaseController')
-const AuthController = require('./AuthController')
-const PostsController = require('./PostsController')
-const UsersController = require('./UsersController')
+const BaseRouter = require('./BaseRouter')
+const AuthRouter = require('./AuthRouter')
+const PostsRouter = require('./PostsRouter')
+const UsersRouter = require('./UsersRouter')
 const checkAccessTokenMiddleware = require('../middlewares/checkAccessTokenMiddleware')
 
-class RootController extends BaseController {
+class RootRouter extends BaseRouter {
   static get router () {
     // default auth middleware
     router.use(checkAccessTokenMiddleware)
@@ -23,12 +23,12 @@ class RootController extends BaseController {
     router.get('/swagger.json', (req, res) => res.json(swaggerSpec))
 
     // main routes
-    router.use('/auth', AuthController.router)
-    router.use('/posts', PostsController.router)
-    router.use('/users', UsersController.router)
+    router.use('/auth', AuthRouter.router)
+    router.use('/posts', PostsRouter.router)
+    router.use('/users', UsersRouter.router)
 
     return router
   }
 }
 
-module.exports = RootController
+module.exports = RootRouter

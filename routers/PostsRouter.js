@@ -1,9 +1,9 @@
 const router = require('express').Router()
 
 const actions = require('../actions/posts')
-const BaseController = require('./BaseController')
+const BaseRouter = require('./BaseRouter')
 
-class PostsController extends BaseController {
+class PostsRouter extends BaseRouter {
   static get router () {
     router.get('/', this.actionRunner(actions.ListAction))
     router.get('/:id', this.actionRunner(actions.GetByIdAction))
@@ -15,4 +15,4 @@ class PostsController extends BaseController {
   }
 }
 
-module.exports = PostsController
+module.exports = PostsRouter

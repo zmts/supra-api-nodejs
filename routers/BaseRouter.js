@@ -1,6 +1,6 @@
 const ErrorWrapper = require('../util/ErrorWrapper')
 
-class BaseController {
+class BaseRouter {
   static actionRunner (action) {
     __typecheck(action, 'Function', true)
 
@@ -53,4 +53,4 @@ class BaseController {
   }
 }
 
-module.exports = BaseController
+module.exports = BaseRouter
