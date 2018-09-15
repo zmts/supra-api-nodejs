@@ -18,32 +18,22 @@ class SendResetEmailAction extends BaseAction {
 
   static get validationRules () {
     return {
-      ...this.baseValidationRules,
       body: Joi.object().keys({
         email: Joi.string().email().min(6).max(30).required()
       })
     }
   }
 
-  static run (req, res, next) {
-    let user = {}
-
-    this.init(req, this.validationRules, this.accessTag)
-      .then(() => UserDAO.GetByEmail(req.body.email))
-      .then(userModel => {
-        user = userModel
-        return authModule.makeResetEmailTokenService(userModel)
-      })
-      .tap(resetEmailToken => UserDAO.BaseUpdate(user.id, { resetEmailToken }))
-      .then(resetEmailToken => {
-        return sendEmailService({
-          to: user.email,
-          subject: '[Supra.com] Password reset instructions',
-          text: `Use this token to reset password ${resetEmailToken}`
-        })
-      })
-      .then(data => res.json(this.resJson({ data })))
-      .catch(error => next(error))
+  static async run (req, res) {
+    const user = await UserDAO.GetByEmail(req.body.email)
+    const resetEmailToken = await authModule.makeResetEmailTokenService(user)
+    await UserDAO.BaseUpdate(user.id, { resetEmailToken })
+    const response = await sendEmailService({
+      to: user.email,
+      subject: '[Supra.com] Password reset instructions',
+      text: `Use this token to reset password ${resetEmailToken}`
+    })
+    res.json(this.resJson({ data: response }))
   }
 }
 
