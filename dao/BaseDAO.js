@@ -61,7 +61,18 @@ class BaseDAO extends Model {
    */
 
   static BaseCreate (data) {
-    __typecheck(data, 'Object', true)
+    __typecheck(data, __type.object, true)
+
+    /**
+     * each entity that creates must to have creator id (userId)
+     * except user entity
+     */
+    if (!data.email && !data.userId) {
+      throw this.errorWrapper({
+        ...errorCodes.UNPROCESSABLE_ENTITY,
+        message: 'Please provide in action class \'userId\' field'
+      })
+    }
 
     return this.query().insert(data)
   };

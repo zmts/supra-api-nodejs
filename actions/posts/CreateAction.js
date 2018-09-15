@@ -1,8 +1,7 @@
-const Joi = require('joi')
+const joi = require('joi')
 
 const BaseAction = require('../BaseAction')
 const PostDAO = require('../../dao/PostDAO')
-const NewPostModel = require('../../models/post/NewPostModel')
 const registry = require('../../registry')
 
 class CreateAction extends BaseAction {
@@ -12,15 +11,16 @@ class CreateAction extends BaseAction {
 
   static get validationRules () {
     return {
-      body: Joi.object().keys({
-        ...this.clearModelSchema(NewPostModel.schema)
+      body: joi.object().keys({
+        title: joi.string().min(3).max(20).required(),
+        content: joi.string().min(3).max(5000)
       })
     }
   }
 
   static async run (req, res) {
     const currentUser = registry.currentUser.get()
-    const data = await PostDAO.BaseCreate(new NewPostModel({ ...req.body, userId: currentUser.id }))
+    const data = await PostDAO.BaseCreate({ ...req.body, userId: +currentUser.id })
     res.json(this.resJson({ data }))
   }
 }

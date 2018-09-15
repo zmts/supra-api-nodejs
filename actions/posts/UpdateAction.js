@@ -1,8 +1,7 @@
-const Joi = require('joi')
+const joi = require('joi')
 
 const BaseAction = require('../BaseAction')
 const PostDAO = require('../../dao/PostDAO')
-const UpdatePostModel = require('../../models/post/UpdatePostModel')
 
 class UpdateAction extends BaseAction {
   static get accessTag () {
@@ -11,8 +10,9 @@ class UpdateAction extends BaseAction {
 
   static get validationRules () {
     return {
-      body: Joi.object().keys({
-        ...this.getModelValidationRules(UpdatePostModel.schema)
+      body: joi.object().keys({
+        title: joi.string().min(3).max(20),
+        content: joi.string().min(3).max(5000)
       })
     }
   }
@@ -20,7 +20,7 @@ class UpdateAction extends BaseAction {
   static async run (req, res) {
     const model = await PostDAO.BaseGetById(+req.params.id)
     this.checkAccessByOwnerId(model)
-    const data = await PostDAO.BaseUpdate(+req.params.id, new UpdatePostModel(req.body))
+    const data = await PostDAO.BaseUpdate(+req.params.id, req.body)
     res.json(this.resJson({ data }))
   }
 }

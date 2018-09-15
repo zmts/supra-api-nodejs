@@ -52,14 +52,6 @@ class BaseAction {
    * ------------------------------
    */
 
-  static clearModelSchema (modelSchema) {
-    __typecheck(modelSchema, __type.object, true)
-
-    delete modelSchema.id
-    delete modelSchema.userId
-    return modelSchema
-  }
-
   static resJson (options = {}) {
     __typecheck(options, __type.object, true)
 
