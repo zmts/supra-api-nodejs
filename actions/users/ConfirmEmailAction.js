@@ -14,7 +14,6 @@ class ConfirmEmailAction extends BaseAction {
 
   static get validationRules () {
     return {
-      ...this.baseValidationRules,
       body: Joi.object().keys({
         emailConfirmToken: Joi.string().required()
       })
