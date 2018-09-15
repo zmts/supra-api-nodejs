@@ -1,6 +1,5 @@
 const BaseAction = require('../BaseAction')
-const UserDAO = require('../../dao/UserDAO')
-const registry = require('../../registry')
+const GetCurrentUserLogic = require('../../logic/users/GetCurrentUserLogic')
 
 class GetCurrentUserAction extends BaseAction {
   static get accessTag () {
@@ -8,8 +7,9 @@ class GetCurrentUserAction extends BaseAction {
   }
 
   static async run (req, res) {
-    const currentUser = registry.currentUser.get()
-    const data = await UserDAO.BaseGetById(currentUser.id)
+    const data = await GetCurrentUserLogic.exec({
+      currentUserId: this.currentUser.id
+    })
     res.json(this.resJson({ data }))
   }
 

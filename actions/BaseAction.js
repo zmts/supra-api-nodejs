@@ -4,6 +4,7 @@ const JoiToJsonSchema = require('joi-to-json-schema')
 const securityModule = require('../services/security')
 const queryResolverService = require('../services/queryResolverService')
 const ResponseJson = require('./ResponseJson')
+const registry = require('../registry')
 
 /**
  * @description base action
@@ -44,6 +45,10 @@ class BaseAction {
 
   static get jsonSchema () {
     return JoiToJsonSchema(this.validationRules.body)
+  }
+
+  static get currentUser () {
+    return registry.currentUser.get()
   }
 
   /**
