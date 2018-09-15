@@ -2,7 +2,12 @@ const Joi = require('joi')
 
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
-const { parseTokenService, makeAccessTokenService, makeRefreshTokenService, findAndVerifyRefreshToken } = require('../../services/auth')
+const {
+  parseTokenService,
+  makeAccessTokenService,
+  makeRefreshTokenService,
+  findAndVerifyRefreshToken
+} = require('../../services/auth')
 const { errorCodes } = require('../../config')
 
 class RefreshTokensAction extends BaseAction {
