@@ -9,29 +9,16 @@ class SendEmailConfirmTokenAction extends BaseAction {
     return 'users:send-email-confirm-token'
   }
 
-  static get validationRules () {
-    return {
-      ...this.baseValidationRules
-    }
-  }
-
-  static run (req, res, next) {
-    let currentUser = registry.currentUser.get()
-    let emailConfirmToken = ''
-
-    this.init(req, this.validationRules, this.accessTag)
-      .then(() => makeEmailConfirmTokenService(currentUser))
-      .then(token => {
-        emailConfirmToken = token
-        return UserDAO.BaseUpdate(currentUser.id, { emailConfirmToken })
-      })
-      .then(() => sendEmailService({
-        to: currentUser.email,
-        subject: 'Confirm email | supra.com!',
-        text: `To confirm email: ${currentUser.email} please follow this link >> ${emailConfirmToken}`
-      }))
-      .then(() => res.json(this.resJson({ message: 'Email confirmation token was send!' })))
-      .catch(error => next(error))
+  static async run (req, res) {
+    const currentUser = registry.currentUser.get()
+    const emailConfirmToken = await makeEmailConfirmTokenService(currentUser)
+    await UserDAO.BaseUpdate(currentUser.id, { emailConfirmToken })
+    await sendEmailService({
+      to: currentUser.email,
+      subject: 'Confirm email | supra.com!',
+      text: `To confirm email: ${currentUser.email} please follow this link >> ${emailConfirmToken}`
+    })
+    res.json(this.resJson({ message: 'Email confirmation token was send!' }))
   }
 }
 
