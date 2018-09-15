@@ -92,7 +92,6 @@ class BaseAction {
    * ------------------------------
    */
 
-  // uses by default in init method
   static checkAccessByTag (accessTag) {
     __typecheck(accessTag, 'String', true)
 
