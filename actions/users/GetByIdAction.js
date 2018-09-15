@@ -9,18 +9,9 @@ class GetByIdAction extends BaseAction {
     return 'users:get-by-id'
   }
 
-  static get validationRules () {
-    return {
-      ...this.baseValidationRules
-    }
-  }
-
-  static run (req, res, next) {
-    this.init(req, this.validationRules, this.accessTag)
-      .then(() => UserDAO.BaseGetById(+req.params.id))
-      .then(model => this.checkAccessToPrivateItem(model))
-      .then(model => res.json(this.resJson({ data: model })))
-      .catch(error => next(error))
+  static async run (req, res) {
+    const model = await UserDAO.BaseGetById(+req.params.id)
+    res.json(this.resJson({ data: model }))
   }
 }
 
