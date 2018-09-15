@@ -7,19 +7,11 @@ class RemoveAction extends BaseAction {
     return 'users:remove'
   }
 
-  static get validationRules () {
-    return {
-      ...this.baseValidationRules
-    }
-  }
-
-  static run (req, res, next) {
-    this.init(req, this.validationRules, this.accessTag)
-      .then(() => UserDAO.BaseGetById(+req.params.id))
-      .then(model => checkAccessUpdateUserService(model))
-      .then(() => UserDAO.BaseRemove(+req.params.id))
-      .then(() => res.json(this.resJson({ message: `${req.params.id} was removed` })))
-      .catch(error => next(error))
+  static async run (req, res, next) {
+    const model = await UserDAO.BaseGetById(+req.params.id)
+    await checkAccessUpdateUserService(model)
+    await UserDAO.BaseRemove(+req.params.id)
+    res.json(this.resJson({ message: `${req.params.id} was removed` }))
   }
 }
 
