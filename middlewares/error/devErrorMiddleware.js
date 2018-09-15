@@ -20,8 +20,6 @@ module.exports = (error, req, res, next) => {
       key: error.details[0].context.key,
       env: 'dev/regular'
     })
-  } else if (error.code === errorCodes.SEND_EMAIL.code) {
-    __logger(error)
   } else {
     res.status(error.status || 500).json({
       success: false,

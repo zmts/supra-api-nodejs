@@ -2,6 +2,7 @@ const { raw } = require('objection')
 
 const BaseDAO = require('./BaseDAO')
 const PostDAO = require('./PostDAO')
+const errorCodes = require('../config/errorCodes')
 
 class UserDAO extends BaseDAO {
   static get tableName () {
@@ -46,6 +47,13 @@ class UserDAO extends BaseDAO {
    * @METHODS
    * ------------------------------
    */
+
+  static Create (data) {
+    __typecheck(data, __type.object, true)
+    __typecheck(data.passwordHash, __type.string, true)
+
+    return this.query().insert(data)
+  };
 
   static GetByEmail (email) {
     __typecheck(email, 'String', true)
