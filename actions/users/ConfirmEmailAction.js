@@ -21,23 +21,15 @@ class ConfirmEmailAction extends BaseAction {
     }
   }
 
-  static run (req, res, next) {
-    let tokenUserId = null
-
-    this.init(req, this.validationRules, this.accessTag)
-      .then(() => jwtService.verify(req.body.emailConfirmToken, config.token.emailConfirm.secret))
-      .then(tokenData => {
-        tokenUserId = +tokenData.sub
-        return UserDAO.BaseGetById(tokenUserId)
-      })
-      .then(user => {
-        if (user.emailConfirmToken === req.body.emailConfirmToken) {
-          return UserDAO.BaseUpdate(tokenUserId, { isEmailConfirmed: true, emailConfirmToken: null })
-        }
-        throw new ErrorWrapper({ ...errorCodes.WRONG_EMAIL_CONFIRM_TOKEN })
-      })
-      .then(data => res.json(this.resJson({ data })))
-      .catch(error => next(error))
+  static async run (req, res) {
+    const tokenData = await jwtService.verify(req.body.emailConfirmToken, config.token.emailConfirm.secret)
+    const tokenUserId = +tokenData.sub
+    const user = await UserDAO.BaseGetById(tokenUserId)
+    if (user.emailConfirmToken !== req.body.emailConfirmToken) {
+      throw new ErrorWrapper({ ...errorCodes.WRONG_EMAIL_CONFIRM_TOKEN })
+    }
+    const data = await UserDAO.BaseUpdate(tokenUserId, { isEmailConfirmed: true, emailConfirmToken: null })
+    res.json(this.resJson({ data }))
   }
 }
 
