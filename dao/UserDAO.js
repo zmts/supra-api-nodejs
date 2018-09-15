@@ -50,7 +50,7 @@ class UserDAO extends BaseDAO {
 
   static Create (data) {
     __typecheck(data, __type.object, true)
-    __typecheck(data.passwordHash, __type.string, true)
+    __typecheck(data.passwordHash, __type.string, true, 'Invalid \'passwordHash\' field')
 
     return this.query().insert(data)
   };
