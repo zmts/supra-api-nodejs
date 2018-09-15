@@ -11,20 +11,16 @@ class UpdateAction extends BaseAction {
 
   static get validationRules () {
     return {
-      ...this.baseValidationRules,
       body: Joi.object().keys({
         name: Joi.string().min(3).max(50)
       })
     }
   }
 
-  static run (req, res, next) {
-    let currentUser = registry.currentUser.get()
-
-    this.init(req, this.validationRules, this.accessTag)
-      .then(() => UserDAO.BaseUpdate(currentUser.id, req.body)) // user can update only itself
-      .then(updatedModel => res.json(this.resJson({ data: updatedModel })))
-      .catch(error => next(error))
+  static async run (req, res) {
+    const currentUser = registry.currentUser.get()
+    const data = await UserDAO.BaseUpdate(currentUser.id, req.body) // user can update only itself
+    res.json(this.resJson({ data }))
   }
 }
 
