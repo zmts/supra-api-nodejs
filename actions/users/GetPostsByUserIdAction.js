@@ -6,12 +6,6 @@ class GetPostsByUserIdAction extends BaseAction {
     return 'users:get-posts-by-user-id'
   }
 
-  static get validationRules () {
-    return {
-      ...this.baseValidationRules
-    }
-  }
-
   static get queryProps () {
     return {
       ...this.baseQueryProps,
@@ -21,12 +15,10 @@ class GetPostsByUserIdAction extends BaseAction {
     }
   }
 
-  static run (req, res, next) {
-    this.init(req, this.validationRules, this.accessTag)
-      .then(() => this.queryResolver(req.query, this.queryProps))
-      .then(() => PostDAO.GetPostsByUserId(+req.params.id))
-      .then(data => res.json(this.resJson({ data })))
-      .catch(error => next(error))
+  static async run (req, res) {
+    this.queryResolver(req.query, this.queryProps)
+    const data = await PostDAO.GetPostsByUserId(+req.params.id)
+    res.json(this.resJson({ data }))
   }
 }
 
