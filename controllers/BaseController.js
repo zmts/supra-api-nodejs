@@ -26,17 +26,17 @@ class BaseController {
         }
 
         /**
-         * check access to action by action name
-         */
-        await action.checkAccessByTag(action.accessTag)
-
-        /**
          * validate base rules
          */
         await action.validate(req, action.baseValidationRules)
 
         /**
-         * validate custom rules
+         * check access to action by access tag
+         */
+        await action.checkAccessByTag(action.accessTag)
+
+        /**
+         * validate action custom rules
          */
         if (action.validationRules) {
           await action.validate(req, action.validationRules)
