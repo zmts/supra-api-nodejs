@@ -16,7 +16,8 @@ class BaseRoleAccess {
       'users:change-password',
       'user:get-posts-by-user-id',
       'users:send-email-confirm-token',
-      'users:change-email'
+      'users:change-email',
+      'users:get-current-user'
     ]
   }
 

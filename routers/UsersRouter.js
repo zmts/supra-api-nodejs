@@ -6,6 +6,7 @@ const BaseRouter = require('./BaseRouter')
 class UsersRouter extends BaseRouter {
   static get router () {
     router.get('/', this.actionRunner(actions.ListAction))
+    router.get('/current', this.actionRunner(actions.GetCurrentUserAction))
     router.get('/:id', this.actionRunner(actions.GetByIdAction))
     router.post('/', this.actionRunner(actions.CreateAction))
     router.patch('/', this.actionRunner(actions.UpdateAction))

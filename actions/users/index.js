@@ -10,6 +10,7 @@ const GetPostsByUserIdAction = require('./GetPostsByUserIdAction')
 const ConfirmEmailAction = require('./ConfirmEmailAction')
 const SendEmailConfirmTokenAction = require('./SendEmailConfirmTokenAction')
 const ChangeEmailAction = require('./ChangeEmailAction')
+const GetCurrentUserAction = require('./GetCurrentUserAction')
 
 module.exports = {
   ListAction,
@@ -23,6 +24,7 @@ module.exports = {
   GetPostsByUserIdAction,
   ConfirmEmailAction,
   SendEmailConfirmTokenAction,
-  ChangeEmailAction
+  ChangeEmailAction,
+  GetCurrentUserAction
 }
 
