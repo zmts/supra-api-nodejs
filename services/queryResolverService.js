@@ -3,12 +3,18 @@ const registry = require('./../registry')
 /**
   * @description set query props to registry from req.query if prop exist in request or set it to defaults if not
   */
-module.exports = (reqQuery, defaultConfig) => {
+module.exports = (reqQuery, actionQueryProps) => {
   __typecheck(reqQuery, 'Object', true)
-  __typecheck(defaultConfig, 'Object', true)
+  __typecheck(actionQueryProps, 'Object', true)
 
-  let config = {
-    ...defaultConfig,
+  const config = {
+    page: 0,
+    limit: 10,
+    orderBy: 'createdAt:desc',
+    filter: {
+      // todo
+    },
+    ...actionQueryProps,
     ...reqQuery
   }
 

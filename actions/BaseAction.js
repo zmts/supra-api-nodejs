@@ -32,17 +32,6 @@ class BaseAction {
     }
   }
 
-  static get baseQueryProps () {
-    return {
-      page: 0,
-      limit: 10,
-      orderBy: 'createdAt:desc',
-      filter: {
-        // todo
-      }
-    }
-  }
-
   static get jsonSchema () {
     return JoiToJsonSchema(this.validationRules.body)
   }

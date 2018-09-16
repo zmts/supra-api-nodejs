@@ -10,9 +10,7 @@ class ListAction extends BaseAction {
   }
 
   static get queryProps () {
-    return {
-      ...this.baseQueryProps
-    }
+    return {}
   }
 
   static async run (req, res) {

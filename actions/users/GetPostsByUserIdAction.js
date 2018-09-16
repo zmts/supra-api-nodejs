@@ -7,12 +7,7 @@ class GetPostsByUserIdAction extends BaseAction {
   }
 
   static get queryProps () {
-    return {
-      ...this.baseQueryProps,
-      filter: {
-        // todo
-      }
-    }
+    return {}
   }
 
   static async run (req, res) {
