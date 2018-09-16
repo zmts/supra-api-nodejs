@@ -2,26 +2,31 @@ const roles = require('../config').roles
 const ErrorWrapper = require('../util/ErrorWrapper')
 const errorCodes = require('../config').errorCodes
 
+const $private = Symbol()
+
 class CurrentUserRegistry {
   constructor () {
-    this._default = {
-      id: null,
-      name: null,
-      role: roles.anonymous,
-      email: null,
-      expiresIn: null
+    this[$private] = {
+      user: {},
+      default: {
+        id: null,
+        name: null,
+        role: roles.anonymous,
+        email: null,
+        expiresIn: null
+      }
     }
-    this._user = this._default
+    this[$private].user = this[$private].default
   }
   get user () {
-    return this._user
+    return this[$private].user
   }
 
   set user (user) {
-    __typecheck(user, 'Object', true)
+    __typecheck(user, __type.object, true)
     this.validateUserRole(user.userRole)
 
-    this._user = {
+    this[$private].user = {
       id: +user.sub,
       name: user.username,
       role: user.userRole,
@@ -31,7 +36,7 @@ class CurrentUserRegistry {
   }
 
   reset () {
-    this._user = this._default
+    this[$private].user = this[$private].default
   }
 
   validateUserRole (userRole) {
@@ -42,7 +47,7 @@ class CurrentUserRegistry {
   }
 
   list () {
-    return this._user
+    return this[$private].user
   }
 }
 
