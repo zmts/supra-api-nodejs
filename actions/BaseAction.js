@@ -4,7 +4,7 @@ const JoiToJsonSchema = require('joi-to-json-schema')
 const securityModule = require('../services/security')
 const queryResolverService = require('../services/queryResolverService')
 const ResponseJson = require('./ResponseJson')
-const registry = require('../registry')
+const { currentUser } = require('../registry')
 
 /**
  * @description base action
@@ -48,7 +48,7 @@ class BaseAction {
   }
 
   static get currentUser () {
-    return registry.currentUser.get()
+    return currentUser.user
   }
 
   /**

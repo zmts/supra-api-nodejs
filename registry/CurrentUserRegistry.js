@@ -13,11 +13,11 @@ class CurrentUserRegistry {
     }
     this._user = this._default
   }
-  get () {
+  get user () {
     return this._user
   }
 
-  set (user) {
+  set user (user) {
     __typecheck(user, 'Object', true)
     this.validateUserRole(user.userRole)
 

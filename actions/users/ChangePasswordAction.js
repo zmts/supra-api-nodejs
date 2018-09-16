@@ -20,7 +20,7 @@ class ChangePasswordAction extends BaseAction {
   }
 
   static async run (req, res) {
-    const currentUser = registry.currentUser.get()
+    const currentUser = registry.currentUser.user
     const userModel = await UserDAO.BaseGetById(currentUser.id)
     await authModule.checkPasswordService(req.body.oldPassword, userModel.passwordHash)
     const newHash = await authModule.makePasswordHashService(req.body.newPassword)

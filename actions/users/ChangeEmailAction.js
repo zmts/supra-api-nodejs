@@ -20,7 +20,7 @@ class ChangeEmailAction extends BaseAction {
   }
 
   static async run (req, res) {
-    let currentUser = registry.currentUser.get()
+    let currentUser = registry.currentUser.user
 
     const isExist = await UserDAO.IsEmailExist(req.body.email)
     if (isExist) throw new ErrorWrapper({ ...errorCodes.EMAIL_ALREADY_TAKEN })

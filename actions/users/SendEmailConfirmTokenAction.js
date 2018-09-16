@@ -10,7 +10,7 @@ class SendEmailConfirmTokenAction extends BaseAction {
   }
 
   static async run (req, res) {
-    const currentUser = registry.currentUser.get()
+    const currentUser = registry.currentUser.user
     const emailConfirmToken = await makeEmailConfirmTokenService(currentUser)
     await UserDAO.BaseUpdate(currentUser.id, { emailConfirmToken })
     await sendEmailService({

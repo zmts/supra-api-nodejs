@@ -6,7 +6,7 @@ const registry = require('../../registry')
  * @description check is logged in user status
  */
 module.exports = () => {
-  let currentUser = registry.currentUser.get()
+  const currentUser = registry.currentUser.user
 
   return new Promise((resolve, reject) => {
     if (currentUser.id) return resolve()

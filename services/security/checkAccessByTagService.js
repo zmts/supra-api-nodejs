@@ -15,7 +15,7 @@ module.exports = accessTag => {
 
   const accessTagBaseName = accessTag.split(':')[0]
   const accessTagAll = `${accessTagBaseName}:all`
-  const currentUser = registry.currentUser.get()
+  const currentUser = registry.currentUser.user
 
   return new Promise((resolve, reject) => {
     // pass superadmin

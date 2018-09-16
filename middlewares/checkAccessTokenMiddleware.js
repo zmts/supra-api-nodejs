@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
     return jwtService.verify(token, SECRET)
       .then(tokenData => {
         // set user
-        registry.currentUser.set(tokenData)
+        registry.currentUser.user = tokenData
         next()
       }).catch(error => {
         registry.currentUser.reset()

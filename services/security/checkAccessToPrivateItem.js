@@ -15,7 +15,7 @@ const registry = require('../../registry')
 module.exports = model => {
   __typecheck(model, 'Object', true)
 
-  let currentUser = registry.currentUser.get()
+  const currentUser = registry.currentUser.user
 
   return new Promise((resolve, reject) => {
     // pass to superadmin
