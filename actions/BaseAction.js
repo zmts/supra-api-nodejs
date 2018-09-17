@@ -4,6 +4,7 @@ const JoiToJsonSchema = require('joi-to-json-schema')
 const securityModule = require('../services/security')
 const queryResolverService = require('../services/queryResolverService')
 const ResponseJson = require('./ResponseJson')
+const LogicData = require('./LogicData')
 const { currentUser } = require('../registry')
 
 /**
@@ -46,10 +47,12 @@ class BaseAction {
    * ------------------------------
    */
 
-  static resJson (options = {}) {
-    __typecheck(options, __type.object, true)
-
+  static resJson (options) {
     return new ResponseJson(options)
+  }
+
+  static logicData (options) {
+    return new LogicData(options)
   }
 
   /**
