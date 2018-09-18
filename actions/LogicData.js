@@ -6,11 +6,15 @@ class LogicData {
 
     this.data = options.data
     this.currentUser = options.currentUser
-    this.filter = options.filter || {}
-    this.orderBy = options.orderBy || 'createdAt:asc'
-    this.pagination = options.pagination || { page: 0, limit: 10 }
     this.meta = options.meta || {}
     this.q = options.q || null
+    this.query = {
+      ...options.query,
+      filter: options.query.filter || {},
+      orderBy: options.query.orderBy || 'createdAt:asc',
+      page: options.query.page || 0,
+      limit: options.query.limit || 10
+    }
   }
 }
 
