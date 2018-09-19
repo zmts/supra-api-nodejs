@@ -1,5 +1,4 @@
 const BaseDAO = require('./BaseDAO')
-const registry = require('../registry')
 
 class PostDAO extends BaseDAO {
   static get tableName () {
@@ -22,13 +21,18 @@ class PostDAO extends BaseDAO {
    * ------------------------------
    */
 
-  static GetPostsByUserId (userId) {
+  static GetPostsByUserId (userId, { page, limit, orderBy }) {
     __typecheck(userId, 'Number', true)
+    __typecheck(page, __type.number, true)
+    __typecheck(limit, __type.number, true)
+    __typecheck(orderBy, __type.object, true)
+    __typecheck(orderBy.field, __type.string, true)
+    __typecheck(orderBy.direction, __type.string, true)
 
     return this.query()
       .where({ userId })
-      .page(registry.queryParams.get().page, registry.queryParams.get().limit)
-      .orderBy(registry.queryParams.get().orderBy.field, registry.queryParams.get().orderBy.direction)
+      .page(page, limit)
+      .orderBy(orderBy.field, orderBy.direction)
       .then(data => {
         if (!data.results.length) throw this.errorEmptyResponse()
         return data

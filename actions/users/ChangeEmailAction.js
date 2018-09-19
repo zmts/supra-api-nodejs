@@ -2,7 +2,6 @@ const Joi = require('joi')
 
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
-const registry = require('../../registry')
 const ErrorWrapper = require('../../util/ErrorWrapper')
 const errorCodes = require('../../config/errorCodes')
 
@@ -20,7 +19,7 @@ class ChangeEmailAction extends BaseAction {
   }
 
   static async run (req, res) {
-    let currentUser = registry.currentUser.user
+    const { currentUser } = this.context(req)
 
     const isExist = await UserDAO.IsEmailExist(req.body.email)
     if (isExist) throw new ErrorWrapper({ ...errorCodes.EMAIL_ALREADY_TAKEN })

@@ -26,14 +26,9 @@ class BaseRouter {
         }
 
         /**
-         * validate base rules
-         */
-        await action.validate(req, action.baseValidationRules)
-
-        /**
          * check access to action by access tag
          */
-        await action.checkAccessByTag(action.accessTag)
+        await action.checkAccessByTag(action.accessTag, req._META.currentUser)
 
         /**
          * validate action custom rules

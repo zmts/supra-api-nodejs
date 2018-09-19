@@ -7,10 +7,13 @@ class RemoveAction extends BaseAction {
     return 'users:remove'
   }
 
-  static async run (req, res, next) {
+  static async run (req, rest) {
+    const { currentUser } = this.context(req)
+
     const model = await UserDAO.BaseGetById(+req.params.id)
-    await checkAccessUpdateUserService(model)
+    await checkAccessUpdateUserService(model, currentUser)
     await UserDAO.BaseRemove(+req.params.id)
+
     res.json(this.resJson({ message: `${req.params.id} was removed` }))
   }
 }

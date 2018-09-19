@@ -2,43 +2,14 @@ const Joi = require('joi')
 const JoiToJsonSchema = require('joi-to-json-schema')
 
 const securityModule = require('../services/security')
-const queryResolverService = require('../services/queryResolverService')
 const ResponseJson = require('./ResponseJson')
-const LogicData = require('./LogicData')
-const { currentUser } = require('../registry')
 
 /**
  * @description base action
  */
 class BaseAction {
-  /**
-   * ------------------------------
-   * @BASE_CONFIGS
-   * ------------------------------
-   */
-  static get baseValidationRules () {
-    return {
-      params: Joi.object().keys({
-        id: Joi.number().integer()
-      }),
-      query: Joi.object().keys({
-        q: Joi.string().min(2).max(50),
-        page: Joi.number().integer().min(1),
-        limit: Joi.number().integer().valid([10, 20, 30, 40, 50, 60, 70, 80, 90, 100]),
-        orderBy: Joi.string().valid(['createdAt:asc', 'createdAt:desc'])
-      })
-      // headers: Joi.object({ // TODO make required Content-Type as application/json
-      //   'Content-Type': Joi.string().required()
-      // })
-    }
-  }
-
   static get jsonSchema () {
     return JoiToJsonSchema(this.validationRules.body)
-  }
-
-  static get currentUser () {
-    return currentUser.user
   }
 
   /**
@@ -51,19 +22,12 @@ class BaseAction {
     return new ResponseJson(options)
   }
 
-  static logicData (options) {
-    return new LogicData(options)
-  }
-
   static context (req) {
     __typecheck(req, __type.object, true)
 
     return {
       currentUser: req._META.currentUser,
-      query: req.query,
-      filter: req.query.filter,
-      pagination: req.query.pagination,
-      orderBy: req.query.orderBy
+      query: req.query
     }
   }
 
@@ -88,37 +52,33 @@ class BaseAction {
     })
   }
 
-  static queryResolver (reqQuery, defaultConfig) {
-    __typecheck(reqQuery, 'Object', true)
-    __typecheck(defaultConfig, 'Object', true)
-
-    return queryResolverService(reqQuery, defaultConfig)
-  }
-
   /**
    * ------------------------------
    * @BASE_SECURITY_SERVICES
    * ------------------------------
    */
 
-  static checkAccessByTag (accessTag) {
+  static checkAccessByTag (accessTag, currentUser) {
     __typecheck(accessTag, 'String', true)
+    __typecheck(currentUser, __type.object, true)
 
-    return securityModule.checkAccessByTagService(accessTag)
+    return securityModule.checkAccessByTagService(accessTag, currentUser)
   }
 
   // use with PATCH, DELETE
-  static checkAccessByOwnerId (model) {
+  static checkAccessByOwnerId (model, currentUser) {
     __typecheck(model, 'Object', true)
+    __typecheck(currentUser, __type.object, true)
 
-    return securityModule.checkAccessByOwnerIdService(model)
+    return securityModule.checkAccessByOwnerIdService(model, currentUser)
   }
 
   // use with GET
-  static checkAccessToPrivateItem (model) {
+  static checkAccessToPrivateItem (model, currentUser) {
     __typecheck(model, 'Object', true)
+    __typecheck(currentUser, __type.object, true)
 
-    return securityModule.checkAccessToPrivateItem(model)
+    return securityModule.checkAccessToPrivateItem(model, currentUser)
   }
 }
 

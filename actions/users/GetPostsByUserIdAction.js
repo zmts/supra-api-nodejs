@@ -6,13 +6,12 @@ class GetPostsByUserIdAction extends BaseAction {
     return 'users:get-posts-by-user-id'
   }
 
-  static get queryProps () {
-    return {}
-  }
-
   static async run (req, res) {
-    this.queryResolver(req.query, this.queryProps)
-    const data = await PostDAO.GetPostsByUserId(+req.params.id)
+    const { query } = this.context(req)
+    const data = await PostDAO.GetPostsByUserId(+req.params.id, {
+      ...query,
+      orderBy: { field: 'title', direction: 'asc' }
+    })
     res.json(this.resJson({ data }))
   }
 }

@@ -6,13 +6,9 @@ class ListAction extends BaseAction {
     return 'posts:list'
   }
 
-  static get queryProps () {
-    return {}
-  }
-
   static async run (req, res) {
-    this.queryResolver(req.query, this.queryProps)
-    const data = await PostDAO.BaseGetList()
+    const { query } = this.context(req)
+    const data = await PostDAO.BaseGetList({ ...query })
     res.json(this.resJson({ data }))
   }
 }

@@ -8,11 +8,12 @@ const AuthRouter = require('./AuthRouter')
 const PostsRouter = require('./PostsRouter')
 const UsersRouter = require('./UsersRouter')
 const checkAccessTokenMiddleware = require('../middlewares/checkAccessTokenMiddleware')
+const queryMiddleware = require('../middlewares/queryMiddleware')
 
 class RootRouter extends BaseRouter {
   static get router () {
-    // default auth middleware
     router.use(checkAccessTokenMiddleware)
+    router.use(queryMiddleware)
 
     // root route
     router.get('/', (req, res) => {

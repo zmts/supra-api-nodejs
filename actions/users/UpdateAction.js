@@ -2,7 +2,6 @@ const Joi = require('joi')
 
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
-const registry = require('../../registry')
 
 class UpdateAction extends BaseAction {
   static get accessTag () {
@@ -18,7 +17,7 @@ class UpdateAction extends BaseAction {
   }
 
   static async run (req, res) {
-    const currentUser = registry.currentUser.user
+    const { currentUser } = this.context(req)
     const data = await UserDAO.BaseUpdate(currentUser.id, req.body) // user can update only itself
     res.json(this.resJson({ data }))
   }

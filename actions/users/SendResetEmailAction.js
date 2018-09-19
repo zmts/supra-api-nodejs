@@ -33,6 +33,7 @@ class SendResetEmailAction extends BaseAction {
       subject: '[Supra.com] Password reset instructions',
       text: `Use this token to reset password ${resetEmailToken}`
     })
+
     res.json(this.resJson({ data: response }))
   }
 }

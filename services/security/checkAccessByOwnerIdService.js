@@ -2,18 +2,15 @@ const ErrorWrapper = require('../../util/ErrorWrapper')
 const errorCodes = require('../../config').errorCodes
 
 const roles = require('../../config').roles
-const registry = require('../../registry')
 
 /**
  * @description model userId === current user id
  * @access owner, superadmin
  * @case update or delete model
- * @param {Object} model
  */
-module.exports = model => {
+module.exports = (model, currentUser) => {
   __typecheck(model, 'Object', true)
-
-  const currentUser = registry.currentUser.user
+  __typecheck(currentUser, __type.object, true)
 
   return new Promise((resolve, reject) => {
     // pass superadmin

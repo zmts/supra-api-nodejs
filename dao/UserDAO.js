@@ -2,7 +2,7 @@ const { raw } = require('objection')
 
 const BaseDAO = require('./BaseDAO')
 const PostDAO = require('./PostDAO')
-const errorCodes = require('../config/errorCodes')
+// const errorCodes = require('../config/errorCodes')
 
 class UserDAO extends BaseDAO {
   static get tableName () {

@@ -2,7 +2,6 @@ const joi = require('joi')
 
 const BaseAction = require('../BaseAction')
 const PostDAO = require('../../dao/PostDAO')
-const registry = require('../../registry')
 
 class CreateAction extends BaseAction {
   static get accessTag () {
@@ -19,7 +18,7 @@ class CreateAction extends BaseAction {
   }
 
   static async run (req, res) {
-    const currentUser = registry.currentUser.user
+    const { currentUser } = this.context(req)
     const data = await PostDAO.BaseCreate({ ...req.body, userId: +currentUser.id })
     res.json(this.resJson({ data }))
   }

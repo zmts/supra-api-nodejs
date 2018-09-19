@@ -3,19 +3,17 @@ const errorCodes = require('../../config').errorCodes
 
 const permissions = require('../../permissions')
 const roles = require('../../config').roles
-const registry = require('../../registry')
 
 /**
  * @description check permissions to action by access tag
  * @case uses in each action class
- * @param {String} accessTag
  */
-module.exports = accessTag => {
-  __typecheck(accessTag, 'String', true)
+module.exports = (accessTag, currentUser) => {
+  __typecheck(accessTag, __type.string, true)
+  __typecheck(currentUser, __type.object, true)
 
   const accessTagBaseName = accessTag.split(':')[0]
   const accessTagAll = `${accessTagBaseName}:all`
-  const currentUser = registry.currentUser.user
 
   return new Promise((resolve, reject) => {
     // pass superadmin

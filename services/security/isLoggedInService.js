@@ -1,12 +1,11 @@
 const ErrorWrapper = require('../../util/ErrorWrapper')
 const errorCodes = require('../../config/errorCodes')
-const registry = require('../../registry')
 
 /**
  * @description check is logged in user status
  */
-module.exports = () => {
-  const currentUser = registry.currentUser.user
+module.exports = currentUser => {
+  __typecheck(currentUser, __type.object, true)
 
   return new Promise((resolve, reject) => {
     if (currentUser.id) return resolve()
