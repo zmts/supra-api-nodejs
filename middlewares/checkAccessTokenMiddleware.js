@@ -2,20 +2,39 @@ const { jwtService } = require('../services/auth')
 const SECRET = require('../config').token.access.secret
 const registry = require('../registry')
 const errorCodes = require('../config').errorCodes
+const roles = require('../config').roles
 
 module.exports = (req, res, next) => {
-  let token = req.headers['token']
+  const token = req.headers['token']
   // reset user before each request
-  registry.currentUser.reset()
+  registry.currentUser.reset() // TODO refact remove
+  // set default meta data
+  req._META = {
+    currentUser: {
+      id: null,
+      name: null,
+      role: roles.anonymous,
+      email: null,
+      expiresIn: null
+    }
+  }
 
   if (token) {
     return jwtService.verify(token, SECRET)
       .then(tokenData => {
-        // set user
-        registry.currentUser.user = tokenData
+        registry.currentUser.user = tokenData // TODO refact remove
+        // set actual current user
+        req._META.currentUser = {
+          id: +tokenData.sub,
+          name: tokenData.username,
+          role: tokenData.userRole,
+          email: tokenData.email,
+          expiresIn: tokenData.exp
+        }
+
         next()
       }).catch(error => {
-        registry.currentUser.reset()
+        registry.currentUser.reset() // TODO refact remove
 
         if (error.code === errorCodes.TOKEN_EXPIRED.code) {
           /**

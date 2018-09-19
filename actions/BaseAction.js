@@ -59,7 +59,7 @@ class BaseAction {
     __typecheck(req, __type.object, true)
 
     return {
-      currentUser: req._META.tokenData,
+      currentUser: req._META.currentUser,
       query: req.query,
       filter: req.query.filter,
       pagination: req.query.pagination,
