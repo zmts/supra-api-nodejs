@@ -10,7 +10,7 @@ class ListAction extends BaseAction {
   }
 
   static async run (req, res) {
-    const { query } = this.context(req)
+    const { query } = req
     const data = await UserDAO.BaseGetList({ ...query })
     res.json(this.resJson({ data }))
   }

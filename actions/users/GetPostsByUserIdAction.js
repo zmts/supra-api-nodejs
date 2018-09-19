@@ -7,7 +7,7 @@ class GetPostsByUserIdAction extends BaseAction {
   }
 
   static async run (req, res) {
-    const { query } = this.context(req)
+    const { query } = req
     const data = await PostDAO.GetPostsByUserId(+req.params.id, {
       ...query,
       orderBy: { field: 'title', direction: 'asc' }

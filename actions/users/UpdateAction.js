@@ -17,7 +17,7 @@ class UpdateAction extends BaseAction {
   }
 
   static async run (req, res) {
-    const { currentUser } = this.context(req)
+    const { currentUser } = req
     const data = await UserDAO.BaseUpdate(currentUser.id, req.body) // user can update only itself
     res.json(this.resJson({ data }))
   }

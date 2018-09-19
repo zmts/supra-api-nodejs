@@ -19,7 +19,7 @@ class ChangeEmailAction extends BaseAction {
   }
 
   static async run (req, res) {
-    const { currentUser } = this.context(req)
+    const { currentUser } = req
 
     const isExist = await UserDAO.IsEmailExist(req.body.email)
     if (isExist) throw new ErrorWrapper({ ...errorCodes.EMAIL_ALREADY_TAKEN })

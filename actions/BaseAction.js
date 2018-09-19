@@ -22,15 +22,6 @@ class BaseAction {
     return new ResponseJson(options)
   }
 
-  static context (req) {
-    __typecheck(req, __type.object, true)
-
-    return {
-      currentUser: req._META.currentUser,
-      query: req.query
-    }
-  }
-
   /**
    * @description validate request
    * uses by default in init method

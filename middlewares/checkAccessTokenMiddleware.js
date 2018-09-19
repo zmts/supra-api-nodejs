@@ -7,26 +7,24 @@ module.exports = (req, res, next) => {
   const token = req.headers['token']
 
   // set default meta data
-  req._META = {
-    currentUser: Object.freeze({
-      id: null,
-      name: null,
-      role: roles.anonymous,
-      email: null,
-      expiresIn: null
-    })
-  }
+  req.currentUser = Object.freeze({
+    id: null,
+    name: null,
+    role: roles.anonymous,
+    email: null,
+    expiresIn: null
+  })
 
   if (token) {
     return jwtService.verify(token, SECRET)
       .then(tokenData => {
         // set actual current user
-        req._META.currentUser = Object.freeze({
-          id: +tokenData.sub,
+        req.currentUser = Object.freeze({
+          id: Number(tokenData.sub),
           name: tokenData.username,
           role: tokenData.userRole,
           email: tokenData.email,
-          expiresIn: tokenData.exp
+          expiresIn: Number(tokenData.exp)
         })
 
         next()
