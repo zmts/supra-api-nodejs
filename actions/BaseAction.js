@@ -55,6 +55,18 @@ class BaseAction {
     return new LogicData(options)
   }
 
+  static context (req) {
+    __typecheck(req, __type.object, true)
+
+    return {
+      currentUser: req._META.tokenData,
+      query: req.query,
+      filter: req.query.filter,
+      pagination: req.query.pagination,
+      orderBy: req.query.orderBy
+    }
+  }
+
   /**
    * @description validate request
    * uses by default in init method
