@@ -4,7 +4,8 @@ const querySchema = joi.object().keys({
   page: joi.number().integer().min(1),
   limit: joi.number().integer().valid([10, 20, 30, 40, 50, 60, 70, 80, 90, 100]),
   orderBy: joi.string().valid(['createdAt:asc', 'createdAt:desc']),
-  filter: joi.object()
+  filter: joi.object(),
+  schema: joi.boolean()
 })
 
 // const headersSchema = joi.object({ // TODO make required Content-Type as application/json
