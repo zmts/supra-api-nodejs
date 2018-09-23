@@ -1,8 +1,6 @@
 const express = require('express')
 const router = express.Router()
 
-const swaggerSpec = require('../swagger')
-
 const BaseRouter = require('./BaseRouter')
 const AuthRouter = require('./AuthRouter')
 const PostsRouter = require('./PostsRouter')
@@ -19,9 +17,6 @@ class RootRouter extends BaseRouter {
     router.get('/', (req, res) => {
       res.json({ success: true, message: '(>___<)' })
     })
-
-    // api doc route
-    router.get('/swagger.json', (req, res) => res.json(swaggerSpec))
 
     // main routes
     router.use('/auth', AuthRouter.router)
