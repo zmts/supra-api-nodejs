@@ -7,7 +7,7 @@ const type = require('../../config').token.refresh.type
 /**
  * @return {Promise} string
  */
-module.exports = userEntity => {
+module.exports = async (userEntity) => {
   __typecheck(userEntity, 'Object', true)
 
   const config = {
@@ -24,8 +24,6 @@ module.exports = userEntity => {
   }
 
   const timestamp = new Date().getTime()
-
-  return jwtService.sign(config.payload, SECRET, config.options)
-    .then(result => `${timestamp}::${result}`)
-    .catch(error => { throw new Error(error) })
+  const token = await jwtService.sign(config.payload, SECRET, config.options)
+  return `${timestamp}::${token}`
 }
