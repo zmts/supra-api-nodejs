@@ -39,8 +39,7 @@ class RefreshTokensAction extends BaseAction {
       responseData.refreshToken = newRefreshToken
       const newRefreshTokenTimestamp = newRefreshToken.split('::')[0]
       await UserDAO.AddRefreshTokenProcess(userEntity, { timestamp: newRefreshTokenTimestamp, refreshToken: newRefreshToken }) // store new refresh token to DB
-      const accessToken = await makeAccessTokenService(userEntity)
-      responseData.accessToken = accessToken
+      responseData.accessToken = await makeAccessTokenService(userEntity)
       res.json(this.resJson({ data: responseData }))
     } catch (error) {
       next(error)
