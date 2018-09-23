@@ -13,7 +13,7 @@ Piece of my thoughts about Node.js architecture.
 - Role based access control
 - Request validation (Joi.js)
 - CRUD(users, posts resources)
-- API documentation(Swagger)
+- Automated API documentation
 
 ### Implemented endpoints:
 ![endpoints](https://i.imgur.com/GCW47z5.png)
