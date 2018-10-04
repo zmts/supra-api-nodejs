@@ -9,7 +9,8 @@ class ListAction extends BaseAction {
   static async run (req, res) {
     const { query } = req
     const data = await PostDAO.BaseGetList({ ...query })
-    res.json(this.resJson({ data }))
+    res.header('X-Total-Count', data.total)
+    res.json(this.resJson({ data: data.results }))
   }
 }
 

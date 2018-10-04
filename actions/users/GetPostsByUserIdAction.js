@@ -12,7 +12,8 @@ class GetPostsByUserIdAction extends BaseAction {
       ...query,
       orderBy: { field: 'title', direction: 'asc' }
     })
-    res.json(this.resJson({ data }))
+    res.header('X-Total-Count', data.total)
+    res.json(this.resJson({ data: data.results }))
   }
 }
 
