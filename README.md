@@ -31,7 +31,7 @@ class PostsRouter extends BaseRouter {
   }
 }
 ``` 
-For example `PostsRouter` implement base CRUD routes to `post` entity. Each route fire own `action`. 
+For example `PostsRouter` implement base CRUD routes to `post` entity. Each route fires own `action`. 
 
 2. Action
 It's a class that encapsulated request validation, permission verification and business logic. One file, one class, one REST operation.
