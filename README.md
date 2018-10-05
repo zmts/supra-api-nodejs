@@ -16,7 +16,7 @@ Piece of my thoughts about Node.js architecture.
 - Automated API documentation
 
 ## Key points:
-1. Routing
+1. Routing.
 Each entity have own router class that implement RESTful interface to work with it.
 ```
 class PostsRouter extends BaseRouter {
@@ -33,13 +33,13 @@ class PostsRouter extends BaseRouter {
 ``` 
 For example `PostsRouter` implement base CRUD routes to `post` entity. Each route fires own `action`. 
 
-2. Action
+2. Action.
 It's a class that encapsulated request validation, permission verification and business logic. One file, one class, one REST operation.
 
-3. Service
+3. Service.
 It's much more like utility layer thats provide some helpful promisfitated functions like check access, hash password or generate jwt's.
 
-4. DAO
+4. DAO.
 Implement data access methods.
 
 ### Implemented endpoints:
