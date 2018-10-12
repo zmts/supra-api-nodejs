@@ -13,13 +13,13 @@ module.exports = {
 
   resetPassword: {
     type: 'TOKEN_TYPE_RESET_PASSWORD',
-    secret: process.env.TOKEN_RESET_PASSWORD_EXP,
-    expiresIn: process.env.TOKEN_RESET_PASSWORD_SECRET
+    secret: process.env.TOKEN_RESET_PASSWORD_SECRET,
+    expiresIn: process.env.TOKEN_RESET_PASSWORD_EXP
   },
 
   emailConfirm: {
     type: 'TOKEN_TYPE_EMAIL_CONFIRM',
-    secret: process.env.TOKEN_EMAIL_CONFIRM_EXP,
-    expiresIn: process.env.TOKEN_EMAIL_CONFIRM_SECRET
+    secret: process.env.TOKEN_EMAIL_CONFIRM_SECRET,
+    expiresIn: process.env.TOKEN_EMAIL_CONFIRM_EXP
   }
 }
