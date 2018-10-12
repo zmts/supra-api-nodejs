@@ -1,7 +1,6 @@
 const Joi = require('joi')
 const JoiToJsonSchema = require('joi-to-json-schema')
 
-const securityModule = require('../services/security')
 const ResponseJson = require('./ResponseJson')
 
 /**
@@ -41,35 +40,6 @@ class BaseAction {
         .then(result => resolve(result))
         .catch(error => reject(error))
     })
-  }
-
-  /**
-   * ------------------------------
-   * @BASE_SECURITY_SERVICES
-   * ------------------------------
-   */
-
-  static checkAccessByTag (accessTag, currentUser) {
-    __typecheck(accessTag, 'String', true)
-    __typecheck(currentUser, __type.object, true)
-
-    return securityModule.checkAccessByTagService(accessTag, currentUser)
-  }
-
-  // use with PATCH, DELETE
-  static checkAccessByOwnerId (model, currentUser) {
-    __typecheck(model, 'Object', true)
-    __typecheck(currentUser, __type.object, true)
-
-    return securityModule.checkAccessByOwnerIdService(model, currentUser)
-  }
-
-  // use with GET
-  static checkAccessToPrivateItem (model, currentUser) {
-    __typecheck(model, 'Object', true)
-    __typecheck(currentUser, __type.object, true)
-
-    return securityModule.checkAccessToPrivateItem(model, currentUser)
   }
 }
 

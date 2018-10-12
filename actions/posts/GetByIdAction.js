@@ -1,5 +1,6 @@
 const BaseAction = require('../BaseAction')
 const PostDAO = require('../../dao/PostDAO')
+const { checkAccessToPrivateItemService } = require('../../services/security')
 
 class GetByIdAction extends BaseAction {
   static get accessTag () {
@@ -10,7 +11,7 @@ class GetByIdAction extends BaseAction {
     const { currentUser } = req
 
     const model = await PostDAO.BaseGetById(+req.params.id)
-    await this.checkAccessToPrivateItem(model, currentUser)
+    await checkAccessToPrivateItemService(model, currentUser)
 
     res.json(this.resJson({ data: model }))
   }

@@ -1,13 +1,17 @@
 const checkAccessByTagService = require('./checkAccessByTagService')
 const checkAccessByOwnerIdService = require('./checkAccessByOwnerIdService')
-const checkAccessToPrivateItem = require('./checkAccessToPrivateItem')
+const checkAccessToPrivateItemService = require('./checkAccessToPrivateItemService')
 const checkAccessUpdateUserService = require('./checkAccessUpdateUserService')
-const isLoggedInService = require('./isLoggedInService')
+const checkIsMemberService = require('./checkIsMemberService')
+const isOwnerService = require('./isOwnerService')
+const isMemberService = require('./isMemberService')
 
 module.exports = {
   checkAccessByTagService,
   checkAccessByOwnerIdService,
-  checkAccessToPrivateItem,
+  checkAccessToPrivateItemService,
   checkAccessUpdateUserService,
-  isLoggedInService
+  checkIsMemberService,
+  isOwnerService,
+  isMemberService
 }

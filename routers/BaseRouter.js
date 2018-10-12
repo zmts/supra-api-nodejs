@@ -1,4 +1,5 @@
 const ErrorWrapper = require('../util/ErrorWrapper')
+const { checkAccessByTagService } = require('../services/security')
 
 class BaseRouter {
   static actionRunner (action) {
@@ -28,7 +29,7 @@ class BaseRouter {
         /**
          * check access to action by access tag
          */
-        await action.checkAccessByTag(action.accessTag, req.currentUser)
+        await checkAccessByTagService(action.accessTag, req.currentUser)
 
         /**
          * validate action custom rules

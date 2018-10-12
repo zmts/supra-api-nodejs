@@ -2,6 +2,7 @@ const joi = require('joi')
 
 const BaseAction = require('../BaseAction')
 const PostDAO = require('../../dao/PostDAO')
+const { checkAccessByOwnerIdService } = require('../../services/security')
 
 class UpdateAction extends BaseAction {
   static get accessTag () {
@@ -21,7 +22,7 @@ class UpdateAction extends BaseAction {
     const { currentUser } = req
 
     const model = await PostDAO.BaseGetById(+req.params.id)
-    await this.checkAccessByOwnerId(model, currentUser)
+    await checkAccessByOwnerIdService(model, currentUser)
     const data = await PostDAO.BaseUpdate(+req.params.id, req.body)
 
     res.json(this.resJson({ data }))
