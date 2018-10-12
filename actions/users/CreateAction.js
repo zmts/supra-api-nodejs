@@ -24,17 +24,24 @@ class CreateAction extends BaseAction {
   static async run (req, res) {
     const hash = await makePasswordHashService(req.body.password)
     delete req.body.password
-    req.body['passwordHash'] = hash
-    const user = await UserDAO.Create(req.body)
+    const user = await UserDAO.Create({
+      ...req.body,
+      passwordHash: hash
+    })
     const emailConfirmToken = await makeEmailConfirmTokenService(user)
     await UserDAO.BaseUpdate(user.id, { emailConfirmToken })
-    res.json(this.resJson({ data: user }))
 
-    await sendEmailService({
-      to: user.email,
-      subject: 'Welcome to supra.com!',
-      text: `Welcome to supra.com! ${user.name} we just created new account for you. Your login: ${user.email}`
-    })
+    try {
+      await sendEmailService({
+        to: user.email,
+        subject: 'Welcome to supra.com!',
+        text: `Welcome to supra.com! ${user.name} we just created new account for you. Your login: ${user.email}`
+      })
+    } catch (error) {
+      throw error
+    }
+
+    res.json(this.resJson({ data: user }))
   }
 }
 
