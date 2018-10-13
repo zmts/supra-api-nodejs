@@ -16,7 +16,9 @@ module.exports = (argument, type, required, message) => {
    * check arguments type
    */
   const isArgumentExist = [0, null, false, NaN].includes(argument) || argument
-  if (isArgumentExist && !typeCheck(type, argument)) {
+  // if argument is number or number as string transform it into Number
+  const getArgument = type === __type.number ? Number(argument) : argument
+  if (isArgumentExist && !typeCheck(type, getArgument)) {
     if (!message) {
       throw new ErrorWrapper({
         ...errorCodes.ARGUMENT_TYPE,
