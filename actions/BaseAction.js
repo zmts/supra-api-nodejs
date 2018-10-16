@@ -1,4 +1,4 @@
-const Joi = require('joi')
+const joi = require('joi')
 const JoiToJsonSchema = require('joi-to-json-schema')
 
 const ResponseJson = require('./ResponseJson')
@@ -31,7 +31,7 @@ class BaseAction {
 
     // map list of validation schemas
     let validationSchemas = Object.keys(rules).map(key => {
-      return Joi.validate(req[key], rules[key])
+      return joi.validate(req[key], rules[key])
     })
 
     // execute validation
