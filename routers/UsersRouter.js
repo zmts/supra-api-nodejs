@@ -11,7 +11,6 @@ class UsersRouter extends BaseRouter {
     router.post('/', this.actionRunner(actions.CreateAction))
     router.patch('/', this.actionRunner(actions.UpdateAction))
     router.delete('/:id', this.actionRunner(actions.RemoveAction))
-    router.get('/:id/posts', this.actionRunner(actions.GetPostsByUserIdAction))
 
     router.post('/change-password', this.actionRunner(actions.ChangePasswordAction))
     router.post('/send-reset-email', this.actionRunner(actions.SendResetEmailAction))

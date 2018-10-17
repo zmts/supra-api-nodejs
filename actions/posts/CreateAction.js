@@ -10,7 +10,7 @@ class CreateAction extends BaseAction {
 
   static get validationRules () {
     return {
-      body: joi.object().keys({
+      body: joi.object().keys({ // TODO replace joi.object with plain object
         title: joi.string().min(3).max(20).required(),
         content: joi.string().min(3).max(5000)
       })

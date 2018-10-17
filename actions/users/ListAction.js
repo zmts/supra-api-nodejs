@@ -1,3 +1,4 @@
+const joi = require('joi')
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
 
@@ -7,6 +8,17 @@ const UserDAO = require('../../dao/UserDAO')
 class ListAction extends BaseAction {
   static get accessTag () {
     return 'users:list'
+  }
+
+  static get validationRules () {
+    return {
+      query: joi.object().keys({
+        ...this.baseValidationRules.query,
+        filter: joi.object().keys({
+          username: joi.string().min(3)
+        })
+      })
+    }
   }
 
   static async run (req, res) {

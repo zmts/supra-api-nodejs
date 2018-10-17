@@ -6,7 +6,6 @@ class BaseRoleAccess {
       // usersActions.GetByIdAction.accessTag,
       // usersActions.RemoveAction.accessTag,
       // usersActions.ChangePasswordAction.accessTag,
-      // usersActions.GetPostsByUserIdAction.accessTag,
       // usersActions.SendEmailConfirmTokenAction.accessTag,
       // usersActions.ChangeEmailAction.accessTag
       'users:list',

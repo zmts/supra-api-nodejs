@@ -12,7 +12,7 @@ class BaseDAO extends Model {
    * ------------------------------
    */
 
-  static errorWrapper (options = {}) { // {message: '', status: 500, code: ''}
+  static errorWrapper (options = {}) {
     __typecheck(options.message, 'String', true)
 
     return new ErrorWrapper(options)
@@ -76,11 +76,14 @@ class BaseDAO extends Model {
     return this.query().insert(data)
   };
 
-  static BaseGetList ({ page, limit }) {
+  static BaseGetList ({ page, limit, filter }) {
     __typecheck(page, __type.number, true)
     __typecheck(limit, __type.number, true)
+    __typecheck(filter, __type.object, true)
+    __typecheck(filter.userId, __type.number)
 
     return this.query()
+      .where({ ...filter })
       .orderBy('id', 'desc')
       .page(page, limit)
       .then(data => {

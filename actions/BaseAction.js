@@ -8,7 +8,29 @@ const ResponseJson = require('./ResponseJson')
  */
 class BaseAction {
   static get jsonSchema () {
-    return JoiToJsonSchema(this.validationRules.body)
+    if (this.validationRules.body) {
+      return JoiToJsonSchema(this.validationRules.body)
+    }
+    return JoiToJsonSchema(joi.object().keys(this.validationRules))
+  }
+
+  static get baseValidationRules () {
+    return {
+      query: {
+        q: joi.string().min(2).max(50),
+        page: joi.number().integer().min(0),
+        limit: joi.number().integer().valid([10, 20, 30, 40, 50, 60, 70, 80, 90, 100]),
+        orderBy: joi.object().keys({
+          field: joi.string(),
+          direction: joi.string().valid(['asc', 'desc'])
+        }),
+        filter: joi.object(),
+        schema: joi.boolean()
+      },
+      headers: {
+        // 'Content-Type': joi.string().required() // TODO make required Content-Type as application/json
+      }
+    }
   }
 
   /**

@@ -22,7 +22,7 @@ class BaseRouter {
         /**
          * handle json schema response only for create and update actions
          */
-        if (req.query.schema && ['POST', 'PATCH'].includes(req.method)) {
+        if (req.query.schema && ['POST', 'PATCH', 'GET'].includes(req.method)) {
           return res.json(action.jsonSchema)
         }
 

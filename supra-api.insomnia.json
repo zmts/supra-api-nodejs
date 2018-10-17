@@ -1,689 +1,94 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-09-17T07:43:11.732Z",
+	"__export_date": "2018-10-12T19:37:06.493Z",
 	"__export_source": "insomnia.desktop.app:v5.16.6",
 	"resources": [
 		{
-			"_id": "wrk_f41ba130885b45bbb5fc2d2f5eb34d99",
-			"created": 1514667974669,
+			"_id": "wrk_2915b8370a5f44bfb74ba3ed2acbd82f",
+			"created": 1539372380283,
 			"description": "",
-			"modified": 1514667974669,
+			"modified": 1539372380283,
 			"name": "supra-api-nodejs",
 			"parentId": null,
 			"_type": "workspace"
 		},
 		{
-			"_id": "env_f8b14970cec24c2a8033bf6df9ba01a7",
+			"_id": "env_72c590c223e948c798ba21839ac5d7d8",
 			"color": null,
-			"created": 1514667974688,
+			"created": 1539372380301,
 			"data": {},
 			"isPrivate": false,
-			"modified": 1514667974688,
+			"modified": 1539372380301,
 			"name": "New Environment",
-			"parentId": "wrk_f41ba130885b45bbb5fc2d2f5eb34d99",
+			"parentId": "wrk_2915b8370a5f44bfb74ba3ed2acbd82f",
 			"_type": "environment"
 		},
 		{
-			"_id": "jar_bb8e8ca53b1a42d79a82b9a6cdb2b162",
+			"_id": "jar_87628cc3ac9b4cebb2b0ff9cb89799b8",
 			"cookies": [],
-			"created": 1514667974694,
-			"modified": 1514667974694,
+			"created": 1539372380308,
+			"modified": 1539372380308,
 			"name": "Default Jar",
-			"parentId": "wrk_f41ba130885b45bbb5fc2d2f5eb34d99",
+			"parentId": "wrk_2915b8370a5f44bfb74ba3ed2acbd82f",
 			"_type": "cookie_jar"
 		},
 		{
-			"_id": "fld_56874bbff37e40e0a7e2976f04a0da7a",
-			"created": 1514668005881,
+			"_id": "fld_73ed83e9e95645e48491e7404e546fab",
+			"created": 1539372396650,
 			"description": "",
 			"environment": {},
-			"metaSortKey": -1514668005881,
-			"modified": 1514668005881,
-			"name": "users",
-			"parentId": "wrk_f41ba130885b45bbb5fc2d2f5eb34d99",
-			"_type": "request_group"
-		},
-		{
-			"_id": "fld_0fca7190f61e41db9af211baa82531bf",
-			"created": 1523024351629,
-			"description": "",
-			"environment": {},
-			"metaSortKey": -1523024351629,
-			"modified": 1523024351629,
-			"name": "posts",
-			"parentId": "wrk_f41ba130885b45bbb5fc2d2f5eb34d99",
-			"_type": "request_group"
-		},
-		{
-			"_id": "fld_ea6e1c87f6be446ca026f3f945a3ceb9",
-			"created": 1523123495641,
-			"description": "",
-			"environment": {},
-			"metaSortKey": -1523123495641,
-			"modified": 1523123495641,
+			"metaSortKey": -1539372428764,
+			"modified": 1539372433728,
 			"name": "auth",
-			"parentId": "wrk_f41ba130885b45bbb5fc2d2f5eb34d99",
+			"parentId": "wrk_2915b8370a5f44bfb74ba3ed2acbd82f",
 			"_type": "request_group"
 		},
 		{
-			"_id": "req_7cf6818e33cd4bc98c8b39e515495ac0",
-			"authentication": {},
-			"body": {},
-			"created": 1514667994670,
+			"_id": "fld_827eee9ad131418e8b696ec43b2bc024",
+			"created": 1539372402426,
 			"description": "",
-			"headers": [],
-			"isPrivate": false,
-			"metaSortKey": -1514668005856,
-			"method": "GET",
-			"modified": 1526232076148,
-			"name": "list",
-			"parameters": [],
-			"parentId": "fld_56874bbff37e40e0a7e2976f04a0da7a",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "localhost:4000/users",
-			"_type": "request"
+			"environment": {},
+			"metaSortKey": -1539372402426,
+			"modified": 1539372402426,
+			"name": "posts",
+			"parentId": "wrk_2915b8370a5f44bfb74ba3ed2acbd82f",
+			"_type": "request_group"
 		},
 		{
-			"_id": "req_f7efb6a332c847698db0d16b96933669",
+			"_id": "fld_089843eab4184599860f6aa4449bbd6d",
+			"created": 1539372428714,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1539372428714,
+			"modified": 1539372428714,
+			"name": "users",
+			"parentId": "wrk_2915b8370a5f44bfb74ba3ed2acbd82f",
+			"_type": "request_group"
+		},
+		{
+			"_id": "req_da3f9c35e7ad40deb417577dcf7820dd",
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"name\": \"zmts\",\n\t\"username\": \"sa.zmts\",\n\t\"email\": \"sa.zmts@gmail.com\",\n\t\"password\": \"123456\"\n}"
+				"text": "{\n\t\"password\": \"123456\",\n\t\"email\": \"sa.zmts@gmail.com\"\n}"
 			},
-			"created": 1514671149530,
+			"created": 1539372464467,
 			"description": "",
 			"headers": [
 				{
-					"id": "pair_e7c416562e1245068213855579f31eab",
+					"id": "pair_9dd23b92b8d948a9a50f2edca7c85e4e",
 					"name": "Content-Type",
 					"value": "application/json"
-				},
-				{
-					"disabled": true,
-					"id": "pair_1ef32b6347a545949b33ee4713f7e7e4",
-					"name": "token",
-					"value": "1528127393930.1a2f79bf45dd6d5971735efda98d4211::fa336cec6906f9dceb84f3111dd731a3cb2394a5140a91b16306c16a78a2c0d69a4fdedef0b3fa7b497fba89eb624b0c83276fa4fcaa39e111e91b870323dc8067b2d6c666974cced7bd4957b48df03ce77f4606ea30d802aed4822b9791f6f59a8ea73974a847ec6841e19a59f7f43846539b53f670da11b3245f945943c74ff47f601c26173731ff0f009fd2b7f06bfe37b00a87f4982acbb06f90629a08e4c8857ef37f2afdb61b15a1ccd6138144bc1316a59f8bd063d9ad33f2e8bcc3bd5dd586806a9e91abeba62ef96f19e154101a2729cd77a681ca621d005516deb5bcfc9e01b0f1dd2bcdb37370a3c8b652693773ad46b161c51ba01f7d6b4e5b61081c8370c23db6f637fc02b5b3e2ed2abe9cc96a6447ca133f6b952eddad50b6f5fba76452a9ee7c23ab9497875af00787404dfaf556abe1bf2ae3c47074b80f"
 				}
 			],
 			"isPrivate": false,
-			"metaSortKey": -1514668005906,
+			"metaSortKey": -1539372464467,
 			"method": "POST",
-			"modified": 1537023157618,
-			"name": "create",
-			"parameters": [],
-			"parentId": "fld_56874bbff37e40e0a7e2976f04a0da7a",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "localhost:4000/users",
-			"_type": "request"
-		},
-		{
-			"_id": "req_b22c469ae23b48a2a9f512c0d08a69d6",
-			"authentication": {},
-			"body": {},
-			"created": 1517227773225,
-			"description": "",
-			"headers": [],
-			"isPrivate": false,
-			"metaSortKey": -1510273029796.75,
-			"method": "GET",
-			"modified": 1537027347837,
-			"name": "get by id",
-			"parameters": [],
-			"parentId": "fld_56874bbff37e40e0a7e2976f04a0da7a",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "localhost:4000/users/1",
-			"_type": "request"
-		},
-		{
-			"_id": "req_8e867dc179ea445f82fe0d3161d826ba",
-			"authentication": {},
-			"body": {
-				"mimeType": "application/json",
-				"text": "{\n\t\"name\": \"alxxxxxxx111\"\n}"
-			},
-			"created": 1523111823002,
-			"description": "",
-			"headers": [
-				{
-					"disabled": false,
-					"id": "pair_78fa7850a2fb4f8889c871bc7ffc3958",
-					"name": "token",
-					"value": "1527712417484.3c3888aa53eee80789b852d12ea267e7::9a0c8d4cfc0f77f33741a792adb9a05263c86ed318d3ec5eee8b1dfbdda4a9f26965e26032a1448ba69080e7f02d3632ac7b17e89ae688e9b4953ae290e79fac8e79535edd96dcd427171b646e61563e99d75a4d12249922b196d9119469f806ba228a1dd214c4977359539e4b2d7a9d7ceb1c12005548cbecd9c2c16c2821d69be2e14ec5595c2b30d16ed4edd2054b3b3f23d1d8c086366eb48c967c873cd7522a942e6b4bd786af61cab5bff3dcc3694353c773ad27b0bd4c3d0677d34ad6623bc9627f200932d55fef89d0fdfe4e7ea1a5785156179b3559dbf27adb802f4c27624b3e2064e15abc1b4c746e375b17a2abd40b0c982a4919f001367cf16d50b88771dd9e4ec078b8277a391813247f4d58b8f73d77e666c3ffb68053506661cdc7be4eb89ac5172b32a4d4e79c6d"
-				},
-				{
-					"disabled": false,
-					"id": "pair_6920e72df1ab475a84fd2cfa86eb0042",
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1501483077678.25,
-			"method": "PATCH",
-			"modified": 1527713937960,
-			"name": "update",
-			"parameters": [],
-			"parentId": "fld_56874bbff37e40e0a7e2976f04a0da7a",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "localhost:4000/users",
-			"_type": "request"
-		},
-		{
-			"_id": "req_f4c0752e8d444b308b0e0043c49dc21e",
-			"authentication": {},
-			"body": {
-				"mimeType": "application/json",
-				"text": "{\n\t\"oldPassword\": \"123456\",\n\t\"newPassword\": \"123456\"\n}"
-			},
-			"created": 1529256874102,
-			"description": "",
-			"headers": [
-				{
-					"id": "pair_e7c416562e1245068213855579f31eab",
-					"name": "Content-Type",
-					"value": "application/json"
-				},
-				{
-					"disabled": false,
-					"id": "pair_1ef32b6347a545949b33ee4713f7e7e4",
-					"name": "token",
-					"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ0b2tlblR5cGUiOiJUT0tFTl9UWVBFX0FDQ0VTUyIsInVzZXJuYW1lIjoiYWxleCB6bG95IiwidXNlclJvbGUiOiJST0xFX1VTRVIiLCJlbWFpbCI6Inpsb3kucm9vdEBnbWFpbC5jb20iLCJpYXQiOjE1MzcwMjE2MjcsImV4cCI6MTUzNzAyMjIyNywic3ViIjoiMSJ9.BYN8HyuJJj9v3GjYedmt8TL0WjbVshqvMac4nQu9CeiCDMbYbMSH3ksroTuPqZnRHS9tzDol9AiiH1FqNxD4Cw"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1501483077628.25,
-			"method": "POST",
-			"modified": 1537027601931,
-			"name": "change-password",
-			"parameters": [],
-			"parentId": "fld_56874bbff37e40e0a7e2976f04a0da7a",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "localhost:4000/users/change-password",
-			"_type": "request"
-		},
-		{
-			"_id": "req_fbb7ad9f1c354c669d5b65e3b877ba08",
-			"authentication": {},
-			"body": {
-				"mimeType": "application/json",
-				"text": "{\n\t\"email\": \"zloy.root@gmail.com\"\n}"
-			},
-			"created": 1530194670242,
-			"description": "",
-			"headers": [
-				{
-					"id": "pair_e7c416562e1245068213855579f31eab",
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1499285589623.625,
-			"method": "POST",
-			"modified": 1537026209346,
-			"name": "send-reset-email",
-			"parameters": [],
-			"parentId": "fld_56874bbff37e40e0a7e2976f04a0da7a",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "localhost:4000/users/send-reset-email",
-			"_type": "request"
-		},
-		{
-			"_id": "req_5b7d4340901a422aa7e746547c2b00f6",
-			"authentication": {},
-			"body": {
-				"mimeType": "application/json",
-				"text": "{\n\t\"resetPasswordToken\": \"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJyZXNldEVtYWlsVG9rZW4iOnRydWUsImVtYWlsIjoiemxveS5yb290QGdtYWlsLmNvbSIsImlhdCI6MTUzMTkzMTIzNiwiZXhwIjoxNTMxOTc0NDM2LCJzdWIiOiIyIn0.ra5Cu8DirtRNuIdeaHq2XOqR-bWFz537opvHAaIL6r4NUn5MP8vjU34AwUA88kW-v8WTq9s6nBF7YabEW6OrFQ\",\n\t\"password\": \"123456\"\n}"
-			},
-			"created": 1531926801895,
-			"description": "",
-			"headers": [
-				{
-					"id": "pair_e7c416562e1245068213855579f31eab",
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1498186845621.3125,
-			"method": "POST",
-			"modified": 1531931303923,
-			"name": "reset-password",
-			"parameters": [],
-			"parentId": "fld_56874bbff37e40e0a7e2976f04a0da7a",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "localhost:4000/users/reset-password",
-			"_type": "request"
-		},
-		{
-			"_id": "req_7ca31b1aa70a4c32b8cd6dc4bd2be806",
-			"authentication": {},
-			"body": {},
-			"created": 1532089606987,
-			"description": "",
-			"headers": [],
-			"isPrivate": false,
-			"metaSortKey": -1505878053737.5,
-			"method": "GET",
-			"modified": 1537023465958,
-			"name": "get  posts by user id",
-			"parameters": [],
-			"parentId": "fld_56874bbff37e40e0a7e2976f04a0da7a",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "localhost:4000/users/1/posts?page=1",
-			"_type": "request"
-		},
-		{
-			"_id": "req_e7b0a9f1f0cd4bcd9510baafdb0ab628",
-			"authentication": {},
-			"body": {},
-			"created": 1532372405201,
-			"description": "",
-			"headers": [
-				{
-					"disabled": false,
-					"id": "pair_78fa7850a2fb4f8889c871bc7ffc3958",
-					"name": "token",
-					"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ0b2tlblR5cGUiOiJUT0tFTl9UWVBFX0FDQ0VTUyIsInVzZXJuYW1lIjoiem10cyIsInVzZXJSb2xlIjoiUk9MRV9VU0VSIiwiZW1haWwiOiJzYS56bXRzQGdtYWlsLmNvbSIsImlhdCI6MTUzNzAyMzk4NSwiZXhwIjoxNTM3MDI0NTg1LCJzdWIiOiIyIn0.qzmThhHfz1lwKtkKyNlug0QG_LN0V6I0gWirPBvLwB--uijt1viN4SXqMbzpnLvePctDEiItKzJ2THKveeNvRQ"
-				},
-				{
-					"disabled": false,
-					"id": "pair_6920e72df1ab475a84fd2cfa86eb0042",
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1501483077653.25,
-			"method": "DELETE",
-			"modified": 1537024000831,
-			"name": "delete",
-			"parameters": [],
-			"parentId": "fld_56874bbff37e40e0a7e2976f04a0da7a",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "localhost:4000/users/2",
-			"_type": "request"
-		},
-		{
-			"_id": "req_6534977cdb014261b9845ec1c7e66be3",
-			"authentication": {},
-			"body": {
-				"mimeType": "application/json",
-				"text": "{\n\t\"emailConfirmToken\": \"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ0b2tlblR5cGUiOiJUT0tFTl9UWVBFX0VNQUlMX0NPTkZJUk0iLCJlbWFpbCI6Inpsb3kucm9vdEBnbWFpbC5jb20iLCJpYXQiOjE1MzcwMjI0OTYsImV4cCI6MTUzOTYxNDQ5Niwic3ViIjoiMSJ9.PRkQpe-QiJys9p6RvKDvOqvCufi5v0zedM_fxbUmG0E43MJZe3ckZ9YCfIluUFakj1BedygPqHllkl7MHJbrOQ\"\n}"
-			},
-			"created": 1532532028933,
-			"description": "",
-			"headers": [
-				{
-					"id": "pair_e7c416562e1245068213855579f31eab",
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1497637473620.1562,
-			"method": "POST",
-			"modified": 1537022537706,
-			"name": "confirm-email",
-			"parameters": [],
-			"parentId": "fld_56874bbff37e40e0a7e2976f04a0da7a",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "localhost:4000/users/confirm-email",
-			"_type": "request"
-		},
-		{
-			"_id": "req_c262a8adfdfe43c5bab03b0c82c1128e",
-			"authentication": {},
-			"body": {},
-			"created": 1532535968058,
-			"description": "",
-			"headers": [
-				{
-					"id": "pair_e7c416562e1245068213855579f31eab",
-					"name": "Content-Type",
-					"value": "application/json"
-				},
-				{
-					"id": "pair_fe71ef653039421d92373e828bdba61e",
-					"name": "token",
-					"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ0b2tlblR5cGUiOiJUT0tFTl9UWVBFX0FDQ0VTUyIsInVzZXJuYW1lIjoiYWxleCB6bG95IiwidXNlclJvbGUiOiJST0xFX1VTRVIiLCJlbWFpbCI6Inpsb3kucm9vdEBnbWFpbC5jb20iLCJpYXQiOjE1MzcwMjYwMzAsImV4cCI6MTUzNzAyNjYzMCwic3ViIjoiMSJ9.84cOnnPHp1jMIv68lCLal4Xb6rkY8QV7t0Ig5NCKlSrdcAJNIyC8bbn_aETvPiDPeVzNEi-GAcbp4lVg9lvZYQ"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1497362787619.5781,
-			"method": "POST",
-			"modified": 1537026042087,
-			"name": "send-email-confirm-token",
-			"parameters": [],
-			"parentId": "fld_56874bbff37e40e0a7e2976f04a0da7a",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "localhost:4000/users/send-email-confirm-token",
-			"_type": "request"
-		},
-		{
-			"_id": "req_2a0e9d677d204a148820dc478a16f552",
-			"authentication": {},
-			"body": {
-				"mimeType": "application/json",
-				"text": "{\n\t\"email\": \"zloy.root@gmail.com\"\n}"
-			},
-			"created": 1532537557520,
-			"description": "",
-			"headers": [
-				{
-					"id": "pair_e7c416562e1245068213855579f31eab",
-					"name": "Content-Type",
-					"value": "application/json"
-				},
-				{
-					"id": "pair_fe71ef653039421d92373e828bdba61e",
-					"name": "token",
-					"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ0b2tlblR5cGUiOiJUT0tFTl9UWVBFX0FDQ0VTUyIsInVzZXJuYW1lIjoiYWxleCB6bG95IiwidXNlclJvbGUiOiJST0xFX1VTRVIiLCJlbWFpbCI6Inpsb3kucm9vdEBnbWFpbC5jb20iLCJpYXQiOjE1MzY5NjcyOTQsImV4cCI6MTUzNjk2Nzg5NCwic3ViIjoiMSJ9.6pVxuq1jvtxhjHpW3US2kfCVGF0MfeqoorwKInOv3rou6MxSOXFrnZYIYyhzzpWNEMuEmBkLm847kKUPpy6VEA"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1497225444619.289,
-			"method": "POST",
-			"modified": 1536967316121,
-			"name": "change-email",
-			"parameters": [],
-			"parentId": "fld_56874bbff37e40e0a7e2976f04a0da7a",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "localhost:4000/users/change-email",
-			"_type": "request"
-		},
-		{
-			"_id": "req_a126492df7994b7ca8b6067dbd20cd44",
-			"authentication": {},
-			"body": {
-				"mimeType": "application/json",
-				"text": "{\n\t\"email\": \"sa.zmts@gmail.com\"\n}"
-			},
-			"created": 1534961054152,
-			"description": "",
-			"headers": [
-				{
-					"id": "pair_e7c416562e1245068213855579f31eab",
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1497225444569.289,
-			"method": "POST",
-			"modified": 1534968749352,
-			"name": "check-email-availability",
-			"parameters": [],
-			"parentId": "fld_56874bbff37e40e0a7e2976f04a0da7a",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "localhost:4000/users/check-email-availability",
-			"_type": "request"
-		},
-		{
-			"_id": "req_ce357cf2aea94c2b8c8ce19058959dcf",
-			"authentication": {},
-			"body": {},
-			"created": 1537033233242,
-			"description": "",
-			"headers": [
-				{
-					"disabled": false,
-					"id": "pair_cfc55e001ba849eba4782fa5fdc7fc32",
-					"name": "token",
-					"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ0b2tlblR5cGUiOiJUT0tFTl9UWVBFX0FDQ0VTUyIsInVzZXJuYW1lIjoiYWxleCB6bG95IiwidXNlclJvbGUiOiJST0xFX1VTRVIiLCJlbWFpbCI6Inpsb3kucm9vdEBnbWFpbC5jb20iLCJpYXQiOjE1MzcxMTQzODUsImV4cCI6MTUzNzExNDk4NSwic3ViIjoiMSJ9.EVef55PXg2iqQR7KDyPiXrsGWENc8bTCreTLI-toniYNpHKPPshTouCypokP5CfaX3-e2CqoE-onhuhchNq_DA"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1503680565707.875,
-			"method": "GET",
-			"modified": 1537114399003,
-			"name": "users/current",
-			"parameters": [],
-			"parentId": "fld_56874bbff37e40e0a7e2976f04a0da7a",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "localhost:4000/users/current",
-			"_type": "request"
-		},
-		{
-			"_id": "req_16671f4ea266424d9e20cfa0d26d383b",
-			"authentication": {},
-			"body": {},
-			"created": 1523024357966,
-			"description": "",
-			"headers": [
-				{
-					"disabled": true,
-					"id": "pair_d88fa982d57f45029a6cc6981715ce61",
-					"name": "token",
-					"value": "1526216874268.10051a4bd9cbe96cf5faa233d8cb5a0e::5d60df03d84d77734e645469b838b70d91fde33356c117dce376f773be8cf7ada7ed2abcfb166f8faa1364464dcb005790664ec8a0722c31133f235ccb859be56aedb138ca60dccf422a1b88b2bbae65dfb3d12b0dd7354967802616ca2bca531737b6f11eaed64aeeaf712a37b832e55704563c48cac2cca13f3af9f8498911f61c0e8cb933d929ca7e08057cbc452c0bf7c42dd1e6e2e4c6be8ab016ac248d1a090b724fd6c93df55366a385db102902f6ef05410d76ea58eb1c492e5bef9b59b8313d4a9cd30166f6e8f1380f8c49ad4e9cf96dc966aca903d90887055866d55b1d97d6f3145f9b5cc62e15ed2f5a0c01d644f31c4bda415222ab0ee2e0054ca04f0542bd2cc972d0913afd22f74d2d5ac59914d1f12533684fd1878c52ebc377f9f752988f1a0c9e978a0c00c4c6"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1520973267398.75,
-			"method": "GET",
-			"modified": 1537115677777,
-			"name": "list",
-			"parameters": [],
-			"parentId": "fld_0fca7190f61e41db9af211baa82531bf",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "localhost:4000/posts",
-			"_type": "request"
-		},
-		{
-			"_id": "req_3a9dac7781b64e10bd56142483a736d5",
-			"authentication": {},
-			"body": {
-				"mimeType": "application/json",
-				"text": "{\n\t\"title\": \"title10\",\n\t\"content\": \"content\"\n}"
-			},
-			"created": 1526207121804,
-			"description": "",
-			"headers": [
-				{
-					"disabled": false,
-					"id": "pair_d88fa982d57f45029a6cc6981715ce61",
-					"name": "token",
-					"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ0b2tlblR5cGUiOiJUT0tFTl9UWVBFX0FDQ0VTUyIsInVzZXJuYW1lIjoiYWxleCB6bG95IiwidXNlclJvbGUiOiJST0xFX1VTRVIiLCJlbWFpbCI6Inpsb3kucm9vdEBnbWFpbC5jb20iLCJpYXQiOjE1MzcxMTQ3OTgsImV4cCI6MTUzNzExNTM5OCwic3ViIjoiMSJ9.8bfmM2u1xJ8lDueP0Dl2ic6G_GKCMohSRcz79vUaaY0iEkMB8LhAxN_Y6huWgljMbKsg3s_0uMXPLFOUoua18g"
-				},
-				{
-					"id": "pair_cb6d7a21ccfe4ba192a9015a477ad2cf",
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1520973267448.75,
-			"method": "POST",
-			"modified": 1537114867469,
-			"name": "create",
-			"parameters": [],
-			"parentId": "fld_0fca7190f61e41db9af211baa82531bf",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "localhost:4000/posts",
-			"_type": "request"
-		},
-		{
-			"_id": "req_e97d64d22ac045c4b79d8c33314e68e7",
-			"authentication": {},
-			"body": {},
-			"created": 1526207143474,
-			"description": "",
-			"headers": [],
-			"isPrivate": false,
-			"metaSortKey": -1520759908975.375,
-			"method": "GET",
-			"modified": 1536597596015,
-			"name": "get by id",
-			"parameters": [],
-			"parentId": "fld_0fca7190f61e41db9af211baa82531bf",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "localhost:4000/posts/33",
-			"_type": "request"
-		},
-		{
-			"_id": "req_15e8eefe7d5d4c7a9b1c8ab3bf16ac3e",
-			"authentication": {},
-			"body": {
-				"mimeType": "application/json",
-				"text": "{\n\t\"title\": \"new!!o\"\n}"
-			},
-			"created": 1526217692296,
-			"description": "",
-			"headers": [
-				{
-					"disabled": false,
-					"id": "pair_d88fa982d57f45029a6cc6981715ce61",
-					"name": "token",
-					"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ0b2tlblR5cGUiOiJUT0tFTl9UWVBFX0FDQ0VTUyIsInVzZXJuYW1lIjoiYWxleCB6bG95IiwidXNlclJvbGUiOiJST0xFX1VTRVIiLCJlbWFpbCI6Inpsb3kucm9vdEBnbWFpbC5jb20iLCJpYXQiOjE1MzY1OTgwMjUsImV4cCI6MTUzNjU5ODYyNSwic3ViIjoiMSJ9.te3STXpc2aypKKSumlnnmZwIybMEpzrPPjfMu1uhmfKtOp9d-R5gUuJ40Pkix7nsUI6TGLOuVaHmpI0xW1wGJg"
-				},
-				{
-					"id": "pair_a199b49f40db4257a649f2bbb4cc1d34",
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1520653229763.6875,
-			"method": "PATCH",
-			"modified": 1536842420325,
-			"name": "update",
-			"parameters": [],
-			"parentId": "fld_0fca7190f61e41db9af211baa82531bf",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "localhost:4000/posts/1?schema=true",
-			"_type": "request"
-		},
-		{
-			"_id": "req_9bfb118453484d99947221ac8d67b2e0",
-			"authentication": {},
-			"body": {},
-			"created": 1532369866456,
-			"description": "",
-			"headers": [
-				{
-					"disabled": false,
-					"id": "pair_78fa7850a2fb4f8889c871bc7ffc3958",
-					"name": "token",
-					"value": "1532370014002.4374bc1cc3ccb2ed6b6c98197e23f328::0b2a67c5799ca2636a0ba226c77e4e7bcd554a850ac33133573dfd4b82e41250e6627a7d2911dc7724ecad22023d1ae432b1330168d868be3fe55f8574a829f3ae9932464753cb5e491abecc2cbf10f56b933cabe12fdc9f35e678df1a39cf143ae6277eefc62f55ba6ef891df76693f291f90a05c106065aa19ececd096eb1be159f6c804d04bcdda41e6d9f38e9db10be38af4cfeeae2636810b844b82adbc0360c0cf029abaadc069dd2c886c1e53cff135c2b722d6db5a3101d85c825adae109b147ad9792b1b1f661eba3dce37bb59b2aa521052e297d1d42b9b5a3fcae337f94dac20037bb4bd842caf4588566e524d334115f79b4d8e190c8da013bfe1dd49746288f66d4cc62d9401a7a733dcffd90793e99fbd00c8d67f5e5045fc07a8e8cfca64148859b039b901d5bf924accc1bf006638058a87628e513c72162"
-				},
-				{
-					"disabled": false,
-					"id": "pair_6920e72df1ab475a84fd2cfa86eb0042",
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1520653229713.6875,
-			"method": "DELETE",
-			"modified": 1532372402955,
-			"name": "delete",
-			"parameters": [],
-			"parentId": "fld_0fca7190f61e41db9af211baa82531bf",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "localhost:4000/posts/21",
-			"_type": "request"
-		},
-		{
-			"_id": "req_7fd426d7e09e42a0b80ce0b191c5908c",
-			"authentication": {},
-			"body": {
-				"mimeType": "application/json",
-				"text": "{\n\t\"password\": \"123456\",\n\t\"email\": \"zloy.root@gmail.com\"\n}"
-			},
-			"created": 1514820014708,
-			"description": "",
-			"headers": [
-				{
-					"id": "pair_87fb7c295d5f4e429c3b9d2272432d88",
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1523073923710,
-			"method": "POST",
-			"modified": 1537026027757,
+			"modified": 1539372940872,
 			"name": "auth/login",
 			"parameters": [],
-			"parentId": "fld_ea6e1c87f6be446ca026f3f945a3ceb9",
+			"parentId": "fld_73ed83e9e95645e48491e7404e546fab",
 			"settingDisableRenderRequestBody": false,
 			"settingEncodeUrl": true,
 			"settingRebuildPath": true,
@@ -693,95 +98,70 @@
 			"_type": "request"
 		},
 		{
-			"_id": "req_4ba908e195574271a8427031a0aee577",
+			"_id": "req_87a0661c6f3e44a088dc19bb5342a57d",
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"refreshToken\":\"1537113075228::eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ0b2tlblR5cGUiOiJUT0tFTl9UWVBFX1JFRlJFU0giLCJlbWFpbCI6Inpsb3kucm9vdEBnbWFpbC5jb20iLCJpYXQiOjE1MzcxMTMwNzUsImV4cCI6MTUzNzExNjY3NSwic3ViIjoiMSJ9.hegBg4WxgbLBsdW2_MJFjIcKIJ0bENd8HPeQkIsn0LBCLnrogykJEcTkkNcSZ54tY074aPfdfp6CFjs2SiTv0w\"\n}"
+				"text": "{\n\t\"lol\": 1\n}"
 			},
-			"created": 1523353281442,
+			"created": 1539372711922,
 			"description": "",
 			"headers": [
 				{
-					"id": "pair_87fb7c295d5f4e429c3b9d2272432d88",
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1523073923660,
-			"method": "POST",
-			"modified": 1537113092955,
-			"name": "auth/refresh-tokens",
-			"parameters": [],
-			"parentId": "fld_ea6e1c87f6be446ca026f3f945a3ceb9",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "localhost:4000/auth/refresh-tokens",
-			"_type": "request"
-		},
-		{
-			"_id": "req_a49c055117584d98becd29b90522ac9c",
-			"authentication": {},
-			"body": {},
-			"created": 1523460418686,
-			"description": "",
-			"headers": [
-				{
-					"id": "pair_9e7b57574a2a4337b8f5c9caef2163d8",
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1523460418686,
-			"method": "GET",
-			"modified": 1523733576315,
-			"name": "auth/test-refresh-token",
-			"parameters": [],
-			"parentId": "fld_ea6e1c87f6be446ca026f3f945a3ceb9",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "localhost:4000/auth/test-refresh-token/",
-			"_type": "request"
-		},
-		{
-			"_id": "req_046393e4c2264fd38c58f61d4f18f5c4",
-			"authentication": {},
-			"body": {},
-			"created": 1533843558424,
-			"description": "",
-			"headers": [
-				{
-					"id": "pair_87fb7c295d5f4e429c3b9d2272432d88",
+					"id": "pair_9dd23b92b8d948a9a50f2edca7c85e4e",
 					"name": "Content-Type",
 					"value": "application/json"
 				},
 				{
-					"id": "pair_34d76fd7b1824f1a92d32e741346205b",
+					"id": "pair_5d5594afc4c74e37b16b7712dbbb0c20",
 					"name": "token",
-					"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ0b2tlblR5cGUiOiJUT0tFTl9UWVBFX0FDQ0VTUyIsInVzZXJuYW1lIjoiYWxleCB6bG95IiwidXNlclJvbGUiOiJST0xFX1VTRVIiLCJlbWFpbCI6Inpsb3kucm9vdEBnbWFpbC5jb20iLCJpYXQiOjE1MzY2OTY4MTksImV4cCI6MTUzNjY5NzQxOSwic3ViIjoiMSJ9.M2GnSpX3DBI4VQQWJi6WbSmbWIHHJVmW0OTNrlJVS5zZ_OkearuZ__gn_iJlHwT0KiUG_XTJ2XsR2WkQWyZ_lw"
+					"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ0b2tlblR5cGUiOiJUT0tFTl9UWVBFX0FDQ0VTUyIsInVzZXJuYW1lIjoiem10cyIsInVzZXJSb2xlIjoiUk9MRV9VU0VSIiwiZW1haWwiOiJzYS56bXRzQGdtYWlsLmNvbSIsImlhdCI6MTUzOTM3Mjk1NCwiZXhwIjoxNTM5MzczNTU0LCJzdWIiOiIzIn0.fYbtTN2SJF6Fl67B09OUrq8EcdYoOQptUqLvXwghkFpAu8Ey_fhyx9aYp9Jn1JmNBEpqRszjY5gzr8Y6wtZCJg"
 				}
 			],
 			"isPrivate": false,
-			"metaSortKey": -1523073923685,
+			"metaSortKey": -1539269646609.5,
 			"method": "POST",
-			"modified": 1536696856337,
+			"modified": 1539372980306,
 			"name": "auth/logout",
 			"parameters": [],
-			"parentId": "fld_ea6e1c87f6be446ca026f3f945a3ceb9",
+			"parentId": "fld_73ed83e9e95645e48491e7404e546fab",
 			"settingDisableRenderRequestBody": false,
 			"settingEncodeUrl": true,
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
 			"url": "localhost:4000/auth/logout",
+			"_type": "request"
+		},
+		{
+			"_id": "req_a68bf4f0a91c45f6ad854b28d881c88e",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"refreshToken\": \"1539372888703::eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ0b2tlblR5cGUiOiJUT0tFTl9UWVBFX1JFRlJFU0giLCJlbWFpbCI6InNhLnptdHNAZ21haWwuY29tIiwiaWF0IjoxNTM5MzcyODg4LCJleHAiOjE1MzkzNzY0ODgsInN1YiI6IjMifQ.dhGay1WPGYtzJJ7ADZF4j8tiUb-UrpsYk61SdNP5LsYiVxCLhfOI3ljNgIFi3AspuN-tbU3kP0Z3Wt-7lbgKVg\"\n}"
+			},
+			"created": 1539372788807,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_9dd23b92b8d948a9a50f2edca7c85e4e",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539218237680.75,
+			"method": "POST",
+			"modified": 1539372907315,
+			"name": "auth/refresh-tokens",
+			"parameters": [],
+			"parentId": "fld_73ed83e9e95645e48491e7404e546fab",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "localhost:4000/auth/refresh-tokens",
 			"_type": "request"
 		}
 	]
