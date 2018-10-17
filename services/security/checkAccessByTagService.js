@@ -22,6 +22,6 @@ module.exports = (accessTag, currentUser) => {
     if (permissions[currentUser.role].includes(accessTagAll)) return resolve()
     if (permissions[currentUser.role].includes(accessTag)) return resolve()
     // else reject
-    return reject(new ErrorWrapper({ ...errorCodes.ACCESS }))
+    return reject(new ErrorWrapper({ ...errorCodes.ACCESS, message: 'Access denied, don\'t have permissions.' }))
   })
 }
