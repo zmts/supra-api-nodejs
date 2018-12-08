@@ -1,19 +1,26 @@
 const path = require('path')
 require('dotenv').load({ path: path.join(__dirname, '../.env') })
 
-module.exports = {
-  client: 'pg',
-  connection: {
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    charset: process.env.DB_CHARSET
-  },
-  pool: {
-    min: 1,
-    max: 10
+const BaseConfig = require('../core/BaseConfig')
+
+class KnexConfig extends BaseConfig {
+  constructor () {
+    super()
+    this.client = 'pg'
+    this.connection = {
+      host: this.set(process.env.DB_HOST || 'localhost', this.joi.string().min(4).max(100)),
+      port: this.set(process.env.DB_PORT || 5432, this.joi.number()),
+      user: this.set(process.env.DB_USER, this.joi.string().min(4).max(100)),
+      password: this.set(process.env.DB_PASSWORD || 'testtesttest', this.joi.string().min(10).max(100)),
+      database: this.set(process.env.DB_NAME, this.joi.string().min(4).max(100)),
+      charset: this.set(process.env.DB_CHARSET || 'utf8', this.joi.valid(['utf8']))
+    }
+    this.pool = {
+      min: 1,
+      max: 10
+    }
+    // this.debug: true
   }
-  // debug: true
 }
+
+module.exports = new KnexConfig()

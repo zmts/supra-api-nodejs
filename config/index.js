@@ -1,3 +1,4 @@
+const app = require('./app')
 const client = require('./client')
 const errorCodes = require('./errorCodes')
 const knex = require('./knex')
@@ -8,6 +9,7 @@ const roles = require('./roles')
 const email = require('./email')
 
 module.exports = {
+  app,
   client,
   errorCodes,
   knex,

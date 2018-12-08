@@ -1,7 +1,3 @@
-require('dotenv').load()
-require('./globals')()
-global.Promise = require('bluebird')
-
 const express = require('express')
 const path = require('path')
 // const favicon = require('serve-favicon')
@@ -43,6 +39,7 @@ class App {
     // use static/public folder
     this.express.use(express.static(path.join(__dirname, 'public')))
     this.express.use(corsMiddleware)
+    // print config/env
   }
 
   initDbConnection () {
