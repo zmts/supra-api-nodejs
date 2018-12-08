@@ -2,7 +2,6 @@
 
 require('dotenv').load()
 require('../globals')()
-global.Promise = require('bluebird')
 const config = require('../config')
 
 const app = require('../app')

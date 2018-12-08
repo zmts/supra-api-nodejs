@@ -4,7 +4,6 @@ const path = require('path')
 const logger = require('morgan')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
-const chalk = require('chalk')
 const Model = require('objection').Model
 const Knex = require('knex')
 
@@ -18,6 +17,7 @@ const prodErrorMiddleware = require('./middlewares/error/prodErrorMiddleware')
 
 class App {
   constructor () {
+    __logger({ message: ('server start initialization...') })
     this.express = express()
 
     this.initDbConnection()
@@ -27,12 +27,13 @@ class App {
     this.initRoutes()
     this.setDefaultErrorMiddlewares()
     this.setUncaughtExceptionHandler()
+    this.logStatus()
   }
 
   middleware () {
     // uncomment after placing your favicon in /public
     // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-    this.express.use(logger('dev'))
+    if (process.env.NODE_ENV === 'development') this.express.use(logger('dev'))
     this.express.use(bodyParser.json())
     this.express.use(bodyParser.urlencoded({ extended: false }))
     this.express.use(cookieParser())
@@ -62,12 +63,19 @@ class App {
     })
   }
 
+  logStatus () {
+    __logger({ message: 'server was successfully initialized ...' })
+    __logger({ message: 'NODE_ENV:', log: process.env.NODE_ENV })
+    __logger({ message: 'App config:', log: config.app })
+    __logger({ message: 'DB config:', log: config.knex })
+  }
+
   setUncaughtExceptionHandler () {
     process.on('uncaughtException', error => {
-      console.log(chalk.red('>------------------------------>'))
-      console.log(chalk.red(`${new Date()} uncaughtException`))
-      console.log(chalk.blue(error.stack))
-      console.log(chalk.red('<------------------------------<'))
+      __logger({ message: '>------------------------------>', type: 'danger' })
+      __logger({ message: `${new Date()} uncaughtException`, type: 'danger' })
+      __logger({ message: error.stack, type: 'danger' })
+      __logger({ message: '<------------------------------<', type: 'danger' })
       process.exit(1)
     })
   }
