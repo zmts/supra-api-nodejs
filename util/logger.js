@@ -27,21 +27,24 @@ const infoLogger = pino({
   }
 })
 
-module.exports = ({ message, log = '', type }) => {
-  __typecheck(message, __type.string, true)
+module.exports = {
+  fatal: (message, log = null) => {
+    __typecheck(message, __type.string, true)
+    fatalLogger.fatal(message, log)
+  },
 
-  switch (type) {
-    case 'fatal':
-      fatalLogger.fatal(message, log)
-      break
-    case 'error':
-      errorLogger.error(message, log)
-      break
-    case 'warn':
-      warnLogger.warn(message, log)
-      break
-    default:
-      infoLogger.info(message, log)
-      break
+  error: (message, log = null) => {
+    __typecheck(message, __type.string, true)
+    errorLogger.error(message, log)
+  },
+
+  warn: (message, log = null) => {
+    __typecheck(message, __type.string, true)
+    warnLogger.warn(message, log)
+  },
+
+  info: (message, log = null) => {
+    __typecheck(message, __type.string, true)
+    infoLogger.info(message, log)
   }
 }

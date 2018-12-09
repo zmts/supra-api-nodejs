@@ -17,7 +17,7 @@ const prodErrorMiddleware = require('./middlewares/error/prodErrorMiddleware')
 
 class App {
   constructor () {
-    __logger({ message: ('server start initialization...') })
+    __logger.info('server start initialization...')
     this.express = express()
 
     this.initDbConnection()
@@ -66,18 +66,18 @@ class App {
   }
 
   logStatus () {
-    __logger({ message: 'NODE_ENV:', log: process.env.NODE_ENV })
-    __logger({ message: 'App config:', log: config.app })
-    __logger({ message: 'DB config:', log: config.knex })
-    __logger({ message: 'server was successfully initialized ...' })
+    __logger.info('NODE_ENV:', process.env.NODE_ENV)
+    __logger.info('App config:', config.app)
+    __logger.info('DB config:', config.knex)
+    __logger.info('server was successfully initialized ...')
   }
 
   setUncaughtExceptionHandler () {
     process.on('uncaughtException', error => {
-      __logger({ message: '>------------------------------>', type: 'fatal' })
-      __logger({ message: `${new Date()} uncaughtException`, type: 'fatal' })
-      __logger({ message: error.stack, type: 'fatal' })
-      __logger({ message: '<------------------------------<', type: 'fatal' })
+      __logger.fatal('>------------------------------>')
+      __logger.fatal(`${new Date()} uncaughtException`)
+      __logger.fatal(error.stack)
+      __logger.fatal('<------------------------------<')
       process.exit(1)
     })
   }
