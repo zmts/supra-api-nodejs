@@ -1,13 +1,47 @@
-const chalk = require('chalk')
+const pino = require('pino')
 
-module.exports = ({ message, log = '', type = 'info' }) => {
-  if (type === 'warn') {
-    console.log(chalk.orange(message), log)
+const dangerLogger = pino({
+  name: 'fatal',
+  errorLikeObjectKeys: ['err', 'error'],
+  prettyPrint: {
+    translateTime: 'SYS:standard'
   }
-  if (type === 'danger') {
-    console.log(chalk.red(message), log)
+})
+const errorLogger = pino({
+  name: 'error',
+  errorLikeObjectKeys: ['err', 'error'],
+  prettyPrint: {
+    translateTime: 'SYS:standard'
   }
-  if (type === 'info') {
-    console.log(chalk.green(message), log)
+})
+const warnLogger = pino({
+  name: 'warn',
+  prettyPrint: {
+    translateTime: 'SYS:standard'
+  }
+})
+const infoLogger = pino({
+  name: 'info',
+  prettyPrint: {
+    translateTime: 'SYS:standard'
+  }
+})
+
+module.exports = ({ message, log = '', type }) => {
+  __typecheck(message, __type.string, true)
+
+  switch (type) {
+    case 'fatal':
+      dangerLogger.fatal(message, log)
+      break
+    case 'error':
+      errorLogger.error(message, log)
+      break
+    case 'warn':
+      warnLogger.warn(message, log)
+      break
+    default:
+      infoLogger.info(message, log)
+      break
   }
 }

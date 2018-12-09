@@ -28,6 +28,8 @@ class App {
     this.setDefaultErrorMiddlewares()
     this.setUncaughtExceptionHandler()
     this.logStatus()
+
+    return this.express
   }
 
   middleware () {
@@ -64,21 +66,21 @@ class App {
   }
 
   logStatus () {
-    __logger({ message: 'server was successfully initialized ...' })
     __logger({ message: 'NODE_ENV:', log: process.env.NODE_ENV })
     __logger({ message: 'App config:', log: config.app })
     __logger({ message: 'DB config:', log: config.knex })
+    __logger({ message: 'server was successfully initialized ...' })
   }
 
   setUncaughtExceptionHandler () {
     process.on('uncaughtException', error => {
-      __logger({ message: '>------------------------------>', type: 'danger' })
-      __logger({ message: `${new Date()} uncaughtException`, type: 'danger' })
-      __logger({ message: error.stack, type: 'danger' })
-      __logger({ message: '<------------------------------<', type: 'danger' })
+      __logger({ message: '>------------------------------>', type: 'fatal' })
+      __logger({ message: `${new Date()} uncaughtException`, type: 'fatal' })
+      __logger({ message: error.stack, type: 'fatal' })
+      __logger({ message: '<------------------------------<', type: 'fatal' })
       process.exit(1)
     })
   }
 }
 
-module.exports = new App().express
+module.exports = new App()

@@ -28,6 +28,8 @@
     "objection": "^1.4.0",
     "pg": "^6.4.2",
     "pg-native": "^2.2.0",
+    "pino": "^5.9.0",
+    "pino-pretty": "^2.4.0",
     "serve-favicon": "^2.5.0",
     "stack-trace": "0.0.10",
     "type-check": "^0.3.2",
