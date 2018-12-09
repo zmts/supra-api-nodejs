@@ -1,38 +1,41 @@
-const stackTrace = require('stack-trace')
 const chalk = require('chalk')
-const { errorCodes } = require('../../config')
-// const ErrorResponse = require('./ErrorResponse')
+const stackTrace = require('stack-trace')
+const ErrorResponse = require('./ErrorResponse')
 
 module.exports = (error, req, res, next) => {
   if (error.status === 404) {
-    res.status(404).json({
-      success: false,
-      message: error.message,
-      code: error.code,
+    const errorRes = new ErrorResponse({
+      ...error,
       env: 'dev/regular'
     })
+
+    res.status(404).json(errorRes)
   } else if (error.isJoi) {
-    res.status(400).json({
-      success: false,
+    const errorRes = new ErrorResponse({
       valid: false,
       message: error.details[0].message,
       code: error.details[0].type,
       key: error.details[0].context.key,
       env: 'dev/regular'
     })
+
+    __logger.error(errorRes.message, errorRes)
+    res.status(400).json(errorRes)
   } else {
-    res.status(error.status || 500).json({
-      success: false,
+    const errorRes = new ErrorResponse({
       message: error.message || error,
-      code: error.code,
       stack: ![401, 403].includes(error.status) ? stackTrace.parse(error) : false,
       env: 'dev/regular'
     })
+
+    __logger.error(errorRes.message, errorRes)
+    res.status(error.status || 500).json(errorRes)
   }
+
   if (error.stack) {
-    console.log(chalk.red('---------------BEGIN--------------'))
+    console.log(chalk.red('--------------- ERROR STACK BEGIN --------------'))
     console.log(chalk.red(`${new Date()} env:dev/regular error`))
     console.log(chalk.blue(error.stack))
-    console.log(chalk.red('----------------END---------------'))
+    console.log(chalk.red('---------------- ERROR STACK END ---------------'))
   }
 }

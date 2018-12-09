@@ -69,7 +69,7 @@ class App {
     __logger.info('NODE_ENV:', process.env.NODE_ENV)
     __logger.info('App config:', config.app)
     __logger.info('DB config:', config.knex)
-    __logger.info('server was successfully initialized ...')
+    __logger.info('server was successfully started...')
   }
 
   setUncaughtExceptionHandler () {
