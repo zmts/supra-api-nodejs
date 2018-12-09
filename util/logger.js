@@ -28,22 +28,22 @@ const infoLogger = pino({
 })
 
 module.exports = {
-  fatal: (message, log = null) => {
+  fatal: (message, log = '') => {
     __typecheck(message, __type.string, true)
     fatalLogger.fatal(message, log)
   },
 
-  error: (message, log = null) => {
+  error: (message, log = '') => {
     __typecheck(message, __type.string, true)
     errorLogger.error(message, log)
   },
 
-  warn: (message, log = null) => {
+  warn: (message, log = '') => {
     __typecheck(message, __type.string, true)
     warnLogger.warn(message, log)
   },
 
-  info: (message, log = null) => {
+  info: (message, log = '') => {
     __typecheck(message, __type.string, true)
     infoLogger.info(message, log)
   }
