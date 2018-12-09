@@ -1,6 +1,6 @@
 const pino = require('pino')
 
-const dangerLogger = pino({
+const fatalLogger = pino({
   name: 'fatal',
   errorLikeObjectKeys: ['err', 'error'],
   prettyPrint: {
@@ -32,7 +32,7 @@ module.exports = ({ message, log = '', type }) => {
 
   switch (type) {
     case 'fatal':
-      dangerLogger.fatal(message, log)
+      fatalLogger.fatal(message, log)
       break
     case 'error':
       errorLogger.error(message, log)
