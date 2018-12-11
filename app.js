@@ -46,7 +46,11 @@ class App {
   }
 
   initDbConnection () {
-    Model.knex(Knex(config.knex))
+    try {
+      Model.knex(Knex(config.knex))
+    } catch (error) {
+      throw new Error(`Database initialization error. ${error}`)
+    }
   }
 
   initRoutes () {
