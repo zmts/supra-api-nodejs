@@ -5,11 +5,14 @@ const BaseRouter = require('./BaseRouter')
 const AuthRouter = require('./AuthRouter')
 const PostsRouter = require('./PostsRouter')
 const UsersRouter = require('./UsersRouter')
+
+const initMiddleware = require('../middlewares/initMiddleware')
 const checkAccessTokenMiddleware = require('../middlewares/checkAccessTokenMiddleware')
 const queryMiddleware = require('../middlewares/queryMiddleware')
 
 class RootRouter extends BaseRouter {
   static get router () {
+    router.use(initMiddleware)
     router.use(checkAccessTokenMiddleware)
     router.use(queryMiddleware)
 
