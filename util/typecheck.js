@@ -10,7 +10,10 @@ module.exports = (argument, type, required, message) => {
    * check if required
    */
   if ((required && !argument) && (argument !== 0)) {
-    throw new ErrorWrapper({ ...errorCodes.NO_ARGUMENT, message })
+    throw new ErrorWrapper({
+      ...errorCodes.NO_ARGUMENT,
+      message: message || errorCodes.NO_ARGUMENT.message
+    })
   }
   /**
    * check arguments type

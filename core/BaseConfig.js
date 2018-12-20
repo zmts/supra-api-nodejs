@@ -2,7 +2,7 @@ const joi = require('joi')
 
 class BaseConfig {
   set (value, validate) {
-    __typecheck(value, __type.any, true)
+    __typecheck(value, __type.any, true, 'BaseConfig.set: \'value\' argument not defined')
 
     if (validate && (typeof validate === 'function' || validate.isJoi)) {
       if (validate.isJoi) {
