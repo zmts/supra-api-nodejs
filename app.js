@@ -78,10 +78,7 @@ class App {
 
   setUncaughtExceptionHandler () {
     process.on('uncaughtException', error => {
-      __logger.fatal('>------------------------------>')
-      __logger.fatal(`${new Date()} uncaughtException`)
-      __logger.fatal(error.stack)
-      __logger.fatal('<------------------------------<')
+      __logger.fatal('uncaughtException', error.stack)
       process.exit(1)
     })
   }
