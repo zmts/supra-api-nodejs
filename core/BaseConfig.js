@@ -8,11 +8,11 @@ class BaseConfig {
       if (validate.isJoi) {
         const result = joi.validate(value, validate)
         if (!result.error) return value
-        throw Error(`Wrong env variable ${value} is invalid. ${result.error}`)
+        throw new Error(`Wrong env variable ${value} is invalid. ${result.error}`)
       }
 
       if (!validate(value)) {
-        throw Error(`Wrong env variable ${value} is invalid.`)
+        throw new Error(`Wrong env variable ${value} is invalid.`)
       }
 
       return value
