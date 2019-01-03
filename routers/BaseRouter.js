@@ -43,6 +43,13 @@ class BaseRouter {
          */
         await action.run(req, res, next)
       } catch (error) {
+        error.req = {
+          user: req.currentUser,
+          ip: req.ip,
+          headers: req.headers,
+          url: req.url,
+          method: req.method
+        }
         next(error)
       }
     }
