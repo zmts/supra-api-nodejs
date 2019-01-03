@@ -23,12 +23,13 @@ module.exports = (error, req, res, next) => {
     res.status(400).json(errorRes)
   } else {
     const errorRes = new ErrorResponse({
+      ...error,
       message: error.message || error,
       stack: ![401, 403].includes(error.status) ? stackTrace.parse(error) : false,
       env: 'dev/regular'
     })
 
-    __logger.error(errorRes.message, errorRes)
+    __logger.error(errorRes.message, { ...errorRes, req: error.req, meta: error.meta })
     res.status(error.status || 500).json(errorRes)
   }
 
