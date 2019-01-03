@@ -47,6 +47,9 @@ class BaseRouter {
           user: req.currentUser,
           ip: req.ip,
           headers: req.headers,
+          body: req.body,
+          params: req.params,
+          query: req.query,
           url: req.url,
           method: req.method
         }
