@@ -1,5 +1,6 @@
+const config = require('../config')
+
 module.exports = async (req, res, next) => {
-  // make some initial preparation...
-  // like fetch etc...
+  res.header('Server', config.app.name)
   next()
 }
