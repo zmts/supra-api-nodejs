@@ -1,5 +1,4 @@
 const app = require('./app')
-const client = require('./client')
 const errorCodes = require('./errorCodes')
 const knex = require('./knex')
 const folders = require('./folders')
@@ -10,7 +9,6 @@ const email = require('./email')
 
 module.exports = {
   app,
-  client,
   errorCodes,
   knex,
   folders,

@@ -1,9 +1,9 @@
+require('dotenv').load()
+require('../globals')()
 const joi = require('joi')
 
 class BaseConfig {
   set (value, validate) {
-    __typecheck(value, __type.any, true, 'BaseConfig.set: \'value\' argument not defined')
-
     if (validate && (typeof validate === 'function' || validate.isJoi)) {
       if (validate.isJoi) {
         const result = joi.validate(value, validate)

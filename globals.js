@@ -1,3 +1,14 @@
+/**
+ ******************************
+ ******************************
+ ******************************
+ * Globals is anti pattern
+ * Use it very careful
+ ******************************
+ ******************************
+ ******************************
+ */
+
 const typecheck = require('./util/typecheck')
 const type = require('./util/type')
 const logger = require('./util/logger')
