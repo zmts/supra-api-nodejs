@@ -18,6 +18,9 @@ Piece of my thoughts about Node.js architecture.
 - Automated API documentation
 
 ## Key points:
+### 0.
+Supra-api-nodejs its about monolith first approach.
+
 ### 1. Routing
 Each entity have own router class that implement RESTful interface to work with it.
 ```
@@ -49,4 +52,4 @@ Implement data access methods.
 
 __!!! Project still in progress !!!__
 
-_2017 - ..._
+_2017 - 2018 - 2019 ..._
