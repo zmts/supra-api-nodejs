@@ -18,7 +18,7 @@ Piece of my thoughts about Node.js architecture.
 - Automated API documentation
 
 ## Key points:
-### 0.
+### 0. Monolith first
 Supra-api-nodejs its about monolith first approach.
 
 ### 1. Routing
