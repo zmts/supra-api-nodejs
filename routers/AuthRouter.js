@@ -1,16 +1,20 @@
 const router = require('express').Router()
 
-const BaseRouter = require('./BaseRouter')
+const BaseRouter = require('../core/BaseRouter')
 const actions = require('../actions/auth')
 
 class AuthRouter extends BaseRouter {
-  static get router () {
-    router.post('/login', this.actionRunner(actions.LoginAction))
-    router.post('/logout', this.actionRunner(actions.LogoutAction))
-    router.post('/refresh-tokens', this.actionRunner(actions.RefreshTokensAction))
+  get router () {
+    router.post('/auth/login', this.actionRunner(actions.LoginAction))
+    router.post('/auth/logout', this.actionRunner(actions.LogoutAction))
+    router.post('/auth/refresh-tokens', this.actionRunner(actions.RefreshTokensAction))
 
     return router
   }
+
+  async init () {
+    __logger.info('AuthRouter initialized...')
+  }
 }
 
-module.exports = AuthRouter
+module.exports = new AuthRouter()

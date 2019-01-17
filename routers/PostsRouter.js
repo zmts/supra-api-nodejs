@@ -1,18 +1,22 @@
 const router = require('express').Router()
 
 const actions = require('../actions/posts')
-const BaseRouter = require('./BaseRouter')
+const BaseRouter = require('../core/BaseRouter')
 
 class PostsRouter extends BaseRouter {
-  static get router () {
-    router.get('/', this.actionRunner(actions.ListAction))
-    router.get('/:id', this.actionRunner(actions.GetByIdAction))
-    router.post('/', this.actionRunner(actions.CreateAction))
-    router.patch('/:id', this.actionRunner(actions.UpdateAction))
-    router.delete('/:id', this.actionRunner(actions.RemoveAction))
+  get router () {
+    router.get('/posts', this.actionRunner(actions.ListAction))
+    router.get('/posts/:id', this.actionRunner(actions.GetByIdAction))
+    router.post('/posts', this.actionRunner(actions.CreateAction))
+    router.patch('/posts/:id', this.actionRunner(actions.UpdateAction))
+    router.delete('/posts/:id', this.actionRunner(actions.RemoveAction))
 
     return router
   }
+
+  async init () {
+    __logger.info('PostsRouter initialized...')
+  }
 }
 
-module.exports = PostsRouter
+module.exports = new PostsRouter()

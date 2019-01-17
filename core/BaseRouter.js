@@ -2,7 +2,15 @@ const ErrorWrapper = require('../util/ErrorWrapper')
 const { checkAccessByTagService } = require('../services/security')
 
 class BaseRouter {
-  static actionRunner (action) {
+  async init () {
+    throw new Error('Router should implement \'init\' method.')
+  }
+
+  get router () {
+    throw new Error('Router should implement \'router\' getter.')
+  }
+
+  actionRunner (action) {
     __typecheck(action, 'Function', true)
 
     if (!action.hasOwnProperty('accessTag')) {
@@ -20,7 +28,7 @@ class BaseRouter {
 
       try {
         /**
-         * handle json schema response only for create and update actions
+         * returns request schema
          */
         if (req.query.schema && ['POST', 'PATCH', 'GET'].includes(req.method)) {
           return res.json(action.jsonSchema)

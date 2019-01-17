@@ -4,8 +4,8 @@
   "private": true,
   "author": "Sasha Zmts",
   "scripts": {
-    "start": "NODE_ENV=production node --use_strict ./bin/www",
-    "dev": "NODE_ENV=development nodemon  --use_strict ./bin/www"
+    "start": "NODE_ENV=production node ./main.js",
+    "dev": "NODE_ENV=development nodemon ./main.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

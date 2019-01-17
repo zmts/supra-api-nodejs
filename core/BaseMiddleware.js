@@ -1,10 +1,10 @@
 class BaseMiddleware {
-  static init () {
-    throw new Error('Define \'init\' method')
+  async init () {
+    throw new Error('Middleware should implement \'init\' method.')
   }
 
-  static handler () {
-    throw new Error('Define \'handler\' method')
+  handler () {
+    throw new Error('Middleware should implement \'handler\' method.')
   }
 }
 
