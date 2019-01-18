@@ -21,7 +21,6 @@ class LoginAction extends BaseAction {
   static async run (req, res, next) {
     let data = { accessToken: '', refreshToken: '' }
 
-    await this.validate(req, this.validationRules)
     const user = await UserDAO.GetByEmail(req.body.email)
     await checkPasswordService(req.body.password, user.passwordHash)
     data.accessToken = await makeAccessTokenService(user)

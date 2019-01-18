@@ -5,7 +5,10 @@ const querySchema = joi.object({
   q: joi.string().min(2).max(50),
   page: joi.number().integer().min(1),
   limit: joi.number().integer().valid([10, 20, 30, 40, 50, 60, 70, 80, 90, 100]),
-  orderBy: joi.string().valid(['createdAt:asc', 'createdAt:desc']),
+  orderBy: {
+    field: joi.string(),
+    direction: joi.string().valid(['asc', 'desc'])
+  },
   filter: joi.object(),
   schema: joi.boolean()
 })
