@@ -1,6 +1,5 @@
 {
   "extends": "standard",
-  "commonjs": true,
   "root": true,
   "env": {
     "node": true,
