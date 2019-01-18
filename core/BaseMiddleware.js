@@ -1,10 +1,10 @@
 class BaseMiddleware {
   async init () {
-    throw new Error('Middleware should implement \'init\' method.')
+    throw new Error(`${this.constructor.name} should implement 'init' method.`)
   }
 
   handler () {
-    throw new Error('Middleware should implement \'handler\' method.')
+    throw new Error(`${this.constructor.name} should implement 'handler' method.`)
   }
 }
 

@@ -30,21 +30,21 @@ const infoLogger = pino({
 module.exports = {
   fatal: (message, log = '') => {
     __typecheck(message, __type.string, true)
-    fatalLogger.fatal(message, log)
+    fatalLogger.fatal(message, log instanceof Error ? log.toString() : log)
   },
 
   error: (message, log = '') => {
     __typecheck(message, __type.string, true)
-    errorLogger.error(message, log)
+    errorLogger.error(message, log instanceof Error ? log.toString() : log)
   },
 
   warn: (message, log = '') => {
     __typecheck(message, __type.string, true)
-    warnLogger.warn(message, log)
+    warnLogger.warn(message, log instanceof Error ? log.toString() : log)
   },
 
   info: (message, log = '') => {
     __typecheck(message, __type.string, true)
-    infoLogger.info(message, log)
+    infoLogger.info(message, log instanceof Error ? log.toString() : log)
   }
 }

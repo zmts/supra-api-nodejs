@@ -3,11 +3,11 @@ const { checkAccessByTagService } = require('../services/security')
 
 class BaseRouter {
   async init () {
-    throw new Error('Router should implement \'init\' method.')
+    throw new Error(`${this.constructor.name} should implement 'init' method.`)
   }
 
   get router () {
-    throw new Error('Router should implement \'router\' getter.')
+    throw new Error(`${this.constructor.name} should implement 'router' getter.`)
   }
 
   actionRunner (action) {
