@@ -47,6 +47,30 @@ It's much more like utility layer thats provide some helpful promisfitated funct
 ### 4. DAO
 Implement data access methods.
 
+## Development:
+
+### Install global dependencies:
+```
+npm i -g knex nodemon
+```
+### Setup database:
+1. Install PostgreSQL (https://postgresapp.com/downloads.html (for Mac OS))
+2. Create some DB (https://eggerapps.at/postico/ (for Mac OS))
+
+### Go ahead...
+```
+cd /supra-api-nodejs
+```
+- `cp .env.example .env`
+- Set required credential in `.env` 
+
+```
+knex migrate:latest
+
+npm run start // prod mode
+npm run dev // dev mode
+```
+
 #### Implemented endpoints:
 ![endpoints](https://i.imgur.com/GCW47z5.png)
 
