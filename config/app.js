@@ -9,4 +9,6 @@ class AppConfig extends BaseConfig {
   }
 }
 
+// TODO check is variable is exist in envs
+
 module.exports = new AppConfig()
