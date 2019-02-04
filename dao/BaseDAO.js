@@ -22,6 +22,18 @@ class BaseDAO extends Model {
     return new ErrorWrapper({ ...errorCodes.NOT_FOUND })
   }
 
+  static emptyPageResponse () {
+    return { results: [], total: 0 }
+  }
+
+  static emptyListResponse () {
+    return []
+  }
+
+  static emptyObjectResponse () {
+    return {}
+  }
+
   static query () {
     return super.query.apply(this, arguments).onError(error => {
       return Promise.reject(wrapError(error))
