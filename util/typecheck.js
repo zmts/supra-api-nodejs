@@ -9,7 +9,7 @@ module.exports = (argument, type, required, message) => {
   /**
    * check if required
    */
-  if ((required && !argument) && (argument !== 0)) {
+  if (required && (argument === undefined)) {
     throw new ErrorWrapper({
       ...errorCodes.NO_ARGUMENT,
       message: message || errorCodes.NO_ARGUMENT.message
