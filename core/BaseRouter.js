@@ -1,4 +1,4 @@
-const ErrorWrapper = require('../util/ErrorWrapper')
+const ErrorWrapper = require('../core/ErrorWrapper')
 const { checkAccessByTagService } = require('../services/security')
 
 class BaseRouter {

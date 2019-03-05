@@ -2,7 +2,7 @@ const Joi = require('joi')
 
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
-const ErrorWrapper = require('../../util/ErrorWrapper')
+const ErrorWrapper = require('../../core/ErrorWrapper')
 const errorCodes = require('../../config/errorCodes')
 
 class ChangeEmailAction extends BaseAction {

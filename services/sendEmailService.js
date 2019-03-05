@@ -2,7 +2,7 @@
  * https://documentation.mailgun.com/en/latest/api-sending.html#examples
  */
 
-const ErrorWrapper = require('../util/ErrorWrapper')
+const ErrorWrapper = require('../core/ErrorWrapper')
 const config = require('../config')
 const mailgun = require('mailgun-js')({ apiKey: config.email.mailgunApiKey, domain: config.email.mailgunDomain })
 

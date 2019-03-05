@@ -1,5 +1,5 @@
 const { typeCheck } = require('type-check')
-const ErrorWrapper = require('./ErrorWrapper')
+const ErrorWrapper = require('../core/ErrorWrapper')
 const errorCodes = require('../config/errorCodes')
 
 /**

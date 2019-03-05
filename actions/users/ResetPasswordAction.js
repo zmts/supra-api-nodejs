@@ -4,7 +4,7 @@ const BaseAction = require('../BaseAction')
 const { jwtService, makePasswordHashService } = require('../../services/auth')
 const config = require('../../config')
 const UserDAO = require('../../dao/UserDAO')
-const ErrorWrapper = require('../../util/ErrorWrapper')
+const ErrorWrapper = require('../../core/ErrorWrapper')
 const errorCodes = require('../../config/errorCodes')
 
 /**

@@ -4,7 +4,7 @@ const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
 const { jwtService } = require('../../services/auth')
 const config = require('../../config')
-const ErrorWrapper = require('../../util/ErrorWrapper')
+const ErrorWrapper = require('../../core/ErrorWrapper')
 const errorCodes = require('../../config/errorCodes')
 
 class ConfirmEmailAction extends BaseAction {

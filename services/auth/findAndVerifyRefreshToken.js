@@ -1,4 +1,4 @@
-const ErrorWrapper = require('../../util/ErrorWrapper')
+const ErrorWrapper = require('../../core/ErrorWrapper')
 const errorCodes = require('../../config/errorCodes')
 const jwtService = require('../../services/auth/jwtService')
 const SECRET = require('../../config/token').refresh.secret
