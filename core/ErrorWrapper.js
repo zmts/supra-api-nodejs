@@ -8,13 +8,7 @@ class ErrorWrapper extends Error {
     this.code = options.code || 'SERVER_ERROR'
     this.layer = options.layer || undefined
     this.meta = options.meta || undefined
-    this.req = options.req ? {
-      user: options.req.currentUser,
-      ip: options.req.ip,
-      headers: options.req.headers,
-      url: options.req.url,
-      method: options.req.method
-    } : undefined
+    this.req = options.req || undefined
   }
 }
 
