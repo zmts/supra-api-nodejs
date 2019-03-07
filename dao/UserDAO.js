@@ -1,6 +1,6 @@
 const { raw } = require('objection')
 
-const BaseDAO = require('./BaseDAO')
+const BaseDAO = require('../core/BaseDAO')
 const PostDAO = require('./PostDAO')
 // const errorCodes = require('../config/errorCodes')
 

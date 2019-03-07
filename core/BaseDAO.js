@@ -11,14 +11,8 @@ class BaseDAO extends Model {
    * ------------------------------
    */
 
-  static errorWrapper (options = {}) {
-    __typecheck(options.message, 'String', true)
-
-    return new ErrorWrapper(options)
-  }
-
   static errorEmptyResponse () {
-    return new ErrorWrapper({ ...errorCodes.NOT_FOUND })
+    return new ErrorWrapper({ ...errorCodes.NOT_FOUND, layer: 'DAO' })
   }
 
   static emptyPageResponse () {
@@ -38,18 +32,20 @@ class BaseDAO extends Model {
       return Promise.reject(wrapError(error))
         .catch(error => {
           if (error instanceof UniqueViolationError) {
-            throw this.errorWrapper({
+            throw new ErrorWrapper({
               ...errorCodes.DB_DUPLICATE_CONFLICT,
-              message: `Column '${error.columns}' duplicate in '${error.table}' table`
+              message: `Column '${error.columns}' duplicate in '${error.table}' table`,
+              layer: 'DAO'
             })
           }
           if (error instanceof NotNullViolationError) {
-            throw this.errorWrapper({
+            throw new ErrorWrapper({
               ...errorCodes.DB_NOTNULL_CONFLICT,
-              message: `Not null conflict failed for table '${error.table}' and column '${error.column}'`
+              message: `Not null conflict failed for table '${error.table}' and column '${error.column}'`,
+              layer: 'DAO'
             })
           }
-          throw this.errorWrapper({ ...errorCodes.DB, message: error.message })
+          throw new ErrorWrapper({ ...errorCodes.DB, message: error.message, layer: 'DAO' })
         })
     })
   }
@@ -78,9 +74,10 @@ class BaseDAO extends Model {
      * except user entity
      */
     if (!data.email && !data.userId) {
-      throw this.errorWrapper({
+      throw new ErrorWrapper({
         ...errorCodes.UNPROCESSABLE_ENTITY,
-        message: 'Please provide in action class \'userId\' field'
+        message: 'Please provide in action class \'userId\' field',
+        layer: 'DAO'
       })
     }
 

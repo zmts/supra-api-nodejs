@@ -6,6 +6,7 @@ class ErrorWrapper extends Error {
     this.message = options.message
     this.status = options.status || 500
     this.code = options.code || 'SERVER_ERROR'
+    this.layer = options.layer || undefined
     this.meta = options.meta || undefined
     this.req = options.req ? {
       user: options.req.currentUser,
