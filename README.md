@@ -64,9 +64,13 @@ cd /supra-api-nodejs
 - `cp .env.example .env`
 - Set required credential in `.env` 
 
+Run migration to set base SQL schema
 ```
 knex migrate:latest
+```
 
+Run server
+```
 npm run start // prod mode
 npm run dev // dev mode
 ```
