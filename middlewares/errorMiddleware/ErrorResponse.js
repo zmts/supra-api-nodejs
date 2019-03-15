@@ -9,6 +9,7 @@ class ErrorResponse {
     this.valid = options.valid || undefined
     this.key = options.key || undefined
     this.message = options.message || undefined
+    this.meta = options.meta || undefined
     this.layer = options.layer || undefined
     this.stack = options.stack || undefined
     this.env = options.env || undefined
