@@ -14,7 +14,6 @@
     "no-multi-spaces": "error"
   },
   "globals": {
-    "__rootdir": true,
     "__typecheck": true,
     "__type": true,
     "__logger": true
