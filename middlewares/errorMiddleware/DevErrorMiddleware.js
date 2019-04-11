@@ -33,7 +33,7 @@ class DevErrorMiddleware extends BaseMiddleware {
         const errorRes = new ErrorResponse({
           ...error,
           message: error.message || error,
-          stack: ![401, 403].includes(error.status) ? stackTrace.parse(error) : false,
+          stack: ![400, 401, 403].includes(error.status) ? stackTrace.parse(error) : false,
           env: 'dev/regular'
         })
 
