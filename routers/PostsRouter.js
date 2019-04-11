@@ -15,7 +15,7 @@ class PostsRouter extends BaseRouter {
   }
 
   async init () {
-    __logger.info('PostsRouter initialized...')
+    __logger.info(`${this.constructor.name} initialized...`)
   }
 }
 

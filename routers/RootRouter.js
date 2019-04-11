@@ -13,7 +13,7 @@ class RootRouter extends BaseRouter {
   }
 
   async init () {
-    __logger.info('RootRouter initialized...')
+    __logger.info(`${this.constructor.name} initialized...`)
   }
 }
 

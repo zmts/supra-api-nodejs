@@ -13,7 +13,7 @@ class AuthRouter extends BaseRouter {
   }
 
   async init () {
-    __logger.info('AuthRouter initialized...')
+    __logger.info(`${this.constructor.name} initialized...`)
   }
 }
 

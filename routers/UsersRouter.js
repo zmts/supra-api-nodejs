@@ -5,6 +5,8 @@ const BaseRouter = require('../core/BaseRouter')
 
 class UsersRouter extends BaseRouter {
   get router () {
+    // router.param('id', validatePostId) TODO
+
     router.get('/users', this.actionRunner(actions.ListAction))
     router.get('/users/current', this.actionRunner(actions.GetCurrentUserAction))
     router.get('/users/:id', this.actionRunner(actions.GetByIdAction))
@@ -24,7 +26,7 @@ class UsersRouter extends BaseRouter {
   }
 
   async init () {
-    __logger.info('UsersRouter initialized...')
+    __logger.info(`${this.constructor.name} initialized...`)
   }
 }
 
