@@ -1,6 +1,7 @@
 const stackTrace = require('stack-trace')
 const ErrorResponse = require('./ErrorResponse')
 const BaseMiddleware = require('../../core/BaseMiddleware')
+const { errorCodes } = require('../../config')
 
 class ProdErrorMiddleware extends BaseMiddleware {
   async init () {
@@ -20,7 +21,7 @@ class ProdErrorMiddleware extends BaseMiddleware {
         const errorRes = new ErrorResponse({
           valid: false,
           message: error.details[0].message,
-          code: error.details[0].type,
+          code: errorCodes.VALIDATION.code,
           key: error.details[0].context.key,
           env: 'prod/regular'
         })
