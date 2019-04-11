@@ -2,10 +2,12 @@ const router = require('express').Router()
 
 const actions = require('../actions/users')
 const BaseRouter = require('../core/BaseRouter')
+const ErrorWrapper = require('../core/ErrorWrapper')
+const { errorCodes } = require('../config')
 
 class UsersRouter extends BaseRouter {
   get router () {
-    // router.param('id', validatePostId) TODO
+    router.param('id', validateUserId)
 
     router.get('/users', this.actionRunner(actions.ListAction))
     router.get('/users/current', this.actionRunner(actions.GetCurrentUserAction))
@@ -28,6 +30,13 @@ class UsersRouter extends BaseRouter {
   async init () {
     __logger.info(`${this.constructor.name} initialized...`)
   }
+}
+
+function validateUserId (req, res, next) {
+  if (!Number(req.params.id)) {
+    return next(new ErrorWrapper({ ...errorCodes.VALIDATION, message: 'Invalid user id' }))
+  }
+  next()
 }
 
 module.exports = new UsersRouter()
