@@ -23,7 +23,7 @@ const headersSchema = joi.object({
 
 class QueryMiddleware extends BaseMiddleware {
   async init () {
-    __logger.info('QueryMiddleware initialized ...')
+    __logger.info(`${this.constructor.name} initialized...`)
   }
 
   handler () {

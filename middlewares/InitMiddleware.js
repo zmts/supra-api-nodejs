@@ -3,7 +3,7 @@ const BaseMiddleware = require('../core/BaseMiddleware')
 
 class InitMiddleware extends BaseMiddleware {
   async init () {
-    __logger.info('InitMiddleware initialized ...')
+    __logger.info(`${this.constructor.name} initialized...`)
   }
 
   handler () {

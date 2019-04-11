@@ -6,7 +6,7 @@ const BaseMiddleware = require('../core/BaseMiddleware')
 
 class CheckAccessTokenMiddleware extends BaseMiddleware {
   async init () {
-    __logger.info('CheckAccessTokenMiddleware initialized ...')
+    __logger.info(`${this.constructor.name} initialized...`)
   }
 
   handler () {

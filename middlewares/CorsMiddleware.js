@@ -2,7 +2,7 @@ const BaseMiddleware = require('../core/BaseMiddleware')
 
 class CorsMiddleware extends BaseMiddleware {
   async init () {
-    __logger.info('CorsMiddleware initialized ...')
+    __logger.info(`${this.constructor.name} initialized...`)
   }
 
   handler () {

@@ -6,7 +6,7 @@ const { errorCodes } = require('../../config')
 
 class DevErrorMiddleware extends BaseMiddleware {
   async init () {
-    __logger.info('DevErrorMiddleware initialized ...')
+    __logger.info(`${this.constructor.name} initialized...`)
   }
 
   handler () {
