@@ -22,7 +22,7 @@ class PostDAO extends BaseDAO {
    */
 
   static GetPostsByUserId (userId, { page, limit, orderBy }) {
-    __typecheck(userId, 'Number', true)
+    __typecheck(userId, __type.number, true)
     __typecheck(page, __type.number, true)
     __typecheck(limit, __type.number, true)
     __typecheck(orderBy, __type.object, true)

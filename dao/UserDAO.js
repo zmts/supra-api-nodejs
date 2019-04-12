@@ -56,7 +56,7 @@ class UserDAO extends BaseDAO {
   };
 
   static GetByEmail (email) {
-    __typecheck(email, 'String', true)
+    __typecheck(email, __type.string, true)
 
     return this.query().where({ email }).first()
       .then(data => {
@@ -71,7 +71,7 @@ class UserDAO extends BaseDAO {
    * @returns {Promise<boolean>}
    */
   static IsEmailExist (email) {
-    __typecheck(email, 'String', true)
+    __typecheck(email, __type.string, true)
 
     return this.query().where({ email }).first()
       .then(data => Boolean(data))
@@ -79,24 +79,24 @@ class UserDAO extends BaseDAO {
   }
 
   static RemoveRefreshToken (userId, refreshTokenTimestamp) {
-    __typecheck(userId, 'Number', true)
-    __typecheck(refreshTokenTimestamp, 'String', true)
+    __typecheck(userId, __type.number, true)
+    __typecheck(refreshTokenTimestamp, __type.string, true)
 
     return this.query()
       .patch({ refreshTokensMap: raw('?? - ?', 'refreshTokensMap', refreshTokenTimestamp) })
   }
 
   static AddRefreshTokenProcess (userEntity, data) {
-    __typecheck(userEntity, 'Object', true)
-    __typecheck(data, 'Object', true)
-    __typecheck(data.timestamp, 'String', true)
-    __typecheck(data.refreshToken, 'String', true)
+    __typecheck(userEntity, __type.object, true)
+    __typecheck(data, __type.object, true)
+    __typecheck(data.timestamp, __type.string, true)
+    __typecheck(data.refreshToken, __type.string, true)
 
     if (this._isValidRefreshTokensCount(userEntity)) {
-      return this._AddRefreshToken(userEntity.id, data)
+      return this._addRefreshToken(userEntity.id, data)
     }
-    return this._ClearRefreshTokensList(userEntity.id)
-      .then(() => this._AddRefreshToken(userEntity.id, data))
+    return this._clearRefreshTokensList(userEntity.id)
+      .then(() => this._addRefreshToken(userEntity.id, data))
       .catch(error => { throw error })
   }
 
@@ -105,8 +105,8 @@ class UserDAO extends BaseDAO {
    * prop name === token creation timestamp
    * store to this prop REFRESH TOKEN
    */
-  static _AddRefreshToken (userId, data) {
-    __typecheck(userId, 'Number', true)
+  static _addRefreshToken (userId, data) {
+    __typecheck(userId, __type.number, true)
     __typecheck(data, 'Object', true)
     __typecheck(data.timestamp, 'String', true)
     __typecheck(data.refreshToken, 'String', true)
@@ -116,8 +116,8 @@ class UserDAO extends BaseDAO {
       .patch({ [`refreshTokensMap:${data.timestamp}`]: data.refreshToken })
   }
 
-  static _ClearRefreshTokensList (userId) {
-    __typecheck(userId, 'Number', true)
+  static _clearRefreshTokensList (userId) {
+    __typecheck(userId, __type.number, true)
 
     return this.query().findById(userId).patch({ refreshTokensMap: {} })
   }
@@ -126,7 +126,7 @@ class UserDAO extends BaseDAO {
    * user can have max 5 sessions(refresh tokens)
    */
   static _isValidRefreshTokensCount (userEntity) {
-    __typecheck(userEntity, 'Object', true)
+    __typecheck(userEntity, __type.object, true)
 
     let count = Object.keys(userEntity.refreshTokensMap).length
     return count <= 5
