@@ -20,9 +20,6 @@ class BaseAction {
   }
 
   static get jsonSchema () {
-    if (this.validationRules.body) {
-      return JoiToJsonSchema(this.validationRules.body)
-    }
     return JoiToJsonSchema(joi.object().keys(this.validationRules))
   }
 
