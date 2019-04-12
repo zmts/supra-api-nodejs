@@ -1,19 +1,11 @@
 class BaseRoleAccess {
   static get usersResource () {
-    return [ // all action tags, except creation
-      // usersActions.ListAction.accessTag,
-      // usersActions.UpdateAction.accessTag,
-      // usersActions.GetByIdAction.accessTag,
-      // usersActions.RemoveAction.accessTag,
-      // usersActions.ChangePasswordAction.accessTag,
-      // usersActions.SendEmailConfirmTokenAction.accessTag,
-      // usersActions.ChangeEmailAction.accessTag
+    return [
       'users:list',
       'users:update',
       'users:get-by-id',
       'users:remove',
       'users:change-password',
-      'user:get-posts-by-user-id',
       'users:send-email-confirm-token',
       'users:change-email',
       'users:get-current-user'
