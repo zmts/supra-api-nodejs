@@ -1,12 +1,24 @@
 const joi = require('joi')
 const JoiToJsonSchema = require('joi-to-json-schema')
 
-const ResponseJson = require('./ResponseJson')
-
 /**
  * @description base action
  */
 class BaseAction {
+  static get baseQueryParams () {
+    return {
+      q: joi.string().min(2).max(50),
+      page: joi.number().integer().min(0),
+      limit: joi.number().integer().valid([10, 20, 30, 40, 50, 60, 70, 80, 90, 100]),
+      orderBy: {
+        field: joi.string(),
+        direction: joi.string().valid(['asc', 'desc'])
+      },
+      filter: joi.object(),
+      schema: joi.boolean()
+    }
+  }
+
   static get jsonSchema () {
     if (this.validationRules.body) {
       return JoiToJsonSchema(this.validationRules.body)
@@ -21,7 +33,11 @@ class BaseAction {
    */
 
   static resJson (options) {
-    return new ResponseJson(options)
+    return {
+      success: options.success || true,
+      data: options.data || undefined,
+      message: options.message || undefined
+    }
   }
 
   /**

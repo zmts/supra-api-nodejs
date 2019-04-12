@@ -13,7 +13,7 @@ class ListAction extends BaseAction {
   static get validationRules () {
     return {
       query: joi.object().keys({
-        ...this.baseValidationRules.query,
+        ...this.baseQueryParams,
         filter: joi.object().keys({
           username: joi.string().min(3)
         })

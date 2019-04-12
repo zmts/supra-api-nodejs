@@ -12,7 +12,9 @@ class TemplateAction extends BaseAction {
 
   static get validationRules () {
     return {
-      ...this.baseValidationRules,
+      query: {
+        ...this.baseQueryParams
+      },
       body: Joi.object().keys({
         templateField: Joi.string().required()
       })
