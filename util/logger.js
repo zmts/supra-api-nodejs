@@ -1,27 +1,28 @@
 const pino = require('pino')
+const config = require('../config')
 
 const fatalLogger = pino({
-  name: 'api.fatal',
+  name: `${config.app.name.toLowerCase()}::fatal`,
   errorLikeObjectKeys: ['err', 'error'],
   prettyPrint: {
     translateTime: 'SYS:standard'
   }
 })
 const errorLogger = pino({
-  name: 'api.error',
+  name: `${config.app.name.toLowerCase()}::error`,
   errorLikeObjectKeys: ['err', 'error'],
   prettyPrint: {
     translateTime: 'SYS:standard'
   }
 })
 const warnLogger = pino({
-  name: 'api.warn',
+  name: `${config.app.name.toLowerCase()}::warn`,
   prettyPrint: {
     translateTime: 'SYS:standard'
   }
 })
 const infoLogger = pino({
-  name: 'api.info',
+  name: `${config.app.name.toLowerCase()}::info`,
   prettyPrint: {
     translateTime: 'SYS:standard'
   }
