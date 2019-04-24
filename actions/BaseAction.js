@@ -1,9 +1,5 @@
 const joi = require('joi')
-const JoiToJsonSchema = require('joi-to-json-schema')
 
-/**
- * @description base action
- */
 class BaseAction {
   static get baseQueryParams () {
     return {
@@ -19,17 +15,10 @@ class BaseAction {
     }
   }
 
-  static get jsonSchema () {
-    return JoiToJsonSchema(joi.object().keys(this.validationRules))
-  }
-
-  /**
-   * ------------------------------
-   * @BASE_METHODS
-   * ------------------------------
-   */
-
   static resJson (options) {
+    __typecheck(options, __type.object, true)
+    __typecheck(options.message, __type.string)
+
     return {
       success: options.success || true,
       data: options.data || undefined,
@@ -42,8 +31,8 @@ class BaseAction {
    * uses by default in init method
    */
   static validate (req, rules) {
-    __typecheck(req, 'Object', true)
-    __typecheck(rules, 'Object', true)
+    __typecheck(req, __type.object, true)
+    __typecheck(rules, __type.object, true)
 
     // map list of validation schemas
     let validationSchemas = Object.keys(rules).map(key => {

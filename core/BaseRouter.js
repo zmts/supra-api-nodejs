@@ -1,3 +1,5 @@
+const joi = require('joi')
+const JoiToJsonSchema = require('joi-to-json-schema')
 const ErrorWrapper = require('../core/ErrorWrapper')
 const { checkAccessByTagService } = require('../services/security')
 
@@ -30,8 +32,8 @@ class BaseRouter {
         /**
          * returns request schema
          */
-        if (req.query.schema && ['POST', 'PATCH', 'GET'].includes(req.method)) {
-          return res.json(action.jsonSchema)
+        if (action.validationRules && req.query.schema && ['POST', 'PATCH', 'GET'].includes(req.method)) {
+          return res.json(JoiToJsonSchema(joi.object().keys(action.validationRules)))
         }
 
         /**

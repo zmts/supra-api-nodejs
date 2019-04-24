@@ -1,5 +1,4 @@
 require('dotenv').load()
-require('../globals')()
 const joi = require('joi')
 
 class BaseConfig {
