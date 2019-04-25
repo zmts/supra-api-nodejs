@@ -23,7 +23,7 @@ class S3Client {
 
   async uploadImage (buffer, fileName) {
     if (!Buffer.isBuffer(buffer)) {
-      throw new Error('buffer param is not a Buffer type')
+      throw new Error(`${this.constructor.name}: buffer param is not a Buffer type`)
     }
     __typecheck(fileName, __type.string, true)
 
@@ -37,7 +37,7 @@ class S3Client {
 
       this[$].client.upload(params, (error, data) => {
         if (error) {
-          __logger.error('s3Client: unable to upload objects ', error)
+          __logger.error(`${this.constructor.name}: unable to upload objects`, error)
           return reject(error)
         }
         resolve(data.Location)
@@ -59,7 +59,7 @@ class S3Client {
 
       this[$].client.deleteObjects(params, (error, data) => {
         if (error) {
-          __logger.error('s3Client: unable to remove objects ', error)
+          __logger.error(`${this.constructor.name}: unable to remove objects`, error)
           return reject(error)
         }
 

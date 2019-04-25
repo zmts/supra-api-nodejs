@@ -14,7 +14,7 @@ class RedisClient {
     }
 
     this[$].client.on('error', error => {
-      __logger.error('Error ', error)
+      throw new Error(`${this.constructor.name}, ${error}`)
     })
 
     this[$].client.on('connect', () => {
