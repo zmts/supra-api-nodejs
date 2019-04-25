@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 const BaseRouter = require('../core/BaseRouter')
+const RootProvider = require('../actions/RootProvider')
 
 class RootRouter extends BaseRouter {
   get router () {
@@ -14,6 +15,7 @@ class RootRouter extends BaseRouter {
 
   async init () {
     __logger.info(`${this.constructor.name} initialized...`)
+    await RootProvider.init()
   }
 }
 
