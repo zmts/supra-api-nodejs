@@ -8,6 +8,7 @@
     "dev": "NODE_ENV=development nodemon ./main.js"
   },
   "dependencies": {
+    "aws-sdk": "^2.442.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "chalk": "^2.4.2",
@@ -29,6 +30,7 @@
     "pg": "^7.8.1",
     "pino": "^5.11.1",
     "pino-pretty": "^2.5.0",
+    "redis": "^2.8.0",
     "serve-favicon": "^2.5.0",
     "stack-trace": "0.0.10",
     "type-check": "^0.3.2",

@@ -6,6 +6,7 @@ const token = require('./token')
 const url = require('./url')
 const roles = require('./roles')
 const email = require('./email')
+const s3 = require('./s3')
 
 module.exports = {
   app,
@@ -15,5 +16,6 @@ module.exports = {
   token,
   url,
   roles,
-  email
+  email,
+  s3
 }
