@@ -5,31 +5,35 @@
   "author": "Sasha Zmts",
   "scripts": {
     "start": "NODE_ENV=production node ./main.js",
-    "dev": "NODE_ENV=development nodemon ./main.js"
+    "dev": "NODE_ENV=development nodemon ./main.js",
+
+    "migrate": "knex migrate:latest",
+    "rollback": "knex migrate:rollback",
+    "seed": "knex seed:run"
   },
   "dependencies": {
-    "aws-sdk": "^2.442.0",
+    "aws-sdk": "^2.449.0",
     "bcryptjs": "^2.4.3",
-    "body-parser": "^1.18.3",
+    "body-parser": "^1.19.0",
     "chalk": "^2.4.2",
     "cookie-parser": "^1.4.4",
-    "db-errors": "^0.1.1",
+    "db-errors": "^0.2.2",
     "debug": "^4.1.1",
-    "dotenv": "^6.2.0",
+    "dotenv": "^8.0.0",
     "express": "^4.16.4",
     "fs-extra": "^7.0.1",
     "joi": "^14.3.1",
-    "joi-to-json-schema": "^4.0.0",
-    "jsonwebtoken": "^8.5.0",
-    "knex": "^0.16.3",
+    "joi-to-json-schema": "^5.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.16.5",
     "mailgun-js": "^0.22.0",
     "moment": "^2.24.0",
     "morgan": "^1.9.1",
     "mz": "^2.7.0",
-    "objection": "^1.6.3",
-    "pg": "^7.8.1",
-    "pino": "^5.11.1",
-    "pino-pretty": "^2.5.0",
+    "objection": "^1.6.8",
+    "pg": "^7.10.0",
+    "pino": "^5.12.3",
+    "pino-pretty": "^3.0.0",
     "redis": "^2.8.0",
     "serve-favicon": "^2.5.0",
     "stack-trace": "0.0.10",
@@ -37,7 +41,7 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "eslint": "^5.15.1",
+    "eslint": "^5.16.0",
     "standart": "^6.1.0"
   }
 }

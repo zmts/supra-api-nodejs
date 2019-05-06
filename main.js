@@ -1,4 +1,4 @@
-require('dotenv').load()
+require('dotenv').config()
 require('./globals')()
 
 const Server = require('./core/Server')

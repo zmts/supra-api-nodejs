@@ -1,5 +1,5 @@
 const path = require('path')
-require('dotenv').load({ path: path.join(__dirname, '../.env') })
+require('dotenv').config({ path: path.join(__dirname, '../.env') })
 
 const BaseConfig = require('../core/BaseConfig')
 
