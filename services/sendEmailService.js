@@ -14,11 +14,11 @@ const mailgun = require('mailgun-js')({ apiKey: config.email.mailgunApiKey, doma
  * text: 'Testing some Mailgun awesomness!'
  */
 module.exports = letter => {
-  __typecheck(letter, 'Object', true)
-  __typecheck(letter.from, 'String')
-  __typecheck(letter.to, 'String', true)
-  __typecheck(letter.subject, 'String', true)
-  __typecheck(letter.text, 'String', true)
+  __typecheck(letter, __type.object, true)
+  __typecheck(letter.from, __type.string)
+  __typecheck(letter.to, __type.string, true)
+  __typecheck(letter.subject, __type.string, true)
+  __typecheck(letter.text, __type.string, true)
 
   const data = {
     from: letter.from || config.email.from,

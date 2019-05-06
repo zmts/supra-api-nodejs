@@ -38,7 +38,7 @@ class CreateAction extends BaseAction {
         text: `Welcome to supra.com! ${user.name} we just created new account for you. Your login: ${user.email}`
       })
     } catch (error) {
-      throw error
+      __logger.error(error.message, error)
     }
 
     res.json(this.resJson({ data: user }))
