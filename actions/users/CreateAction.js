@@ -1,9 +1,9 @@
 const joi = require('joi')
 
 const BaseAction = require('../BaseAction')
+const { emailClient } = require('../RootProvider')
 const UserDAO = require('../../dao/UserDAO')
 const { makePasswordHashService, makeEmailConfirmTokenService } = require('../../services/auth')
-const sendEmailService = require('../../services/sendEmailService')
 
 class CreateAction extends BaseAction {
   static get accessTag () {
@@ -32,7 +32,7 @@ class CreateAction extends BaseAction {
     await UserDAO.BaseUpdate(user.id, { emailConfirmToken })
 
     try {
-      await sendEmailService({
+      await emailClient.send({
         to: user.email,
         subject: 'Welcome to supra.com!',
         text: `Welcome to supra.com! ${user.name} we just created new account for you. Your login: ${user.email}`

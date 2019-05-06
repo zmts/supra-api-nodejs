@@ -1,9 +1,9 @@
 const Joi = require('joi')
 
 const BaseAction = require('../BaseAction')
+const { emailClient } = require('../RootProvider')
 const UserDAO = require('../../dao/UserDAO')
 const authModule = require('../../services/auth')
-const sendEmailService = require('../../services/sendEmailService')
 
 /**
  * 1) get email from request
@@ -28,7 +28,7 @@ class SendResetEmailAction extends BaseAction {
     const user = await UserDAO.GetByEmail(req.body.email)
     const resetEmailToken = await authModule.makeResetEmailTokenService(user)
     await UserDAO.BaseUpdate(user.id, { resetEmailToken })
-    const response = await sendEmailService({
+    const response = await emailClient.send({
       to: user.email,
       subject: '[Supra.com] Password reset instructions',
       text: `Use this token to reset password ${resetEmailToken}`
