@@ -1,5 +1,5 @@
 class BaseRoleAccess {
-  static get usersResource () {
+  static get basePermissions () {
     return [
       'users:list',
       'users:update',
@@ -8,13 +8,8 @@ class BaseRoleAccess {
       'users:change-password',
       'users:send-email-confirm-token',
       'users:change-email',
-      'users:get-current-user'
-    ]
-  }
+      'users:get-current-user',
 
-  static get basePermissions () {
-    return [
-      ...this.usersResource,
       'posts:all',
       'auth:logout'
     ]
