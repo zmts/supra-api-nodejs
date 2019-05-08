@@ -8,11 +8,11 @@ class KnexConfig extends BaseConfig {
     super()
     this.client = 'pg'
     this.connection = {
-      host: this.set(process.env.DB_HOST || 'localhost', this.joi.string().min(4).max(100)),
-      port: this.set(process.env.DB_PORT || 5432, this.joi.number()),
-      user: this.set(process.env.DB_USER, this.joi.string().min(4).max(100)),
-      password: this.set(process.env.DB_PASSWORD || 'testtesttest', this.joi.string().min(10).max(100)),
-      database: this.set(process.env.DB_NAME, this.joi.string().min(4).max(100)),
+      host: this.set(this.getEnv('DB_HOST'), this.joi.string().min(4).max(100)),
+      port: this.set(this.getEnv('DB_PORT'), this.joi.number()),
+      user: this.set(this.getEnv('DB_USER'), this.joi.string().min(4).max(100)),
+      password: this.set(this.getEnv('DB_PASSWORD'), this.joi.string().allow([''])),
+      database: this.set(this.getEnv('DB_NAME'), this.joi.string().min(4).max(100)),
       charset: this.set(process.env.DB_CHARSET || 'utf8', this.joi.valid(['utf8']))
     }
     this.pool = {
