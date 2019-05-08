@@ -17,7 +17,7 @@ class EmailClient {
         apiKey: options.apiKey,
         domain: options.domain
       }),
-      from: options.from || '<no-reply@rawart.io>'
+      from: options.from || '<no-reply@supra.com>'
     }
 
     __logger.info(`${this.constructor.name} constructed...`)
