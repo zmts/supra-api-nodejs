@@ -5,25 +5,30 @@ class BaseConfig {
   /**
    * validate value via validate function and return it
    * @param value
-   * @param validate
+   * @param validator
    * @returns {*}
    */
-  set (value, validate) {
-    if (validate && (typeof validate === 'function' || validate.isJoi)) {
-      if (validate.isJoi) {
-        const result = joi.validate(value, validate)
-        if (!result.error) return value
-        throw new Error(`Wrong env variable ${value} is invalid. ${result.error}`)
+  set (value, validator) {
+    const isValidValueType = typeof value === 'number' || typeof value === 'string'
+    if (!isValidValueType) {
+      throw new Error(`Wrong env variable "${typeof value}" is invalid.`)
+    }
+
+    if (validator && (typeof validator === 'function' || validator.isJoi)) {
+      if (validator.isJoi) {
+        const joiResult = joi.validate(value, validator)
+        if (!joiResult.error) return value
+        throw new Error(`Wrong env variable "${value}" is invalid. ${joiResult.error}`)
       }
 
-      if (!validate(value)) {
-        throw new Error(`Wrong env variable ${value} is invalid.`)
+      if (!validator(value)) {
+        throw new Error(`Wrong env variable "${value}" is invalid.`)
       }
 
       return value
     }
 
-    throw new Error('validate should be a function or joi rule.')
+    throw new Error('validator should be a function or joi rule.')
   }
 
   /**
@@ -35,7 +40,7 @@ class BaseConfig {
    */
   getEnv (env) {
     if (!process.env.hasOwnProperty(env)) {
-      throw new Error(`Missing environment variable. ${env} must be set`)
+      throw new Error(`Missing environment variable. "${env}" must be set`)
     }
     return process.env[env]
   }
