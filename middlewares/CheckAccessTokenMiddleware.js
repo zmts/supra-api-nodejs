@@ -11,7 +11,9 @@ class CheckAccessTokenMiddleware extends BaseMiddleware {
 
   handler () {
     return (req, res, next) => {
-      const token = req.headers['token']
+      const authorization = req.headers['authorization']
+      const bearer = authorization && authorization.startsWith('Bearer ') ? authorization : null
+      const token = bearer ? bearer.split('Bearer ')[1] : null
 
       // set default meta data
       req.currentUser = Object.freeze({
