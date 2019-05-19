@@ -13,6 +13,7 @@ module.exports = {
   undefined: 'Undefined',
   null: 'Null',
   error: 'Error',
+  function: 'Function',
 
   arrayOfNumbers: '[Number]',
   arrayOfStrings: '[String]',

@@ -1,6 +1,5 @@
 const joi = require('joi')
 const JoiToJsonSchema = require('joi-to-json-schema')
-const ErrorWrapper = require('../core/ErrorWrapper')
 const { checkAccessByTagService } = require('../services/security')
 
 class BaseRouter {
@@ -16,17 +15,17 @@ class BaseRouter {
     __typecheck(action, 'Function', true)
 
     if (!action.hasOwnProperty('accessTag')) {
-      throw new ErrorWrapper({ message: `'accessTag' getter not declared in invoked '${action.name}' action`, status: 500 })
+      throw new Error(`'accessTag' getter not declared in invoked '${action.name}' action`)
     }
 
     if (!action.hasOwnProperty('run')) {
-      throw new ErrorWrapper({ message: `'run' method not declared in invoked '${action.name}' action`, status: 500 })
+      throw new Error(`'run' method not declared in invoked '${action.name}' action`)
     }
 
     return async (req, res, next) => {
-      __typecheck(req, 'Object', true)
-      __typecheck(res, 'Object', true)
-      __typecheck(next, 'Function', true)
+      __typecheck(req, __type.object, true)
+      __typecheck(res, __type.object, true)
+      __typecheck(next, __type.function, true)
 
       try {
         /**
@@ -49,7 +48,7 @@ class BaseRouter {
         }
 
         /**
-         * fire action with req, res, next props
+         * fire action with req, res, next args
          */
         await action.run(req, res, next)
       } catch (error) {
