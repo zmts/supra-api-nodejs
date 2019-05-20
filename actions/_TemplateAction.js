@@ -12,6 +12,7 @@ class TemplateAction extends BaseAction {
 
   static get validationRules () {
     return {
+      params: {},
       query: {
         ...this.baseQueryParams
       },
@@ -21,12 +22,8 @@ class TemplateAction extends BaseAction {
     }
   }
 
-  static run (req, res, next) {
-    // let currentUser = registry.get()
-
-    this.init(req, this.validationRules, this.accessTag)
-      .then(data => res.json(this.resJson({ data })))
-      .catch(error => next(error))
+  static run (req) {
+    //
   }
 }
 
