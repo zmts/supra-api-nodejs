@@ -2,7 +2,7 @@ require('dotenv').config()
 require('./globals')()
 
 const Server = require('./core/Server')
-const routers = require('./routers')
+const controllers = require('./controllers')
 const config = require('./config')
 const middlewares = require('./middlewares')
 const errorMiddleware = require('./middlewares/errorMiddleware')
@@ -10,7 +10,7 @@ const errorMiddleware = require('./middlewares/errorMiddleware')
 new Server({
   port: config.app.port,
   host: config.app.host,
-  routers,
+  controllers,
   middlewares,
   errorMiddleware,
   knexConfig: config.knex

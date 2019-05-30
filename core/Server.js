@@ -8,15 +8,15 @@ const { Model } = require('objection')
 const Knex = require('knex')
 
 class Server {
-  constructor ({ port, host, routers, middlewares, errorMiddleware, knexConfig }) {
+  constructor ({ port, host, controllers, middlewares, errorMiddleware, knexConfig }) {
     __logger.info('Server start initialization...')
-    return start({ port, host, routers, middlewares, errorMiddleware, knexConfig })
+    return start({ port, host, controllers, middlewares, errorMiddleware, knexConfig })
   }
 }
 
-function start ({ port, host, routers, middlewares, errorMiddleware, knexConfig }) {
-  if (!Array.isArray(routers)) {
-    throw new Error('\'routers\' param should be an array of express routers.')
+function start ({ port, host, controllers, middlewares, errorMiddleware, knexConfig }) {
+  if (!Array.isArray(controllers)) {
+    throw new Error('\'controllers\' param should be an array.')
   }
   if (!Array.isArray(middlewares)) {
     throw new Error('\'middlewares\' param should be an array.')
@@ -47,9 +47,9 @@ function start ({ port, host, routers, middlewares, errorMiddleware, knexConfig 
     }
 
     /**
-     * routers initialization
+     * controllers initialization
      */
-    for (const item of routers) {
+    for (const item of controllers) {
       try {
         await item.init()
         app.use(item.router)

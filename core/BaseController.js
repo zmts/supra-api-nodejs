@@ -2,7 +2,7 @@ const joi = require('joi')
 const JoiToJsonSchema = require('joi-to-json-schema')
 const { checkAccessByTagService } = require('../services/security')
 
-class BaseRouter {
+class BaseController {
   async init () {
     throw new Error(`${this.constructor.name} should implement 'init' method.`)
   }
@@ -82,4 +82,4 @@ class BaseRouter {
   }
 }
 
-module.exports = BaseRouter
+module.exports = BaseController

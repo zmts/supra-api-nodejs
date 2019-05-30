@@ -1,10 +1,10 @@
 const express = require('express')
 const router = express.Router()
 
-const BaseRouter = require('../core/BaseRouter')
+const BaseController = require('../core/BaseController')
 const RootProvider = require('../actions/RootProvider')
 
-class RootRouter extends BaseRouter {
+class RootController extends BaseController {
   get router () {
     router.get('/', (req, res) => {
       res.json({ success: true, message: '(>___<)' })
@@ -19,4 +19,4 @@ class RootRouter extends BaseRouter {
   }
 }
 
-module.exports = new RootRouter()
+module.exports = new RootController()

@@ -1,9 +1,9 @@
 const router = require('express').Router()
 
-const BaseRouter = require('../core/BaseRouter')
+const BaseController = require('../core/BaseController')
 const actions = require('../actions/auth')
 
-class AuthRouter extends BaseRouter {
+class AuthController extends BaseController {
   get router () {
     router.post('/auth/login', this.actionRunner(actions.LoginAction))
     router.post('/auth/logout', this.actionRunner(actions.LogoutAction))
@@ -17,4 +17,4 @@ class AuthRouter extends BaseRouter {
   }
 }
 
-module.exports = new AuthRouter()
+module.exports = new AuthController()

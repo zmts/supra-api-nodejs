@@ -1,11 +1,11 @@
 const router = require('express').Router()
 
 const actions = require('../actions/posts')
-const BaseRouter = require('../core/BaseRouter')
+const BaseController = require('../core/BaseController')
 const ErrorWrapper = require('../core/ErrorWrapper')
 const { errorCodes } = require('../config')
 
-class PostsRouter extends BaseRouter {
+class PostsController extends BaseController {
   get router () {
     router.param('id', validatePostId)
 
@@ -30,4 +30,4 @@ function validatePostId (req, res, next) {
   next()
 }
 
-module.exports = new PostsRouter()
+module.exports = new PostsController()
