@@ -1,5 +1,5 @@
 require('dotenv').config()
-const joi = require('joi')
+const joi = require('@hapi/joi')
 
 class BaseConfig {
   /**

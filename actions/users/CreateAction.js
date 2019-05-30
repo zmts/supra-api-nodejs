@@ -1,4 +1,4 @@
-const joi = require('joi')
+const joi = require('@hapi/joi')
 
 const BaseAction = require('../BaseAction')
 const { emailClient } = require('../RootProvider')

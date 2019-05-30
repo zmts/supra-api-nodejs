@@ -1,6 +1,10 @@
-const joi = require('joi')
+const joi = require('@hapi/joi')
 
 class BaseAction {
+  static get joi () {
+    return joi
+  }
+
   static get baseQueryParams () {
     return {
       q: joi.string().min(2).max(50),

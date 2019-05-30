@@ -1,4 +1,4 @@
-const Joi = require('joi')
+const Joi = require('@hapi/joi')
 
 const BaseAction = require('../BaseAction')
 const { jwtService, makePasswordHashService } = require('../../services/auth')

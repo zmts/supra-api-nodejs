@@ -7,7 +7,7 @@ const { errorCodes } = require('../config')
 
 class UsersController extends BaseController {
   get router () {
-    router.param('id', validateUserId)
+    router.param('id', prepareUserId)
 
     router.get('/users', this.actionRunner(actions.ListAction))
     router.get('/users/current', this.actionRunner(actions.GetCurrentUserAction))
@@ -32,10 +32,9 @@ class UsersController extends BaseController {
   }
 }
 
-function validateUserId (req, res, next) {
-  if (!Number(req.params.id)) {
-    return next(new ErrorWrapper({ ...errorCodes.VALIDATION, message: 'Invalid user id' }))
-  }
+function prepareUserId (req, res, next) {
+  const id = Number(req.params.id)
+  if (id) req.params.id = id
   next()
 }
 

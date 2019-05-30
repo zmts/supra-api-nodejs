@@ -2,12 +2,10 @@ const router = require('express').Router()
 
 const actions = require('../actions/posts')
 const BaseController = require('../core/BaseController')
-const ErrorWrapper = require('../core/ErrorWrapper')
-const { errorCodes } = require('../config')
 
 class PostsController extends BaseController {
   get router () {
-    router.param('id', validatePostId)
+    router.param('id', preparePostId)
 
     router.get('/posts', this.actionRunner(actions.ListAction))
     router.get('/posts/:id', this.actionRunner(actions.GetByIdAction))
@@ -23,10 +21,9 @@ class PostsController extends BaseController {
   }
 }
 
-function validatePostId (req, res, next) {
-  if (!Number(req.params.id)) {
-    return next(new ErrorWrapper({ ...errorCodes.VALIDATION, message: 'Invalid post id' }))
-  }
+function preparePostId (req, res, next) {
+  const id = Number(req.params.id)
+  if (id) req.params.id = id
   next()
 }
 
