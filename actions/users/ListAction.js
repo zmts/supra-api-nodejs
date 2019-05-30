@@ -1,4 +1,3 @@
-const joi = require('@hapi/joi')
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
 
@@ -12,10 +11,10 @@ class ListAction extends BaseAction {
 
   static get validationRules () {
     return {
-      query: joi.object().keys({
+      query: this.joi.object().keys({
         ...this.baseQueryParams,
-        filter: joi.object().keys({
-          username: joi.string().min(3)
+        filter: this.joi.object().keys({
+          username: this.joi.string().min(3)
         })
       })
     }

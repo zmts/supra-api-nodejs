@@ -1,5 +1,3 @@
-const Joi = require('@hapi/joi')
-
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
 const {
@@ -18,8 +16,8 @@ class RefreshTokensAction extends BaseAction {
 
   static get validationRules () {
     return {
-      body: Joi.object().keys({
-        refreshToken: Joi.string().required()
+      body: this.joi.object().keys({
+        refreshToken: this.joi.string().required()
       })
     }
   }

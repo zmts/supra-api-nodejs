@@ -9,8 +9,16 @@ class GetByIdAction extends BaseAction {
     return 'users:get-by-id'
   }
 
+  static get validationRules () {
+    return {
+      params: this.joi.object().keys({
+        id: this.joi.number().integer().positive().required()
+      })
+    }
+  }
+
   static async run (req) {
-    const model = await UserDAO.BaseGetById(+req.params.id)
+    const model = await UserDAO.BaseGetById(req.params.id)
 
     return this.result({ data: model })
   }

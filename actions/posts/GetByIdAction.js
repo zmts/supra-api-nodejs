@@ -7,6 +7,14 @@ class GetByIdAction extends BaseAction {
     return 'posts:get-by-id'
   }
 
+  static get validationRules () {
+    return {
+      params: this.joi.object().keys({
+        id: this.joi.number().integer().positive().required()
+      })
+    }
+  }
+
   static async run (req) {
     const { currentUser } = req
 

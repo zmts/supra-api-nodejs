@@ -1,5 +1,3 @@
-const joi = require('@hapi/joi')
-
 const BaseAction = require('../BaseAction')
 const PostDAO = require('../../dao/PostDAO')
 const { checkAccessByOwnerIdService } = require('../../services/security')
@@ -11,9 +9,12 @@ class UpdateAction extends BaseAction {
 
   static get validationRules () {
     return {
-      body: joi.object().keys({
-        title: joi.string().min(3).max(20),
-        content: joi.string().min(3).max(5000)
+      params: this.joi.object().keys({
+        id: this.joi.number().integer().positive().required()
+      }),
+      body: this.joi.object().keys({
+        title: this.joi.string().min(3).max(20),
+        content: this.joi.string().min(3).max(5000)
       })
     }
   }

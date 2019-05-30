@@ -1,5 +1,3 @@
-const Joi = require('@hapi/joi')
-
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
 const { jwtService } = require('../../services/auth')
@@ -14,8 +12,8 @@ class ConfirmEmailAction extends BaseAction {
 
   static get validationRules () {
     return {
-      body: Joi.object().keys({
-        emailConfirmToken: Joi.string().required()
+      body: this.joi.object().keys({
+        emailConfirmToken: this.joi.string().required()
       })
     }
   }

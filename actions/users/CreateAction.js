@@ -1,5 +1,3 @@
-const joi = require('@hapi/joi')
-
 const BaseAction = require('../BaseAction')
 const { emailClient } = require('../RootProvider')
 const UserDAO = require('../../dao/UserDAO')
@@ -12,11 +10,11 @@ class CreateAction extends BaseAction {
 
   static get validationRules () {
     return {
-      body: joi.object().keys({
-        name: joi.string().min(3).max(50).required(),
-        username: joi.string().min(3).max(25).required(),
-        email: joi.string().email().min(6).max(30).required(),
-        password: joi.string().required()
+      body: this.joi.object().keys({
+        name: this.joi.string().min(3).max(50).required(),
+        username: this.joi.string().min(3).max(25).required(),
+        email: this.joi.string().email().min(6).max(30).required(),
+        password: this.joi.string().required()
       })
     }
   }

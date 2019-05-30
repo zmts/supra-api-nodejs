@@ -1,5 +1,3 @@
-const Joi = require('@hapi/joi')
-
 const BaseAction = require('../BaseAction')
 const { jwtService, makePasswordHashService } = require('../../services/auth')
 const config = require('../../config')
@@ -20,9 +18,9 @@ class ResetPasswordAction extends BaseAction {
 
   static get validationRules () {
     return {
-      body: Joi.object().keys({
-        resetPasswordToken: Joi.string().required(),
-        password: Joi.string().required()
+      body: this.joi.object().keys({
+        resetPasswordToken: this.joi.string().required(),
+        password: this.joi.string().required()
       })
     }
   }

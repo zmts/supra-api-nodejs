@@ -1,5 +1,3 @@
-const Joi = require('@hapi/joi')
-
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
 const ErrorWrapper = require('../../core/ErrorWrapper')
@@ -12,8 +10,8 @@ class ChangeEmailAction extends BaseAction {
 
   static get validationRules () {
     return {
-      body: Joi.object().keys({
-        email: Joi.string().email().min(6).max(30).required()
+      body: this.joi.object().keys({
+        email: this.joi.string().email().min(6).max(30).required()
       })
     }
   }

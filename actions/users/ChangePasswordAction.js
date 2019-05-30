@@ -1,5 +1,3 @@
-const Joi = require('@hapi/joi')
-
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
 const authModule = require('../../services/auth')
@@ -11,9 +9,9 @@ class ChangePasswordAction extends BaseAction {
 
   static get validationRules () {
     return {
-      body: Joi.object().keys({
-        oldPassword: Joi.string().required(),
-        newPassword: Joi.string().required()
+      body: this.joi.object().keys({
+        oldPassword: this.joi.string().required(),
+        newPassword: this.joi.string().required()
       })
     }
   }

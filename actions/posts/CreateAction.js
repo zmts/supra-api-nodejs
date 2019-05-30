@@ -1,5 +1,3 @@
-const joi = require('@hapi/joi')
-
 const BaseAction = require('../BaseAction')
 const PostDAO = require('../../dao/PostDAO')
 
@@ -10,9 +8,9 @@ class CreateAction extends BaseAction {
 
   static get validationRules () {
     return {
-      body: joi.object().keys({
-        title: joi.string().min(3).max(20).required(),
-        content: joi.string().min(3).max(5000)
+      body: this.joi.object().keys({
+        title: this.joi.string().min(3).max(20).required(),
+        content: this.joi.string().min(3).max(5000)
       })
     }
   }

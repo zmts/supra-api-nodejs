@@ -1,5 +1,3 @@
-const Joi = require('@hapi/joi')
-
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
 const { checkPasswordService, makeAccessTokenService, makeRefreshTokenService } = require('../../services/auth')
@@ -11,9 +9,9 @@ class LoginAction extends BaseAction {
 
   static get validationRules () {
     return {
-      body: Joi.object().keys({
-        password: Joi.string().required(),
-        email: Joi.string().email().min(6).max(30).required()
+      body: this.joi.object().keys({
+        password: this.joi.string().required(),
+        email: this.joi.string().email().min(6).max(30).required()
       })
     }
   }
