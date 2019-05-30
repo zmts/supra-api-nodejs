@@ -44,7 +44,7 @@ class BaseController {
 
       try {
         /**
-         * returns request schema
+         * it will return request schema
          */
         if (action.validationRules && ctx.query.schema && ['POST', 'PATCH', 'GET'].includes(ctx.method)) {
           return res.json(JoiToJsonSchema(joi.object().keys(action.validationRules)))
@@ -65,10 +65,16 @@ class BaseController {
         /**
          * fire action
          */
-
         const response = await action.run(ctx)
+
+        /**
+         * set headers
+         */
         if (response.headers) res.set(response.headers)
 
+        /**
+         * set status and return result to client
+         */
         return res.status(response.status).json({
           success: response.success,
           message: response.message,
