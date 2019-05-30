@@ -2,8 +2,6 @@ const router = require('express').Router()
 
 const actions = require('../actions/users')
 const BaseController = require('../core/BaseController')
-const ErrorWrapper = require('../core/ErrorWrapper')
-const { errorCodes } = require('../config')
 
 class UsersController extends BaseController {
   get router () {
