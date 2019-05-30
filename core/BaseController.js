@@ -12,7 +12,7 @@ class BaseController {
   }
 
   actionRunner (action) {
-    __typecheck(action, 'Function', true)
+    __typecheck(action, __type.function, true)
 
     if (!action.hasOwnProperty('accessTag')) {
       throw new Error(`'accessTag' getter not declared in invoked '${action.name}' action`)
