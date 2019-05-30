@@ -8,7 +8,7 @@ class SendEmailConfirmTokenAction extends BaseAction {
     return 'users:send-email-confirm-token'
   }
 
-  static async run (req, res) {
+  static async run (req) {
     const { currentUser } = req
 
     const emailConfirmToken = await makeEmailConfirmTokenService(currentUser)
@@ -19,7 +19,7 @@ class SendEmailConfirmTokenAction extends BaseAction {
       text: `To confirm email: ${currentUser.email} please follow this link >> ${emailConfirmToken}`
     })
 
-    res.json(this.resJson({ message: 'Email confirmation token was send!' }))
+    return this.result({ message: 'Email confirmation token was send!' })
   }
 }
 

@@ -9,9 +9,10 @@ class GetByIdAction extends BaseAction {
     return 'users:get-by-id'
   }
 
-  static async run (req, res) {
+  static async run (req) {
     const model = await UserDAO.BaseGetById(+req.params.id)
-    res.json(this.resJson({ data: model }))
+
+    return this.result({ data: model })
   }
 }
 

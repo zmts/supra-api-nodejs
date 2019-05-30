@@ -9,6 +9,7 @@ const {
   findAndVerifyRefreshToken
 } = require('../../services/auth')
 const { errorCodes } = require('../../config')
+const ErrorWrapper = require('../../core/ErrorWrapper')
 
 class RefreshTokensAction extends BaseAction {
   static get accessTag () {
@@ -23,8 +24,13 @@ class RefreshTokensAction extends BaseAction {
     }
   }
 
-  static async run (req, res, next) {
+  static async run (req) {
     const reqRefreshToken = req.body['refreshToken']
+
+    if (!reqRefreshToken.includes('::')) {
+      throw new ErrorWrapper({ ...errorCodes.BAD_REQUEST, message: 'Refresh token. Wrong format' })
+    }
+
     const refreshTokenTimestamp = reqRefreshToken.split('::')[0]
     const refreshToken = reqRefreshToken.split('::')[1]
     const responseData = { accessToken: '', refreshToken: '' }
@@ -40,12 +46,13 @@ class RefreshTokensAction extends BaseAction {
       const newRefreshTokenTimestamp = newRefreshToken.split('::')[0]
       await UserDAO.AddRefreshTokenProcess(userEntity, { timestamp: newRefreshTokenTimestamp, refreshToken: newRefreshToken }) // store new refresh token to DB
       responseData.accessToken = await makeAccessTokenService(userEntity)
-      res.json(this.resJson({ data: responseData }))
+
+      return this.result({ data: responseData })
     } catch (error) {
-      next(error)
       if (error.code === errorCodes.TOKEN_EXPIRED.code) {
-        return UserDAO.RemoveRefreshToken(+userEntity.id, refreshTokenTimestamp) // remove refresh token in not valid
+        await UserDAO.RemoveRefreshToken(+userEntity.id, refreshTokenTimestamp) // remove refresh token in not valid
       }
+      throw error
     }
   }
 }

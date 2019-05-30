@@ -5,7 +5,7 @@ class BaseAction {
     return {
       q: joi.string().min(2).max(50),
       page: joi.number().integer().min(0),
-      limit: joi.number().integer().valid([10, 20, 30, 40, 50, 60, 70, 80, 90, 100]),
+      limit: joi.number().integer().valid([4, 6, 8, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]),
       orderBy: {
         field: joi.string(),
         direction: joi.string().valid(['asc', 'desc'])
@@ -15,20 +15,25 @@ class BaseAction {
     }
   }
 
-  static resJson (options) {
-    __typecheck(options, __type.object, true)
-    __typecheck(options.message, __type.string)
+  static result (result) {
+    __typecheck(result, __type.object, true)
+    __typecheck(result.success, __type.boolean)
+    __typecheck(result.status, __type.number)
+    __typecheck(result.headers, __type.object)
+    __typecheck(result.message, __type.string)
+    __typecheck(result.data, __type.any)
 
     return {
-      success: options.success || true,
-      data: options.data || undefined,
-      message: options.message || undefined
+      success: result.success || true,
+      status: result.status || 200,
+      ...(result.headers && { headers: result.headers }),
+      ...(result.message && { message: result.message }),
+      ...(result.data && { data: result.data })
     }
   }
 
   /**
    * @description validate request
-   * uses by default in init method
    */
   static validate (req, rules) {
     __typecheck(req, __type.object, true)

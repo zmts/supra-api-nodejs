@@ -18,13 +18,14 @@ class ChangeEmailAction extends BaseAction {
     }
   }
 
-  static async run (req, res) {
+  static async run (req) {
     const { currentUser } = req
 
     const isExist = await UserDAO.IsEmailExist(req.body.email)
     if (isExist) throw new ErrorWrapper({ ...errorCodes.EMAIL_ALREADY_TAKEN })
     await UserDAO.BaseUpdate(currentUser.id, { email: req.body.email, isEmailConfirmed: false })
-    res.json(this.resJson({ message: `Email was changed to ${req.body.email}!` }))
+
+    return this.result({ message: `Email was changed to ${req.body.email}!` })
   }
 }
 

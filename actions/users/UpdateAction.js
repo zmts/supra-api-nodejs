@@ -16,10 +16,11 @@ class UpdateAction extends BaseAction {
     }
   }
 
-  static async run (req, res) {
+  static async run (req) {
     const { currentUser } = req
     const data = await UserDAO.BaseUpdate(currentUser.id, req.body) // user can update only itself
-    res.json(this.resJson({ data }))
+
+    return this.result({ data })
   }
 }
 

@@ -24,7 +24,7 @@ class SendResetEmailAction extends BaseAction {
     }
   }
 
-  static async run (req, res) {
+  static async run (req) {
     const user = await UserDAO.GetByEmail(req.body.email)
     const resetEmailToken = await authModule.makeResetEmailTokenService(user)
     await UserDAO.BaseUpdate(user.id, { resetEmailToken })
@@ -34,7 +34,7 @@ class SendResetEmailAction extends BaseAction {
       text: `Use this token to reset password ${resetEmailToken}`
     })
 
-    res.json(this.resJson({ data: response }))
+    return this.result({ data: response })
   }
 }
 

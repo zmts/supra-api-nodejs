@@ -18,7 +18,7 @@ class ChangePasswordAction extends BaseAction {
     }
   }
 
-  static async run (req, res) {
+  static async run (req) {
     const { currentUser } = req
 
     const userModel = await UserDAO.BaseGetById(currentUser.id)
@@ -26,7 +26,7 @@ class ChangePasswordAction extends BaseAction {
     const newHash = await authModule.makePasswordHashService(req.body.newPassword)
     const data = await UserDAO.BaseUpdate(currentUser.id, { passwordHash: newHash })
 
-    res.json(this.resJson({ data }))
+    return this.result({ data })
   }
 }
 

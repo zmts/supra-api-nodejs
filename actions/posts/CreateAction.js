@@ -10,17 +10,18 @@ class CreateAction extends BaseAction {
 
   static get validationRules () {
     return {
-      body: joi.object().keys({ // TODO replace joi.object with plain object
+      body: joi.object().keys({
         title: joi.string().min(3).max(20).required(),
         content: joi.string().min(3).max(5000)
       })
     }
   }
 
-  static async run (req, res) {
+  static async run (req) {
     const { currentUser } = req
     const data = await PostDAO.BaseCreate({ ...req.body, userId: currentUser.id })
-    res.json(this.resJson({ data }))
+
+    return this.result({ data })
   }
 }
 

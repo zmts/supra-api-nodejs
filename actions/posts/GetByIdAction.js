@@ -7,13 +7,13 @@ class GetByIdAction extends BaseAction {
     return 'posts:get-by-id'
   }
 
-  static async run (req, res) {
+  static async run (req) {
     const { currentUser } = req
 
     const model = await PostDAO.BaseGetById(+req.params.id)
     await checkAccessToPrivateItemService(model, currentUser)
 
-    res.json(this.resJson({ data: model }))
+    return this.result({ data: model })
   }
 }
 

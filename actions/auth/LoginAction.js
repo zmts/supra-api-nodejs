@@ -18,7 +18,7 @@ class LoginAction extends BaseAction {
     }
   }
 
-  static async run (req, res, next) {
+  static async run (req) {
     let data = { accessToken: '', refreshToken: '' }
 
     const user = await UserDAO.GetByEmail(req.body.email)
@@ -30,7 +30,8 @@ class LoginAction extends BaseAction {
       timestamp: refreshTokenTimestamp,
       refreshToken: data.refreshToken
     })
-    res.json(this.resJson({ data }))
+
+    return this.result({ data })
   }
 }
 

@@ -27,41 +27,55 @@ class BaseRouter {
       __typecheck(res, __type.object, true)
       __typecheck(next, __type.function, true)
 
+      const ctx = {
+        currentUser: req.currentUser,
+        body: req.body,
+        query: req.query,
+        params: req.params,
+        ip: req.ip,
+        method: req.method,
+        url: req.url,
+        headers: {
+          'Content-Type': req.get('Content-Type'),
+          Referer: req.get('referer'),
+          'User-Agent': req.get('User-Agent')
+        }
+      }
+
       try {
         /**
          * returns request schema
          */
-        if (action.validationRules && req.query.schema && ['POST', 'PATCH', 'GET'].includes(req.method)) {
+        if (action.validationRules && ctx.query.schema && ['POST', 'PATCH', 'GET'].includes(ctx.method)) {
           return res.json(JoiToJsonSchema(joi.object().keys(action.validationRules)))
         }
 
         /**
          * check access to action by access tag
          */
-        await checkAccessByTagService(action.accessTag, req.currentUser)
+        await checkAccessByTagService(action.accessTag, ctx.currentUser)
 
         /**
          * validate action custom rules
          */
         if (action.validationRules) {
-          await action.validate(req, action.validationRules)
+          await action.validate(ctx, action.validationRules)
         }
 
         /**
-         * fire action with req, res, next args
+         * fire action
          */
-        await action.run(req, res, next)
+
+        const response = await action.run(ctx)
+        if (response.headers) res.set(response.headers)
+
+        return res.status(response.status).json({
+          success: response.success,
+          message: response.message,
+          data: response.data
+        })
       } catch (error) {
-        error.req = {
-          user: req.currentUser,
-          ip: req.ip,
-          headers: req.headers,
-          body: req.body,
-          params: req.params,
-          query: req.query,
-          url: req.url,
-          method: req.method
-        }
+        error.req = ctx
         next(error)
       }
     }
