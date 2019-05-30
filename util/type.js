@@ -17,5 +17,6 @@ module.exports = {
 
   arrayOfNumbers: '[Number]',
   arrayOfStrings: '[String]',
+  arrayOfObjects: '[Object]',
   arrayOfNumbersStrings: '[Number, String]'
 }
