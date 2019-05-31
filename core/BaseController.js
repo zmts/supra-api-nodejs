@@ -56,7 +56,7 @@ class BaseController {
         await checkAccessByTagService(action.accessTag, ctx.currentUser)
 
         /**
-         * validate action custom rules
+         * validate action input data
          */
         if (action.validationRules) {
           await action.validate(ctx, action.validationRules)
