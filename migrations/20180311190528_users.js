@@ -2,6 +2,7 @@ const roles = require('../config').roles
 
 exports.up = (knex, Promise) => {
   return knex.schema
+    .raw('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"')
     .createTable('users', table => {
       table.increments()
       table.string('username', 25).unique().notNull()
@@ -18,19 +19,8 @@ exports.up = (knex, Promise) => {
       table.timestamp('createdAt').defaultTo(knex.fn.now()).notNull()
       table.timestamp('updatedAt').defaultTo(knex.fn.now()).notNull()
     })
-    .createTable('posts', table => {
-      table.increments()
-      table.integer('userId').references('id').inTable('users').onDelete('CASCADE')
-      table.string('title', 20).notNull()
-      table.string('content', 5000)
-
-      table.timestamp('createdAt').defaultTo(knex.fn.now()).notNull()
-      table.timestamp('updatedAt').defaultTo(knex.fn.now()).notNull()
-    })
 }
 
 exports.down = (knex, Promise) => {
-  return knex.schema
-    .dropTable('posts')
-    .dropTable('users')
+  return knex.schema.dropTable('users').then(() => knex.raw('drop extension if exists "uuid-ossp"'))
 }
