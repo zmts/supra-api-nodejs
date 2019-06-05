@@ -12,7 +12,7 @@ class SendEmailConfirmTokenAction extends BaseAction {
     const { currentUser } = req
 
     const emailConfirmToken = await makeEmailConfirmTokenService(currentUser)
-    await UserDAO.BaseUpdate(currentUser.id, { emailConfirmToken })
+    await UserDAO.baseUpdate(currentUser.id, { emailConfirmToken })
     await emailClient.send({
       to: currentUser.email,
       subject: 'Confirm email | supra.com!',

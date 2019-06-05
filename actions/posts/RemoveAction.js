@@ -18,9 +18,9 @@ class RemoveAction extends BaseAction {
   static async run (req) {
     const { currentUser } = req
 
-    const model = await PostDAO.BaseGetById(+req.params.id)
+    const model = await PostDAO.baseGetById(+req.params.id)
     await checkAccessByOwnerIdService(model, currentUser)
-    await PostDAO.BaseRemove(+req.params.id)
+    await PostDAO.baseRemove(+req.params.id)
 
     return this.result({ message: `${req.params.id} was removed` })
   }

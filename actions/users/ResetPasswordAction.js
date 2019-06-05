@@ -28,10 +28,10 @@ class ResetPasswordAction extends BaseAction {
   static async run (req) {
     const tokenData = await jwtService.verify(req.body.resetPasswordToken, config.token.resetEmail)
     const tokenUserId = +tokenData.sub
-    const user = await UserDAO.BaseGetById(tokenUserId)
+    const user = await UserDAO.baseGetById(tokenUserId)
     if (user.resetEmailToken !== req.body.resetPasswordToken) throw new ErrorWrapper({ ...errorCodes.WRONG_RESET_PASSWORD_TOKEN })
     const passwordHash = await makePasswordHashService(req.body.password)
-    await UserDAO.BaseUpdate(tokenUserId, { passwordHash, resetEmailToken: '', refreshTokensMap: {} })
+    await UserDAO.baseUpdate(tokenUserId, { passwordHash, resetEmailToken: '', refreshTokensMap: {} })
 
     return this.result({ message: 'Reset password process was successfully applied' })
   }

@@ -27,7 +27,7 @@ class CreateAction extends BaseAction {
       passwordHash: hash
     })
     const emailConfirmToken = await makeEmailConfirmTokenService(user)
-    await UserDAO.BaseUpdate(user.id, { emailConfirmToken })
+    await UserDAO.baseUpdate(user.id, { emailConfirmToken })
 
     try {
       await emailClient.send({

@@ -22,9 +22,9 @@ class UpdateAction extends BaseAction {
   static async run (req) {
     const { currentUser } = req
 
-    const model = await PostDAO.BaseGetById(+req.params.id)
+    const model = await PostDAO.baseGetById(+req.params.id)
     await checkAccessByOwnerIdService(model, currentUser)
-    const data = await PostDAO.BaseUpdate(+req.params.id, req.body)
+    const data = await PostDAO.baseUpdate(+req.params.id, req.body)
 
     return this.result({ data })
   }

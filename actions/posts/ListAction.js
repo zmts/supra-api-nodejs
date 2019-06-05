@@ -19,7 +19,7 @@ class ListAction extends BaseAction {
 
   static async run (req) {
     const { query } = req
-    const data = await PostDAO.BaseGetList({ ...query })
+    const data = await PostDAO.baseGetList({ ...query })
 
     return this.result({
       data: data.results,

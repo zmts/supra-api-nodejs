@@ -36,7 +36,7 @@ class RefreshTokensAction extends BaseAction {
 
     try {
       const refreshTokenData = await parseTokenService(refreshToken) // parse refresh token data (taken from request)
-      userEntity = await UserDAO.BaseGetById(+refreshTokenData.sub) // get user entity from DB
+      userEntity = await UserDAO.baseGetById(+refreshTokenData.sub) // get user entity from DB
       await findAndVerifyRefreshToken(userEntity, reqRefreshToken)
       await UserDAO.RemoveRefreshToken(+userEntity.id, refreshTokenTimestamp) // remove old refresh token
       const newRefreshToken = await makeRefreshTokenService(userEntity) // make new refresh token

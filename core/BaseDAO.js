@@ -66,7 +66,7 @@ class BaseDAO extends Model {
    * ------------------------------
    */
 
-  static BaseCreate (data) {
+  static baseCreate (data) {
     __typecheck(data, __type.object, true)
 
     /**
@@ -84,7 +84,7 @@ class BaseDAO extends Model {
     return this.query().insert(data)
   };
 
-  static BaseGetList ({ page, limit, filter }) {
+  static baseGetList ({ page, limit, filter }) {
     __typecheck(page, __type.number, true)
     __typecheck(limit, __type.number, true)
     __typecheck(filter, __type.object, true)
@@ -100,7 +100,7 @@ class BaseDAO extends Model {
       }).catch(error => { throw error })
   }
 
-  static BaseGetById (id) {
+  static baseGetById (id) {
     __typecheck(id, 'Number', true)
 
     return this.query().findById(id)
@@ -110,19 +110,18 @@ class BaseDAO extends Model {
       }).catch(error => { throw error })
   }
 
-  static BaseUpdate (id, data) {
+  static baseUpdate (id, data) {
     __typecheck(id, 'Number', true)
     __typecheck(data, 'Object', true)
 
     return this.query().patchAndFetchById(id, data)
   }
 
-  static BaseRemove (id) {
+  static baseRemove (id) {
     __typecheck(id, 'Number', true)
 
     return this.query().deleteById(id)
   }
-
 }
 
 module.exports = BaseDAO

@@ -18,7 +18,7 @@ class GetByIdAction extends BaseAction {
   }
 
   static async run (req) {
-    const model = await UserDAO.BaseGetById(req.params.id)
+    const model = await UserDAO.baseGetById(req.params.id)
 
     return this.result({ data: model })
   }

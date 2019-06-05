@@ -19,9 +19,9 @@ class RemoveAction extends BaseAction {
     const { currentUser } = req
     const id = req.params.id
 
-    const model = await UserDAO.BaseGetById(id)
+    const model = await UserDAO.baseGetById(id)
     await checkAccessUpdateUserService(model, currentUser)
-    await UserDAO.BaseRemove(id)
+    await UserDAO.baseRemove(id)
 
     return this.result({ message: `${id} was removed` })
   }

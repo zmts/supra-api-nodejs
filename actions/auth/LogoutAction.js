@@ -8,7 +8,7 @@ class LogoutAction extends BaseAction {
 
   static async run (req) {
     const { currentUser } = req
-    await UserDAO.BaseUpdate(currentUser.id, { refreshTokensMap: {} })
+    await UserDAO.baseUpdate(currentUser.id, { refreshTokensMap: {} })
 
     return this.result({ message: 'User is logged out' })
   }

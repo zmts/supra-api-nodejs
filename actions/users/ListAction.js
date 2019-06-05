@@ -22,7 +22,7 @@ class ListAction extends BaseAction {
 
   static async run (req) {
     const { query } = req
-    const data = await UserDAO.BaseGetList({ ...query })
+    const data = await UserDAO.baseGetList({ ...query })
 
     return this.result({
       data: data.results,
