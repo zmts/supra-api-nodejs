@@ -66,14 +66,14 @@ class BaseDAO extends Model {
    * ------------------------------
    */
 
-  static baseCreate (data) {
-    __typecheck(data, __type.object, true)
+  static baseCreate (entity) {
+    __typecheck(entity, __type.object, true)
 
     /**
      * each entity that creates must to have creator id (userId)
      * except user entity
      */
-    if (!data.email && !data.userId) {
+    if (!entity.email && !entity.userId) {
       throw new ErrorWrapper({
         ...errorCodes.UNPROCESSABLE_ENTITY,
         message: 'Please provide in action class \'userId\' field',
@@ -81,44 +81,40 @@ class BaseDAO extends Model {
       })
     }
 
-    return this.query().insert(data)
+    return this.query().insert(entity)
   };
 
-  static baseGetList ({ page, limit, filter }) {
+  static async baseGetList ({ page, limit, filter }) {
     __typecheck(page, __type.number, true)
     __typecheck(limit, __type.number, true)
     __typecheck(filter, __type.object, true)
     __typecheck(filter.userId, __type.number)
 
-    return this.query()
+    const data = await this.query()
       .where({ ...filter })
       .orderBy('id', 'desc')
       .page(page, limit)
-      .then(data => {
-        if (!data.results.length) throw this.errorEmptyResponse()
-        return data
-      }).catch(error => { throw error })
+    if (!data.results.length) throw this.errorEmptyResponse()
+    return data
   }
 
-  static baseGetById (id) {
-    __typecheck(id, 'Number', true)
+  static async baseGetById (id) {
+    __typecheck(id, __type.number, true)
 
-    return this.query().findById(id)
-      .then(data => {
-        if (!data) throw this.errorEmptyResponse()
-        return data
-      }).catch(error => { throw error })
+    const data = await this.query().findById(id)
+    if (!data) throw this.errorEmptyResponse()
+    return data
   }
 
-  static baseUpdate (id, data) {
-    __typecheck(id, 'Number', true)
-    __typecheck(data, 'Object', true)
+  static baseUpdate (id, entity) {
+    __typecheck(id, __type.number, true)
+    __typecheck(entity, __type.object, true)
 
-    return this.query().patchAndFetchById(id, data)
+    return this.query().patchAndFetchById(id, entity)
   }
 
   static baseRemove (id) {
-    __typecheck(id, 'Number', true)
+    __typecheck(id, __type.number, true)
 
     return this.query().deleteById(id)
   }
