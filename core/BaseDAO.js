@@ -94,8 +94,19 @@ class BaseDAO extends Model {
       .where({ ...filter })
       .orderBy('id', 'desc')
       .page(page, limit)
-    if (!data.results.length) throw this.errorEmptyResponse()
+    if (!data.results.length) throw this.emptyListResponse()
     return data
+  }
+
+  static async baseGetCount ({ filter }) {
+    __typecheck(filter, __type.object, true)
+
+    const result = await this.query()
+      .where({ ...filter })
+      .count('*')
+      .first()
+    if (!result.count) return 0
+    return Number(result.count)
   }
 
   static async baseGetById (id) {
@@ -117,6 +128,12 @@ class BaseDAO extends Model {
     __typecheck(id, __type.number, true)
 
     return this.query().deleteById(id)
+  }
+
+  static baseRemoveWhere (where = {}) {
+    __typecheck(where, __type.object, true)
+
+    return this.query().delete().where({ ...where })
   }
 }
 
