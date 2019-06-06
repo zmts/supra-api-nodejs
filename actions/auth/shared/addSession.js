@@ -2,16 +2,15 @@ const SessionDAO = require('../../../dao/SessionDAO')
 const SessionEntity = require('../../../entities/SessionEntity')
 const VALID_SESSIONS_COUNT = 5
 
-module.exports = async ({ session, user }) => {
-  __typecheck(user, __type.object, true)
+module.exports = async session => {
   if (!(session instanceof SessionEntity)) {
     throw new Error('Wrong SessionEntity')
   }
 
-  if (await _isValidSessionsCount(user.id)) {
+  if (await _isValidSessionsCount(session.userId)) {
     await _addSession(session)
   } else {
-    await _wipeAllUserSessions(user.id)
+    await _wipeAllUserSessions(session.userId)
     await _addSession(session)
   }
 }

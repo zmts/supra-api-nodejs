@@ -30,7 +30,7 @@ class LoginAction extends BaseAction {
       fingerprint: ctx.body.fingerprint
     })
 
-    await addSession({ session: newSession, user })
+    await addSession(newSession)
 
     return this.result({
       data: {
