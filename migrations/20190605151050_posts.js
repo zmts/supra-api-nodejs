@@ -11,6 +11,4 @@ exports.up = (knex, Promise) => {
     })
 }
 
-exports.down = (knex, Promise) => {
-  return knex.schema.dropTable('posts')
-}
+exports.down = (knex, Promise) => knex.schema.dropTable('posts')
