@@ -4,9 +4,6 @@ const VALID_SESSIONS_COUNT = 5
 
 module.exports = async ({ session, user }) => {
   __typecheck(user, __type.object, true)
-  if (session.userId !== user.id) {
-    throw new Error('User id mismatch')
-  }
   if (!(session instanceof SessionEntity)) {
     throw new Error('Wrong SessionEntity')
   }
@@ -14,7 +11,7 @@ module.exports = async ({ session, user }) => {
   if (await _isValidSessionsCount(user.id)) {
     await _addSession(session)
   } else {
-    await _wipeAllUserSessions(session.userId)
+    await _wipeAllUserSessions(user.id)
     await _addSession(session)
   }
 }
