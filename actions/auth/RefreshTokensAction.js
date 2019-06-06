@@ -1,13 +1,9 @@
+const addSession = require('./shared/addSession')
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
-const {
-  parseTokenService,
-  makeAccessTokenService,
-  makeRefreshTokenService,
-  findAndVerifyRefreshToken
-} = require('../../services/auth')
-const { errorCodes } = require('../../config')
-const ErrorWrapper = require('../../core/ErrorWrapper')
+const SessionDAO = require('../../dao/SessionDAO')
+const SessionEntity = require('../../entities/SessionEntity')
+const { makeAccessTokenService, verifySession } = require('../../services/auth')
 
 class RefreshTokensAction extends BaseAction {
   static get accessTag () {
@@ -17,41 +13,36 @@ class RefreshTokensAction extends BaseAction {
   static get validationRules () {
     return {
       body: this.joi.object().keys({
-        refreshToken: this.joi.string().required()
+        refreshToken: this.joi.string().required(),
+        fingerprint: this.joi.string().max(200).required() // https://github.com/Valve/fingerprintjs2
       })
     }
   }
 
-  static async run (req) {
-    const reqRefreshToken = req.body['refreshToken']
+  static async run (ctx) {
+    const reqRefreshToken = ctx.body.refreshToken
+    const reqFingerprint = ctx.body.fingerprint
 
-    if (!reqRefreshToken.includes('::')) {
-      throw new ErrorWrapper({ ...errorCodes.BAD_REQUEST, message: 'Refresh token. Wrong format' })
-    }
+    const oldSession = await SessionDAO.getByRefreshToken(reqRefreshToken)
+    await SessionDAO.baseRemoveWhere({ refreshToken: reqRefreshToken })
+    await verifySession(oldSession, reqFingerprint)
+    const user = await UserDAO.baseGetById(oldSession.userId)
 
-    const refreshTokenTimestamp = reqRefreshToken.split('::')[0]
-    const refreshToken = reqRefreshToken.split('::')[1]
-    const responseData = { accessToken: '', refreshToken: '' }
-    let userEntity = {}
+    const newSession = new SessionEntity({
+      userId: user.id,
+      ip: ctx.ip,
+      ua: ctx.headers['User-Agent'],
+      fingerprint: ctx.body.fingerprint
+    })
 
-    try {
-      const refreshTokenData = await parseTokenService(refreshToken) // parse refresh token data (taken from request)
-      userEntity = await UserDAO.baseGetById(+refreshTokenData.sub) // get user entity from DB
-      await findAndVerifyRefreshToken(userEntity, reqRefreshToken)
-      await UserDAO.RemoveRefreshToken(+userEntity.id, refreshTokenTimestamp) // remove old refresh token
-      const newRefreshToken = await makeRefreshTokenService(userEntity) // make new refresh token
-      responseData.refreshToken = newRefreshToken
-      const newRefreshTokenTimestamp = newRefreshToken.split('::')[0]
-      await UserDAO.AddRefreshTokenProcess(userEntity, { timestamp: newRefreshTokenTimestamp, refreshToken: newRefreshToken }) // store new refresh token to DB
-      responseData.accessToken = await makeAccessTokenService(userEntity)
+    await addSession({ session: newSession, user })
 
-      return this.result({ data: responseData })
-    } catch (error) {
-      if (error.code === errorCodes.TOKEN_EXPIRED.code) {
-        await UserDAO.RemoveRefreshToken(+userEntity.id, refreshTokenTimestamp) // remove refresh token in not valid
+    return this.result({
+      data: {
+        accessToken: await makeAccessTokenService(user),
+        refreshToken: newSession.refreshToken
       }
-      throw error
-    }
+    })
   }
 }
 

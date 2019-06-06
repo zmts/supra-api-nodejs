@@ -98,7 +98,7 @@ class BaseDAO extends Model {
     return data
   }
 
-  static async baseGetCount ({ filter }) {
+  static async baseGetCount (filter = {}) {
     __typecheck(filter, __type.object, true)
 
     const result = await this.query()

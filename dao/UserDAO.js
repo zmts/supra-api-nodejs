@@ -1,7 +1,6 @@
 const { raw } = require('objection')
 
 const BaseDAO = require('../core/BaseDAO')
-const PostDAO = require('./PostDAO')
 // const errorCodes = require('../config/errorCodes')
 
 class UserDAO extends BaseDAO {
@@ -17,7 +16,7 @@ class UserDAO extends BaseDAO {
     return {
       posts: {
         relation: BaseDAO.HasManyRelation,
-        modelClass: PostDAO,
+        modelClass: `${__dirname}/PostDAO`,
         join: {
           from: 'users.id',
           to: 'posts.userId'
@@ -55,7 +54,7 @@ class UserDAO extends BaseDAO {
     return this.query().insert(data)
   };
 
-  static GetByEmail (email) {
+  static getByEmail (email) {
     __typecheck(email, __type.string, true)
 
     return this.query().where({ email }).first()

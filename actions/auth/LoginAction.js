@@ -1,6 +1,8 @@
+const addSession = require('./shared/addSession')
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
-const { checkPasswordService, makeAccessTokenService, makeRefreshTokenService } = require('../../services/auth')
+const SessionEntity = require('../../entities/SessionEntity')
+const { checkPasswordService, makeAccessTokenService } = require('../../services/auth')
 
 class LoginAction extends BaseAction {
   static get accessTag () {
@@ -11,25 +13,31 @@ class LoginAction extends BaseAction {
     return {
       body: this.joi.object().keys({
         password: this.joi.string().required(),
-        email: this.joi.string().email().min(6).max(30).required()
+        email: this.joi.string().email().min(6).max(30).required(),
+        fingerprint: this.joi.string().max(200).required() // https://github.com/Valve/fingerprintjs2
       })
     }
   }
 
-  static async run (req) {
-    let data = { accessToken: '', refreshToken: '' }
+  static async run (ctx) {
+    const user = await UserDAO.getByEmail(ctx.body.email)
+    await checkPasswordService(ctx.body.password, user.passwordHash)
 
-    const user = await UserDAO.GetByEmail(req.body.email)
-    await checkPasswordService(req.body.password, user.passwordHash)
-    data.accessToken = await makeAccessTokenService(user)
-    data.refreshToken = await makeRefreshTokenService(user)
-    const refreshTokenTimestamp = data.refreshToken.split('::')[0]
-    await UserDAO.AddRefreshTokenProcess(user, {
-      timestamp: refreshTokenTimestamp,
-      refreshToken: data.refreshToken
+    const newSession = new SessionEntity({
+      userId: user.id,
+      ip: ctx.ip,
+      ua: ctx.headers['User-Agent'],
+      fingerprint: ctx.body.fingerprint
     })
 
-    return this.result({ data })
+    await addSession({ session: newSession, user })
+
+    return this.result({
+      data: {
+        accessToken: await makeAccessTokenService(user),
+        refreshToken: newSession.refreshToken
+      }
+    })
   }
 }
 

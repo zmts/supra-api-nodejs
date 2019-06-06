@@ -1,16 +1,23 @@
 const BaseAction = require('../BaseAction')
-const UserDAO = require('../../dao/UserDAO')
+const SessionDAO = require('../../dao/SessionDAO')
 
 class LogoutAction extends BaseAction {
   static get accessTag () {
     return 'auth:logout'
   }
 
-  static async run (req) {
-    const { currentUser } = req
-    await UserDAO.baseUpdate(currentUser.id, { refreshTokensMap: {} })
+  static get validationRules () {
+    return {
+      body: this.joi.object().keys({
+        refreshToken: this.joi.string().required()
+      })
+    }
+  }
 
-    return this.result({ message: 'User is logged out' })
+  static async run (ctx) {
+    await SessionDAO.baseRemoveWhere({ refreshToken: ctx.body.refreshToken })
+
+    return this.result({ message: 'User is logged out from current session.' })
   }
 }
 

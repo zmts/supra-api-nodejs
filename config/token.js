@@ -13,7 +13,6 @@ class TokenConfig extends BaseConfig {
 
     this.refresh = {
       type: 'TOKEN_TYPE_REFRESH',
-      secret: this.set(this.getEnv('TOKEN_REFRESH_SECRET'), this.joi.string().min(30).max(100).required()),
       expiresIn: this.set(this.getEnv('TOKEN_REFRESH_EXP'), this.joi.string().regex(expiresInRegexp).required())
     }
 

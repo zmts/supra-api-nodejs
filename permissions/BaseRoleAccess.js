@@ -11,7 +11,9 @@ class BaseRoleAccess {
       'users:get-current-user',
 
       'posts:all',
-      'auth:logout'
+
+      'auth:logout',
+      'auth:logout-all-sessions'
     ]
   }
 }
