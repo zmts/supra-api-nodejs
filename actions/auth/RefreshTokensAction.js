@@ -32,7 +32,7 @@ class RefreshTokensAction extends BaseAction {
       userId: user.id,
       ip: ctx.ip,
       ua: ctx.headers['User-Agent'],
-      fingerprint: ctx.body.fingerprint
+      fingerprint: reqFingerprint
     })
 
     await addSession(newSession)
