@@ -11,6 +11,19 @@ class BaseController {
     throw new Error(`${this.constructor.name} should implement 'router' getter.`)
   }
 
+  async validate (ctx, rules) {
+    __typecheck(ctx, __type.object, true)
+    __typecheck(rules, __type.object, true)
+
+    // map list of validation schemas
+    let validationSchemas = Object.keys(rules).map(key => {
+      return joi.validate(ctx[key], rules[key])
+    })
+
+    // execute validation
+    await Promise.all(validationSchemas)
+  }
+
   actionRunner (action) {
     __typecheck(action, __type.function, true)
 
@@ -59,7 +72,7 @@ class BaseController {
          * validate action input data
          */
         if (action.validationRules) {
-          await action.validate(ctx, action.validationRules)
+          await this.validate(ctx, action.validationRules)
         }
 
         /**
