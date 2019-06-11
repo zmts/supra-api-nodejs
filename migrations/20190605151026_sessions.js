@@ -3,7 +3,7 @@ exports.up = (knex, Promise) => {
     .createTable('sessions', table => {
       table.increments()
       table.integer('userId').references('id').inTable('users').onDelete('CASCADE')
-      table.uuid('refreshToken', 36)
+      table.uuid('refreshToken', 36).notNull()
       table.string('os', 200)
       table.string('ua', 200)
       table.string('browser', 500)

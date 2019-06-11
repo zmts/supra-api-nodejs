@@ -1,6 +1,7 @@
 const SessionDAO = require('../../../dao/SessionDAO')
 const SessionEntity = require('../../../entities/SessionEntity')
-const VALID_SESSIONS_COUNT = 5
+
+const MAX_SESSIONS_COUNT = 5
 
 module.exports = async session => {
   if (!(session instanceof SessionEntity)) {
@@ -19,7 +20,7 @@ async function _isValidSessionsCount (userId) {
   __typecheck(userId, __type.number, true)
 
   const existingSessionsCount = await SessionDAO.baseGetCount({ userId })
-  return existingSessionsCount < VALID_SESSIONS_COUNT
+  return existingSessionsCount < MAX_SESSIONS_COUNT
 }
 
 async function _addSession (session) {
