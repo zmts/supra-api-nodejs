@@ -3,6 +3,7 @@ const jwtService = require('./jwtService')
 const SECRET = require('../../config').token.emailConfirm.secret
 const expiresIn = require('../../config').token.emailConfirm.expiresIn
 const type = require('../../config').token.emailConfirm.type
+const iss = require('../../config').token.jwtIss
 
 /**
  * @return {Promise} string
@@ -13,7 +14,8 @@ module.exports = userEntity => {
   let config = {
     payload: {
       tokenType: type,
-      email: userEntity.email
+      email: userEntity.email,
+      iss
     },
 
     options: {
