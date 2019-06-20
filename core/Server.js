@@ -9,19 +9,19 @@ const Knex = require('knex')
 
 class Server {
   constructor ({ port, host, controllers, middlewares, errorMiddleware, knexConfig }) {
+    __typecheck(port, __type.number, true)
+    __typecheck(host, __type.string, true)
+    __typecheck(controllers, __type.array, true, 'controllers param expects an array.')
+    __typecheck(middlewares, __type.array, true, 'middlewares param expects an array.')
+    __typecheck(errorMiddleware, __type.object, true)
+    __typecheck(knexConfig, __type.object, true)
+
     __logger.info('Server start initialization...')
     return start({ port, host, controllers, middlewares, errorMiddleware, knexConfig })
   }
 }
 
 function start ({ port, host, controllers, middlewares, errorMiddleware, knexConfig }) {
-  if (!Array.isArray(controllers)) {
-    throw new Error('\'controllers\' param should be an array.')
-  }
-  if (!Array.isArray(middlewares)) {
-    throw new Error('\'middlewares\' param should be an array.')
-  }
-
   return new Promise(async (resolve, reject) => {
     const app = express()
 
