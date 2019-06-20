@@ -84,30 +84,18 @@ function start ({ port, host, controllers, middlewares, errorMiddleware, knexCon
       res.status(404).json({ message: 'Route not found' })
     })
 
-    /**
-     * unhandledRejection handler
-     */
     process.on('unhandledRejection', (reason, promise) => {
       __logger.error('unhandledRejection', reason)
     })
 
-    /**
-     * rejectionHandled handler
-     */
     process.on('rejectionHandled', promise => {
       __logger.warn('rejectionHandled', promise)
     })
 
-    /**
-     * multipleResolves handler
-     */
     process.on('multipleResolves', (type, promise, reason) => {
       __logger.error('multipleResolves', { type, promise, reason })
     })
 
-    /**
-     * uncaughtException handler
-     */
     process.on('uncaughtException', error => {
       __logger.fatal('uncaughtException', error.stack)
       process.exit(1)
