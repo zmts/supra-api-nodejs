@@ -6,7 +6,7 @@ const type = require('../../config').token.access.type
 const iss = require('../../config').token.jwtIss
 
 /**
- * @return {Promise} { accessToken: string, expiresIn: Number }
+ * @return {Promise} string
  */
 module.exports = userEntity => {
   __typecheck(userEntity, 'Object', true)
