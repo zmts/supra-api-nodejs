@@ -30,4 +30,7 @@ new Server({
   .then(() => {
     __logger.info('--- Database ---')
     __logger.info('Database initialized...', config.knex)
-  }).catch(error => __logger.error(`Database initialization failed. ${error}`))
+  }).catch(error => {
+    __logger.error('Database fails to initialize...', error)
+    process.exit(1)
+  })
