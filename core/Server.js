@@ -4,24 +4,21 @@ const path = require('path')
 const logger = require('morgan')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
-const { Model } = require('objection')
-const Knex = require('knex')
 
 class Server {
-  constructor ({ port, host, controllers, middlewares, errorMiddleware, knexConfig }) {
+  constructor ({ port, host, controllers, middlewares, errorMiddleware }) {
     __typecheck(port, __type.number, true)
     __typecheck(host, __type.string, true)
     __typecheck(controllers, __type.array, true, 'controllers param expects an array.')
     __typecheck(middlewares, __type.array, true, 'middlewares param expects an array.')
     __typecheck(errorMiddleware, __type.object, true)
-    __typecheck(knexConfig, __type.object, true)
 
     __logger.info('Server start initialization...')
-    return start({ port, host, controllers, middlewares, errorMiddleware, knexConfig })
+    return start({ port, host, controllers, middlewares, errorMiddleware })
   }
 }
 
-function start ({ port, host, controllers, middlewares, errorMiddleware, knexConfig }) {
+function start ({ port, host, controllers, middlewares, errorMiddleware }) {
   return new Promise(async (resolve, reject) => {
     const app = express()
 
@@ -56,15 +53,6 @@ function start ({ port, host, controllers, middlewares, errorMiddleware, knexCon
       } catch (e) {
         return reject(e)
       }
-    }
-
-    /**
-     * Database initialization
-     */
-    try {
-      Model.knex(Knex(knexConfig))
-    } catch (e) {
-      return reject(`Database initialization failed. ${e}`)
     }
 
     /**
