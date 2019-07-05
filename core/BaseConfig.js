@@ -1,19 +1,23 @@
+const pino = require('pino')
+
 require('dotenv').config()
 const joi = require('@hapi/joi')
 
+const warnLogger = pino({
+  name: 'env-warning',
+  prettyPrint: {
+    translateTime: 'SYS:standard'
+  }
+})
+
 class BaseConfig {
   /**
-   * validate value via validate function and return it
+   * validate value and return it
    * @param value
    * @param validator
    * @returns {*}
    */
   set (value, validator) {
-    const isValidValueType = typeof value === 'number' || typeof value === 'string'
-    if (!isValidValueType) {
-      throw new Error(`Wrong env variable "${typeof value}" is invalid.`)
-    }
-
     if (validator && (typeof validator === 'function' || validator.isJoi)) {
       if (validator.isJoi) {
         const joiResult = joi.validate(value, validator)
@@ -33,16 +37,16 @@ class BaseConfig {
 
   /**
    * get environment variable
-   * if environment variable is missing throw error
-   * use in case when environment variable must be required
+   * log warn if environment variable missing and get default value
    * @param env
+   * @param defaultVal
    * @returns {string}
    */
-  getEnv (env) {
+  getEnv (env, defaultVal) {
     if (!process.env.hasOwnProperty(env)) {
-      throw new Error(`Missing environment variable. "${env}" must be set`)
+      warnLogger.warn(`Missing env variable: "${env}". Default value was applied: ${defaultVal}`)
     }
-    return process.env[env]
+    return process.env[env] || defaultVal
   }
 
   get joi () {
