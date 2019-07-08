@@ -30,4 +30,6 @@ module.exports = (argument, type, required, message) => {
     }
     throw new ErrorWrapper({ ...errorCodes.ARGUMENT_TYPE, message })
   }
+
+  return { message: 'All fine. Type is OK' }
 }
