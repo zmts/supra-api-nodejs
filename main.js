@@ -27,6 +27,7 @@ new Server({
   __logger.info('Tokens iss:', config.token.jwtIss)
 }).catch(error => __logger.error('Server fails to initialize...', error))
   .then(() => Model.knex(Knex(config.knex)))
+  .then(() => testDbConnection(Knex(config.knex)))
   .then(() => {
     __logger.info('--- Database ---')
     __logger.info('Database initialized...', config.knex)
@@ -34,3 +35,16 @@ new Server({
     __logger.error('Database fails to initialize...', error)
     process.exit(1)
   })
+
+async function testDbConnection (knexInstance) {
+  __typecheck(knexInstance, __type.function, true)
+  __typecheck(knexInstance.raw, __type.function, true)
+
+  try {
+    await knexInstance.raw('select 1+1 as result')
+  } catch (e) {
+    throw e
+  } finally {
+    knexInstance.destroy()
+  }
+}
