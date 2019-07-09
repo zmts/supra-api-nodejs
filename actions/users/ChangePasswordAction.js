@@ -22,6 +22,7 @@ class ChangePasswordAction extends BaseAction {
     const userModel = await UserDAO.baseGetById(currentUser.id)
     await authModule.checkPasswordService(req.body.oldPassword, userModel.passwordHash)
     const newHash = await authModule.makePasswordHashService(req.body.newPassword)
+    // TODO: Changing your password will invalidate all logged in sessions.
     const data = await UserDAO.baseUpdate(currentUser.id, { passwordHash: newHash })
 
     return this.result({ data })
