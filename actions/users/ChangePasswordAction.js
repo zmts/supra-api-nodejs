@@ -1,5 +1,6 @@
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
+const SessionDAO = require('../../dao/SessionDAO')
 const authModule = require('../../services/auth')
 
 class ChangePasswordAction extends BaseAction {
@@ -22,10 +23,13 @@ class ChangePasswordAction extends BaseAction {
     const userModel = await UserDAO.baseGetById(currentUser.id)
     await authModule.checkPasswordService(req.body.oldPassword, userModel.passwordHash)
     const newHash = await authModule.makePasswordHashService(req.body.newPassword)
-    // TODO: Changing your password will invalidate all logged in sessions.
-    const data = await UserDAO.baseUpdate(currentUser.id, { passwordHash: newHash })
 
-    return this.result({ data })
+    await Promise.all([
+      SessionDAO.baseRemoveWhere({ userId: currentUser.id }), // Changing password will remove all logged in sessions.
+      UserDAO.baseUpdate(currentUser.id, { passwordHash: newHash })
+    ])
+
+    return this.result({ message: 'Password changed' })
   }
 }
 
