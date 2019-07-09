@@ -17,28 +17,31 @@ class DevErrorMiddleware extends BaseMiddleware {
           env: 'dev/regular'
         })
 
-        res.status(404).json(errorRes)
+        res.status(errorRes.status).json(errorRes)
       } else if (error.isJoi) {
         const errorRes = new ErrorResponse({
           valid: false,
           message: error.details[0].message,
           code: errorCodes.VALIDATION.code,
           key: error.details[0].context.key,
+          status: error.status || 400,
           env: 'dev/regular'
         })
 
         __logger.error(errorRes.message, errorRes)
-        res.status(400).json(errorRes)
+        res.status(errorRes.status).json(errorRes)
       } else {
         const errorRes = new ErrorResponse({
           ...error,
+          code: error.code || errorCodes.SERVER.code,
+          status: error.status || errorCodes.SERVER.status,
           message: error.message || error,
           stack: ![400, 401, 403].includes(error.status) ? stackTrace.parse(error) : false,
           env: 'dev/regular'
         })
 
         __logger.error(errorRes.message, { ...errorRes, req: error.req, meta: error.meta })
-        res.status(error.status || 500).json(errorRes)
+        res.status(errorRes.status).json(errorRes)
       }
 
       if (error.stack) {
