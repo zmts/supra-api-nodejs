@@ -1,5 +1,7 @@
 const pino = require('pino')
 const config = require('../config')
+const SentryCatch = require('../core/SentryCatch')
+const sentry = new SentryCatch(config.app.sentryDns)
 
 const fatalLogger = pino({
   name: `${config.app.name.toLowerCase()}::fatal`,
@@ -28,24 +30,53 @@ const infoLogger = pino({
   }
 })
 
+const traceLogger = pino({
+  name: `${config.app.name.toLowerCase()}::trace`,
+  prettyPrint: {
+    translateTime: 'SYS:standard'
+  }
+})
+
 module.exports = {
-  fatal: (message, log = '') => {
+  fatal: (message, error, meta) => {
     __typecheck(message, __type.string, true)
-    fatalLogger.fatal(message, log instanceof Error ? log.toString() : log)
+    __typecheck(error, __type.error, true)
+    __typecheck(meta, __type.object)
+
+    sentry.captureException(error, meta)
+    fatalLogger.fatal(message, meta || error.toString())
   },
 
-  error: (message, log = '') => {
+  error: (message, error, meta) => {
     __typecheck(message, __type.string, true)
-    errorLogger.error(message, log instanceof Error ? log.toString() : log)
+    __typecheck(error, __type.error, true)
+    __typecheck(meta, __type.object)
+
+    sentry.captureException(error, meta)
+    errorLogger.error(message, meta || error.toString())
   },
 
-  warn: (message, log = '') => {
+  warn: (message, error, meta) => {
     __typecheck(message, __type.string, true)
-    warnLogger.warn(message, log instanceof Error ? log.toString() : log)
+    __typecheck(error, __type.error, true)
+    __typecheck(meta, __type.object)
+
+    sentry.captureException(error, meta)
+    warnLogger.warn(message, meta || error.toString())
   },
 
-  info: (message, log = '') => {
+  trace: (message, meta) => {
     __typecheck(message, __type.string, true)
-    infoLogger.info(message, log instanceof Error ? log.toString() : log)
+    __typecheck(meta, __type.object)
+
+    sentry.captureMessage(message, meta)
+    traceLogger.info(message, meta || {})
+  },
+
+  info: (message, log) => {
+    __typecheck(message, __type.string, true)
+    __typecheck(log, __type.any)
+
+    infoLogger.info(message, log || '')
   }
 }

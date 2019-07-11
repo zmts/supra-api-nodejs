@@ -17,7 +17,7 @@ new Server({
   middlewares,
   errorMiddleware
 }).then(serverParams => {
-  __logger.info('Server initialized...', serverParams)
+  __logger.trace('Server initialized...', serverParams)
   __logger.info('--- Configs ---')
   __logger.info('App config:', config.app)
   __logger.info('Refresh token:', config.token.refresh)

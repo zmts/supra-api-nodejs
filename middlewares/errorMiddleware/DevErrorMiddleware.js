@@ -28,7 +28,7 @@ class DevErrorMiddleware extends BaseMiddleware {
           env: 'dev/regular'
         })
 
-        __logger.error(errorRes.message, errorRes)
+        __logger.error(errorRes.message, error, { ...errorRes })
         res.status(errorRes.status).json(errorRes)
       } else {
         const errorRes = new ErrorResponse({
@@ -40,7 +40,7 @@ class DevErrorMiddleware extends BaseMiddleware {
           env: 'dev/regular'
         })
 
-        __logger.error(errorRes.message, { ...errorRes, req: error.req, meta: error.meta })
+        __logger.error(errorRes.message, error, { ...errorRes, req: error.req, meta: error.meta })
         res.status(errorRes.status).json(errorRes)
       }
 
