@@ -21,7 +21,7 @@ class PostDAO extends BaseDAO {
    * ------------------------------
    */
 
-  static GetPostsByUserId (userId, { page, limit, orderBy }) {
+  static async getPostsByUserId (userId, { page, limit, orderBy } = {}) {
     __typecheck(userId, __type.number, true)
     __typecheck(page, __type.number, true)
     __typecheck(limit, __type.number, true)
@@ -29,14 +29,12 @@ class PostDAO extends BaseDAO {
     __typecheck(orderBy.field, __type.string, true)
     __typecheck(orderBy.direction, __type.string, true)
 
-    return this.query()
+    const data = await this.query()
       .where({ userId })
       .page(page, limit)
       .orderBy(orderBy.field, orderBy.direction)
-      .then(data => {
-        if (!data.results.length) throw this.errorEmptyResponse()
-        return data
-      }).catch(error => { throw error })
+    if (!data.results.length) throw this.errorEmptyResponse()
+    return data
   }
 }
 

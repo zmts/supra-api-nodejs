@@ -43,21 +43,19 @@ class UserDAO extends BaseDAO {
    * ------------------------------
    */
 
-  static Create (data) {
+  static create (data) {
     __typecheck(data, __type.object, true)
     __typecheck(data.passwordHash, __type.string, true, 'Invalid \'passwordHash\' field')
 
     return this.query().insert(data)
   };
 
-  static getByEmail (email) {
+  static async getByEmail (email) {
     __typecheck(email, __type.string, true)
 
-    return this.query().where({ email }).first()
-      .then(data => {
-        if (!data) throw this.errorEmptyResponse()
-        return data
-      }).catch(error => { throw error })
+    const data = await this.query().where({ email }).first()
+    if (!data) throw this.errorEmptyResponse()
+    return data
   }
 
   /**
@@ -65,7 +63,7 @@ class UserDAO extends BaseDAO {
    * @param email
    * @returns {Promise<boolean>}
    */
-  static IsEmailExist (email) {
+  static isEmailExist (email) {
     __typecheck(email, __type.string, true)
 
     return this.query().where({ email }).first()

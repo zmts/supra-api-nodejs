@@ -22,7 +22,7 @@ class CreateAction extends BaseAction {
   static async run (req) {
     const hash = await makePasswordHashService(req.body.password)
     delete req.body.password
-    const user = await UserDAO.Create({
+    const user = await UserDAO.create({
       ...req.body,
       passwordHash: hash
     })
