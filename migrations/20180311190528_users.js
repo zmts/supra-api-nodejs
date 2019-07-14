@@ -9,6 +9,7 @@ exports.up = (knex, Promise) => {
       table.string('name', 50)
       table.string('role').defaultTo(roles.user).notNull()
       table.string('email', 50).unique().notNull()
+      table.string('location', 300)
       table.boolean('isEmailConfirmed').defaultTo(false)
       table.text('emailConfirmToken')
 

@@ -9,7 +9,8 @@ class UpdateAction extends BaseAction {
   static get validationRules () {
     return {
       body: this.joi.object().keys({
-        name: this.joi.string().min(3).max(50)
+        name: this.joi.string().min(3).max(50),
+        location: this.joi.string().min(3).max(300)
       })
     }
   }
