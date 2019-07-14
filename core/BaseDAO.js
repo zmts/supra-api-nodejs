@@ -66,7 +66,7 @@ class BaseDAO extends Model {
    * ------------------------------
    */
 
-  static baseCreate (entity) {
+  static baseCreate (entity = {}) {
     __typecheck(entity, __type.object, true)
 
     /**
@@ -82,7 +82,14 @@ class BaseDAO extends Model {
     }
 
     return this.query().insert(entity)
-  };
+  }
+
+  static baseUpdate (id, entity = {}) {
+    __typecheck(id, __type.number, true)
+    __typecheck(entity, __type.object, true)
+
+    return this.query().patchAndFetchById(id, entity)
+  }
 
   static async baseGetList ({ page, limit, filter } = {}) {
     __typecheck(page, __type.number, true)
@@ -115,13 +122,6 @@ class BaseDAO extends Model {
     const data = await this.query().findById(id)
     if (!data) throw this.errorEmptyResponse()
     return data
-  }
-
-  static baseUpdate (id, entity) {
-    __typecheck(id, __type.number, true)
-    __typecheck(entity, __type.object, true)
-
-    return this.query().patchAndFetchById(id, entity)
   }
 
   static baseRemove (id) {
