@@ -84,7 +84,7 @@ class BaseDAO extends Model {
     return this.query().insert(entity)
   };
 
-  static async baseGetList ({ page, limit, filter }) {
+  static async baseGetList ({ page, limit, filter } = {}) {
     __typecheck(page, __type.number, true)
     __typecheck(limit, __type.number, true)
     __typecheck(filter, __type.object, true)
