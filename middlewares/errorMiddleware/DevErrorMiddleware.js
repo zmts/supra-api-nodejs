@@ -21,7 +21,7 @@ class DevErrorMiddleware extends BaseMiddleware {
       } else if (error.isJoi) {
         const errorRes = new ErrorResponse({
           valid: false,
-          message: error.details[0].message,
+          message: error.message || error.details[0].message,
           code: errorCodes.VALIDATION.code,
           key: error.details[0].context.key,
           status: error.status || 400,

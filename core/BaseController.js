@@ -1,6 +1,8 @@
 const joi = require('@hapi/joi')
 const JoiToJsonSchema = require('joi-to-json-schema')
 const { checkAccessByTagService } = require('../services/security')
+const ErrorWrapper = require('../core/ErrorWrapper')
+const { errorCodes } = require('../config')
 
 class BaseController {
   async init () {
@@ -11,7 +13,7 @@ class BaseController {
     throw new Error(`${this.constructor.name} should implement 'router' getter.`)
   }
 
-  async validate (ctx, rules) {
+  async validate2 (ctx, rules) {
     __typecheck(ctx, __type.object, true)
     __typecheck(rules, __type.object, true)
 
@@ -22,6 +24,32 @@ class BaseController {
 
     // execute validation
     await Promise.all(validationSchemas)
+  }
+
+  async validateModel (body, rules) {
+    __typecheck(body, __type.object, true)
+    __typecheck(rules, __type.object, true)
+
+    Object.keys(rules).forEach(ruleKey => {
+      const validationTarget = body[ruleKey]
+      const [rule, required] = rules[ruleKey]
+      const validator = rule.validator
+      const description = rule.description || ''
+      const type = rule.type.name
+
+      if (required && !body.hasOwnProperty(ruleKey)) {
+        throw new ErrorWrapper({ ...errorCodes.VALIDATION, message: `'${ruleKey}' field is required.` })
+      }
+
+      if (body.hasOwnProperty(ruleKey)) {
+        joi.validate(validationTarget, validator, error => {
+          if (error) {
+            error.message = `invalid '${ruleKey}' field. Type: ${type}. Description: ${description}`
+            throw error
+          }
+        })
+      }
+    })
   }
 
   actionRunner (action) {
@@ -71,8 +99,8 @@ class BaseController {
         /**
          * validate action input data
          */
-        if (action.validationRules) {
-          await this.validate(ctx, action.validationRules)
+        if (action.validationRules && action.validationRules.body) {
+          await this.validateModel(ctx.body, action.validationRules.body)
         }
 
         /**

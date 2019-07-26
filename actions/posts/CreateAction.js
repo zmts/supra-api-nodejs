@@ -1,5 +1,6 @@
 const BaseAction = require('../BaseAction')
 const PostDAO = require('../../dao/PostDAO')
+const PostModel = require('../../models/PostModel')
 
 class CreateAction extends BaseAction {
   static get accessTag () {
@@ -8,10 +9,10 @@ class CreateAction extends BaseAction {
 
   static get validationRules () {
     return {
-      body: this.joi.object().keys({
-        title: this.joi.string().min(3).max(20).required(),
-        content: this.joi.string().min(3).max(5000)
-      })
+      body: {
+        title: [PostModel.schema.title, true],
+        content: [PostModel.schema.content, true]
+      }
     }
   }
 
