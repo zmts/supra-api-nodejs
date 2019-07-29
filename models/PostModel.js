@@ -1,27 +1,27 @@
+const joi = require('@hapi/joi')
 const BaseModel = require('./BaseModel')
 
 class PostModel extends BaseModel {
   static get schema () {
-    return {
-      id: {
-        type: Number,
-        validator: this.joi.number().integer().positive(),
-        default: null,
-        description: 'number integer positive'
-      },
-      title: {
-        type: String,
-        validator: this.joi.string().min(3).max(20),
-        default: null,
-        description: 'min 3; max 20;'
-      },
-      content: {
-        type: String,
-        validator: this.joi.string().min(3).max(5000),
-        default: null,
-        description: 'min 3; max 5000;'
-      }
-    }
+    return schema
+  }
+}
+
+const schema = {
+  id: {
+    validator: v => joi.validate(v, joi.number().integer().positive(), e => !e),
+    default: null,
+    description: 'number integer positive'
+  },
+  title: {
+    validator: v => joi.validate(v, joi.string().min(3).max(20), e => !e),
+    default: null,
+    description: 'min 3; max 20;'
+  },
+  content: {
+    validator: v => joi.validate(v, joi.string().min(3).max(5000), e => !e),
+    default: null,
+    description: 'min 3; max 5000;'
   }
 }
 
