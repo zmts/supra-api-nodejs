@@ -25,7 +25,7 @@ module.exports = (argument, type, required, message) => {
     if (!message) {
       throw new ErrorWrapper({
         ...errorCodes.ARGUMENT_TYPE,
-        message: `Wrong argument. Expected '${type.toLowerCase()}' type. Got '${typeof argument}' type.`
+        message: `Wrong argument. Expected type: '${type.toLowerCase()}'. Actual type: '${Object.prototype.toString.call(argument)}'.`
       })
     }
     throw new ErrorWrapper({ ...errorCodes.ARGUMENT_TYPE, message })
