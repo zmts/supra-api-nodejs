@@ -19,7 +19,7 @@ class KnexConfig extends BaseConfig {
       min: 1,
       max: 10
     }
-    // this.debug: true
+    // this.debug = true
   }
 }
 
