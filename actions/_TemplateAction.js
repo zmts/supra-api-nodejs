@@ -1,5 +1,6 @@
 const BaseAction = require('../BaseAction')
-// const UserDAO = require('../../dao/UserDAO')
+const Rule = require('../core/Rule')
+const UserModel = require('../models/UserModel')
 
 class TemplateAction extends BaseAction {
   static get accessTag () {
@@ -12,9 +13,14 @@ class TemplateAction extends BaseAction {
       query: {
         ...this.baseQueryParams
       },
-      body: this.joi.object().keys({
-        templateField: this.joi.string().required()
-      })
+      body: {
+        id: [UserModel.schema.id, true],
+        name: [UserModel.schema.name],
+        test: new Rule({
+          validator: v => typeof v === 'string' && v.length >= 8,
+          description: 'string; min 8 chars;'
+        })
+      }
     }
   }
 
