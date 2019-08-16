@@ -1,4 +1,4 @@
-import NodeCache from 'node-cache'
+const NodeCache = require('node-cache')
 
 const $ = Symbol('private scope')
 
