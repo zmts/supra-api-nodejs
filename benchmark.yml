@@ -1,0 +1,29 @@
+# https://github.com/fcsonline/drill
+# drill --stats --quiet  --benchmark benchmark.yml
+
+threads: 200
+base: 'http://localhost:4000'
+iterations: 5
+rampup: 2
+
+plan:
+#  - name: Fetch users
+#    request:
+#      headers:
+#        Content-Type: 'application/json'
+#      url: /users
+
+  - name: Get post by id
+    request:
+      headers:
+        Content-Type: 'application/json'
+      url: /posts/1
+
+#  - name: Create post
+#    request:
+#      url: /posts
+#      method: POST
+#      body: '{ "title": "alex title", "content": "alexx content" }'
+#      headers:
+#        Content-Type: 'application/json'
+#        Authorization: 'Bearer ...'
