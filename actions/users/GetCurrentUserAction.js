@@ -6,8 +6,8 @@ class GetCurrentUserAction extends BaseAction {
     return 'users:get-current-user'
   }
 
-  static async run (req) {
-    const { currentUser } = req
+  static async run (ctx) {
+    const { currentUser } = ctx
     const data = await UserDAO.baseGetById(currentUser.id)
 
     return this.result({ data })

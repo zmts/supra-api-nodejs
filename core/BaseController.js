@@ -1,5 +1,3 @@
-const joi = require('@hapi/joi')
-const JoiToJsonSchema = require('joi-to-json-schema')
 const { checkAccessByTagService } = require('../services/security')
 const ErrorWrapper = require('../core/ErrorWrapper')
 const { errorCodes } = require('../config')
@@ -11,45 +9,6 @@ class BaseController {
 
   get router () {
     throw new Error(`${this.constructor.name} should implement 'router' getter.`)
-  }
-
-  async validate2 (ctx, rules) {
-    __typecheck(ctx, __type.object, true)
-    __typecheck(rules, __type.object, true)
-
-    // map list of validation schemas
-    let validationSchemas = Object.keys(rules).map(key => {
-      return joi.validate(ctx[key], rules[key])
-    })
-
-    // execute validation
-    await Promise.all(validationSchemas)
-  }
-
-  async validateModel (body, rules) {
-    __typecheck(body, __type.object, true)
-    __typecheck(rules, __type.object, true)
-
-    Object.keys(rules).forEach(ruleKey => {
-      const validationTarget = body[ruleKey]
-      const [rule, required] = rules[ruleKey]
-      const validator = rule.validator
-      const description = rule.description || ''
-      const type = rule.type.name
-
-      if (required && !body.hasOwnProperty(ruleKey)) {
-        throw new ErrorWrapper({ ...errorCodes.VALIDATION, message: `'${ruleKey}' field is required.` })
-      }
-
-      if (body.hasOwnProperty(ruleKey)) {
-        joi.validate(validationTarget, validator, error => {
-          if (error) {
-            error.message = `invalid '${ruleKey}' field. Type: ${type}. Description: ${description}`
-            throw error
-          }
-        })
-      }
-    })
   }
 
   actionRunner (action) {
@@ -87,8 +46,8 @@ class BaseController {
         /**
          * it will return request schema
          */
-        if (action.validationRules && ctx.query.schema && ['POST', 'PATCH', 'GET'].includes(ctx.method)) {
-          return res.json(JoiToJsonSchema(joi.object().keys(action.validationRules)))
+        if (ctx.query.schema && ['POST', 'PATCH', 'GET'].includes(ctx.method) && process.env.NODE_ENV === 'development') {
+          return res.json(getSchemaDescription(action.validationRules))
         }
 
         /**
@@ -99,8 +58,10 @@ class BaseController {
         /**
          * validate action input data
          */
-        if (action.validationRules && action.validationRules.body) {
-          await this.validateModel(ctx.body, action.validationRules.body)
+        if (action.validationRules) {
+          if (action.validationRules.query) validateSchema(ctx.query, action.validationRules.query, 'query')
+          if (action.validationRules.params) validateSchema(ctx.params, action.validationRules.params, 'params')
+          if (action.validationRules.body) validateSchema(ctx.body, action.validationRules.body, 'body')
         }
 
         /**
@@ -127,6 +88,73 @@ class BaseController {
       }
     }
   }
+}
+
+function validateSchema (src, requestSchema, schemaTitle) {
+  __typecheck(src, __type.object, true, `Invalid request validation payload. Only object allowed. Actual type: ${Object.prototype.toString.call(src)}`)
+  __typecheck(requestSchema, __type.object, true)
+  __typecheck(schemaTitle, __type.string, true)
+
+  const schemaKeys = Object.keys(requestSchema)
+  const srcKeys = Object.keys(src)
+
+  const invalidExtraKeys = srcKeys.filter(srcKey => !schemaKeys.includes(srcKey))
+  if (invalidExtraKeys.length) {
+    throw new ErrorWrapper({ ...errorCodes.VALIDATION, message: `Extra keys found in '${schemaTitle}' payload: [${invalidExtraKeys}]` })
+  }
+
+  schemaKeys.forEach(propName => {
+    const validationSrc = src[propName]
+
+    const [schemaRule, isRequiredSchemaField] = requestSchema[propName]
+    const { validator, description } = schemaRule
+
+    if (isRequiredSchemaField && !src.hasOwnProperty(propName)) {
+      throw new ErrorWrapper({ ...errorCodes.VALIDATION, message: `'${schemaTitle}.${propName}' field is required.` })
+    }
+
+    if (src.hasOwnProperty(propName)) {
+      const validationResult = validator(validationSrc)
+
+      if (!['boolean', 'string'].includes(typeof validationResult)) {
+        throw new ErrorWrapper({ ...errorCodes.SERVER, message: `Invalid '${schemaTitle}.${propName}' field validation result. Validator should return boolean or string.` })
+      }
+
+      if (typeof validationResult === 'string') {
+        throw new ErrorWrapper({ ...errorCodes.VALIDATION, message: `Invalid '${schemaTitle}.${propName}' field. Description: ${validationResult}` })
+      }
+
+      if (!validationResult) {
+        throw new ErrorWrapper({ ...errorCodes.VALIDATION, message: `Invalid '${schemaTitle}.${propName}' field. Description: ${description}` })
+      }
+    }
+  })
+}
+
+function getSchemaDescription (validationRules = {}) {
+  __typecheck(validationRules, __type.object, true)
+
+  function getRuleDescription (propName, schema) {
+    __typecheck(propName, __type.string, true)
+    __typecheck(schema, __type.object, true)
+
+    const ruleWrapper = schema[propName]
+    __typecheck(ruleWrapper, __type.array, false, 'Invalid request rule wrapper type. Acceptable type is Array')
+
+    if (!ruleWrapper) return
+    const [ rule, required ] = ruleWrapper
+
+    return `${rule.description} ${required ? '(required)' : '(optional)'}`
+  }
+
+  const result = { query: {}, params: {}, body: {} }
+  const { query, params, body } = validationRules
+
+  if (query) Object.keys(query).forEach(schemaPropName => (result.query[schemaPropName] = getRuleDescription(schemaPropName, query)))
+  if (params) Object.keys(params).forEach(schemaPropName => (result.params[schemaPropName] = getRuleDescription(schemaPropName, params)))
+  if (body) Object.keys(body).forEach(schemaPropName => (result.body[schemaPropName] = getRuleDescription(schemaPropName, body)))
+
+  return result
 }
 
 module.exports = BaseController

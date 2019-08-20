@@ -35,7 +35,7 @@ class ProdErrorMiddleware extends BaseMiddleware {
           message: error.message || error,
           code: error.code || errorCodes.SERVER.code,
           status: error.status || errorCodes.SERVER.status,
-          stack: ![400, 401, 403].includes(error.status) ? stackTrace.parse(error) : false,
+          stack: ![400, 401, 403, 422].includes(error.status) ? stackTrace.parse(error) : false,
           env: 'prod/regular'
         })
 

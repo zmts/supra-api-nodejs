@@ -1,6 +1,10 @@
 const BaseAction = require('../BaseAction')
 const SessionDAO = require('../../dao/SessionDAO')
+const AuthModel = require('../../models/AuthModel')
 
+/**
+ * remove current session
+ */
 class LogoutAction extends BaseAction {
   static get accessTag () {
     return 'auth:logout'
@@ -8,9 +12,9 @@ class LogoutAction extends BaseAction {
 
   static get validationRules () {
     return {
-      body: this.joi.object().keys({
-        refreshToken: this.joi.string().required()
-      })
+      body: {
+        refreshToken: [AuthModel.schema.refreshToken, true]
+      }
     }
   }
 

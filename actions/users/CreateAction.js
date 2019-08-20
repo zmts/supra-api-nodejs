@@ -1,6 +1,7 @@
 const BaseAction = require('../BaseAction')
 const { emailClient } = require('../RootProvider')
 const UserDAO = require('../../dao/UserDAO')
+const UserModel = require('../../models/UserModel')
 const { makePasswordHashService, makeEmailConfirmTokenService } = require('../../services/auth')
 
 class CreateAction extends BaseAction {
@@ -10,21 +11,21 @@ class CreateAction extends BaseAction {
 
   static get validationRules () {
     return {
-      body: this.joi.object().keys({
-        name: this.joi.string().min(3).max(50).required(),
-        username: this.joi.string().min(3).max(25).required(),
-        email: this.joi.string().email().min(6).max(30).required(),
-        password: this.joi.string().required(),
-        location: this.joi.string().min(3).max(300)
-      })
+      body: {
+        name: [UserModel.schema.name, true],
+        username: [UserModel.schema.username, true],
+        email: [UserModel.schema.email, true],
+        location: [UserModel.schema.location],
+        password: [UserModel.schema.passwordHash, true]
+      }
     }
   }
 
-  static async run (req) {
-    const hash = await makePasswordHashService(req.body.password)
-    delete req.body.password
+  static async run (ctx) {
+    const hash = await makePasswordHashService(ctx.body.password)
+    delete ctx.body.password
     const user = await UserDAO.create({
-      ...req.body,
+      ...ctx.body,
       passwordHash: hash
     })
     const emailConfirmToken = await makeEmailConfirmTokenService(user)

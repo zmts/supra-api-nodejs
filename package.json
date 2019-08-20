@@ -39,7 +39,8 @@
     "serve-favicon": "^2.5.0",
     "stack-trace": "0.0.10",
     "type-check": "^0.3.2",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.2",
+    "validator": "^11.1.0"
   },
   "devDependencies": {
     "eslint": "^5.16.0",

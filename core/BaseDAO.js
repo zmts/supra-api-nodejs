@@ -91,7 +91,7 @@ class BaseDAO extends Model {
     return this.query().patchAndFetchById(id, entity)
   }
 
-  static async baseGetList ({ page, limit, filter } = {}) {
+  static async baseGetList ({ page, limit, filter, orderBy } = {}) {
     __typecheck(page, __type.number, true)
     __typecheck(limit, __type.number, true)
     __typecheck(filter, __type.object, true)
@@ -99,9 +99,10 @@ class BaseDAO extends Model {
 
     const data = await this.query()
       .where({ ...filter })
-      .orderBy('id', 'desc')
+      .orderBy(orderBy.field, orderBy.direction)
       .page(page, limit)
-    if (!data.results.length) throw this.emptyListResponse()
+
+    if (!data.results.length) return this.emptyPageResponse()
     return data
   }
 

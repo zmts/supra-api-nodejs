@@ -1,5 +1,7 @@
+const isJWT = require('validator/lib/isJWT')
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
+const Rule = require('../../core/Rule')
 const { jwtService } = require('../../services/auth')
 const config = require('../../config')
 const ErrorWrapper = require('../../core/ErrorWrapper')
@@ -12,9 +14,12 @@ class ConfirmEmailAction extends BaseAction {
 
   static get validationRules () {
     return {
-      body: this.joi.object().keys({
-        emailConfirmToken: this.joi.string().required()
-      })
+      body: {
+        emailConfirmToken: [new Rule({
+          validator: v => isJWT(v),
+          description: 'string; jwt;'
+        }), true]
+      }
     }
   }
 

@@ -1,5 +1,6 @@
 const BaseAction = require('../BaseAction')
 const PostDAO = require('../../dao/PostDAO')
+const PostModel = require('../../models/PostModel')
 const { checkAccessByOwnerIdService } = require('../../services/security')
 
 class UpdateAction extends BaseAction {
@@ -9,13 +10,13 @@ class UpdateAction extends BaseAction {
 
   static get validationRules () {
     return {
-      params: this.joi.object().keys({
-        id: this.joi.number().integer().positive().required()
-      }),
-      body: this.joi.object().keys({
-        title: this.joi.string().min(3).max(20),
-        content: this.joi.string().min(3).max(5000)
-      })
+      params: {
+        id: [PostModel.schema.id, true]
+      },
+      body: {
+        title: [PostModel.schema.title],
+        content: [PostModel.schema.content]
+      }
     }
   }
 

@@ -8,8 +8,8 @@ class SendEmailConfirmTokenAction extends BaseAction {
     return 'users:send-email-confirm-token'
   }
 
-  static async run (req) {
-    const { currentUser } = req
+  static async run (ctx) {
+    const { currentUser } = ctx
 
     const emailConfirmToken = await makeEmailConfirmTokenService(currentUser)
     await UserDAO.baseUpdate(currentUser.id, { emailConfirmToken })

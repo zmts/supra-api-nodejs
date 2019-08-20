@@ -8,12 +8,9 @@ class ListAction extends BaseAction {
 
   static get validationRules () {
     return {
-      query: this.joi.object().keys({
-        ...this.baseQueryParams,
-        filter: this.joi.object().keys({
-          userId: this.joi.number().integer().min(1)
-        })
-      })
+      query: {
+        ...this.baseQueryParams
+      }
     }
   }
 

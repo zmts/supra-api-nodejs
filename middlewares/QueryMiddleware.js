@@ -22,7 +22,7 @@ class QueryMiddleware extends BaseMiddleware {
           limit: Number(req.query.limit) || 10,
           filter: req.query.filter || {},
           orderBy: {
-            ...(req.query.orderBy && req.query.orderBy.field && { field: req.query.orderBy.field } || { field: 'createdAt' }),
+            ...((req.query.orderBy && req.query.orderBy.field && { field: req.query.orderBy.field }) || { field: 'createdAt' }),
             ...((req.query.orderBy && req.query.orderBy.direction && { direction: req.query.orderBy.direction }) || { direction: 'asc' })
           }
         } : { ...req.query }

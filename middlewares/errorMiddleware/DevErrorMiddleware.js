@@ -36,7 +36,7 @@ class DevErrorMiddleware extends BaseMiddleware {
           code: error.code || errorCodes.SERVER.code,
           status: error.status || errorCodes.SERVER.status,
           message: error.message || error,
-          stack: ![400, 401, 403].includes(error.status) ? stackTrace.parse(error) : false,
+          stack: ![400, 401, 403, 422].includes(error.status) ? stackTrace.parse(error) : false,
           env: 'dev/regular'
         })
 

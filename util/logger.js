@@ -70,7 +70,7 @@ module.exports = {
     __typecheck(meta, __type.object)
 
     sentry.captureMessage(message, meta)
-    traceLogger.info(message, meta || {})
+    traceLogger.info(message, meta || '')
   },
 
   info: (message, log) => {

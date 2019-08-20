@@ -16,10 +16,9 @@ class CreateAction extends BaseAction {
     }
   }
 
-  static async run (req) {
-    const { currentUser } = req
-    const data = await PostDAO.baseCreate({ ...req.body, userId: currentUser.id })
-
+  static async run (ctx) {
+    const { currentUser } = ctx
+    const data = await PostDAO.baseCreate({ ...ctx.body, userId: currentUser.id })
     return this.result({ data })
   }
 }

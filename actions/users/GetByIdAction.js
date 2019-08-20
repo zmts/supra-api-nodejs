@@ -1,5 +1,6 @@
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
+const UserModel = require('../../models/UserModel')
 
 /**
  * @description return user by id
@@ -11,14 +12,14 @@ class GetByIdAction extends BaseAction {
 
   static get validationRules () {
     return {
-      params: this.joi.object().keys({
-        id: this.joi.number().integer().positive().required()
-      })
+      params: {
+        id: [UserModel.schema.id, true]
+      }
     }
   }
 
-  static async run (req) {
-    const model = await UserDAO.baseGetById(req.params.id)
+  static async run (ctx) {
+    const model = await UserDAO.baseGetById(ctx.params.id)
 
     return this.result({ data: model })
   }

@@ -1,6 +1,7 @@
 const addSession = require('./shared/addSession')
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
+const AuthModel = require('../../models/AuthModel')
 const SessionEntity = require('../../entities/SessionEntity')
 const { checkPasswordService, makeAccessTokenService } = require('../../services/auth')
 
@@ -11,11 +12,11 @@ class LoginAction extends BaseAction {
 
   static get validationRules () {
     return {
-      body: this.joi.object().keys({
-        password: this.joi.string().required(),
-        email: this.joi.string().email().min(6).max(30).required(),
-        fingerprint: this.joi.string().max(200).required() // https://github.com/Valve/fingerprintjs2
-      })
+      body: {
+        password: [AuthModel.schema.password, true],
+        email: [AuthModel.schema.email, true],
+        fingerprint: [AuthModel.schema.fingerprint, true]
+      }
     }
   }
 

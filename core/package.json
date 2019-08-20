@@ -1,0 +1,30 @@
+{
+  "name": "supra-core",
+  "version": "1.0.0",
+  "description": "supra core package",
+  "main": "index.js",
+  "dependencies": {
+    "@hapi/joi": "^15.0.3",
+    "@sentry/node": "^5.5.0",
+    "aws-sdk": "^2.465.0",
+    "body-parser": "^1.19.0",
+    "chalk": "^2.4.2",
+    "cookie-parser": "^1.4.4",
+    "db-errors": "^0.2.2",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "knex": "^0.16.5",
+    "mailgun-js": "^0.22.0",
+    "morgan": "^1.9.1",
+    "node-cache": "^4.2.0",
+    "objection": "^1.6.9",
+    "pg": "^7.11.0",
+    "pino": "^5.12.6",
+    "pino-pretty": "^3.1.0",
+    "redis": "^2.8.0",
+    "serve-favicon": "^2.5.0"
+  },
+  "devDependencies": {},
+  "author": "Sasha Zmts",
+  "license": "MIT"
+}
