@@ -1,5 +1,4 @@
-const ErrorWrapper = require('../../core/ErrorWrapper')
-const errorCodes = require('../../config').errorCodes
+const { errorCodes, ErrorWrapper } = require('../../core')
 
 const permissions = require('../../permissions')
 const roles = require('../../config').roles

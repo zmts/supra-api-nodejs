@@ -1,3 +1,4 @@
+const errorCodes = require('./errorCodes')
 const assert = require('./assert')
 const clients = require('./clients')
 const BaseConfig = require('./BaseConfig')
@@ -12,6 +13,7 @@ const SentryCatch = require('./SentryCatch')
 const Server = require('./Server')
 
 module.exports = {
+  errorCodes,
   assert,
   clients,
 

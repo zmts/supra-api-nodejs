@@ -1,6 +1,5 @@
 const { checkAccessByTagService } = require('../services/security')
-const ErrorWrapper = require('../core/ErrorWrapper')
-const { errorCodes } = require('../config')
+const { errorCodes, ErrorWrapper } = require('../core')
 
 class BaseController {
   async init () {

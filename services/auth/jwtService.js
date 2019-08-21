@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken')
-const ErrorWrapper = require('../../core/ErrorWrapper')
-const errorCodes = require('../../config/errorCodes')
+const { errorCodes, ErrorWrapper } = require('../../core')
 
 /**
  * @return {Promise} true/Error

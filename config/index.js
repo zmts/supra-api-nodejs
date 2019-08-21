@@ -1,5 +1,4 @@
 const app = require('./app')
-const errorCodes = require('./errorCodes')
 const knex = require('./knex')
 const folders = require('./folders')
 const token = require('./token')
@@ -9,7 +8,6 @@ const s3 = require('./s3')
 
 module.exports = {
   app,
-  errorCodes,
   knex,
   folders,
   token,

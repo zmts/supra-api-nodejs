@@ -4,8 +4,7 @@ const UserDAO = require('../../dao/UserDAO')
 const Rule = require('../../core/Rule')
 const { jwtService } = require('../../services/auth')
 const config = require('../../config')
-const ErrorWrapper = require('../../core/ErrorWrapper')
-const errorCodes = require('../../config/errorCodes')
+const { errorCodes, ErrorWrapper } = require('../../core')
 
 class ConfirmEmailAction extends BaseAction {
   static get accessTag () {
