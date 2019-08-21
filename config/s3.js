@@ -1,4 +1,4 @@
-const { BaseConfig } = require('../core')
+const { BaseConfig } = require('supra-core')
 
 class S3Config extends BaseConfig {
   constructor () {

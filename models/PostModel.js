@@ -1,5 +1,5 @@
 const joi = require('@hapi/joi')
-const { BaseModel, Rule } = require('../core')
+const { BaseModel, Rule } = require('supra-core')
 
 const schema = {
   id: new Rule({

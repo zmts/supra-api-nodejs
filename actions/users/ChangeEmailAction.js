@@ -1,7 +1,7 @@
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
 const UserModel = require('../../models/UserModel')
-const { errorCodes, ErrorWrapper } = require('../../core')
+const { errorCodes, ErrorWrapper } = require('supra-core')
 
 class ChangeEmailAction extends BaseAction {
   static get accessTag () {

@@ -1,4 +1,4 @@
-const { errorCodes, ErrorWrapper } = require('../../core')
+const { errorCodes, ErrorWrapper } = require('supra-core')
 
 module.exports = (session, newFingerprint) => {
   __typecheck(session, __type.object, true)

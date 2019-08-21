@@ -1,4 +1,4 @@
-const { errorCodes, ErrorWrapper } = require('../../core')
+const { errorCodes, ErrorWrapper } = require('supra-core')
 const roles = require('../../config').roles
 
 /**

@@ -1,6 +1,6 @@
 const stackTrace = require('stack-trace')
 const ErrorResponse = require('./ErrorResponse')
-const { errorCodes, BaseMiddleware } = require('../../core')
+const { errorCodes, BaseMiddleware } = require('supra-core')
 
 class ProdErrorMiddleware extends BaseMiddleware {
   async init () {

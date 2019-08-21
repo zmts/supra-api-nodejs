@@ -1,8 +1,7 @@
 const { jwtService } = require('../services/auth')
 const SECRET = require('../config').token.access.secret
-const { errorCodes } = require('../core')
+const { errorCodes, BaseMiddleware } = require('supra-core')
 const roles = require('../config').roles
-const { BaseMiddleware } = require('../core')
 
 class CheckAccessTokenMiddleware extends BaseMiddleware {
   async init () {

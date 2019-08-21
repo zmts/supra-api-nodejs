@@ -3,7 +3,7 @@ const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
 const { jwtService } = require('../../services/auth')
 const config = require('../../config')
-const { errorCodes, ErrorWrapper, Rule } = require('../../core')
+const { errorCodes, ErrorWrapper, Rule } = require('supra-core')
 
 class ConfirmEmailAction extends BaseAction {
   static get accessTag () {

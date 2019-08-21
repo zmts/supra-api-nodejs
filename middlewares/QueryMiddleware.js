@@ -1,5 +1,5 @@
 const joi = require('@hapi/joi')
-const { BaseMiddleware } = require('../core')
+const { BaseMiddleware } = require('supra-core')
 
 const headersSchema = joi.object({
   'content-type': joi.string().valid('application/json', 'multipart/form-data').required()

@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const { errorCodes, ErrorWrapper } = require('../../core')
+const { errorCodes, ErrorWrapper } = require('supra-core')
 
 /**
  * @return {Promise} true/Error

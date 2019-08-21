@@ -1,5 +1,5 @@
 const { checkAccessByTagService } = require('../services/security')
-const { errorCodes, ErrorWrapper } = require('../core')
+const { errorCodes, ErrorWrapper } = require('supra-core')
 
 class BaseController {
   constructor () {

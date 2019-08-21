@@ -2,7 +2,7 @@ const joi = require('@hapi/joi')
 
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
-const { Rule } = require('../../core')
+const { Rule } = require('supra-core')
 
 /**
  * @description return users list

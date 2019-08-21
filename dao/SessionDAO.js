@@ -1,4 +1,4 @@
-const { BaseDAO } = require('../core')
+const { BaseDAO } = require('supra-core')
 
 class SessionDAO extends BaseDAO {
   static get tableName () {

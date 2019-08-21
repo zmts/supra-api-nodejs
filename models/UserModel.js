@@ -1,5 +1,5 @@
 const isEmail = require('validator/lib/isEmail')
-const { BaseModel, Rule } = require('../core')
+const { BaseModel, Rule } = require('supra-core')
 
 const schema = {
   id: new Rule({

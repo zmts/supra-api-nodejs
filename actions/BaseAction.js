@@ -1,5 +1,5 @@
 const joi = require('@hapi/joi')
-const { Rule } = require('../core')
+const { Rule } = require('supra-core')
 
 class BaseAction {
   static get joi () {

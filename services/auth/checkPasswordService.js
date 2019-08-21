@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs')
-const { errorCodes, ErrorWrapper } = require('../../core')
+const { errorCodes, ErrorWrapper } = require('supra-core')
 
 /**
  * @description make from req.body.password hash and compare it with existing password hash

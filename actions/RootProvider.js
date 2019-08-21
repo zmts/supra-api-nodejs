@@ -1,6 +1,6 @@
 // const S3Client = require('../core/clients/S3Client')
 // const RedisClient = require('../core/clients/RedisClient')
-const { EmailClient } = require('../core').clients
+const { EmailClient } = require('supra-core').clients
 const config = require('../config')
 
 class RootProvider {

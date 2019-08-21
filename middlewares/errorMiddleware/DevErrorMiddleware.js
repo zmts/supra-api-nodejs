@@ -1,7 +1,7 @@
 const chalk = require('chalk')
 const stackTrace = require('stack-trace')
 const ErrorResponse = require('./ErrorResponse')
-const { errorCodes, BaseMiddleware } = require('../../core')
+const { errorCodes, BaseMiddleware } = require('supra-core')
 
 class DevErrorMiddleware extends BaseMiddleware {
   async init () {
