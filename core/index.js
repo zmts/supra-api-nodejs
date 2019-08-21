@@ -4,6 +4,7 @@ const clients = require('./lib/clients')
 const BaseConfig = require('./lib/BaseConfig')
 const BaseDAO = require('./lib/BaseDAO')
 const BaseMiddleware = require('./lib/BaseMiddleware')
+const BaseLogger = require('./lib/BaseLogger')
 const BaseModel = require('./lib/BaseModel')
 const ErrorWrapper = require('./lib/ErrorWrapper')
 const InMemoryCache = require('./lib/InMemoryCache')
@@ -19,6 +20,7 @@ module.exports = {
   BaseConfig,
   BaseDAO,
   BaseMiddleware,
+  BaseLogger,
   BaseModel,
 
   ErrorWrapper,
