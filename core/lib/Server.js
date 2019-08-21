@@ -1,30 +1,35 @@
 const express = require('express')
 const path = require('path')
 // const favicon = require('serve-favicon')
-const logger = require('morgan')
+const morganLogger = require('morgan')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 
-class Server {
-  constructor ({ port, host, controllers, middlewares, errorMiddleware }) {
-    __typecheck(port, __type.number, true)
-    __typecheck(host, __type.string, true)
-    __typecheck(controllers, __type.array, true, 'controllers param expects an array.')
-    __typecheck(middlewares, __type.array, true, 'middlewares param expects an array.')
-    __typecheck(errorMiddleware, __type.object, true)
+const assert = require('./assert')
+const BaseMiddleware = require('./BaseMiddleware')
+const BaseLogger = require('./BaseLogger')
 
-    __logger.info('Server start initialization...')
-    return start({ port, host, controllers, middlewares, errorMiddleware })
+class Server {
+  constructor ({ port, host, controllers, middlewares, errorMiddleware, logger }) {
+    assert.integer(port, { required: true, positive: true })
+    assert.string(host, { required: true, notEmpty: true })
+    assert.array(controllers, { required: true, notEmpty: true, message: 'controllers param expects not empty array' })
+    assert.array(middlewares, { required: true, notEmpty: true, message: 'middlewares param expects not empty array' })
+    assert.instanceOf(errorMiddleware, BaseMiddleware)
+    assert.instanceOf(logger, BaseLogger)
+
+    logger.info('Server start initialization...')
+    return start({ port, host, controllers, middlewares, errorMiddleware, logger })
   }
 }
 
-function start ({ port, host, controllers, middlewares, errorMiddleware }) {
+function start ({ port, host, controllers, middlewares, errorMiddleware, logger }) {
   return new Promise(async (resolve, reject) => {
     const app = express()
 
     // uncomment after placing your favicon in /public
     // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-    if (process.env.NODE_ENV !== 'production') app.use(logger('dev'))
+    if (process.env.NODE_ENV !== 'production') app.use(morganLogger('dev'))
     app.use(bodyParser.json())
     app.use(bodyParser.urlencoded({ extended: false }))
     app.use(cookieParser())
@@ -73,19 +78,19 @@ function start ({ port, host, controllers, middlewares, errorMiddleware }) {
     })
 
     process.on('unhandledRejection', (reason, promise) => {
-      __logger.error('unhandledRejection', reason)
+      logger.error('unhandledRejection', reason)
     })
 
     process.on('rejectionHandled', promise => {
-      __logger.warn('rejectionHandled', promise)
+      logger.warn('rejectionHandled', promise)
     })
 
     process.on('multipleResolves', (type, promise, reason) => {
-      __logger.error('multipleResolves', { type, promise, reason })
+      logger.error('multipleResolves', { type, promise, reason })
     })
 
     process.on('uncaughtException', error => {
-      __logger.fatal('uncaughtException', error.stack)
+      logger.fatal('uncaughtException', error.stack)
       process.exit(1)
     })
 

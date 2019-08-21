@@ -9,13 +9,15 @@ const controllers = require('./controllers')
 const config = require('./config')
 const middlewares = require('./middlewares')
 const errorMiddleware = require('./middlewares/errorMiddleware')
+const logger = require('./util/logger')
 
 new Server({
-  port: config.app.port,
+  port: Number(config.app.port),
   host: config.app.host,
   controllers,
   middlewares,
-  errorMiddleware
+  errorMiddleware,
+  logger
 }).then(serverParams => {
   __logger.trace('Server initialized...', serverParams)
   __logger.info('--- Configs ---')
