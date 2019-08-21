@@ -1,6 +1,6 @@
 const pino = require('pino')
 const config = require('../config')
-const { SentryCatch } = require('supra-core')
+const { SentryCatch, BaseLogger, assert } = require('supra-core')
 const sentry = new SentryCatch(config.app.sentryDns)
 
 const fatalLogger = pino({
@@ -37,46 +37,49 @@ const traceLogger = pino({
   }
 })
 
-module.exports = {
+const loggers = {
   fatal: (message, error, meta) => {
-    __typecheck(message, __type.string, true)
-    __typecheck(error, __type.error, true)
-    __typecheck(meta, __type.object)
+    assert.string(message, { required: true })
+    assert.isOk(error, { required: true })
+    assert.object(meta)
 
     sentry.captureException(error, meta)
     fatalLogger.fatal(message, meta || error.toString())
   },
 
   error: (message, error, meta) => {
-    __typecheck(message, __type.string, true)
-    __typecheck(error, __type.error, true)
-    __typecheck(meta, __type.object)
+    assert.string(message, { required: true })
+    assert.isOk(error, { required: true })
+    assert.object(meta)
 
     sentry.captureException(error, meta)
     errorLogger.error(message, meta || error.toString())
   },
 
   warn: (message, error, meta) => {
-    __typecheck(message, __type.string, true)
-    __typecheck(error, __type.error, true)
-    __typecheck(meta, __type.object)
+    assert.string(message, { required: true })
+    assert.isOk(error, { required: true })
+    assert.object(meta)
 
     sentry.captureException(error, meta)
     warnLogger.warn(message, meta || error.toString())
   },
 
   trace: (message, meta) => {
-    __typecheck(message, __type.string, true)
-    __typecheck(meta, __type.object)
+    assert.string(message, { required: true })
+    assert.object(meta)
 
     sentry.captureMessage(message, meta)
     traceLogger.info(message, meta || '')
   },
 
-  info: (message, log) => {
-    __typecheck(message, __type.string, true)
-    __typecheck(log, __type.any)
+  info: (message, log = {}) => {
+    assert.string(message, { required: true })
+    assert.isOk(log)
 
     infoLogger.info(message, log || '')
   }
 }
+
+module.exports = new BaseLogger(loggers)
+
