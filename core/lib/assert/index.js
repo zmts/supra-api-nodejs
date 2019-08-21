@@ -28,12 +28,12 @@ class Assert {
   static typeOf (value, type, message) {
     const types = [Number, String, Object, Array, Boolean, Function]
     if (!types.includes(type)) {
-      Assert.fail(value, type, `Assert.typeOf accept one of [${types.map(t => t.name)}] types. Use another method to validate "${type}"`)
+      Assert.fail(value, type, message || `Assert.typeOf accept one of [${types.map(t => t.name)}] types. Use another method to validate "${type}"`)
     }
 
-    if (value === undefined) Assert.fail(value, type)
-    if (value === null) Assert.fail(value, type)
-    if (isNaN(value)) Assert.fail(value, type)
+    if (value === undefined) Assert.fail(value, type, message)
+    if (value === null) Assert.fail(value, type, message)
+    if (typeof value === 'number' && isNaN(value)) Assert.fail(value, type, message)
     if (value.constructor === type) return
     if (type === Function && typeof value === 'function') return
     if (type === Array && Array.isArray(value)) return
@@ -49,31 +49,31 @@ class Assert {
   static array (value, { required = false, notEmpty = false, message = '' } = {}) {
     if (required) Assert.typeOf(value, Array, message)
     if (value !== undefined) Assert.typeOf(value, Array, message)
-    if (value && !value.length && notEmpty) Assert.fail(value, 'Not empty array')
+    if (value && !value.length && notEmpty) Assert.fail(value, 'Not empty array', message)
   }
 
   static arrayOfStrings (value, { required = false, notEmpty = false, message = '' } = {}) {
     Assert.array(value, { required, message })
     if (value && notEmpty && !value.length) Assert.array(value, { notEmpty: true })
-    if (value && value.length && !value.every(i => typeof i === 'string')) Assert.fail(value, 'Array of strings')
+    if (value && value.length && !value.every(i => typeof i === 'string')) Assert.fail(value, 'Array of strings', message)
   }
 
   static arrayOfNumbers (value, { required = false, notEmpty = false, message = '' } = {}) {
     Assert.array(value, { required, message })
     if (value && notEmpty && !value.length) Assert.array(value, { notEmpty: true })
-    if (value && value.length && !value.every(i => typeof i === 'number')) Assert.fail(value, 'Array of numbers')
+    if (value && value.length && !value.every(i => typeof i === 'number')) Assert.fail(value, 'Array of numbers', message)
   }
 
   static arrayOfObjects (value, { required = false, notEmpty = false, message = '' } = {}) {
     Assert.array(value, { required, message })
     if (value && notEmpty && !value.length) Assert.array(value, { notEmpty: true })
-    if (value && value.length && !value.every(i => i && i.constructor === Object)) Assert.fail(value, 'Array of objects')
+    if (value && value.length && !value.every(i => i && i.constructor === Object)) Assert.fail(value, 'Array of objects', message)
   }
 
   static arrayOfNumbersOrStrings (value, { required = false, notEmpty = false, message = '' } = {}) {
     Assert.array(value, { required, message })
     if (value && notEmpty && !value.length) Assert.array(value, { notEmpty: true })
-    if (value && value.length && (!value.every(i => (typeof i === 'number') || (typeof i === 'string')))) Assert.fail(value, 'Array of numbers or strings')
+    if (value && value.length && (!value.every(i => (typeof i === 'number') || (typeof i === 'string')))) Assert.fail(value, 'Array of numbers or strings', message)
   }
 
   static number (value, { required = false, message = '' } = {}) {
@@ -88,9 +88,9 @@ class Assert {
   }
 
   static string (value, { required = false, notEmpty = false, message = '' } = {}) {
-    if (required) Assert.typeOf(value, String, message)
+    if (required || notEmpty) Assert.typeOf(value, String, message)
     if (value !== undefined) Assert.typeOf(value, String, message)
-    if (!value.trim().length && notEmpty) Assert.fail(value, 'Not empty string')
+    if (value && !value.trim().length && notEmpty) Assert.fail(value, 'Not empty string', message)
   }
 
   static boolean (value, { required = false, message = '' } = {}) {
@@ -101,7 +101,7 @@ class Assert {
   static buffer (value, { required = false, notEmpty = false, message = '' } = {}) {
     if (required && !Buffer.isBuffer(value)) Assert.fail(value, 'Buffer', message)
     if (value !== undefined && !Buffer.isBuffer(value)) Assert.fail(value, 'Buffer', message)
-    if (!value.length && notEmpty) Assert.fail(value, 'Not empty buffer')
+    if (!value.length && notEmpty) Assert.fail(value, 'Not empty buffer', message)
   }
 
   static date (value, { required = false, message = '' } = {}) {
@@ -110,7 +110,7 @@ class Assert {
   }
 
   static func (value, { required = false, message = '' } = {}) {
-    if (required) Assert.instanceOf(value, Function, message)
+    if (required) Assert.typeOf(value, Function, message)
     if (value !== undefined) Assert.instanceOf(value, Function, message)
   }
 
