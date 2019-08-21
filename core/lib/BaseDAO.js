@@ -1,7 +1,8 @@
 const Model = require('objection').Model
 // https://github.com/Vincit/objection-db-errors
 const { wrapError, UniqueViolationError, NotNullViolationError } = require('db-errors')
-const { errorCodes, ErrorWrapper } = require('../core')
+const ErrorWrapper = require('./ErrorWrapper')
+const errorCodes = require('./errorCodes')
 
 class BaseDAO extends Model {
   /**

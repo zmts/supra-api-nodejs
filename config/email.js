@@ -1,4 +1,4 @@
-const BaseConfig = require('../core/BaseConfig')
+const { BaseConfig } = require('../core')
 
 class EmailConfig extends BaseConfig {
   constructor () {

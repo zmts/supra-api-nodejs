@@ -1,10 +1,9 @@
 const isJWT = require('validator/lib/isJWT')
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
-const Rule = require('../../core/Rule')
 const { jwtService } = require('../../services/auth')
 const config = require('../../config')
-const { errorCodes, ErrorWrapper } = require('../../core')
+const { errorCodes, ErrorWrapper, Rule } = require('../../core')
 
 class ConfirmEmailAction extends BaseAction {
   static get accessTag () {

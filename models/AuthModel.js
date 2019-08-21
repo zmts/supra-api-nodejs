@@ -1,7 +1,6 @@
-const BaseModel = require('../core/BaseModel')
-const Rule = require('../core/Rule')
 const isEmail = require('validator/lib/isEmail')
 const isUUID = require('validator/lib/isUUID')
+const { BaseModel, Rule } = require('../core')
 
 const schema = {
   email: new Rule({

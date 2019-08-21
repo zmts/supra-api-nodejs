@@ -1,5 +1,5 @@
 const joi = require('@hapi/joi')
-const Rule = require('../core/Rule')
+const { Rule } = require('../core')
 
 class BaseAction {
   static get joi () {

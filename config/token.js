@@ -1,4 +1,4 @@
-const BaseConfig = require('../core/BaseConfig')
+const { BaseConfig } = require('../core')
 const expiresInRegexp = /^(\d\d?m$|\d\d?h$|\d\d?d$)/ // valid minutes, hours, days like: 1m, 1h, 1d, 11m, 11h, 11d
 
 class TokenConfig extends BaseConfig {

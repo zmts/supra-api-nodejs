@@ -1,4 +1,4 @@
-const BaseMiddleware = require('../core/BaseMiddleware')
+const { BaseMiddleware } = require('../core')
 
 class CorsMiddleware extends BaseMiddleware {
   async init () {

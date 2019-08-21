@@ -2,12 +2,9 @@ const { checkAccessByTagService } = require('../services/security')
 const { errorCodes, ErrorWrapper } = require('../core')
 
 class BaseController {
-  async init () {
-    throw new Error(`${this.constructor.name} should implement 'init' method.`)
-  }
-
-  get router () {
-    throw new Error(`${this.constructor.name} should implement 'router' getter.`)
+  constructor () {
+    if (!this.init) throw new Error(`${this.constructor.name} should implement 'init' method.`)
+    if (!this.router) throw new Error(`${this.constructor.name} should implement 'router' getter.`)
   }
 
   actionRunner (action) {

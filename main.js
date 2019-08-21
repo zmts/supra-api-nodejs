@@ -4,7 +4,7 @@ require('./globals')()
 const { Model } = require('objection')
 const Knex = require('knex')
 
-const Server = require('./core/Server')
+const { Server } = require('./core')
 const controllers = require('./controllers')
 const config = require('./config')
 const middlewares = require('./middlewares')

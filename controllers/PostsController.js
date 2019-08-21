@@ -1,7 +1,7 @@
 const router = require('express').Router()
 
 const actions = require('../actions/posts')
-const BaseController = require('../core/BaseController')
+const BaseController = require('./BaseController')
 
 class PostsController extends BaseController {
   get router () {

@@ -1,6 +1,5 @@
 const joi = require('@hapi/joi')
-const BaseModel = require('../core/BaseModel')
-const Rule = require('../core/Rule')
+const { BaseModel, Rule } = require('../core')
 
 const schema = {
   id: new Rule({

@@ -1,16 +1,15 @@
-const errorCodes = require('./errorCodes')
-const assert = require('./assert')
-const clients = require('./clients')
-const BaseConfig = require('./BaseConfig')
-const BaseController = require('./BaseController')
-const BaseDAO = require('./BaseDAO')
-const BaseMiddleware = require('./BaseMiddleware')
-const BaseModel = require('./BaseModel')
-const ErrorWrapper = require('./ErrorWrapper')
-const InMemoryCache = require('./InMemoryCache')
-const Rule = require('./Rule')
-const SentryCatch = require('./SentryCatch')
-const Server = require('./Server')
+const errorCodes = require('./lib/errorCodes')
+const assert = require('./lib/assert')
+const clients = require('./lib/clients')
+const BaseConfig = require('./lib/BaseConfig')
+const BaseDAO = require('./lib/BaseDAO')
+const BaseMiddleware = require('./lib/BaseMiddleware')
+const BaseModel = require('./lib/BaseModel')
+const ErrorWrapper = require('./lib/ErrorWrapper')
+const InMemoryCache = require('./lib/InMemoryCache')
+const Rule = require('./lib/Rule')
+const SentryCatch = require('./lib/SentryCatch')
+const Server = require('./lib/Server')
 
 module.exports = {
   errorCodes,
@@ -18,7 +17,6 @@ module.exports = {
   clients,
 
   BaseConfig,
-  BaseController,
   BaseDAO,
   BaseMiddleware,
   BaseModel,

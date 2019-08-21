@@ -1,5 +1,5 @@
 const config = require('../config')
-const BaseMiddleware = require('../core/BaseMiddleware')
+const { BaseMiddleware } = require('../core')
 
 class InitMiddleware extends BaseMiddleware {
   async init () {

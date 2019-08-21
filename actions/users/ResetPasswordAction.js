@@ -4,8 +4,7 @@ const { jwtService, makePasswordHashService } = require('../../services/auth')
 const config = require('../../config')
 const UserDAO = require('../../dao/UserDAO')
 const UserModel = require('../../models/UserModel')
-const Rule = require('../../core/Rule')
-const { errorCodes, ErrorWrapper } = require('../../core')
+const { errorCodes, ErrorWrapper, Rule } = require('../../core')
 
 /**
  * 1) verify resetPasswordToken

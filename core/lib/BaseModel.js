@@ -1,4 +1,5 @@
-const { errorCodes, ErrorWrapper } = require('.')
+const ErrorWrapper = require('./ErrorWrapper')
+const errorCodes = require('./errorCodes')
 
 class BaseModel {
   constructor (src) {

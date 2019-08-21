@@ -1,7 +1,7 @@
 const router = require('express').Router()
 
 const actions = require('../actions/users')
-const BaseController = require('../core/BaseController')
+const BaseController = require('./BaseController')
 
 class UsersController extends BaseController {
   get router () {
