@@ -41,39 +41,21 @@ class Assert {
     Assert.fail(value, type, message)
   }
 
+  static array (value, { required = false, notEmpty = false, message = '', of = [] } = {}) {
+    const validArrayTypes = [Number, String, Object, Array, Boolean, Function]
+    if (!Array.isArray(of)) Assert.fail(of, 'of option expect an Array type')
+    if (!of.every(i => validArrayTypes.includes(i))) {
+      Assert.fail(value, of, message || `Assert.array 'of' option accept only one of [${validArrayTypes.map(t => t.name)}] types`)
+    }
+    if (required || notEmpty) Assert.typeOf(value, Array, message)
+    if (value !== undefined) Assert.typeOf(value, Array, message)
+    if (value && !value.length && notEmpty) Assert.fail(value, 'Not empty array')
+    if (value && value.length && of.length && !value.every(i => of.includes(i.constructor))) Assert.fail(value, `Array of some [${of.map(t => t.name)}] types`)
+  }
+
   static object (value, { required = false, message = '' } = {}) {
     if (required) Assert.typeOf(value, Object, message)
     if (value !== undefined) Assert.typeOf(value, Object, message)
-  }
-
-  static array (value, { required = false, notEmpty = false, message = '' } = {}) {
-    if (required) Assert.typeOf(value, Array, message)
-    if (value !== undefined) Assert.typeOf(value, Array, message)
-    if (value && !value.length && notEmpty) Assert.fail(value, 'Not empty array', message)
-  }
-
-  static arrayOfStrings (value, { required = false, notEmpty = false, message = '' } = {}) {
-    Assert.array(value, { required, message })
-    if (value && notEmpty && !value.length) Assert.array(value, { notEmpty: true })
-    if (value && value.length && !value.every(i => typeof i === 'string')) Assert.fail(value, 'Array of strings', message)
-  }
-
-  static arrayOfNumbers (value, { required = false, notEmpty = false, message = '' } = {}) {
-    Assert.array(value, { required, message })
-    if (value && notEmpty && !value.length) Assert.array(value, { notEmpty: true })
-    if (value && value.length && !value.every(i => typeof i === 'number')) Assert.fail(value, 'Array of numbers', message)
-  }
-
-  static arrayOfObjects (value, { required = false, notEmpty = false, message = '' } = {}) {
-    Assert.array(value, { required, message })
-    if (value && notEmpty && !value.length) Assert.array(value, { notEmpty: true })
-    if (value && value.length && !value.every(i => i && i.constructor === Object)) Assert.fail(value, 'Array of objects', message)
-  }
-
-  static arrayOfNumbersOrStrings (value, { required = false, notEmpty = false, message = '' } = {}) {
-    Assert.array(value, { required, message })
-    if (value && notEmpty && !value.length) Assert.array(value, { notEmpty: true })
-    if (value && value.length && (!value.every(i => (typeof i === 'number') || (typeof i === 'string')))) Assert.fail(value, 'Array of numbers or strings', message)
   }
 
   static number (value, { required = false, message = '' } = {}) {
@@ -121,12 +103,12 @@ class Assert {
 
   static uuid (value, { required = false, message = '' } = {}) {
     Assert.string(value, { required, message })
-    if (!UUID_REGEXP.test(value)) Assert.fail(value, 'UUID', message)
+    if (value && !UUID_REGEXP.test(value)) Assert.fail(value, 'UUID', message)
   }
 
   static url (value, { required = false, message = '' } = {}) {
     Assert.string(value, { required, message })
-    if (!URL_REGEXP.test(value)) Assert.fail(value, 'URL', message)
+    if (value && !URL_REGEXP.test(value)) Assert.fail(value, 'URL', message)
   }
 }
 
