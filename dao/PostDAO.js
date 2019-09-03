@@ -1,4 +1,5 @@
 const { BaseDAO, assert } = require('supra-core')
+const UserModel = require('../models/UserModel')
 
 class PostDAO extends BaseDAO {
   static get tableName () {
@@ -22,9 +23,9 @@ class PostDAO extends BaseDAO {
    */
 
   static async getPostsByUserId (userId, { page, limit, orderBy } = {}) {
-    assert.integer(userId, { required: true })
-    assert.integer(page, { required: true })
-    assert.integer(limit, { required: true })
+    assert.validate(userId, UserModel.schema.userId, { required: true })
+    assert.integer(page, { required: true, positive: true })
+    assert.integer(limit, { required: true, positive: true })
     assert.object(orderBy, { required: true, notEmpty: true })
     assert.string(orderBy.field, { required: true, notEmpty: true })
     assert.string(orderBy.direction, { required: true, notEmpty: true })
