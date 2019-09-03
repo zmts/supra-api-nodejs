@@ -77,7 +77,7 @@ const loggers = {
     assert.string(message, { required: true })
     assert.isOk(log)
 
-    infoLogger.info(message, log || '')
+    infoLogger.info(message, Object.keys(log).length ? log : '')
   }
 }
 
