@@ -1,4 +1,5 @@
 const AssertionError = require('./AssertionError')
+const Rule = require('../Rule')
 
 const util = require('util')
 var { Stream } = require('stream')
@@ -9,6 +10,24 @@ const URL_REGEXP = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i
 class Assert {
   static fail (actual, expected, message) {
     throw new AssertionError(message || `Failed value: ${util.inspect(actual)}; ${expected !== undefined ? `Expect: ${util.inspect(expected.name || expected)}` : ''}`)
+  }
+
+  static validate (value, rule, { required = false } = {}) {
+    Assert.instanceOf(rule, Rule)
+    const validationResult = rule.validator(value)
+    if (!['boolean', 'string'].includes(typeof validationResult)) {
+      Assert.fail(validationResult, null, 'Validation result error. Validator should return string or boolean. Please check validation function')
+    }
+
+    if (required) {
+      if (typeof validationResult === 'string') Assert.fail(value, validationResult)
+      if (typeof validationResult === 'boolean' && !validationResult) Assert.fail(value, rule.description)
+    }
+
+    if (value !== undefined && !required) {
+      if (typeof validationResult === 'string') Assert.fail(value, validationResult)
+      if (typeof validationResult === 'boolean' && !validationResult) Assert.fail(value, rule.description)
+    }
   }
 
   static isOk (value, { message = '' } = {}) {
@@ -53,9 +72,10 @@ class Assert {
     if (value && value.length && of.length && !value.every(i => of.includes(i.constructor))) Assert.fail(value, `Array of some [${of.map(t => t.name)}] types`)
   }
 
-  static object (value, { required = false, message = '' } = {}) {
-    if (required) Assert.typeOf(value, Object, message)
+  static object (value, { required = false, notEmpty = false, message = '' } = {}) {
+    if (required || notEmpty) Assert.typeOf(value, Object, message)
     if (value !== undefined) Assert.typeOf(value, Object, message)
+    if (notEmpty && !Object.keys(value).length) Assert.fail(value, 'Not empty object', message)
   }
 
   static number (value, { required = false, message = '' } = {}) {
