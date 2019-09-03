@@ -1,5 +1,5 @@
 const SessionDAO = require('../../../dao/SessionDAO')
-const SessionEntity = require('../../../entities/SessionEntity')
+const SessionEntity = require('./SessionEntity')
 
 const MAX_SESSIONS_COUNT = 5
 

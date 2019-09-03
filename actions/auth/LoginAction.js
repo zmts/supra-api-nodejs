@@ -2,7 +2,7 @@ const addSession = require('./shared/addSession')
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
 const AuthModel = require('../../models/AuthModel')
-const SessionEntity = require('../../entities/SessionEntity')
+const SessionEntity = require('./shared/SessionEntity')
 const { checkPasswordService, makeAccessTokenService } = require('../../services/auth')
 
 class LoginAction extends BaseAction {

@@ -3,7 +3,7 @@ const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
 const AuthModel = require('../../models/AuthModel')
 const SessionDAO = require('../../dao/SessionDAO')
-const SessionEntity = require('../../entities/SessionEntity')
+const SessionEntity = require('./shared/SessionEntity')
 const { makeAccessTokenService, verifySession } = require('../../services/auth')
 
 class RefreshTokensAction extends BaseAction {
