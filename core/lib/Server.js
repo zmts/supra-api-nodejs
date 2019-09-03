@@ -7,7 +7,7 @@ const bodyParser = require('body-parser')
 
 const assert = require('./assert')
 const BaseMiddleware = require('./BaseMiddleware')
-const BaseLogger = require('./BaseLogger')
+const Logger = require('./Logger')
 
 class Server {
   constructor ({ port, host, controllers, middlewares, errorMiddleware, logger }) {
@@ -16,7 +16,7 @@ class Server {
     assert.array(controllers, { required: true, notEmpty: true, message: 'controllers param expects not empty array' })
     assert.array(middlewares, { required: true, notEmpty: true, message: 'middlewares param expects not empty array' })
     assert.instanceOf(errorMiddleware, BaseMiddleware)
-    assert.instanceOf(logger, BaseLogger)
+    assert.instanceOf(logger, Logger)
 
     logger.info('Server start initialization...')
     return start({ port, host, controllers, middlewares, errorMiddleware, logger })

@@ -1,6 +1,6 @@
 const pino = require('pino')
 const config = require('../config')
-const { SentryCatch, BaseLogger, assert } = require('supra-core')
+const { SentryCatch, Logger, assert } = require('supra-core')
 const sentry = new SentryCatch(config.app.sentryDns)
 
 const fatalLogger = pino({
@@ -81,5 +81,5 @@ const loggers = {
   }
 }
 
-module.exports = new BaseLogger(loggers)
+module.exports = new Logger(loggers)
 

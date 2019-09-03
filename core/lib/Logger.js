@@ -1,6 +1,6 @@
 const assert = require('./assert')
 
-class BaseLogger {
+class Logger {
   constructor ({ fatal, error, warn, trace, info } = {}) {
     assert.func(fatal, { required: true })
     assert.func(error, { required: true })
@@ -16,4 +16,4 @@ class BaseLogger {
   }
 }
 
-module.exports = BaseLogger
+module.exports = Logger
