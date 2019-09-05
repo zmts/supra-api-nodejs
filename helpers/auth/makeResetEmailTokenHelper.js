@@ -1,8 +1,8 @@
-const jwtService = require('./jwtService')
+const jwtHelper = require('./jwtHelper')
 
-const SECRET = require('../../config').token.access.secret
-const expiresIn = require('../../config').token.access.expiresIn
-const type = require('../../config').token.access.type
+const SECRET = require('../../config').token.resetPassword.secret
+const expiresIn = require('../../config').token.resetPassword.expiresIn
+const type = require('../../config').token.resetPassword.type
 const iss = require('../../config').token.jwtIss
 
 /**
@@ -14,8 +14,6 @@ module.exports = userEntity => {
   let config = {
     payload: {
       tokenType: type,
-      username: userEntity.name,
-      userRole: userEntity.role,
       email: userEntity.email,
       iss
     },
@@ -27,5 +25,5 @@ module.exports = userEntity => {
     }
   }
 
-  return jwtService.sign(config.payload, SECRET, config.options)
+  return jwtHelper.sign(config.payload, SECRET, config.options)
 }

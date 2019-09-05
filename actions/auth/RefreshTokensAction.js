@@ -4,7 +4,7 @@ const UserDAO = require('../../dao/UserDAO')
 const AuthModel = require('../../models/AuthModel')
 const SessionDAO = require('../../dao/SessionDAO')
 const SessionEntity = require('./shared/SessionEntity')
-const { makeAccessTokenService, verifySession } = require('../../services/auth')
+const { makeAccessTokenHelper, verifySession } = require('../../helpers/auth')
 
 class RefreshTokensAction extends BaseAction {
   static get accessTag () {
@@ -40,7 +40,7 @@ class RefreshTokensAction extends BaseAction {
 
     return this.result({
       data: {
-        accessToken: await makeAccessTokenService(user),
+        accessToken: await makeAccessTokenHelper(user),
         refreshToken: newSession.refreshToken
       }
     })

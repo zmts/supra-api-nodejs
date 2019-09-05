@@ -1,6 +1,6 @@
 const isJWT = require('validator/lib/isJWT')
 const BaseAction = require('../BaseAction')
-const { jwtService, makePasswordHashService } = require('../../services/auth')
+const { jwtHelper, makePasswordHashHelper } = require('../../helpers/auth')
 const config = require('../../config')
 const UserDAO = require('../../dao/UserDAO')
 const UserModel = require('../../models/UserModel')
@@ -30,11 +30,11 @@ class ResetPasswordAction extends BaseAction {
   }
 
   static async run (ctx) {
-    const tokenData = await jwtService.verify(ctx.body.resetPasswordToken, config.token.resetEmail)
+    const tokenData = await jwtHelper.verify(ctx.body.resetPasswordToken, config.token.resetEmail)
     const tokenUserId = +tokenData.sub
     const user = await UserDAO.baseGetById(tokenUserId)
     if (user.resetEmailToken !== ctx.body.resetPasswordToken) throw new ErrorWrapper({ ...errorCodes.WRONG_RESET_PASSWORD_TOKEN })
-    const passwordHash = await makePasswordHashService(ctx.body.password)
+    const passwordHash = await makePasswordHashHelper(ctx.body.password)
     await UserDAO.baseUpdate(tokenUserId, { passwordHash, resetEmailToken: '', refreshTokensMap: {} })
 
     return this.result({ message: 'Reset password process was successfully applied' })

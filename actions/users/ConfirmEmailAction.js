@@ -1,7 +1,7 @@
 const isJWT = require('validator/lib/isJWT')
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
-const { jwtService } = require('../../services/auth')
+const { jwtHelper } = require('../../helpers/auth')
 const config = require('../../config')
 const { errorCodes, ErrorWrapper, Rule } = require('supra-core')
 
@@ -22,7 +22,7 @@ class ConfirmEmailAction extends BaseAction {
   }
 
   static async run (req) {
-    const tokenData = await jwtService.verify(req.body.emailConfirmToken, config.token.emailConfirm.secret)
+    const tokenData = await jwtHelper.verify(req.body.emailConfirmToken, config.token.emailConfirm.secret)
     const tokenUserId = +tokenData.sub
     const user = await UserDAO.baseGetById(tokenUserId)
     if (user.emailConfirmToken !== req.body.emailConfirmToken) {

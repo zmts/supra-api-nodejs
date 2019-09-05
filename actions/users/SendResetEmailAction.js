@@ -2,7 +2,7 @@ const BaseAction = require('../BaseAction')
 const { emailClient } = require('../RootProvider')
 const UserDAO = require('../../dao/UserDAO')
 const UserModel = require('../../models/UserModel')
-const authModule = require('../../services/auth')
+const { makeResetEmailTokenHelper } = require('../../helpers/auth')
 
 /**
  * 1) get email from request
@@ -25,7 +25,7 @@ class SendResetEmailAction extends BaseAction {
 
   static async run (ctx) {
     const user = await UserDAO.getByEmail(ctx.body.email)
-    const resetEmailToken = await authModule.makeResetEmailTokenService(user)
+    const resetEmailToken = await makeResetEmailTokenHelper(user)
     await UserDAO.baseUpdate(user.id, { resetEmailToken })
     const response = await emailClient.send({
       to: user.email,

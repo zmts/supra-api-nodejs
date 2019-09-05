@@ -1,4 +1,4 @@
-const { jwtService } = require('../services/auth')
+const { jwtHelper } = require('../helpers/auth')
 const SECRET = require('../config').token.access.secret
 const { errorCodes, BaseMiddleware } = require('supra-core')
 const roles = require('../config').roles
@@ -24,7 +24,7 @@ class CheckAccessTokenMiddleware extends BaseMiddleware {
       })
 
       if (token) {
-        return jwtService.verify(token, SECRET)
+        return jwtHelper.verify(token, SECRET)
           .then(tokenData => {
             // set actual current user
             req.currentUser = Object.freeze({

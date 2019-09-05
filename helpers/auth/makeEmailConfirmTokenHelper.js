@@ -1,4 +1,4 @@
-const jwtService = require('./jwtService')
+const jwtHelper = require('./jwtHelper')
 
 const SECRET = require('../../config').token.emailConfirm.secret
 const expiresIn = require('../../config').token.emailConfirm.expiresIn
@@ -25,5 +25,5 @@ module.exports = userEntity => {
     }
   }
 
-  return jwtService.sign(config.payload, SECRET, config.options)
+  return jwtHelper.sign(config.payload, SECRET, config.options)
 }

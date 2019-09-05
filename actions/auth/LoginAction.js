@@ -3,7 +3,7 @@ const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
 const AuthModel = require('../../models/AuthModel')
 const SessionEntity = require('./shared/SessionEntity')
-const { checkPasswordService, makeAccessTokenService } = require('../../services/auth')
+const { checkPasswordHelper, makeAccessTokenHelper } = require('../../helpers/auth')
 
 class LoginAction extends BaseAction {
   static get accessTag () {
@@ -22,7 +22,7 @@ class LoginAction extends BaseAction {
 
   static async run (ctx) {
     const user = await UserDAO.getByEmail(ctx.body.email)
-    await checkPasswordService(ctx.body.password, user.passwordHash)
+    await checkPasswordHelper(ctx.body.password, user.passwordHash)
 
     const newSession = new SessionEntity({
       userId: user.id,
@@ -35,7 +35,7 @@ class LoginAction extends BaseAction {
 
     return this.result({
       data: {
-        accessToken: await makeAccessTokenService(user),
+        accessToken: await makeAccessTokenHelper(user),
         refreshToken: newSession.refreshToken
       }
     })
