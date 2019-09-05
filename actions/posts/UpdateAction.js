@@ -16,7 +16,8 @@ class UpdateAction extends BaseAction {
       body: {
         title: [PostModel.schema.title],
         content: [PostModel.schema.content]
-      }
+      },
+      notEmptyBody: true
     }
   }
 

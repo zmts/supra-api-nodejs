@@ -51,6 +51,10 @@ class BaseController {
          */
         await checkAccessByTagService(action.accessTag, ctx.currentUser)
 
+        if (action.validationRules && action.validationRules.notEmptyBody && !Object.keys(ctx.body).length) {
+          return next(new ErrorWrapper({ ...errorCodes.EMPTY_BODY }))
+        }
+
         /**
          * validate action input data
          */
