@@ -1,7 +1,7 @@
 const BaseAction = require('../BaseAction')
 const PostDAO = require('../../dao/PostDAO')
 
-class ListAction extends BaseAction {
+class ListPostsAction extends BaseAction {
   static get accessTag () {
     return 'posts:list'
   }
@@ -25,4 +25,4 @@ class ListAction extends BaseAction {
   }
 }
 
-module.exports = ListAction
+module.exports = ListPostsAction

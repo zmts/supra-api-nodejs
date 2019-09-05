@@ -3,7 +3,7 @@ const PostDAO = require('../../dao/PostDAO')
 const PostModel = require('../../models/PostModel')
 const { checkAccessByOwnerIdService } = require('../../services/security')
 
-class UpdateAction extends BaseAction {
+class UpdatePostAction extends BaseAction {
   static get accessTag () {
     return 'posts:update'
   }
@@ -32,4 +32,4 @@ class UpdateAction extends BaseAction {
   }
 }
 
-module.exports = UpdateAction
+module.exports = UpdatePostAction

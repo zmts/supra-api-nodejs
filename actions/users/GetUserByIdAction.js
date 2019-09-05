@@ -5,7 +5,7 @@ const UserModel = require('../../models/UserModel')
 /**
  * @description return user by id
  */
-class GetByIdAction extends BaseAction {
+class GetUserByIdAction extends BaseAction {
   static get accessTag () {
     return 'users:get-by-id'
   }
@@ -25,4 +25,4 @@ class GetByIdAction extends BaseAction {
   }
 }
 
-module.exports = GetByIdAction
+module.exports = GetUserByIdAction

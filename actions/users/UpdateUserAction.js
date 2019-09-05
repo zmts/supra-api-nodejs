@@ -2,7 +2,7 @@ const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
 const UserModel = require('../../models/UserModel')
 
-class UpdateAction extends BaseAction {
+class UpdateUserAction extends BaseAction {
   static get accessTag () {
     return 'users:update'
   }
@@ -24,4 +24,4 @@ class UpdateAction extends BaseAction {
   }
 }
 
-module.exports = UpdateAction
+module.exports = UpdateUserAction

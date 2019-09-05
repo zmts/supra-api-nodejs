@@ -4,7 +4,7 @@ const UserDAO = require('../../dao/UserDAO')
 const UserModel = require('../../models/UserModel')
 const { makePasswordHashService, makeEmailConfirmTokenService } = require('../../services/auth')
 
-class CreateAction extends BaseAction {
+class CreateUserAction extends BaseAction {
   static get accessTag () {
     return 'users:create'
   }
@@ -45,4 +45,4 @@ class CreateAction extends BaseAction {
   }
 }
 
-module.exports = CreateAction
+module.exports = CreateUserAction

@@ -2,7 +2,7 @@ const BaseAction = require('../BaseAction')
 const PostDAO = require('../../dao/PostDAO')
 const PostModel = require('../../models/PostModel')
 
-class CreateAction extends BaseAction {
+class CreatePostAction extends BaseAction {
   static get accessTag () {
     return 'posts:create'
   }
@@ -23,4 +23,4 @@ class CreateAction extends BaseAction {
   }
 }
 
-module.exports = CreateAction
+module.exports = CreatePostAction

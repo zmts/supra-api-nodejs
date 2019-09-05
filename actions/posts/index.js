@@ -1,13 +1,13 @@
-const ListAction = require('./ListAction')
-const GetByIdAction = require('./GetByIdAction')
-const CreateAction = require('./CreateAction')
-const UpdateAction = require('./UpdateAction')
-const RemoveAction = require('./RemoveAction')
+const ListPostsAction = require('./ListPostsAction')
+const GetPostByIdAction = require('./GetPostByIdAction')
+const CreatePostAction = require('./CreatePostAction')
+const UpdatePostAction = require('./UpdatePostAction')
+const RemovePostAction = require('./RemovePostAction')
 
 module.exports = {
-  ListAction,
-  GetByIdAction,
-  CreateAction,
-  UpdateAction,
-  RemoveAction
+  ListPostsAction,
+  GetPostByIdAction,
+  CreatePostAction,
+  UpdatePostAction,
+  RemovePostAction
 }

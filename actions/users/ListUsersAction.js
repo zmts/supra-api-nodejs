@@ -7,7 +7,7 @@ const { Rule } = require('supra-core')
 /**
  * @description return users list
  */
-class ListAction extends BaseAction {
+class ListUsersAction extends BaseAction {
   static get accessTag () {
     return 'users:list'
   }
@@ -46,4 +46,4 @@ class ListAction extends BaseAction {
   }
 }
 
-module.exports = ListAction
+module.exports = ListUsersAction

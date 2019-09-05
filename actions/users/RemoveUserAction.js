@@ -3,7 +3,7 @@ const UserDAO = require('../../dao/UserDAO')
 const UserModel = require('../../models/UserModel')
 const { checkAccessUpdateUserService } = require('../../services/security')
 
-class RemoveAction extends BaseAction {
+class RemoveUserAction extends BaseAction {
   static get accessTag () {
     return 'users:remove'
   }
@@ -28,4 +28,4 @@ class RemoveAction extends BaseAction {
   }
 }
 
-module.exports = RemoveAction
+module.exports = RemoveUserAction

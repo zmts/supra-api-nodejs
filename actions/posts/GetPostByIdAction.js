@@ -3,7 +3,7 @@ const PostDAO = require('../../dao/PostDAO')
 const PostModel = require('../../models/PostModel')
 const { checkAccessToPrivateItemService } = require('../../services/security')
 
-class GetByIdAction extends BaseAction {
+class GetPostByIdAction extends BaseAction {
   static get accessTag () {
     return 'posts:get-by-id'
   }
@@ -26,4 +26,4 @@ class GetByIdAction extends BaseAction {
   }
 }
 
-module.exports = GetByIdAction
+module.exports = GetPostByIdAction

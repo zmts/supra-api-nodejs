@@ -7,12 +7,12 @@ class UsersController extends BaseController {
   get router () {
     router.param('id', prepareUserId)
 
-    router.get('/users', this.actionRunner(actions.ListAction))
+    router.get('/users', this.actionRunner(actions.ListUsersAction))
     router.get('/users/current', this.actionRunner(actions.GetCurrentUserAction))
-    router.get('/users/:id', this.actionRunner(actions.GetByIdAction))
-    router.post('/users', this.actionRunner(actions.CreateAction))
-    router.patch('/users', this.actionRunner(actions.UpdateAction))
-    router.delete('/users/:id', this.actionRunner(actions.RemoveAction))
+    router.get('/users/:id', this.actionRunner(actions.GetUserByIdAction))
+    router.post('/users', this.actionRunner(actions.CreateUserAction))
+    router.patch('/users', this.actionRunner(actions.UpdateUserAction))
+    router.delete('/users/:id', this.actionRunner(actions.RemoveUserAction))
 
     router.post('/users/change-password', this.actionRunner(actions.ChangePasswordAction))
     router.post('/users/send-reset-email', this.actionRunner(actions.SendResetEmailAction))

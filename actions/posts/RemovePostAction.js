@@ -3,7 +3,7 @@ const PostDAO = require('../../dao/PostDAO')
 const PostModel = require('../../models/PostModel')
 const { checkAccessByOwnerIdService } = require('../../services/security')
 
-class RemoveAction extends BaseAction {
+class RemovePostAction extends BaseAction {
   static get accessTag () {
     return 'posts:delete'
   }
@@ -27,4 +27,4 @@ class RemoveAction extends BaseAction {
   }
 }
 
-module.exports = RemoveAction
+module.exports = RemovePostAction
