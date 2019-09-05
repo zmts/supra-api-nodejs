@@ -1,7 +1,7 @@
 const BaseAction = require('../BaseAction')
 const SessionDAO = require('../../dao/SessionDAO')
 
-class LogoutAllSessionsAction extends BaseAction {
+class LogoutAllSessionsAction extends BaseAction { // TODO logout from all sessions except current
   static get accessTag () {
     return 'auth:logout-all-sessions'
   }
