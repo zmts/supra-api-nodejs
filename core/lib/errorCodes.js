@@ -3,6 +3,7 @@ module.exports = {
   NO_ARGUMENT: { message: 'Required arguments not supplied', status: 500, code: 'NO_ARGUMENT_ERROR' },
   ARGUMENT_TYPE: { message: 'Wrong argument type', status: 500, code: 'ARGUMENT_TYPE_ERROR' },
   BAD_REQUEST: { message: 'Bad request', status: 400, code: 'BAD_REQUEST_ERROR' },
+  EMPTY_BODY: { message: 'Empty body is not allowed. Please fill the body', status: 400, code: 'EMPTY_BODY_ERROR' },
   VALIDATION: { message: 'Invalid request', status: 400, code: 'VALIDATION_ERROR' },
   ACCESS: { message: 'Access denied', status: 403, code: 'ACCESS_ERROR' },
   NO_ANONYMOUS_ACCESS: { message: 'Access denied. No anonymous access', status: 403, code: 'NO_ANONYMOUS_ACCESS_ERROR' },
