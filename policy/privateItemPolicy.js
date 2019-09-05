@@ -1,5 +1,5 @@
 const { errorCodes, ErrorWrapper } = require('supra-core')
-const roles = require('../../config').roles
+const roles = require('../config').roles
 
 /**
  * @description check access to model by id

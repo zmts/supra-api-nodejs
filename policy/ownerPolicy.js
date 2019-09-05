@@ -1,6 +1,6 @@
 const { errorCodes, ErrorWrapper } = require('supra-core')
 
-const roles = require('../../config').roles
+const roles = require('../config').roles
 
 /**
  * @description model userId === current user id

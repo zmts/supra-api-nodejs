@@ -1,4 +1,4 @@
-const { checkAccessByTagService } = require('../services/security')
+const { actionTagPolicy } = require('../policy')
 const { errorCodes, ErrorWrapper } = require('supra-core')
 
 class BaseController {
@@ -49,7 +49,7 @@ class BaseController {
         /**
          * check access to action by access tag
          */
-        await checkAccessByTagService(action.accessTag, ctx.currentUser)
+        await actionTagPolicy(action.accessTag, ctx.currentUser)
 
         /**
          * verify empty body

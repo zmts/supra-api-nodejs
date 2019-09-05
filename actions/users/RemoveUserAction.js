@@ -1,7 +1,7 @@
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
 const UserModel = require('../../models/UserModel')
-const { checkAccessUpdateUserService } = require('../../services/security')
+const { updateUserPolicy } = require('../../policy')
 
 class RemoveUserAction extends BaseAction {
   static get accessTag () {
@@ -21,7 +21,7 @@ class RemoveUserAction extends BaseAction {
     const id = req.params.id
 
     const model = await UserDAO.baseGetById(id)
-    await checkAccessUpdateUserService(model, currentUser)
+    await updateUserPolicy(model, currentUser)
     await UserDAO.baseRemove(id)
 
     return this.result({ message: `${id} was removed` })

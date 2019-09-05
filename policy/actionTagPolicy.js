@@ -1,7 +1,7 @@
 const { errorCodes, ErrorWrapper } = require('supra-core')
 
-const permissions = require('../../permissions')
-const roles = require('../../config').roles
+const permissions = require('../permissions')
+const roles = require('../config').roles
 
 /**
  * @description check permissions to action by access tag
