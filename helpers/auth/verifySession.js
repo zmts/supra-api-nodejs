@@ -1,9 +1,9 @@
-const { errorCodes, ErrorWrapper } = require('supra-core')
+const { errorCodes, ErrorWrapper, assert } = require('supra-core')
 
 module.exports = (session, newFingerprint) => {
-  __typecheck(session, __type.object, true)
-  __typecheck(session.fingerprint, __type.string, true)
-  __typecheck(newFingerprint, __type.string, true)
+  assert.object(session, { notEmpty: true })
+  assert.string(session.fingerprint, { notEmpty: true })
+  assert.string(newFingerprint, { notEmpty: true })
 
   return new Promise((resolve, reject) => {
     const sessionExpiredAt = Number(session.expiredAt)
