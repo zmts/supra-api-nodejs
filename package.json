@@ -11,22 +11,19 @@
     "seed": "knex seed:run"
   },
   "dependencies": {
-    "supra-core": "./core",
-    "@hapi/joi": "^15.0.3",
     "bcryptjs": "^2.4.3",
-    "dotenv": "^8.0.0",
+    "dotenv": "^8.1.0",
     "jsonwebtoken": "^8.5.1",
-    "knex": "^0.16.5",
     "moment": "^2.24.0",
-    "ms": "^2.1.1",
-    "mz": "^2.7.0",
+    "ms": "^2.1.2",
     "stack-trace": "0.0.10",
+    "supra-core": "./core",
     "type-check": "^0.3.2",
-    "uuid": "^3.3.2",
+    "uuid": "^3.3.3",
     "validator": "^11.1.0"
   },
   "devDependencies": {
-    "eslint": "^5.16.0",
+    "eslint": "^6.3.0",
     "standart": "^6.1.0"
   }
 }
