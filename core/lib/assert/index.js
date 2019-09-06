@@ -53,9 +53,13 @@ class Assert {
     if (value === undefined) Assert.fail(value, type, message)
     if (value === null) Assert.fail(value, type, message)
     if (typeof value === 'number' && isNaN(value)) Assert.fail(value, type, message)
-    if (value.constructor === type) return
-    if (type === Function && typeof value === 'function') return
-    if (type === Array && Array.isArray(value)) return
+
+    if ((type === Number) && Object.prototype.toString.call(value) === '[object Number]') return
+    if ((type === String) && Object.prototype.toString.call(value) === '[object String]') return
+    if ((type === Object) && Object.prototype.toString.call(value) === '[object Object]') return
+    if ((type === Array) && Object.prototype.toString.call(value) === '[object Array]') return
+    if ((type === Boolean) && Object.prototype.toString.call(value) === '[object Boolean]') return
+    if ((type === Function) && Object.prototype.toString.call(value) === '[object Function]') return
 
     Assert.fail(value, type, message)
   }
@@ -92,7 +96,7 @@ class Assert {
   static string (value, { required = false, notEmpty = false, message = '' } = {}) {
     if (required || notEmpty) Assert.typeOf(value, String, message)
     if (value !== undefined) Assert.typeOf(value, String, message)
-    if (value && !value.trim().length && notEmpty) Assert.fail(value, 'Not empty string', message)
+    if (!value.trim().length && notEmpty) Assert.fail(value, 'Not empty string', message)
   }
 
   static boolean (value, { required = false, message = '' } = {}) {
