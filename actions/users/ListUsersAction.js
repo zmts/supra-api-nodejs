@@ -1,3 +1,4 @@
+const { RequestRule } = require('supra-core')
 const joi = require('@hapi/joi')
 
 const BaseAction = require('../BaseAction')
@@ -16,19 +17,19 @@ class ListUsersAction extends BaseAction {
     return {
       query: {
         ...this.baseQueryParams,
-        orderBy: [new Rule({
+        orderBy: new RequestRule(new Rule({
           validator: v => joi.validate(v, {
             field: joi.string().valid(['createdAt', 'username']),
             direction: joi.string().valid(['asc', 'desc'])
           }, e => e ? e.message : true),
           description: 'Object; { field: username, direction: asc || desc }'
-        })],
-        filter: [new Rule({
+        })),
+        filter: new RequestRule(new Rule({
           validator: v => joi.validate(v, {
             username: joi.string().min(2)
           }, e => e ? e.message : true),
           description: 'String; min 2 chars;'
-        })]
+        }))
       }
     }
   }

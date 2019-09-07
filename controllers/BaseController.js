@@ -1,5 +1,5 @@
 const { actionTagPolicy } = require('../policy')
-const { errorCodes, ErrorWrapper } = require('supra-core')
+const { errorCodes, ErrorWrapper, assert, RequestRule } = require('supra-core')
 
 class BaseController {
   constructor () {
@@ -8,7 +8,7 @@ class BaseController {
   }
 
   actionRunner (action) {
-    __typecheck(action, __type.function, true)
+    assert.func(action, { required: true })
 
     if (!action.hasOwnProperty('accessTag')) {
       throw new Error(`'accessTag' getter not declared in invoked '${action.name}' action`)
@@ -19,9 +19,9 @@ class BaseController {
     }
 
     return async (req, res, next) => {
-      __typecheck(req, __type.object, true)
-      __typecheck(res, __type.object, true)
-      __typecheck(next, __type.function, true)
+      assert.object(req, { required: true })
+      assert.object(res, { required: true })
+      assert.func(next, { required: true })
 
       const ctx = {
         currentUser: req.currentUser,
@@ -94,9 +94,9 @@ class BaseController {
 }
 
 function validateSchema (src, requestSchema, schemaTitle) {
-  __typecheck(src, __type.object, true, `Invalid request validation payload. Only object allowed. Actual type: ${Object.prototype.toString.call(src)}`)
-  __typecheck(requestSchema, __type.object, true)
-  __typecheck(schemaTitle, __type.string, true)
+  assert.object(src, { required: true, message: `Invalid request validation payload. Only object allowed. Actual type: ${Object.prototype.toString.call(src)}` })
+  assert.object(requestSchema, { required: true })
+  assert.string(schemaTitle, { required: true })
 
   const schemaKeys = Object.keys(requestSchema)
   const srcKeys = Object.keys(src)
@@ -109,10 +109,10 @@ function validateSchema (src, requestSchema, schemaTitle) {
   schemaKeys.forEach(propName => {
     const validationSrc = src[propName]
 
-    const [schemaRule, isRequiredSchemaField] = requestSchema[propName]
+    const { schemaRule, required } = requestSchema[propName]
     const { validator, description } = schemaRule
 
-    if (isRequiredSchemaField && !src.hasOwnProperty(propName)) {
+    if (required && !src.hasOwnProperty(propName)) {
       throw new ErrorWrapper({ ...errorCodes.VALIDATION, message: `'${schemaTitle}.${propName}' field is required.` })
     }
 
@@ -135,19 +135,19 @@ function validateSchema (src, requestSchema, schemaTitle) {
 }
 
 function getSchemaDescription (validationRules = {}) {
-  __typecheck(validationRules, __type.object, true)
+  assert.object(validationRules, { required: true })
 
   function getRuleDescription (propName, schema) {
-    __typecheck(propName, __type.string, true)
-    __typecheck(schema, __type.object, true)
+    assert.string(propName, { required: true })
+    assert.object(schema, { required: true })
 
-    const ruleWrapper = schema[propName]
-    __typecheck(ruleWrapper, __type.array, false, 'Invalid request rule wrapper type. Acceptable type is Array')
+    const requestRule = schema[propName]
+    assert.instanceOf(requestRule, RequestRule)
 
-    if (!ruleWrapper) return
-    const [ rule, required ] = ruleWrapper
+    if (!requestRule) return
+    const { schemaRule, required } = requestRule
 
-    return `${rule.description} ${required ? '(required)' : '(optional)'}`
+    return `${schemaRule.description} ${required ? '(required)' : '(optional)'}`
   }
 
   const result = { query: {}, params: {}, body: {} }

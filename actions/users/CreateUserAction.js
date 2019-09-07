@@ -1,3 +1,4 @@
+const { RequestRule } = require('supra-core')
 const BaseAction = require('../BaseAction')
 const { emailClient } = require('../RootProvider')
 const UserDAO = require('../../dao/UserDAO')
@@ -12,11 +13,11 @@ class CreateUserAction extends BaseAction {
   static get validationRules () {
     return {
       body: {
-        name: [UserModel.schema.name, true],
-        username: [UserModel.schema.username, true],
-        email: [UserModel.schema.email, true],
-        location: [UserModel.schema.location],
-        password: [UserModel.schema.passwordHash, true]
+        name: new RequestRule(UserModel.schema.name, true),
+        username: new RequestRule(UserModel.schema.username, true),
+        email: new RequestRule(UserModel.schema.email, true),
+        location: new RequestRule(UserModel.schema.location),
+        password: new RequestRule(UserModel.schema.passwordHash, true)
       }
     }
   }

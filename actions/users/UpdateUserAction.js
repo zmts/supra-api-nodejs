@@ -1,3 +1,4 @@
+const { RequestRule } = require('supra-core')
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
 const UserModel = require('../../models/UserModel')
@@ -10,8 +11,8 @@ class UpdateUserAction extends BaseAction {
   static get validationRules () {
     return {
       body: {
-        name: [UserModel.schema.name],
-        location: [UserModel.schema.location]
+        name: new RequestRule(UserModel.schema.name),
+        location: new RequestRule(UserModel.schema.location)
       }
     }
   }

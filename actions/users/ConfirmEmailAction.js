@@ -1,3 +1,4 @@
+const { RequestRule } = require('supra-core')
 const isJWT = require('validator/lib/isJWT')
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
@@ -13,10 +14,10 @@ class ConfirmEmailAction extends BaseAction {
   static get validationRules () {
     return {
       body: {
-        emailConfirmToken: [new Rule({
+        emailConfirmToken: new RequestRule(new Rule({
           validator: v => isJWT(v),
           description: 'string; jwt;'
-        }), true]
+        }), true)
       }
     }
   }

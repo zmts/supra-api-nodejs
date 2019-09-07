@@ -1,10 +1,10 @@
+const { errorCodes, ErrorWrapper, Rule, RequestRule } = require('supra-core')
 const isJWT = require('validator/lib/isJWT')
 const BaseAction = require('../BaseAction')
 const { jwtHelper, makePasswordHashHelper } = require('../../helpers/auth')
 const config = require('../../config')
 const UserDAO = require('../../dao/UserDAO')
 const UserModel = require('../../models/UserModel')
-const { errorCodes, ErrorWrapper, Rule } = require('supra-core')
 
 /**
  * 1) verify resetPasswordToken
@@ -20,11 +20,11 @@ class ResetPasswordAction extends BaseAction {
   static get validationRules () {
     return {
       body: {
-        password: [UserModel.schema.passwordHash, true],
-        resetPasswordToken: [new Rule({
+        password: new RequestRule(UserModel.schema.passwordHash, true),
+        resetPasswordToken: new RequestRule(new Rule({
           validator: v => isJWT(v),
           description: 'string; jwt;'
-        }), true]
+        }), true)
       }
     }
   }

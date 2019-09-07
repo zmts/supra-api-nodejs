@@ -1,3 +1,4 @@
+const { RequestRule } = require('supra-core')
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
 const UserModel = require('../../models/UserModel')
@@ -11,7 +12,7 @@ class RemoveUserAction extends BaseAction {
   static get validationRules () {
     return {
       params: {
-        id: [UserModel.schema.id, true]
+        id: new RequestRule(UserModel.schema.id, true)
       }
     }
   }

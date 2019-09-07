@@ -1,3 +1,4 @@
+const { RequestRule } = require('supra-core')
 const BaseAction = require('../BaseAction')
 const PostDAO = require('../../dao/PostDAO')
 const PostModel = require('../../models/PostModel')
@@ -11,7 +12,7 @@ class GetPostByIdAction extends BaseAction {
   static get validationRules () {
     return {
       params: {
-        id: [PostModel.schema.id, true]
+        id: new RequestRule(PostModel.schema.id, true)
       }
     }
   }

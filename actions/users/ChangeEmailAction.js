@@ -1,3 +1,4 @@
+const { RequestRule } = require('supra-core')
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
 const UserModel = require('../../models/UserModel')
@@ -11,7 +12,7 @@ class ChangeEmailAction extends BaseAction {
   static get validationRules () {
     return {
       body: {
-        email: [UserModel.schema.email, true]
+        email: new RequestRule(UserModel.schema.email, true)
       }
     }
   }

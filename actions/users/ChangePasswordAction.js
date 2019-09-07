@@ -1,3 +1,4 @@
+const { RequestRule } = require('supra-core')
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
 const UserModel = require('../../models/UserModel')
@@ -12,8 +13,8 @@ class ChangePasswordAction extends BaseAction {
   static get validationRules () {
     return {
       body: {
-        oldPassword: [UserModel.schema.passwordHash, true],
-        newPassword: [UserModel.schema.passwordHash, true]
+        oldPassword: new RequestRule(UserModel.schema.passwordHash, true),
+        newPassword: new RequestRule(UserModel.schema.passwordHash, true)
       }
     }
   }

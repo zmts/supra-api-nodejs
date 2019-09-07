@@ -1,3 +1,4 @@
+const { RequestRule } = require('supra-core')
 const BaseAction = require('../BaseAction')
 const SessionDAO = require('../../dao/SessionDAO')
 const AuthModel = require('../../models/AuthModel')
@@ -13,7 +14,7 @@ class LogoutAction extends BaseAction {
   static get validationRules () {
     return {
       body: {
-        refreshToken: [AuthModel.schema.refreshToken, true]
+        refreshToken: new RequestRule(AuthModel.schema.refreshToken, true)
       }
     }
   }

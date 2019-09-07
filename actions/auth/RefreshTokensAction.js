@@ -1,3 +1,4 @@
+const { RequestRule } = require('supra-core')
 const addSession = require('./shared/addSession')
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
@@ -14,8 +15,8 @@ class RefreshTokensAction extends BaseAction {
   static get validationRules () {
     return {
       body: {
-        refreshToken: [AuthModel.schema.refreshToken, true],
-        fingerprint: [AuthModel.schema.fingerprint, true] // https://github.com/Valve/fingerprintjs2
+        refreshToken: new RequestRule(AuthModel.schema.refreshToken, true),
+        fingerprint: new RequestRule(AuthModel.schema.fingerprint, true) // https://github.com/Valve/fingerprintjs2
       }
     }
   }

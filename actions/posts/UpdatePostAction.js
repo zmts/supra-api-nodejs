@@ -1,3 +1,4 @@
+const { RequestRule } = require('supra-core')
 const BaseAction = require('../BaseAction')
 const PostDAO = require('../../dao/PostDAO')
 const PostModel = require('../../models/PostModel')
@@ -11,11 +12,11 @@ class UpdatePostAction extends BaseAction {
   static get validationRules () {
     return {
       params: {
-        id: [PostModel.schema.id, true]
+        id: new RequestRule(PostModel.schema.id, true)
       },
       body: {
-        title: [PostModel.schema.title],
-        content: [PostModel.schema.content]
+        title: new RequestRule(PostModel.schema.title),
+        content: new RequestRule(PostModel.schema.content)
       },
       notEmptyBody: true
     }

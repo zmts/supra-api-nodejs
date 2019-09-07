@@ -1,3 +1,4 @@
+const { RequestRule } = require('supra-core')
 const BaseAction = require('../BaseAction')
 const Rule = require('../core/Rule')
 const UserModel = require('../models/UserModel')
@@ -14,12 +15,12 @@ class TemplateAction extends BaseAction {
         ...this.baseQueryParams
       },
       body: {
-        id: [UserModel.schema.id, true],
-        name: [UserModel.schema.name],
-        test: new Rule({
+        id: new RequestRule(UserModel.schema.id, true),
+        name: new RequestRule(UserModel.schema.name),
+        test: new RequestRule(new Rule({
           validator: v => typeof v === 'string' && v.length >= 8,
           description: 'string; min 8 chars;'
-        })
+        }))
       }
     }
   }

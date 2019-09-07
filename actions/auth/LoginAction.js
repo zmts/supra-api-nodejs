@@ -1,3 +1,4 @@
+const { RequestRule } = require('supra-core')
 const addSession = require('./shared/addSession')
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
@@ -13,9 +14,9 @@ class LoginAction extends BaseAction {
   static get validationRules () {
     return {
       body: {
-        password: [AuthModel.schema.password, true],
-        email: [AuthModel.schema.email, true],
-        fingerprint: [AuthModel.schema.fingerprint, true]
+        password: new RequestRule(AuthModel.schema.password, true),
+        email: new RequestRule(AuthModel.schema.email, true),
+        fingerprint: new RequestRule(AuthModel.schema.fingerprint, true)
       }
     }
   }

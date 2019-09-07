@@ -10,6 +10,7 @@ const BaseModel = require('./lib/BaseModel')
 const ErrorWrapper = require('./lib/ErrorWrapper')
 const InMemoryCache = require('./lib/InMemoryCache')
 const Rule = require('./lib/Rule')
+const RequestRule = require('./lib/RequestRule')
 const SentryCatch = require('./lib/SentryCatch')
 const Server = require('./lib/Server')
 const Logger = require('./lib/Logger')
@@ -27,6 +28,7 @@ module.exports = {
   ErrorWrapper,
   InMemoryCache,
   Rule,
+  RequestRule,
   SentryCatch,
   Server,
   Logger
