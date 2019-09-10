@@ -96,7 +96,7 @@ class Assert {
   static string (value, { required = false, notEmpty = false, message = '' } = {}) {
     if (required || notEmpty) Assert.typeOf(value, String, message)
     if (value !== undefined) Assert.typeOf(value, String, message)
-    if (!value.trim().length && notEmpty) Assert.fail(value, 'Not empty string', message)
+    if (value !== undefined && !value.trim().length && notEmpty) Assert.fail(value, 'Not empty string', message)
   }
 
   static boolean (value, { required = false, message = '' } = {}) {
