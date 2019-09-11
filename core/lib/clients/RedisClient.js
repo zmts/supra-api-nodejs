@@ -1,10 +1,11 @@
+const { assert } = require('supra-core')
 const redis = require('redis')
 const $ = Symbol('private scope')
 
 class RedisClient {
   constructor (options = {}) {
-    __typecheck(options.port, __type.number)
-    __typecheck(options.host, __type.string)
+    assert.integer(options.port)
+    assert.string(options.host)
 
     this[$] = {
       client: redis.createClient({
@@ -31,8 +32,8 @@ class RedisClient {
    */
 
   setUploadTokensList (listOfUuids, ttl = 15 * 60) { // ttl 15min
-    __typecheck(listOfUuids, __type.array, true)
-    __typecheck(ttl, __type.number)
+    assert.array(listOfUuids, { required: true })
+    assert.integer(ttl)
 
     return new Promise((resolve, reject) => {
       listOfUuids.forEach(uuid => {
@@ -46,7 +47,7 @@ class RedisClient {
   }
 
   isExistUploadToken (uuid) {
-    __typecheck(uuid, __type.string, true)
+    assert.uuid(uuid, { required: true })
 
     return new Promise((resolve, reject) => {
       this[$].client.get(`upload-token::${uuid}`, (error, reply) => {
@@ -58,7 +59,7 @@ class RedisClient {
   }
 
   removeUploadToken (uuid) {
-    __typecheck(uuid, __type.string, true)
+    assert.uuid(uuid, { required: true })
 
     return new Promise((resolve, reject) => {
       this[$].client.del(`upload-token::${uuid}`, (error, reply) => {
@@ -77,7 +78,7 @@ class RedisClient {
    */
 
   getUserUploadsCount (userId) {
-    __typecheck(userId, __type.string, true)
+    assert.uuid(userId, { required: true })
 
     return new Promise((resolve, reject) => {
       this[$].client.get(`user-uploads-count::${userId}`, (error, count) => {
@@ -89,9 +90,9 @@ class RedisClient {
   }
 
   setUserUploadsCount (count, userId, ttl) {
-    __typecheck(count, __type.number, true)
-    __typecheck(userId, __type.string, true)
-    __typecheck(ttl, __type.number, true)
+    assert.integer(count, { required: true })
+    assert.uuid(userId, { required: true })
+    assert.integer(ttl, { required: true })
 
     return new Promise((resolve, reject) => {
       this[$].client.set(`user-uploads-count::${userId}`, count, 'EX', ttl, (error, reply) => {
@@ -103,7 +104,7 @@ class RedisClient {
   }
 
   getUserUploadsCountTtl (userId) {
-    __typecheck(userId, __type.string, true)
+    assert.uuid(userId, { required: true })
 
     return new Promise((resolve, reject) => {
       this[$].client.ttl(`user-uploads-count::${userId}`, (error, sec) => {
@@ -115,8 +116,8 @@ class RedisClient {
   }
 
   incrUserUploadsCount (count, userId) {
-    __typecheck(count, __type.number, true)
-    __typecheck(userId, __type.string, true)
+    assert.integer(count, { required: true })
+    assert.uuid(userId, { required: true })
 
     return new Promise((resolve, reject) => {
       this[$].client.incrby(`user-uploads-count::${userId}`, count, (error, reply) => {

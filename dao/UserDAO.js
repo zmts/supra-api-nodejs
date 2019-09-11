@@ -1,4 +1,4 @@
-const { BaseDAO } = require('supra-core')
+const { BaseDAO, assert } = require('supra-core')
 
 class UserDAO extends BaseDAO {
   static get tableName () {
@@ -44,14 +44,14 @@ class UserDAO extends BaseDAO {
    */
 
   static create (data) {
-    __typecheck(data, __type.object, true)
-    __typecheck(data.passwordHash, __type.string, true, 'Invalid \'passwordHash\' field')
+    assert.object(data, { required: true })
+    assert.string(data.passwordHash, { notEmpty: true })
 
     return this.query().insert(data)
   };
 
   static async getByEmail (email) {
-    __typecheck(email, __type.string, true)
+    assert.string(email, { notEmpty: true })
 
     const data = await this.query().where({ email }).first()
     if (!data) throw this.errorEmptyResponse()
@@ -64,7 +64,7 @@ class UserDAO extends BaseDAO {
    * @returns {Promise<boolean>}
    */
   static isEmailExist (email) {
-    __typecheck(email, __type.string, true)
+    assert.string(email, { notEmpty: true })
 
     return this.query().where({ email }).first()
       .then(data => Boolean(data))

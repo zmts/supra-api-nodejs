@@ -1,8 +1,9 @@
 const Model = require('objection').Model
 // https://github.com/Vincit/objection-db-errors
 const { wrapError, UniqueViolationError, NotNullViolationError } = require('db-errors')
-const ErrorWrapper = require('./ErrorWrapper')
 const errorCodes = require('./errorCodes')
+const ErrorWrapper = require('./ErrorWrapper')
+const assert = require('./assert')
 
 class BaseDAO extends Model {
   /**
@@ -67,7 +68,7 @@ class BaseDAO extends Model {
    */
 
   static baseCreate (entity = {}) {
-    __typecheck(entity, __type.object, true)
+    assert.object(entity, { required: true })
 
     /**
      * each entity that creates must to have creator id (userId)
@@ -85,17 +86,17 @@ class BaseDAO extends Model {
   }
 
   static baseUpdate (id, entity = {}) {
-    __typecheck(id, __type.number, true)
-    __typecheck(entity, __type.object, true)
+    assert.integer(id, { required: true })
+    assert.object(entity, { required: true })
 
     return this.query().patchAndFetchById(id, entity)
   }
 
   static async baseGetList ({ page, limit, filter, orderBy } = {}) {
-    __typecheck(page, __type.number, true)
-    __typecheck(limit, __type.number, true)
-    __typecheck(filter, __type.object, true)
-    __typecheck(filter.userId, __type.number)
+    assert.integer(page, { required: true })
+    assert.integer(limit, { required: true })
+    assert.object(filter, { required: true })
+    assert.integer(filter.userId)
 
     const data = await this.query()
       .where({ ...filter })
@@ -107,7 +108,7 @@ class BaseDAO extends Model {
   }
 
   static async baseGetCount (filter = {}) {
-    __typecheck(filter, __type.object, true)
+    assert.object(filter, { required: true })
 
     const result = await this.query()
       .where({ ...filter })
@@ -118,7 +119,7 @@ class BaseDAO extends Model {
   }
 
   static async baseGetById (id) {
-    __typecheck(id, __type.number, true)
+    assert.integer(id, { required: true })
 
     const data = await this.query().findById(id)
     if (!data) throw this.errorEmptyResponse()
@@ -126,13 +127,13 @@ class BaseDAO extends Model {
   }
 
   static baseRemove (id) {
-    __typecheck(id, __type.number, true)
+    assert.integer(id, { required: true })
 
     return this.query().deleteById(id)
   }
 
   static baseRemoveWhere (where = {}) {
-    __typecheck(where, __type.object, true)
+    assert.object(where, { required: true })
 
     return this.query().delete().where({ ...where })
   }

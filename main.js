@@ -4,7 +4,7 @@ require('./globals')()
 const { Model } = require('objection')
 const Knex = require('knex')
 
-const { Server } = require('supra-core')
+const { Server, assert } = require('supra-core')
 const controllers = require('./controllers')
 const config = require('./config')
 const middlewares = require('./middlewares')
@@ -39,8 +39,8 @@ new Server({
   })
 
 async function testDbConnection (knexInstance) {
-  __typecheck(knexInstance, __type.function, true)
-  __typecheck(knexInstance.raw, __type.function, true)
+  assert.func(knexInstance, { required: true })
+  assert.func(knexInstance.raw, { required: true })
 
   try {
     await knexInstance.raw('select 1+1 as result')

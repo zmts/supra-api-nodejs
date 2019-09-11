@@ -1,4 +1,4 @@
-const { errorCodes, ErrorWrapper } = require('supra-core')
+const { errorCodes, ErrorWrapper, assert } = require('supra-core')
 const roles = require('../config').roles
 
 /**
@@ -7,8 +7,8 @@ const roles = require('../config').roles
  * @case update user model
  */
 module.exports = (model, currentUser) => {
-  __typecheck(model, 'Object', true)
-  __typecheck(currentUser, __type.object, true)
+  assert.object(model, { required: true })
+  assert.object(currentUser, { required: true })
 
   return new Promise((resolve, reject) => {
     // pass superadmin

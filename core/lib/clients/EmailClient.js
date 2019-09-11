@@ -5,12 +5,13 @@
 const $ = Symbol('private scope')
 const mailgun = require('mailgun-js')
 const emailRegEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+const assert = require('../assert')
 
 class EmailClient {
   constructor (options = {}) {
-    __typecheck(options.apiKey, __type.string, true)
-    __typecheck(options.domain, __type.string, true)
-    __typecheck(options.from, __type.string)
+    assert.string(options.apiKey, { notEmpty: true })
+    assert.string(options.domain, { notEmpty: true })
+    assert.string(options.from)
 
     this[$] = {
       client: mailgun({
@@ -31,11 +32,11 @@ class EmailClient {
    * text: 'Testing some Mailgun awesomness!'
    */
   send (letter) {
-    __typecheck(letter, __type.object, true)
-    __typecheck(letter.from, __type.string)
-    __typecheck(letter.to, __type.string, true)
-    __typecheck(letter.subject, __type.string, true)
-    __typecheck(letter.text, __type.string, true)
+    assert.object(letter, { required: true })
+    assert.string(letter.from)
+    assert.string(letter.to, { notEmpty: true })
+    assert.string(letter.subject, { notEmpty: true })
+    assert.string(letter.text, { notEmpty: true })
     const isValidToEmail = emailRegEx.test(letter.to)
     if (!isValidToEmail) {
       throw new Error('Wrong "to" option. Should be valid email address.')

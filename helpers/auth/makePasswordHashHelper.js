@@ -1,10 +1,11 @@
 const bcrypt = require('bcryptjs')
+const { assert } = require('supra-core')
 
 /**
  * @return {Promise} string
  */
 module.exports = password => {
-  __typecheck(password, 'String', true)
+  assert.string(password, { notEmpty: true })
 
   return new Promise((resolve, reject) => {
     bcrypt.genSalt(10, (error, salt) => {

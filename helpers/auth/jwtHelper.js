@@ -1,12 +1,12 @@
 const jwt = require('jsonwebtoken')
-const { errorCodes, ErrorWrapper } = require('supra-core')
+const { errorCodes, ErrorWrapper, assert } = require('supra-core')
 
 /**
  * @return {Promise} true/Error
  */
 module.exports.verify = (token, SECRET) => {
-  __typecheck(token, 'String', true)
-  __typecheck(SECRET, 'String', true)
+  assert.string(token, { notEmpty: true })
+  assert.string(SECRET, { notEmpty: true })
 
   return new Promise((resolve, reject) => {
     jwt.verify(token, SECRET, (error, decoded) => {
@@ -25,9 +25,9 @@ module.exports.verify = (token, SECRET) => {
  * @return {Promise} string (token)
  */
 module.exports.sign = (playload, SECRET, options) => {
-  __typecheck(playload, 'Object', true)
-  __typecheck(SECRET, 'String', true)
-  __typecheck(options, 'Object', true)
+  assert.object(playload, { required: true })
+  assert.string(SECRET, { notEmpty: true })
+  assert.object(options, { notEmpty: true })
 
   return new Promise((resolve, reject) => {
     jwt.sign(playload, SECRET, options, (error, token) => {

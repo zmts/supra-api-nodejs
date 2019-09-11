@@ -1,13 +1,13 @@
 const bcrypt = require('bcryptjs')
-const { errorCodes, ErrorWrapper } = require('supra-core')
+const { errorCodes, ErrorWrapper, assert } = require('supra-core')
 
 /**
  * @description make from req.body.password hash and compare it with existing password hash
  * @return {Promise} true/Error
  */
 module.exports = (password, hash) => {
-  __typecheck(password, 'String', true)
-  __typecheck(hash, 'String', true)
+  assert.string(password, { notEmpty: true })
+  assert.string(hash, { notEmpty: true })
 
   return new Promise((resolve, reject) => {
     bcrypt.compare(password, hash, (error, result) => {

@@ -1,12 +1,12 @@
 const jwt = require('jsonwebtoken')
 
-const { errorCodes, ErrorWrapper } = require('supra-core')
+const { errorCodes, ErrorWrapper, assert } = require('supra-core')
 
 /**
  * @return {Promise} token data object
  */
 module.exports = token => {
-  __typecheck(token, 'String', true)
+  assert.string(token, { notEmpty: true })
 
   let tokenData = jwt.decode(token)
 

@@ -1,4 +1,5 @@
 const NodeCache = require('node-cache')
+const assert = require('./assert')
 
 const $ = Symbol('private scope')
 
@@ -14,7 +15,7 @@ class InMemoryCache {
   }
 
   get (key) {
-    __typecheck(key, __type.string, true)
+    assert.string(key, { notEmpty: true })
 
     const value = this[$].cache.get(key)
     if (value) return value
@@ -22,13 +23,13 @@ class InMemoryCache {
   }
 
   set (key, data) {
-    __typecheck(key, __type.string, true)
+    assert.string(key, { notEmpty: true })
 
     this[$].cache.set(key, data)
   }
 
   remove (key) {
-    __typecheck(key, __type.string, true)
+    assert.string(key, { notEmpty: true })
 
     this[$].cache.del(key)
   }

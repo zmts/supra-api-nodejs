@@ -1,4 +1,4 @@
-const { BaseDAO } = require('supra-core')
+const { BaseDAO, assert } = require('supra-core')
 
 class SessionDAO extends BaseDAO {
   static get tableName () {
@@ -6,7 +6,7 @@ class SessionDAO extends BaseDAO {
   }
 
   static async getByRefreshToken (refreshToken) {
-    __typecheck(refreshToken, __type.string, true)
+    assert.string(refreshToken, { notEmpty: true })
 
     const result = await this.query()
       .where({ refreshToken })

@@ -1,5 +1,5 @@
 const joi = require('@hapi/joi')
-const { Rule, RequestRule } = require('supra-core')
+const { Rule, RequestRule, assert } = require('supra-core')
 
 class BaseAction {
   static get joi () {
@@ -35,12 +35,12 @@ class BaseAction {
   }
 
   static result (result) {
-    __typecheck(result, __type.object, true)
-    __typecheck(result.success, __type.boolean)
-    __typecheck(result.status, __type.number)
-    __typecheck(result.headers, __type.object)
-    __typecheck(result.message, __type.string)
-    __typecheck(result.data, __type.any)
+    assert.object(result, { notEmpty: true })
+    assert.boolean(result.success)
+    assert.integer(result.status)
+    assert.object(result.headers)
+    assert.string(result.message)
+    assert.isOk(result.data)
 
     return {
       success: result.success || true,

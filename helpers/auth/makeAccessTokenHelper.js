@@ -1,3 +1,5 @@
+const { assert } = require('supra-core')
+
 const jwtHelper = require('./jwtHelper')
 
 const SECRET = require('../../config').token.access.secret
@@ -9,7 +11,7 @@ const iss = require('../../config').token.jwtIss
  * @return {Promise} string
  */
 module.exports = userEntity => {
-  __typecheck(userEntity, 'Object', true)
+  assert.object(userEntity, { required: true })
 
   let config = {
     payload: {

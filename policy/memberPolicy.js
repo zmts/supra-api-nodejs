@@ -1,10 +1,10 @@
-const { errorCodes, ErrorWrapper } = require('supra-core')
+const { errorCodes, ErrorWrapper, assert } = require('supra-core')
 
 /**
  * @description check is logged in user status
  */
 module.exports = currentUser => {
-  __typecheck(currentUser, __type.object, true)
+  assert.object(currentUser, { required: true })
 
   return new Promise((resolve, reject) => {
     if (currentUser.id) return resolve()

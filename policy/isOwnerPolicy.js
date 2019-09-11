@@ -1,6 +1,8 @@
+const { assert } = require('supra-core')
+
 module.exports = (model, currentUser) => {
-  __typecheck(model, __type.object, true)
-  __typecheck(currentUser, __type.object, true)
+  assert.object(model, { required: true })
+  assert.object(currentUser, { required: true })
 
   return new Promise((resolve, reject) => {
     currentUser.id === model.userId ? resolve(true) : resolve(false)

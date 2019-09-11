@@ -17,8 +17,6 @@
     "no-multi-spaces": "error"
   },
   "globals": {
-    "__typecheck": true,
-    "__type": true,
     "__logger": true
 }
 }

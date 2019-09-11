@@ -1,4 +1,4 @@
-const { errorCodes, ErrorWrapper } = require('supra-core')
+const { errorCodes, ErrorWrapper, assert } = require('supra-core')
 
 const permissions = require('../permissions')
 const roles = require('../config').roles
@@ -8,8 +8,8 @@ const roles = require('../config').roles
  * @case uses in each action class
  */
 module.exports = (accessTag, currentUser) => {
-  __typecheck(accessTag, __type.string, true)
-  __typecheck(currentUser, __type.object, true)
+  assert.string(accessTag, { notEmpty: true })
+  assert.object(currentUser, { required: true })
 
   const accessTagBaseName = accessTag.split(':')[0]
   const accessTagAll = `${accessTagBaseName}:all`
