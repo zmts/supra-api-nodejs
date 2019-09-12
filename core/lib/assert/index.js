@@ -30,8 +30,9 @@ class Assert {
     }
   }
 
-  static isOk (value, { message = '' } = {}) {
-    if (value !== undefined) Assert.fail(value, 'Truthful value', message)
+  static isOk (value, { message = '', required = false } = {}) {
+    if (!value && required) Assert.fail(value, 'Truthful value', message)
+    if (value !== undefined && !value) Assert.fail(value, 'Truthful value', message)
   }
 
   static defined (value, { message = '' } = {}) {
