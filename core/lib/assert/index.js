@@ -126,6 +126,12 @@ class Assert {
     if (value !== undefined) Assert.instanceOf(value, Stream, message)
   }
 
+  static id (value, { required = false, message = '' } = {}) {
+    const isValidId = typeof value === 'number' || UUID_REGEXP.test(value)
+    if (!isValidId && required) Assert.fail(value, 'UUID or Number', message)
+    if (value !== undefined && !isValidId) Assert.fail(value, 'UUID or Number', message)
+  }
+
   static uuid (value, { required = false, message = '' } = {}) {
     Assert.string(value, { required, message })
     if (value && !UUID_REGEXP.test(value)) Assert.fail(value, 'UUID', message)
