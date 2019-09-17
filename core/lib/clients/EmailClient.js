@@ -6,22 +6,25 @@ const $ = Symbol('private scope')
 const mailgun = require('mailgun-js')
 const emailRegEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 const assert = require('../assert')
+const Logger = require('../Logger')
 
 class EmailClient {
   constructor (options = {}) {
     assert.string(options.apiKey, { notEmpty: true })
     assert.string(options.domain, { notEmpty: true })
     assert.string(options.from)
+    assert.instanceOf(options.logger, Logger)
 
     this[$] = {
       client: mailgun({
         apiKey: options.apiKey,
         domain: options.domain
       }),
-      from: options.from || '<no-reply@supra.com>'
+      from: options.from || '<no-reply@supra.com>',
+      logger: options.logger
     }
 
-    __logger.info(`${this.constructor.name} constructed...`)
+    this[$].logger.info(`${this.constructor.name} constructed...`)
   }
 
   /**

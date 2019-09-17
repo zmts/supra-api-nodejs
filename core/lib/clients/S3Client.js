@@ -1,5 +1,6 @@
-const { assert } = require('supra-core')
 const AWS = require('aws-sdk')
+const assert = require('../assert')
+const Logger = require('../Logger')
 const $ = Symbol('private scope')
 
 class S3Client {
@@ -8,6 +9,7 @@ class S3Client {
     assert.string(options.access, { notEmpty: true })
     assert.string(options.secret, { notEmpty: true })
     assert.string(options.bucket, { notEmpty: true })
+    assert.instanceOf(options.logger, Logger)
 
     AWS.config.update({
       accessKeyId: options.access,
@@ -16,10 +18,11 @@ class S3Client {
 
     this[$] = {
       client: new AWS.S3(),
-      bucket: options.bucket
+      bucket: options.bucket,
+      logger: options.logger
     }
 
-    __logger.info(`${this.constructor.name} constructed...`)
+    this[$].info(`${this.constructor.name} constructed...`)
   }
 
   async uploadImage (buffer, fileName) {
@@ -38,7 +41,7 @@ class S3Client {
 
       this[$].client.upload(params, (error, data) => {
         if (error) {
-          __logger.error(`${this.constructor.name}: unable to upload objects`, error)
+          this[$].logger.error(`${this.constructor.name}: unable to upload objects`, error)
           return reject(error)
         }
         resolve(data.Location)
@@ -60,7 +63,7 @@ class S3Client {
 
       this[$].client.deleteObjects(params, (error, data) => {
         if (error) {
-          __logger.error(`${this.constructor.name}: unable to remove objects`, error)
+          this[$].logger.error(`${this.constructor.name}: unable to remove objects`, error)
           return reject(error)
         }
 
