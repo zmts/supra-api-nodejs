@@ -3,7 +3,7 @@ const BaseAction = require('../BaseAction')
 const { emailClient } = require('../RootProvider')
 const UserDAO = require('../../dao/UserDAO')
 const UserModel = require('../../models/UserModel')
-const { makePasswordHashHelper, makeEmailConfirmTokenHelper } = require('../../helpers/auth')
+const { makePasswordHashHelper, makeEmailConfirmTokenHelper } = require('../../auth')
 
 class CreateUserAction extends BaseAction {
   static get accessTag () {

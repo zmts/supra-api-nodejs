@@ -1,7 +1,7 @@
 const BaseAction = require('../BaseAction')
 const { emailClient } = require('../RootProvider')
 const UserDAO = require('../../dao/UserDAO')
-const { makeEmailConfirmTokenHelper } = require('../../helpers/auth')
+const { makeEmailConfirmTokenHelper } = require('../../auth')
 
 class SendEmailConfirmTokenAction extends BaseAction {
   static get accessTag () {

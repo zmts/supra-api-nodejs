@@ -5,7 +5,7 @@ const UserDAO = require('../../dao/UserDAO')
 const AuthModel = require('../../models/AuthModel')
 const SessionDAO = require('../../dao/SessionDAO')
 const SessionEntity = require('./shared/SessionEntity')
-const { makeAccessTokenHelper, verifySession } = require('../../helpers/auth')
+const { makeAccessTokenHelper, verifySession } = require('../../auth')
 
 class RefreshTokensAction extends BaseAction {
   static get accessTag () {

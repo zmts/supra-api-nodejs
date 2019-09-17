@@ -1,11 +1,10 @@
+const jwtHelper = require('./jwtHelper')
 const { assert } = require('supra-core')
 
-const jwtHelper = require('./jwtHelper')
-
-const SECRET = require('../../config').token.access.secret
-const expiresIn = require('../../config').token.access.expiresIn
-const type = require('../../config').token.access.type
-const iss = require('../../config').token.jwtIss
+const SECRET = require('../config').token.resetPassword.secret
+const expiresIn = require('../config').token.resetPassword.expiresIn
+const type = require('../config').token.resetPassword.type
+const iss = require('../config').token.jwtIss
 
 /**
  * @return {Promise} string
@@ -16,8 +15,6 @@ module.exports = userEntity => {
   let config = {
     payload: {
       tokenType: type,
-      username: userEntity.name,
-      userRole: userEntity.role,
       email: userEntity.email,
       iss
     },

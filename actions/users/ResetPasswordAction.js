@@ -1,7 +1,7 @@
 const { errorCodes, ErrorWrapper, Rule, RequestRule } = require('supra-core')
 const isJWT = require('validator/lib/isJWT')
 const BaseAction = require('../BaseAction')
-const { jwtHelper, makePasswordHashHelper } = require('../../helpers/auth')
+const { jwtHelper, makePasswordHashHelper } = require('../../auth')
 const config = require('../../config')
 const UserDAO = require('../../dao/UserDAO')
 const UserModel = require('../../models/UserModel')

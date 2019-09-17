@@ -2,7 +2,7 @@ const { RequestRule } = require('supra-core')
 const isJWT = require('validator/lib/isJWT')
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
-const { jwtHelper } = require('../../helpers/auth')
+const { jwtHelper } = require('../../auth')
 const config = require('../../config')
 const { errorCodes, ErrorWrapper, Rule } = require('supra-core')
 

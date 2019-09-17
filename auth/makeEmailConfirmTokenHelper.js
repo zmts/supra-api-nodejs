@@ -1,10 +1,10 @@
-const jwtHelper = require('./jwtHelper')
 const { assert } = require('supra-core')
+const jwtHelper = require('./jwtHelper')
 
-const SECRET = require('../../config').token.resetPassword.secret
-const expiresIn = require('../../config').token.resetPassword.expiresIn
-const type = require('../../config').token.resetPassword.type
-const iss = require('../../config').token.jwtIss
+const SECRET = require('../config').token.emailConfirm.secret
+const expiresIn = require('../config').token.emailConfirm.expiresIn
+const type = require('../config').token.emailConfirm.type
+const iss = require('../config').token.jwtIss
 
 /**
  * @return {Promise} string

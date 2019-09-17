@@ -4,7 +4,7 @@ const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
 const AuthModel = require('../../models/AuthModel')
 const SessionEntity = require('./shared/SessionEntity')
-const { checkPasswordHelper, makeAccessTokenHelper } = require('../../helpers/auth')
+const { checkPasswordHelper, makeAccessTokenHelper } = require('../../auth')
 
 class LoginAction extends BaseAction {
   static get accessTag () {

@@ -3,7 +3,7 @@ const BaseAction = require('../BaseAction')
 const { emailClient } = require('../RootProvider')
 const UserDAO = require('../../dao/UserDAO')
 const UserModel = require('../../models/UserModel')
-const { makeResetEmailTokenHelper } = require('../../helpers/auth')
+const { makeResetEmailTokenHelper } = require('../../auth')
 
 /**
  * 1) get email from request

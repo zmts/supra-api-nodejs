@@ -3,7 +3,7 @@ const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
 const UserModel = require('../../models/UserModel')
 const SessionDAO = require('../../dao/SessionDAO')
-const { checkPasswordHelper, makePasswordHashHelper } = require('../../helpers/auth')
+const { checkPasswordHelper, makePasswordHashHelper } = require('../../auth')
 
 class ChangePasswordAction extends BaseAction {
   static get accessTag () {
