@@ -1,4 +1,4 @@
-const { jwtHelper } = require('../helpers/auth')
+const { jwtHelper } = require('../auth')
 const SECRET = require('../config').token.access.secret
 const { errorCodes, BaseMiddleware } = require('supra-core')
 const roles = require('../config').roles
