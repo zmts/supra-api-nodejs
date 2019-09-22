@@ -26,7 +26,7 @@ class Assert {
 
     if (value !== undefined && !required) {
       if (typeof validationResult === 'string') Assert.fail(value, validationResult)
-      if (typeof validationResult === 'boolean' && !validationResult) Assert.fail(value, rule.description)
+      if (validationResult === false) Assert.fail(value, rule.description)
     }
   }
 
