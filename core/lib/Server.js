@@ -53,6 +53,9 @@ function start ({ port, host, controllers, middlewares, errorMiddleware, logger 
      */
     for (const item of controllers) {
       try {
+        assert.func(item.init, { required: true })
+        assert.func(item.router, { required: true })
+
         await item.init()
         app.use(item.router)
       } catch (e) {
