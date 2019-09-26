@@ -61,6 +61,7 @@ class Assert {
     if ((type === Array) && Object.prototype.toString.call(value) === '[object Array]') return
     if ((type === Boolean) && Object.prototype.toString.call(value) === '[object Boolean]') return
     if ((type === Function) && Object.prototype.toString.call(value) === '[object Function]') return
+    if ((type === Function) && Object.prototype.toString.call(value) === '[object AsyncFunction]') return
 
     Assert.fail(value, type, message)
   }
