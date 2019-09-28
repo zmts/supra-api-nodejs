@@ -13,11 +13,11 @@ class CreateUserAction extends BaseAction {
   static get validationRules () {
     return {
       body: {
-        name: new RequestRule(UserModel.schema.name, true),
-        username: new RequestRule(UserModel.schema.username, true),
-        email: new RequestRule(UserModel.schema.email, true),
+        name: new RequestRule(UserModel.schema.name, { required: true }),
+        username: new RequestRule(UserModel.schema.username, { required: true }),
+        email: new RequestRule(UserModel.schema.email, { required: true }),
         location: new RequestRule(UserModel.schema.location),
-        password: new RequestRule(UserModel.schema.passwordHash, true)
+        password: new RequestRule(UserModel.schema.passwordHash, { required: true })
       }
     }
   }

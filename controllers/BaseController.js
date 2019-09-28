@@ -101,23 +101,27 @@ function validateSchema (src, requestSchema, schemaTitle) {
   const schemaKeys = Object.keys(requestSchema)
   const srcKeys = Object.keys(src)
 
-  const invalidExtraKeys = srcKeys.filter(srcKey => !schemaKeys.includes(srcKey))
+  const defaultValidKeys = ['offset', 'page', 'limit', 'filter', 'orderBy']
+  const invalidExtraKeys = srcKeys.filter(srcKey => !schemaKeys.includes(srcKey) && !defaultValidKeys.includes(srcKey))
   if (invalidExtraKeys.length) {
     throw new ErrorWrapper({ ...errorCodes.VALIDATION, message: `Extra keys found in '${schemaTitle}' payload: [${invalidExtraKeys}]` })
   }
 
+  if (!schemaKeys.length) return
+
   schemaKeys.forEach(propName => {
     const validationSrc = src[propName]
 
-    const { schemaRule, required } = requestSchema[propName]
+    const { schemaRule, options } = requestSchema[propName]
     const { validator, description } = schemaRule
+    const hasAllowedDefaultData = options.allowed.includes(validationSrc)
 
-    if (required && !src.hasOwnProperty(propName)) {
+    if (options.required && !src.hasOwnProperty(propName) && !hasAllowedDefaultData) {
       throw new ErrorWrapper({ ...errorCodes.VALIDATION, message: `'${schemaTitle}.${propName}' field is required.` })
     }
 
     if (src.hasOwnProperty(propName)) {
-      const validationResult = validator(validationSrc)
+      const validationResult = validator(validationSrc) || hasAllowedDefaultData
 
       if (!['boolean', 'string'].includes(typeof validationResult)) {
         throw new ErrorWrapper({ ...errorCodes.SERVER, message: `Invalid '${schemaTitle}.${propName}' field validation result. Validator should return boolean or string.` })
@@ -145,9 +149,9 @@ function getSchemaDescription (validationRules = {}) {
     assert.instanceOf(requestRule, RequestRule)
 
     if (!requestRule) return
-    const { schemaRule, required } = requestRule
+    const { schemaRule, options } = requestRule
 
-    return `${schemaRule.description} ${required ? '(required)' : '(optional)'}`
+    return `${schemaRule.description} ${options.required ? ';(required)' : ';(optional)'}`
   }
 
   const result = { query: {}, params: {}, body: {} }

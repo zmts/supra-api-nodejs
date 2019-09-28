@@ -12,7 +12,7 @@ class RemoveUserAction extends BaseAction {
   static get validationRules () {
     return {
       params: {
-        id: new RequestRule(UserModel.schema.id, true)
+        id: new RequestRule(UserModel.schema.id, { required: true })
       }
     }
   }

@@ -14,7 +14,7 @@ class LogoutAction extends BaseAction {
   static get validationRules () {
     return {
       body: {
-        refreshToken: new RequestRule(AuthModel.schema.refreshToken, true)
+        refreshToken: new RequestRule(AuthModel.schema.refreshToken, { required: true })
       }
     }
   }

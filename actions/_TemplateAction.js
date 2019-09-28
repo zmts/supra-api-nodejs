@@ -15,7 +15,7 @@ class TemplateAction extends BaseAction {
         ...this.baseQueryParams
       },
       body: {
-        id: new RequestRule(UserModel.schema.id, true),
+        id: new RequestRule(UserModel.schema.id, { required: true }),
         name: new RequestRule(UserModel.schema.name),
         test: new RequestRule(new Rule({
           validator: v => typeof v === 'string' && v.length >= 8,

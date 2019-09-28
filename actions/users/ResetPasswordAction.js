@@ -20,11 +20,11 @@ class ResetPasswordAction extends BaseAction {
   static get validationRules () {
     return {
       body: {
-        password: new RequestRule(UserModel.schema.passwordHash, true),
+        password: new RequestRule(UserModel.schema.passwordHash, { required: true }),
         resetPasswordToken: new RequestRule(new Rule({
           validator: v => isJWT(v),
           description: 'string; jwt;'
-        }), true)
+        }), { required: true })
       }
     }
   }

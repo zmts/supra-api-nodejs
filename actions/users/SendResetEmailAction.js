@@ -19,7 +19,7 @@ class SendResetEmailAction extends BaseAction {
   static get validationRules () {
     return {
       body: {
-        email: new RequestRule(UserModel.schema.email, true)
+        email: new RequestRule(UserModel.schema.email, { required: true })
       }
     }
   }

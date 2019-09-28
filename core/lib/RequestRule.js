@@ -1,13 +1,23 @@
 const assert = require('./assert')
 const Rule = require('./Rule')
 
+/**
+ * schemaRule - Rule instance class
+ * options.required - is required flag
+ * options.allowed - allowed values (like null or empty string)
+ */
 class RequestRule {
-  constructor (schemaRule, isRequired) {
+  constructor (schemaRule, { required = false, allowed = [] } = {}) {
     assert.instanceOf(schemaRule, Rule)
-    assert.boolean(isRequired)
+    assert.object(arguments[1])
+    assert.boolean(required)
+    assert.array(allowed)
 
     this.schemaRule = schemaRule
-    this.required = isRequired || false
+    this.options = {
+      ...(required ? { required: true } : { required: false }),
+      ...(allowed ? { allowed: allowed } : { allowed: [] })
+    }
   }
 }
 

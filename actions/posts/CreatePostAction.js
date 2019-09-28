@@ -11,8 +11,8 @@ class CreatePostAction extends BaseAction {
   static get validationRules () {
     return {
       body: {
-        title: new RequestRule(PostModel.schema.title, true),
-        content: new RequestRule(PostModel.schema.content, true)
+        title: new RequestRule(PostModel.schema.title, { required: true }),
+        content: new RequestRule(PostModel.schema.content, { required: true })
       }
     }
   }

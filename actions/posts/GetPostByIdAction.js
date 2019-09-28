@@ -12,7 +12,7 @@ class GetPostByIdAction extends BaseAction {
   static get validationRules () {
     return {
       params: {
-        id: new RequestRule(PostModel.schema.id, true)
+        id: new RequestRule(PostModel.schema.id, { required: true })
       }
     }
   }

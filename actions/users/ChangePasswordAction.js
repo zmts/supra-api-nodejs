@@ -13,8 +13,8 @@ class ChangePasswordAction extends BaseAction {
   static get validationRules () {
     return {
       body: {
-        oldPassword: new RequestRule(UserModel.schema.passwordHash, true),
-        newPassword: new RequestRule(UserModel.schema.passwordHash, true)
+        oldPassword: new RequestRule(UserModel.schema.passwordHash, { required: true }),
+        newPassword: new RequestRule(UserModel.schema.passwordHash, { required: true })
       }
     }
   }

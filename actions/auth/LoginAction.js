@@ -14,9 +14,9 @@ class LoginAction extends BaseAction {
   static get validationRules () {
     return {
       body: {
-        password: new RequestRule(AuthModel.schema.password, true),
-        email: new RequestRule(AuthModel.schema.email, true),
-        fingerprint: new RequestRule(AuthModel.schema.fingerprint, true)
+        password: new RequestRule(AuthModel.schema.password, { required: true }),
+        email: new RequestRule(AuthModel.schema.email, { required: true }),
+        fingerprint: new RequestRule(AuthModel.schema.fingerprint, { required: true })
       }
     }
   }

@@ -17,7 +17,7 @@ class ConfirmEmailAction extends BaseAction {
         emailConfirmToken: new RequestRule(new Rule({
           validator: v => isJWT(v),
           description: 'string; jwt;'
-        }), true)
+        }), { required: true })
       }
     }
   }

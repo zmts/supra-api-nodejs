@@ -15,8 +15,8 @@ class RefreshTokensAction extends BaseAction {
   static get validationRules () {
     return {
       body: {
-        refreshToken: new RequestRule(AuthModel.schema.refreshToken, true),
-        fingerprint: new RequestRule(AuthModel.schema.fingerprint, true) // https://github.com/Valve/fingerprintjs2
+        refreshToken: new RequestRule(AuthModel.schema.refreshToken, { required: true }),
+        fingerprint: new RequestRule(AuthModel.schema.fingerprint, { required: true }) // https://github.com/Valve/fingerprintjs2
       }
     }
   }
