@@ -144,4 +144,8 @@ class Assert {
   }
 }
 
-module.exports = process.env.NODE_NOASSERT ? Object.getOwnPropertyNames(Assert).forEach(key => (Assert[key] = function noAssert () {})) : Assert
+if (process.env.NODE_NOASSERT) {
+  Object.getOwnPropertyNames(Assert).forEach(key => (Assert[key] = function noAssert () {}))
+}
+
+module.exports = Assert
