@@ -10,7 +10,7 @@ class CheckAccessTokenMiddleware extends BaseMiddleware {
 
   handler () {
     return (req, res, next) => {
-      const authorization = req.headers['authorization']
+      const authorization = req.headers['authorization'] || req.headers['Authorization']
       const bearer = authorization && authorization.startsWith('Bearer ') ? authorization : null
       const token = bearer ? bearer.split('Bearer ')[1] : null
 
