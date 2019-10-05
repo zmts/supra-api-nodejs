@@ -8,6 +8,7 @@ module.exports = {
   ACCESS: { message: 'Access denied', status: 403, code: 'ACCESS_ERROR' },
   NO_ANONYMOUS_ACCESS: { message: 'Access denied. No anonymous access', status: 403, code: 'NO_ANONYMOUS_ACCESS_ERROR' },
   BAD_ROLE: { message: 'Bad role', status: 403, code: 'BAD_ROLE_ERROR' },
+  INVALID_CREDENTIALS: { message: 'Invalid credentials', status: 403, code: 'INVALID_CREDENTIALS_ERROR' },
   INVALID_PASSWORD: { message: 'Invalid password', status: 403, code: 'INVALID_PASSWORD_ERROR' },
   TOKEN_EXPIRED: { message: 'Token expired', status: 401, code: 'TOKEN_EXPIRED_ERROR' },
   INVALID_SESSION: { message: 'Invalid session. Wrong fingerprint', status: 401, code: 'INVALID_SESSION_ERROR' },
