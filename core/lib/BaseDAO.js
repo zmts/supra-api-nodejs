@@ -86,7 +86,7 @@ class BaseDAO extends Model {
   }
 
   static baseUpdate (id, entity = {}) {
-    assert.integer(id, { required: true })
+    assert.id(id, { required: true })
     assert.object(entity, { required: true })
 
     return this.query().patchAndFetchById(id, entity)
@@ -119,7 +119,7 @@ class BaseDAO extends Model {
   }
 
   static async baseGetById (id) {
-    assert.integer(id, { required: true })
+    assert.id(id, { required: true })
 
     const data = await this.query().findById(id)
     if (!data) throw this.errorEmptyResponse()
@@ -127,7 +127,7 @@ class BaseDAO extends Model {
   }
 
   static baseRemove (id) {
-    assert.integer(id, { required: true })
+    assert.id(id, { required: true })
 
     return this.query().deleteById(id)
   }

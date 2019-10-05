@@ -15,13 +15,13 @@ module.exports = userEntity => {
   let config = {
     payload: {
       tokenType: type,
-      email: userEntity.email,
+      newEmail: userEntity.newEmail,
       iss
     },
 
     options: {
       algorithm: 'HS512',
-      subject: userEntity.id.toString(),
+      subject: userEntity.id,
       expiresIn
     }
   }

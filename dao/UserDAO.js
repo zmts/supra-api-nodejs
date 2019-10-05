@@ -1,4 +1,5 @@
 const { BaseDAO, assert } = require('supra-core')
+const UserModel = require('../models/UserModel')
 
 class UserDAO extends BaseDAO {
   static get tableName () {
@@ -51,7 +52,7 @@ class UserDAO extends BaseDAO {
   };
 
   static async getByEmail (email) {
-    assert.string(email, { notEmpty: true })
+    assert.validate(email, UserModel.schema.email, { required: true })
 
     const data = await this.query().where({ email }).first()
     if (!data) throw this.errorEmptyResponse()
@@ -63,12 +64,18 @@ class UserDAO extends BaseDAO {
    * @param email
    * @returns {Promise<boolean>}
    */
-  static isEmailExist (email) {
-    assert.string(email, { notEmpty: true })
+  static async isEmailExist (email) {
+    assert.validate(email, UserModel.schema.email, { required: true })
 
-    return this.query().where({ email }).first()
-      .then(data => Boolean(data))
-      .catch(error => { throw error })
+    const data = await this.query().where({ email }).first()
+    return Boolean(data)
+  }
+
+  static async checkEmailAvailability (email) {
+    assert.validate(email, UserModel.schema.email, { required: true })
+
+    const data = await this.query().where({ email }).first()
+    return { available: !data }
   }
 }
 

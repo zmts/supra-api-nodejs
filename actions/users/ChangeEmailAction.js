@@ -1,8 +1,10 @@
-const { RequestRule } = require('supra-core')
+const { errorCodes, ErrorWrapper, RequestRule } = require('supra-core')
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
 const UserModel = require('../../models/UserModel')
-const { errorCodes, ErrorWrapper } = require('supra-core')
+const makeEmailConfirmTokenHelper = require('../../auth/makeEmailConfirmTokenHelper')
+const { emailClient } = require('../RootProvider')
+const { app } = require('../../config')
 
 class ChangeEmailAction extends BaseAction {
   static get accessTag () {
@@ -12,20 +14,27 @@ class ChangeEmailAction extends BaseAction {
   static get validationRules () {
     return {
       body: {
-        email: new RequestRule(UserModel.schema.email, { required: true })
+        newEmail: new RequestRule(UserModel.schema.email, { required: true })
       }
     }
   }
 
   static async run (ctx) {
     const { currentUser } = ctx
-    const email = ctx.body.email
+    const { newEmail } = ctx.body
 
-    const isExist = await UserDAO.isEmailExist(email)
+    const isExist = await UserDAO.isEmailExist(newEmail)
     if (isExist) throw new ErrorWrapper({ ...errorCodes.EMAIL_ALREADY_TAKEN })
-    await UserDAO.baseUpdate(currentUser.id, { email, isEmailConfirmed: false })
 
-    return this.result({ message: `Email was changed to ${email}!` })
+    const emailConfirmToken = await makeEmailConfirmTokenHelper({ ...currentUser, newEmail })
+    await emailClient.send({
+      to: newEmail,
+      subject: 'Confirm email | supra.com!',
+      text: `To confirm email: ${newEmail} please follow this link >> ${app.url}/frontend-spa/confirm-email?emailConfirmToken=${emailConfirmToken}`
+    })
+    await UserDAO.baseUpdate(currentUser.id, { newEmail, emailConfirmToken })
+
+    return this.result({ message: `User requested change email to ${newEmail}!` })
   }
 }
 

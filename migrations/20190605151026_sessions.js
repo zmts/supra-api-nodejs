@@ -2,7 +2,7 @@ exports.up = (knex, Promise) => {
   return knex.schema
     .createTable('sessions', table => {
       table.increments()
-      table.integer('userId').references('id').inTable('users').onDelete('CASCADE')
+      table.uuid('userId').references('id').inTable('users').onDelete('CASCADE')
       table.uuid('refreshToken', 36).notNull()
       table.string('os', 200)
       table.string('ua', 200)

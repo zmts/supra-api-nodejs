@@ -1,13 +1,12 @@
 const { assert } = require('supra-core')
 const SessionDAO = require('../../../dao/SessionDAO')
 const SessionEntity = require('./SessionEntity')
+const UserModel = require('../../../models/UserModel')
 
 const MAX_SESSIONS_COUNT = 5
 
 module.exports = async session => {
-  if (!(session instanceof SessionEntity)) {
-    throw new Error('Wrong SessionEntity')
-  }
+  assert.instanceOf(session, SessionEntity)
 
   if (await _isValidSessionsCount(session.userId)) {
     await _addSession(session)
@@ -18,7 +17,7 @@ module.exports = async session => {
 }
 
 async function _isValidSessionsCount (userId) {
-  assert.integer(userId, { required: true, positive: true })
+  assert.validate(userId, UserModel.schema.id, { required: true })
 
   const existingSessionsCount = await SessionDAO.baseGetCount({ userId })
   return existingSessionsCount < MAX_SESSIONS_COUNT
@@ -30,6 +29,6 @@ async function _addSession (session) {
 }
 
 async function _wipeAllUserSessions (userId) {
-  assert.integer(userId, { required: true, positive: true })
+  assert.validate(userId, UserModel.schema.id, { required: true })
   return await SessionDAO.baseRemoveWhere({ userId })
 }

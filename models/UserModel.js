@@ -1,10 +1,15 @@
 const isEmail = require('validator/lib/isEmail')
+const isJWT = require('validator/lib/isJWT')
+const isUUID = require('validator/lib/isUUID')
 const { BaseModel, Rule } = require('supra-core')
+
+const { roles } = require('../config')
+const rolesList = Object.values(roles)
 
 const schema = {
   id: new Rule({
-    validator: v => (typeof v === 'number') && Number.isInteger(v) && v >= 1,
-    description: 'number; integer; min 1;'
+    validator: v => isUUID(v),
+    description: 'UUID;'
   }),
   name: new Rule({
     validator: v => (typeof v === 'string') && v.length >= 3 && v.length <= 50,
@@ -14,9 +19,25 @@ const schema = {
     validator: v => (typeof v === 'string') && v.length >= 3 && v.length <= 25,
     description: 'string; min 3; max 25 chars;'
   }),
+  role: new Rule({
+    validator: v => (typeof v === 'string') && rolesList.includes(v),
+    description: `enum; one of: ${rolesList}`
+  }),
   email: new Rule({
     validator: v => isEmail(v) && v.length <= 50,
     description: 'string; email; max 50 chars;'
+  }),
+  newEmail: new Rule({
+    validator: v => isEmail(v) && v.length <= 50,
+    description: 'string; email; max 50 chars;'
+  }),
+  emailConfirmToken: new Rule({
+    validator: v => isJWT(v),
+    description: 'string; jwt;'
+  }),
+  resetEmailToken: new Rule({
+    validator: v => isJWT(v),
+    description: 'string; jwt;'
   }),
   passwordHash: new Rule({
     validator: v => typeof v === 'string' && v.length >= 8,

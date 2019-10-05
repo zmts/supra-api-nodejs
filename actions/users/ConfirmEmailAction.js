@@ -1,10 +1,10 @@
 const { RequestRule } = require('supra-core')
-const isJWT = require('validator/lib/isJWT')
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
+const UserModel = require('../../models/UserModel')
 const { jwtHelper } = require('../../auth')
 const config = require('../../config')
-const { errorCodes, ErrorWrapper, Rule } = require('supra-core')
+const { errorCodes, ErrorWrapper } = require('supra-core')
 
 class ConfirmEmailAction extends BaseAction {
   static get accessTag () {
@@ -14,24 +14,27 @@ class ConfirmEmailAction extends BaseAction {
   static get validationRules () {
     return {
       body: {
-        emailConfirmToken: new RequestRule(new Rule({
-          validator: v => isJWT(v),
-          description: 'string; jwt;'
-        }), { required: true })
+        emailConfirmToken: new RequestRule(UserModel.schema.emailConfirmToken, { required: true })
       }
     }
   }
 
-  static async run (req) {
-    const tokenData = await jwtHelper.verify(req.body.emailConfirmToken, config.token.emailConfirm.secret)
-    const tokenUserId = +tokenData.sub
-    const user = await UserDAO.baseGetById(tokenUserId)
-    if (user.emailConfirmToken !== req.body.emailConfirmToken) {
+  static async run (ctx) {
+    const tokenData = await jwtHelper.verify(ctx.body.emailConfirmToken, config.token.emailConfirm.secret)
+    const userId = tokenData.sub
+    const newEmail = tokenData.newEmail
+
+    const user = await UserDAO.baseGetById(userId)
+    if (user.emailConfirmToken !== ctx.body.emailConfirmToken) {
       throw new ErrorWrapper({ ...errorCodes.WRONG_EMAIL_CONFIRM_TOKEN })
     }
-    const data = await UserDAO.baseUpdate(tokenUserId, { isEmailConfirmed: true, emailConfirmToken: null })
+    await UserDAO.baseUpdate(userId, {
+      email: newEmail,
+      newEmail: null,
+      emailConfirmToken: null
+    })
 
-    return this.result({ data })
+    return this.result({ message: `${newEmail} confirmed` })
   }
 }
 

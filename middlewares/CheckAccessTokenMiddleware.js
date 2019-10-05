@@ -28,7 +28,7 @@ class CheckAccessTokenMiddleware extends BaseMiddleware {
           .then(tokenData => {
             // set actual current user
             req.currentUser = Object.freeze({
-              id: Number(tokenData.sub),
+              id: tokenData.sub,
               name: tokenData.username,
               role: tokenData.userRole,
               email: tokenData.email,

@@ -2,7 +2,7 @@ exports.up = (knex, Promise) => {
   return knex.schema
     .createTable('posts', table => {
       table.increments()
-      table.integer('userId').references('id').inTable('users').onDelete('CASCADE')
+      table.uuid('userId').references('id').inTable('users').onDelete('CASCADE')
       table.string('title', 20).notNull()
       table.string('content', 5000)
 
