@@ -14,7 +14,7 @@ class SessionEntity {
     assert.validate(src.ip, SessionModel.schema.ip, { required: true })
     assert.validate(src.os, SessionModel.schema.os)
     assert.validate(src.ua, SessionModel.schema.ua)
-    assert.validate(src.browser, SessionModel.schema.ua)
+    assert.validate(src.browser, SessionModel.schema.browser)
 
     this.refreshToken = uuidV4()
     this.userId = src.userId
