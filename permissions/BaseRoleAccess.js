@@ -10,6 +10,7 @@ class BaseRoleAccess {
       'users:change-email',
       'users:get-current-user',
       'users:confirm-email',
+      'users:send-email-confirm-token',
 
       'posts:all',
 
