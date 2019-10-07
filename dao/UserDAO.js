@@ -31,9 +31,12 @@ class UserDAO extends BaseDAO {
   $formatJson (json) {
     json = super.$formatJson(json)
 
+    // delete sensitive data from all queries
     delete json.passwordHash
-    delete json.tokenReset
-    delete json.avatar
+    delete json.emailConfirmToken
+    delete json.resetPasswordToken
+    delete json.newEmail
+    delete json.email
 
     return json
   }
@@ -56,6 +59,20 @@ class UserDAO extends BaseDAO {
 
     const data = await this.query().where({ email }).first()
     if (!data) throw this.errorEmptyResponse()
+    return data
+  }
+
+  static async getCurrentUser (id) {
+    assert.validate(id, UserModel.schema.id, { required: true })
+
+    const data = await this.knexQuery().from(this.tableName).where({ id }).first()
+    if (!data) throw this.errorEmptyResponse()
+
+    // delete sensitive data from current user
+    delete data.passwordHash
+    delete data.emailConfirmToken
+    delete data.resetPasswordToken
+
     return data
   }
 
