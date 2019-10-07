@@ -14,7 +14,7 @@ exports.up = (knex, Promise) => {
       table.text('emailConfirmToken')
 
       table.text('passwordHash').notNull()
-      table.text('resetEmailToken')
+      table.text('resetPasswordToken')
 
       table.timestamp('createdAt').defaultTo(knex.fn.now()).notNull()
       table.timestamp('updatedAt').defaultTo(knex.fn.now()).notNull()

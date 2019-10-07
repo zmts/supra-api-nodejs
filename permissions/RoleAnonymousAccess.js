@@ -4,7 +4,7 @@ class RoleAnonymousAccess {
       'users:list',
       'users:get-by-id',
       'users:create',
-      'users:send-reset-email',
+      'users:send-reset-password-email',
       'users:reset-password',
       'users:confirm-email',
 

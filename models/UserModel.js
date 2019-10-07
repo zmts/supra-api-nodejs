@@ -7,6 +7,8 @@ const { roles } = require('../config')
 const rolesList = Object.values(roles)
 
 const schema = {
+  ...BaseModel.genericSchema,
+
   id: new Rule({
     validator: v => isUUID(v),
     description: 'UUID;'
@@ -35,7 +37,7 @@ const schema = {
     validator: v => isJWT(v),
     description: 'string; jwt;'
   }),
-  resetEmailToken: new Rule({
+  resetPasswordToken: new Rule({
     validator: v => isJWT(v),
     description: 'string; jwt;'
   }),

@@ -7,7 +7,7 @@ const RemoveUserAction = require('./RemoveUserAction')
 const GetCurrentUserAction = require('./GetCurrentUserAction')
 
 const ChangePasswordAction = require('./ChangePasswordAction')
-const SendResetEmailAction = require('./SendResetEmailAction')
+const SendResetPasswordEmailAction = require('./SendResetPasswordEmailAction')
 const ResetPasswordAction = require('./ResetPasswordAction')
 
 const ConfirmEmailAction = require('./ConfirmEmailAction')
@@ -25,7 +25,7 @@ module.exports = {
   GetCurrentUserAction,
 
   ChangePasswordAction,
-  SendResetEmailAction,
+  SendResetPasswordEmailAction,
   ResetPasswordAction,
 
   ConfirmEmailAction,

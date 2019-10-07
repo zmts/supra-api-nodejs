@@ -1,5 +1,21 @@
 const ErrorWrapper = require('./ErrorWrapper')
 const errorCodes = require('./errorCodes')
+const Rule = require('./Rule')
+
+const genericSchema = {
+  id: new Rule({
+    validator: v => isInt(v),
+    description: 'number; positive; greater than 1'
+  }),
+  createdAt: new Rule({
+    validator: v => (typeof v === 'string') && v.length >= 2 && v.length <= 50,
+    description: 'string; date;'
+  }),
+  updatedAt: new Rule({
+    validator: v => (typeof v === 'string') && v.length >= 2 && v.length <= 50,
+    description: 'string; date;'
+  })
+}
 
 class BaseModel {
   constructor (src) {
@@ -28,6 +44,10 @@ class BaseModel {
   static get schema () {
     throw new Error('Missing schema')
   }
+
+  static get genericSchema () {
+    return genericSchema
+  }
 }
 
 function buildModelProps (src, schema, context) {
@@ -51,6 +71,11 @@ function buildModelProps (src, schema, context) {
   })
 
   return Object.freeze(context)
+}
+
+function isInt (int) {
+  const tmpInt = Number(int)
+  return !!(tmpInt && Number.isInteger(tmpInt) && tmpInt >= 1)
 }
 
 module.exports = BaseModel

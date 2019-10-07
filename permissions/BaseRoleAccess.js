@@ -11,6 +11,8 @@ class BaseRoleAccess {
       'users:get-current-user',
       'users:confirm-email',
       'users:send-email-confirm-token',
+      'users:send-reset-password-email',
+      'users:reset-password',
 
       'posts:all',
 

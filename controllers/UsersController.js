@@ -13,7 +13,7 @@ class UsersController extends BaseController {
     router.delete('/users/:id', this.actionRunner(actions.RemoveUserAction))
 
     router.post('/users/change-password', this.actionRunner(actions.ChangePasswordAction))
-    router.post('/users/send-reset-email', this.actionRunner(actions.SendResetEmailAction))
+    router.post('/users/send-reset-password-email', this.actionRunner(actions.SendResetPasswordEmailAction))
     router.post('/users/reset-password', this.actionRunner(actions.ResetPasswordAction))
 
     router.post('/users/change-email', this.actionRunner(actions.ChangeEmailAction))

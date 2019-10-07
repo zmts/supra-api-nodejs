@@ -15,7 +15,7 @@ module.exports = {
   TOKEN_NOT_SIGNED: { message: 'Token not signed', status: 500, code: 'TOKEN_NOT_SIGNED_ERROR' },
   TOKEN_VERIFY: { message: 'Token verify error', status: 401, code: 'TOKEN_VERIFY_ERROR' },
   BAD_REFRESH_TOKEN: { message: 'Bad Refresh token', status: 401, code: 'BAD_REFRESH_TOKEN_ERROR' },
-  WRONG_RESET_PASSWORD_TOKEN: { message: 'Wrong reset password token', status: 401, code: 'WRONG_RESET_PASSWORD_TOKEN_ERROR' },
+  WRONG_RESET_PASSWORD_TOKEN: { message: 'Wrong reset password token. Stored token is different', status: 401, code: 'WRONG_RESET_PASSWORD_TOKEN_ERROR' },
   WRONG_EMAIL_CONFIRM_TOKEN: { message: 'Wrong confirm email token', status: 401, code: 'WRONG_EMAIL_CONFIRM_TOKEN_ERROR' },
   PARSE_TOKEN: { message: 'Trying get data from access token. Something wrong', status: 401, code: 'PARSE_TOKEN_ERROR' },
   EMAIL_ALREADY_TAKEN: { message: 'This email already taken, try use another', status: 409, code: 'EMAIL_ALREADY_TAKEN_ERROR' },
