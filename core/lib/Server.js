@@ -77,7 +77,10 @@ function start ({ port, host, controllers, middlewares, errorMiddleware, logger 
      * Not found route handler
      */
     app.use((req, res) => {
-      res.status(404).json({ message: 'Route not found' })
+      res.status(404).json({
+        message: 'Route not found',
+        code: 'ROUTE_NOT_FOUND_ERROR'
+      })
     })
 
     process.on('unhandledRejection', (reason, promise) => {
