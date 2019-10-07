@@ -2,7 +2,7 @@ const BaseRoleAccess = require('./BaseRoleAccess')
 
 class RoleUserAccess extends BaseRoleAccess {
   static get can () {
-    return [ ...this.basePermissions ]
+    return { ...this.basePermissions }
   }
 }
 

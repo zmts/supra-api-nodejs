@@ -1,19 +1,19 @@
 class RoleAnonymousAccess {
   static get can () {
-    return [
-      'users:list',
-      'users:get-by-id',
-      'users:create',
-      'users:send-reset-password-email',
-      'users:reset-password',
-      'users:confirm-email',
+    return {
+      'users:list': true,
+      'users:get-by-id': true,
+      'users:create': true,
+      'users:confirm-email': true,
+      'users:send-reset-password-email': true,
+      'users:reset-password': true,
 
-      'auth:login',
-      'auth:refresh-tokens',
+      'auth:login': true,
+      'auth:refresh-tokens': true,
 
-      'posts:list',
-      'posts:get-by-id'
-    ]
+      'posts:list': true,
+      'posts:get-by-id': true
+    }
   }
 }
 

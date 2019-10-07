@@ -1,24 +1,24 @@
 class BaseRoleAccess {
   static get basePermissions () {
-    return [
-      'users:list',
-      'users:update',
-      'users:get-by-id',
-      'users:remove',
-      'users:change-password',
-      'users:send-email-confirm-token',
-      'users:change-email',
-      'users:get-current-user',
-      'users:confirm-email',
-      'users:send-email-confirm-token',
-      'users:send-reset-password-email',
-      'users:reset-password',
+    return {
+      'users:list': true,
+      'users:update': true,
+      'users:get-by-id': true,
+      'users:remove': true,
+      'users:get-current-user': true,
 
-      'posts:all',
+      'users:change-password': true,
+      'users:change-email': true,
+      'users:confirm-email': true,
+      'users:send-email-confirm-token': true,
+      'users:send-reset-password-email': true,
+      'users:reset-password': true,
 
-      'auth:logout',
-      'auth:logout-all-sessions'
-    ]
+      'posts:all': true,
+
+      'auth:logout': true,
+      'auth:logout-all-sessions': true
+    }
   }
 }
 
