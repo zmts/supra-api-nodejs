@@ -32,9 +32,9 @@ class BaseConfig {
       warnLogger.warn(`Missing env variable: "${env}". Default value was applied: ${defaultVal}`)
     }
 
-    if (validator && (typeof validator === 'function' || validator.isJoi)) {
-      if (validator.isJoi) {
-        const joiResult = joi.validate(value, validator)
+    if (validator && (typeof validator === 'function' || typeof validator === 'object')) {
+      if (typeof validator === 'object') { // joi object
+        const joiResult = validator.validate(value)
         if (!joiResult.error) return value
         throw new Error(`Wrong "${env}" variable; Value: "${value}" is invalid. ${joiResult.error}`)
       }
