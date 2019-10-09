@@ -1,5 +1,6 @@
 module.exports = {
   SERVER: { message: 'Server error occurred', status: 500, code: 'SERVER_ERROR' },
+  DEV_IMPLEMENTATION: { message: 'Development implementation error', status: 500, code: 'DEV_IMPLEMENTATION_ERROR' },
   NO_ARGUMENT: { message: 'Required arguments not supplied', status: 500, code: 'NO_ARGUMENT_ERROR' },
   ARGUMENT_TYPE: { message: 'Wrong argument type', status: 500, code: 'ARGUMENT_TYPE_ERROR' },
   BAD_REQUEST: { message: 'Bad request', status: 400, code: 'BAD_REQUEST_ERROR' },
