@@ -121,17 +121,15 @@ function validateSchema (src, requestSchema, schemaTitle) {
     }
 
     if (src.hasOwnProperty(propName)) {
-      const validationResult = validator(validationSrc) || hasAllowedDefaultData
-
-      if (!['boolean', 'string'].includes(typeof validationResult)) {
-        throw new ErrorWrapper({ ...errorCodes.SERVER, message: `Invalid '${schemaTitle}.${propName}' field validation result. Validator should return boolean or string.` })
+      const tmpValidationResult = validator(validationSrc)
+      if (!['boolean', 'string'].includes(typeof tmpValidationResult)) {
+        throw new ErrorWrapper({ ...errorCodes.DEV_IMPLEMENTATION, message: `Invalid '${schemaTitle}.${propName}' validation result. Validator should return boolean or string. Fix it !` })
       }
 
+      const validationResult = tmpValidationResult || hasAllowedDefaultData
       if (typeof validationResult === 'string') {
         throw new ErrorWrapper({ ...errorCodes.VALIDATION, message: `Invalid '${schemaTitle}.${propName}' field. Description: ${validationResult}` })
-      }
-
-      if (!validationResult) {
+      } if (validationResult === false) {
         throw new ErrorWrapper({ ...errorCodes.VALIDATION, message: `Invalid '${schemaTitle}.${propName}' field. Description: ${description}` })
       }
     }

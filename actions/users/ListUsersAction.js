@@ -18,16 +18,22 @@ class ListUsersAction extends BaseAction {
       query: {
         ...this.baseQueryParams,
         orderBy: new RequestRule(new Rule({
-          validator: v => joi.validate(v, {
-            field: joi.string().valid(['createdAt', 'username']),
-            direction: joi.string().valid(['asc', 'desc'])
-          }, e => e ? e.message : true),
+          validator: v => {
+            const result = joi.object({
+              field: joi.string().valid('createdAt', 'username'),
+              direction: joi.string().valid('asc', 'desc')
+            }).validate(v)
+            return result.error && result.error.message || true
+          },
           description: 'Object; { field: username, direction: asc || desc }'
         })),
         filter: new RequestRule(new Rule({
-          validator: v => joi.validate(v, {
-            username: joi.string().min(2)
-          }, e => e ? e.message : true),
+          validator: v => {
+            const result = joi.object({
+              username: joi.string().min(2)
+            }, e => e ? e.message : true)
+            return result.error && result.error.message || true
+          },
           description: 'String; min 2 chars;'
         }))
       }

@@ -3,19 +3,39 @@ const { BaseModel, Rule } = require('supra-core')
 
 const schema = {
   id: new Rule({
-    validator: v => joi.validate(v, joi.number().integer().positive(), e => e ? e.message : true),
+    validator: v => {
+      try {
+        joi.assert(v, joi.number().integer().positive())
+      } catch (e) { return e.message }
+      return true
+    },
     description: 'number integer positive'
   }),
   userId: new Rule({
-    validator: v => joi.validate(v, joi.number().integer().positive(), e => e ? e.message : true),
-    description: 'number; integer; positive;'
+    validator: v => {
+      try {
+        joi.assert(v, joi.number().integer().positive())
+      } catch (e) { return e.message }
+      return true
+    },
+    description: 'number integer positive'
   }),
   title: new Rule({
-    validator: v => joi.validate(v, joi.string().min(3).max(20), e => e ? e.message : true),
+    validator: v => {
+      try {
+        joi.assert(v, joi.string().min(3).max(20))
+      } catch (e) { return e.message }
+      return true
+    },
     description: 'string; min 3; max 20;'
   }),
   content: new Rule({
-    validator: v => joi.validate(v, joi.string().min(3).max(5000), e => e ? e.message : true),
+    validator: v => {
+      try {
+        joi.assert(v, joi.string().min(3).max(5000))
+      } catch (e) { return e.message }
+      return true
+    },
     description: 'string; min 3; max 5000;'
   })
 }

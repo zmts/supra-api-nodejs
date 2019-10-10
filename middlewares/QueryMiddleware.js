@@ -13,7 +13,7 @@ class QueryMiddleware extends BaseMiddleware {
   handler () {
     return async (req, res, next) => {
       try {
-        await joi.validate(req.headers, headersSchema)
+        await joi.assert(req.headers, headersSchema)
 
         // get method default query
         req.query = req.method === 'GET' ? {

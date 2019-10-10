@@ -2,10 +2,6 @@ const joi = require('@hapi/joi')
 const { Rule, RequestRule, assert } = require('supra-core')
 
 class BaseAction {
-  static get joi () {
-    return joi
-  }
-
   static get baseQueryParams () {
     return {
       page: new RequestRule(new Rule({
@@ -17,14 +13,17 @@ class BaseAction {
         description: 'Number; One of: [4, 6, 8, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]'
       })),
       orderBy: new RequestRule(new Rule({
-        validator: v => joi.validate(v, {
-          field: joi.string().valid(['createdAt']),
-          direction: joi.string().valid(['asc', 'desc'])
-        }, e => e ? e.message : true),
+        validator: v => {
+          const result = joi.object({
+            field: joi.string().valid('createdAt'),
+            direction: joi.string().valid('asc', 'desc')
+          }).validate(v)
+          return result.error && result.error.message || true
+        },
         description: 'Object; { field: string, direction: asc || desc }'
       })),
       filter: new RequestRule(new Rule({
-        validator: v => joi.validate(v, joi.object().keys({}), e => e ? e.message : true),
+        validator: v => typeof v === 'object',
         description: 'Object;'
       })),
       schema: new RequestRule(new Rule({
