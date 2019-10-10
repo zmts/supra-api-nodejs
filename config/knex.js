@@ -13,7 +13,7 @@ class KnexConfig extends BaseConfig {
       user: this.set('DB_USER', this.joi.string().min(4).max(100).required(), 'postgres'),
       password: this.set('DB_PASSWORD', this.joi.string().valid('').required()),
       database: this.set('DB_NAME', this.joi.string().min(4).max(100).required()),
-      charset: this.set('DB_CHARSET', this.joi.valid('utf8').required(), 'utf8')
+      charset: this.set('DB_CHARSET', this.joi.string().valid('utf8').required(), 'utf8')
     }
     this.pool = {
       min: 1,
