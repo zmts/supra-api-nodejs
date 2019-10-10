@@ -1,6 +1,7 @@
 const errorCodes = require('./lib/errorCodes')
 const assert = require('./lib/assert')
 const clients = require('./lib/clients')
+const ValidatorNano = require('./lib/ValidatorNano')
 
 const BaseConfig = require('./lib/BaseConfig')
 const BaseDAO = require('./lib/BaseDAO')
@@ -18,7 +19,8 @@ const Logger = require('./lib/Logger')
 module.exports = {
   errorCodes,
   assert,
-  clients,
+  clients, // remove from core
+  ValidatorNano,
 
   BaseConfig,
   BaseDAO,
