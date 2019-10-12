@@ -35,7 +35,7 @@ class CreateUserAction extends BaseAction {
     // await UserDAO.baseUpdate(user.id, { emailConfirmToken })
 
     try {
-      await emailClient.send(new WelcomeEmail({ to: user.email, fullName: user.name }))
+      await emailClient.send(new WelcomeEmail({ to: user.email, username: user.username }))
     } catch (error) {
       __logger.error(error.message, error)
     }

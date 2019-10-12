@@ -4,15 +4,15 @@ const UserModel = require('../models/UserModel')
 const { app } = require('../config')
 
 class WelcomeEmail {
-  constructor ({ to, fullName } = {}) {
+  constructor ({ to, username } = {}) {
     assert.object(arguments[0], { required: true })
     assert.validate(to, UserModel.schema.email, { required: true })
-    assert.validate(fullName, UserModel.schema.fullName, { required: true })
+    assert.validate(username, UserModel.schema.username, { required: true })
 
     this.to = to
     this.subject = `[${app.name}] Welcome on board!`
     this.text = `Welcome to ${app.name}!
-${fullName} we just created new account for you. Your login: ${to}
+${username} we just created new account for you. Your login: ${to}
 
 Looking forward to working with you!
 
