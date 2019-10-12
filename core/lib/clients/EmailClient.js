@@ -12,6 +12,7 @@ class EmailClient {
   constructor (options = {}) {
     assert.string(options.apiKey, { notEmpty: true })
     assert.string(options.domain, { notEmpty: true })
+    assert.string(options.host, { notEmpty: true })
     assert.string(options.from)
     assert.instanceOf(options.logger, Logger)
 

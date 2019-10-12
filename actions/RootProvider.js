@@ -18,6 +18,7 @@ class RootProvider {
     this.emailClient = new EmailClient({
       apiKey: config.email.mailgunApiKey,
       domain: config.email.mailgunDomain,
+      host: config.email.mailgunHost,
       from: config.email.from,
       logger
     })
