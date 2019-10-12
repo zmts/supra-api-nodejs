@@ -4,7 +4,7 @@ const UserDAO = require('../../dao/UserDAO')
 const UserModel = require('../../models/UserModel')
 const makeEmailConfirmTokenHelper = require('../../auth/makeEmailConfirmTokenHelper')
 const { emailClient } = require('../RootProvider')
-const { app } = require('../../config')
+const ChangeEmail = require('../../emails/ChangeEmail')
 
 class ChangeEmailAction extends BaseAction {
   static get accessTag () {
@@ -27,11 +27,7 @@ class ChangeEmailAction extends BaseAction {
     if (isExist) throw new ErrorWrapper({ ...errorCodes.EMAIL_ALREADY_TAKEN })
 
     const emailConfirmToken = await makeEmailConfirmTokenHelper({ ...currentUser, newEmail })
-    await emailClient.send({
-      to: newEmail,
-      subject: 'Confirm email | supra.com!',
-      text: `To confirm email: ${newEmail} please follow this link >> ${app.url}/frontend-spa/confirm-email?emailConfirmToken=${emailConfirmToken}`
-    })
+    await emailClient.send(new ChangeEmail({ newEmail, emailConfirmToken }))
     await UserDAO.baseUpdate(currentUser.id, { newEmail, emailConfirmToken })
 
     return this.result({ message: `User requested change email to ${newEmail}!` })

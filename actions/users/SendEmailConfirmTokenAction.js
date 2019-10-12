@@ -3,7 +3,7 @@ const BaseAction = require('../BaseAction')
 const { emailClient } = require('../RootProvider')
 const UserDAO = require('../../dao/UserDAO')
 const { makeEmailConfirmTokenHelper } = require('../../auth')
-const { app } = require('../../config')
+const ChangeEmail = require('../../emails/ChangeEmail')
 
 class SendEmailConfirmTokenAction extends BaseAction {
   static get accessTag () {
@@ -20,11 +20,7 @@ class SendEmailConfirmTokenAction extends BaseAction {
     const { newEmail } = user
 
     const emailConfirmToken = await makeEmailConfirmTokenHelper(user)
-    await emailClient.send({
-      to: newEmail,
-      subject: 'Confirm email | supra.com!',
-      text: `To confirm email: ${newEmail} please follow this link >> ${app.url}/frontend-spa/confirm-email?emailConfirmToken=${emailConfirmToken}`
-    })
+    await emailClient.send(new ChangeEmail({ newEmail, emailConfirmToken }))
     await UserDAO.baseUpdate(currentUser.id, { emailConfirmToken })
 
     return this.result({ message: 'Email confirmation token was send!' })
