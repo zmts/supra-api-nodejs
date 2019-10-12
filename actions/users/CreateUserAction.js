@@ -3,6 +3,7 @@ const BaseAction = require('../BaseAction')
 const { emailClient } = require('../RootProvider')
 const UserDAO = require('../../dao/UserDAO')
 const UserModel = require('../../models/UserModel')
+const WelcomeEmail = require('../../emails/WelcomeEmail')
 const { makePasswordHashHelper, makeEmailConfirmTokenHelper } = require('../../auth')
 
 class CreateUserAction extends BaseAction {
@@ -29,15 +30,12 @@ class CreateUserAction extends BaseAction {
       ...ctx.body,
       passwordHash: hash
     })
-    const emailConfirmToken = await makeEmailConfirmTokenHelper(user)
-    await UserDAO.baseUpdate(user.id, { emailConfirmToken })
+
+    // const emailConfirmToken = await makeEmailConfirmTokenHelper(user)
+    // await UserDAO.baseUpdate(user.id, { emailConfirmToken })
 
     try {
-      await emailClient.send({
-        to: user.email,
-        subject: 'Welcome to supra.com!',
-        text: `Welcome to supra.com! ${user.name} we just created new account for you. Your login: ${user.email}`
-      })
+      await emailClient.send(new WelcomeEmail({ to: user.email, fullName: user.name }))
     } catch (error) {
       __logger.error(error.message, error)
     }
