@@ -22,9 +22,9 @@ class ConfirmEmailAction extends BaseAction {
   static async run (ctx) {
     const tokenData = await jwtHelper.verify(ctx.body.emailConfirmToken, config.token.emailConfirm.secret)
     const userId = tokenData.sub
-    const newEmail = tokenData.newEmail
 
     const user = await UserDAO.baseGetById(userId)
+    const newEmail = user.newEmail
     if (user.emailConfirmToken !== ctx.body.emailConfirmToken) {
       throw new ErrorWrapper({ ...errorCodes.WRONG_EMAIL_CONFIRM_TOKEN })
     }
