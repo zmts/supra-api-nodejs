@@ -27,7 +27,7 @@ class RefreshTokensAction extends BaseAction {
 
     const oldSession = await SessionDAO.getByRefreshToken(reqRefreshToken)
     await SessionDAO.baseRemoveWhere({ refreshToken: reqRefreshToken })
-    await verifySession(oldSession, reqFingerprint)
+    await verifySession(new SessionEntity(oldSession), reqFingerprint)
     const user = await UserDAO.baseGetById(oldSession.userId)
 
     const newSession = new SessionEntity({

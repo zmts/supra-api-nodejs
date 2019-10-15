@@ -10,17 +10,9 @@ const schema = {
     validator: v => isUUID(v),
     description: 'UUID;'
   }),
-  os: new Rule({
-    validator: v => typeof v === 'string' && v.length <= 200,
-    description: 'string; max 200 chars;'
-  }),
   ua: new Rule({
     validator: v => typeof v === 'string' && v.length <= 200,
     description: 'string; max 200 chars;'
-  }),
-  browser: new Rule({
-    validator: v => typeof v === 'string' && v.length <= 500,
-    description: 'string; max 500 chars;'
   }),
   fingerprint: new Rule({
     validator: v => typeof v === 'string' && v.length <= 200,
