@@ -38,6 +38,10 @@ const traceLogger = pino({
 })
 
 const loggers = {
+  /**
+   * error loggers
+   */
+
   fatal: (message, error, meta) => {
     assert.string(message, { required: true })
     assert.isOk(error, { required: true })
@@ -65,6 +69,10 @@ const loggers = {
     warnLogger.warn(message, meta || error.toString())
   },
 
+  /**
+   * system info loggers
+   */
+
   trace: (message, meta) => {
     assert.string(message, { required: true })
     assert.object(meta)
@@ -73,11 +81,11 @@ const loggers = {
     traceLogger.info(message, meta || '')
   },
 
-  info: (message, log = {}) => {
+  info: (message, meta = {}) => {
     assert.string(message, { required: true })
-    assert.isOk(log)
+    assert.isOk(meta)
 
-    infoLogger.info(message, Object.keys(log).length ? log : '')
+    infoLogger.info(message, Object.keys(meta).length ? meta : '')
   }
 }
 
