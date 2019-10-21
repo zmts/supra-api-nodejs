@@ -1,7 +1,9 @@
 const pino = require('pino')
-const config = require('../config')
+const config = require('./config')
 const { SentryCatch, Logger, assert } = require('supra-core')
 const sentry = new SentryCatch(config.app.sentryDns)
+
+// { fatal: 60, error: 50, warn: 40, info: 30, debug: 20, trace: 10 }
 
 const fatalLogger = pino({
   name: `${config.app.name.toLowerCase()}::fatal`,
@@ -31,6 +33,7 @@ const infoLogger = pino({
 })
 
 const traceLogger = pino({
+  level: 10,
   name: `${config.app.name.toLowerCase()}::trace`,
   prettyPrint: {
     translateTime: 'SYS:standard'
@@ -69,23 +72,19 @@ const loggers = {
     warnLogger.warn(message, meta || error.toString())
   },
 
-  /**
-   * system info loggers
-   */
-
-  trace: (message, meta) => {
-    assert.string(message, { required: true })
-    assert.object(meta)
-
-    sentry.captureMessage(message, meta)
-    traceLogger.info(message, meta || '')
-  },
-
   info: (message, meta = {}) => {
     assert.string(message, { required: true })
     assert.isOk(meta)
 
+    sentry.captureMessage(message, meta)
     infoLogger.info(message, Object.keys(meta).length ? meta : '')
+  },
+
+  trace: (message, meta = {}) => {
+    assert.string(message, { required: true })
+    assert.isOk(meta)
+
+    traceLogger.trace(message, Object.keys(meta).length ? meta : '')
   }
 }
 

@@ -2,7 +2,7 @@
 // const RedisClient = require('../core/clients/RedisClient')
 const { EmailClient } = require('supra-core').clients
 const config = require('../config')
-const logger = require('../util/logger')
+const logger = require('../logger')
 
 class RootProvider {
   constructor () {
@@ -24,7 +24,7 @@ class RootProvider {
     })
   }
   async init () {
-    __logger.info(`${this.constructor.name} initialized...`)
+    logger.trace(`${this.constructor.name} initialized...`)
   }
 }
 

@@ -9,7 +9,7 @@ const controllers = require('./controllers')
 const config = require('./config')
 const middlewares = require('./middlewares')
 const errorMiddleware = require('./middlewares/errorMiddleware')
-const logger = require('./util/logger')
+const logger = require('./logger')
 
 new Server({
   port: Number(config.app.port),
@@ -19,22 +19,22 @@ new Server({
   errorMiddleware,
   logger
 }).then(serverParams => {
-  __logger.trace('Server initialized...', serverParams)
-  __logger.info('--- Configs ---')
-  __logger.info('App config:', config.app)
-  __logger.info('Refresh token:', config.token.refresh)
-  __logger.info('Access token:', config.token.access.toString())
-  __logger.info('Reset password token:', config.token.resetPassword.toString())
-  __logger.info('Email confirm token:', config.token.emailConfirm.toString())
-  __logger.info('Tokens iss:', config.token.jwtIss)
-}).catch(error => __logger.error('Server fails to initialize...', error))
+  logger.trace('Server initialized...', serverParams)
+  logger.trace('--- Configs ---')
+  logger.trace('App config:', config.app)
+  logger.trace('Refresh token:', config.token.refresh)
+  logger.trace('Access token:', config.token.access.toString())
+  logger.trace('Reset password token:', config.token.resetPassword.toString())
+  logger.trace('Email confirm token:', config.token.emailConfirm.toString())
+  logger.trace('Tokens iss:', config.token.jwtIss)
+}).catch(error => logger.error('Server fails to initialize...', error))
   .then(() => Model.knex(Knex(config.knex)))
   .then(() => testDbConnection(Knex(config.knex)))
   .then(() => {
-    __logger.info('--- Database ---')
-    __logger.info('Database initialized...', config.knex)
+    logger.trace('--- Database ---')
+    logger.trace('Database initialized...', config.knex)
   }).catch(error => {
-    __logger.error('Database fails to initialize...', error)
+    logger.error('Database fails to initialize...', error)
     process.exit(1)
   })
 

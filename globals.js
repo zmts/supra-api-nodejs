@@ -9,7 +9,7 @@
  ******************************
  */
 
-const logger = require('./util/logger')
+const logger = require('./logger')
 
 module.exports = () => {
   global.__logger = logger
