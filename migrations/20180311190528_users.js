@@ -1,6 +1,6 @@
 const roles = require('../config').roles
 
-exports.up = (knex, Promise) => {
+exports.up = knex => {
   return knex.schema
     .raw('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"')
     .createTable('users', table => {
@@ -12,6 +12,7 @@ exports.up = (knex, Promise) => {
       table.string('newEmail', 50).unique()
       table.string('location', 300)
       table.text('emailConfirmToken')
+      table.boolean('isConfirmedRegistration').defaultTo(false).notNull()
 
       table.text('passwordHash').notNull()
       table.text('resetPasswordToken')
@@ -21,6 +22,6 @@ exports.up = (knex, Promise) => {
     })
 }
 
-exports.down = (knex, Promise) => {
+exports.down = knex => {
   return knex.schema.dropTable('users').then(() => knex.raw('drop extension if exists "uuid-ossp"'))
 }

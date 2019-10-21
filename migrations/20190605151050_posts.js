@@ -1,4 +1,4 @@
-exports.up = (knex, Promise) => {
+exports.up = knex => {
   return knex.schema
     .createTable('posts', table => {
       table.increments()
@@ -11,4 +11,4 @@ exports.up = (knex, Promise) => {
     })
 }
 
-exports.down = (knex, Promise) => knex.schema.dropTable('posts')
+exports.down = knex => knex.schema.dropTable('posts')
