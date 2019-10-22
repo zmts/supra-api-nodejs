@@ -3,6 +3,7 @@ class AssertionError extends Error {
     super(message)
     this.message = message || 'Assertion error'
     this.code = 'ASSERTION_ERROR'
+    this.status = 500
   }
 }
 
