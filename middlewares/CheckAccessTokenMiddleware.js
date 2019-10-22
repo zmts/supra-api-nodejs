@@ -1,11 +1,12 @@
+const { errorCodes, BaseMiddleware } = require('supra-core')
 const { jwtHelper } = require('../auth')
 const SECRET = require('../config').token.access.secret
-const { errorCodes, BaseMiddleware } = require('supra-core')
 const roles = require('../config').roles
+const logger = require('../logger')
 
 class CheckAccessTokenMiddleware extends BaseMiddleware {
   async init () {
-    __logger.info(`${this.constructor.name} initialized...`)
+    logger.trace(`${this.constructor.name} initialized...`)
   }
 
   handler () {

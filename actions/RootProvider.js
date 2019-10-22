@@ -1,6 +1,4 @@
-// const S3Client = require('../core/clients/S3Client')
-// const RedisClient = require('../core/clients/RedisClient')
-const { EmailClient } = require('supra-core').clients
+const { EmailClient, S3Client, RedisClient } = require('../clients')
 const config = require('../config')
 const logger = require('../logger')
 
@@ -11,16 +9,14 @@ class RootProvider {
     // this.s3Client = new S3Client({
     //   access: config.s3.access,
     //   secret: config.s3.secret,
-    //   bucket: config.s3.bucket,
-    //   logger
+    //   bucket: config.s3.bucket
     // })
 
     this.emailClient = new EmailClient({
       apiKey: config.email.mailgunApiKey,
       domain: config.email.mailgunDomain,
       host: config.email.mailgunHost,
-      from: config.email.from,
-      logger
+      from: config.email.from
     })
   }
   async init () {

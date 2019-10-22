@@ -2,6 +2,7 @@ const router = require('express').Router()
 
 const BaseController = require('./BaseController')
 const actions = require('../actions/auth')
+const logger = require('../logger')
 
 class AuthController extends BaseController {
   get router () {
@@ -13,7 +14,7 @@ class AuthController extends BaseController {
   }
 
   async init () {
-    __logger.info(`${this.constructor.name} initialized...`)
+    logger.trace(`${this.constructor.name} initialized...`)
   }
 }
 

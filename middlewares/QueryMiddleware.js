@@ -1,5 +1,6 @@
 const joi = require('@hapi/joi')
 const { BaseMiddleware } = require('supra-core')
+const logger = require('../logger')
 
 const headersSchema = joi.object({
   'content-type': joi.string().valid('application/json', 'multipart/form-data').required()
@@ -7,7 +8,7 @@ const headersSchema = joi.object({
 
 class QueryMiddleware extends BaseMiddleware {
   async init () {
-    __logger.info(`${this.constructor.name} initialized...`)
+    logger.trace(`${this.constructor.name} initialized...`)
   }
 
   handler () {

@@ -15,9 +15,6 @@
     "object-curly-spacing": ["error", "always"],
     "key-spacing": ["error", {"afterColon": true}],
     "no-multi-spaces": "error"
-  },
-  "globals": {
-    "__logger": true
-}
+  }
 }
 

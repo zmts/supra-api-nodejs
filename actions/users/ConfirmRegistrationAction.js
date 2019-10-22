@@ -4,6 +4,7 @@ const UserModel = require('../../models/UserModel')
 const UserDAO = require('../../dao/UserDAO')
 const { jwtHelper } = require('../../auth')
 const config = require('../../config')
+const logger = require('../../logger')
 
 class ConfirmRegistrationAction extends BaseAction {
   static get accessTag () {
@@ -28,7 +29,7 @@ class ConfirmRegistrationAction extends BaseAction {
     }
 
     await UserDAO.baseUpdate(userId, { isConfirmedRegistration: true, emailConfirmToken: null })
-    __logger.info('User registration is confirmed', { userId, ctx: this.name })
+    logger.info('User registration is confirmed', { userId, ctx: this.name })
 
     return this.result({ message: `User ${userId} registration is confirmed` })
   }

@@ -1,10 +1,11 @@
 const stackTrace = require('stack-trace')
 const ErrorResponse = require('./ErrorResponse')
 const { errorCodes, BaseMiddleware } = require('supra-core')
+const logger = require('../../logger')
 
 class ProdErrorMiddleware extends BaseMiddleware {
   async init () {
-    __logger.info(`${this.constructor.name} initialized...`)
+    logger.trace(`${this.constructor.name} initialized...`)
   }
 
   handler () {
@@ -26,7 +27,7 @@ class ProdErrorMiddleware extends BaseMiddleware {
           env: 'prod/regular'
         })
 
-        __logger.error(errorRes.message, error, { ...errorRes })
+        logger.error(errorRes.message, error, { ...errorRes })
         res.status(errorRes.status).json(errorRes)
       } else {
         const errorRes = new ErrorResponse({
@@ -38,7 +39,7 @@ class ProdErrorMiddleware extends BaseMiddleware {
           env: 'prod/regular'
         })
 
-        __logger.error(errorRes.message, error, { ...errorRes, req: error.req, meta: error.meta })
+        logger.error(errorRes.message, error, { ...errorRes, req: error.req, meta: error.meta })
         delete errorRes.stack
         res.status(errorRes.status).json(errorRes)
       }

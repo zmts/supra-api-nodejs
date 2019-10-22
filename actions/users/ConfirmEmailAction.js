@@ -5,6 +5,7 @@ const UserModel = require('../../models/UserModel')
 const { jwtHelper } = require('../../auth')
 const config = require('../../config')
 const { errorCodes, ErrorWrapper } = require('supra-core')
+const logger = require('../../logger')
 
 class ConfirmEmailAction extends BaseAction {
   static get accessTag () {
@@ -33,7 +34,7 @@ class ConfirmEmailAction extends BaseAction {
       newEmail: null,
       emailConfirmToken: null
     })
-    __logger.info('User email confirmed', { userId, newEmail, ctx: this.name })
+    logger.info('User email confirmed', { userId, newEmail, ctx: this.name })
 
     return this.result({ message: `${newEmail} confirmed` })
   }

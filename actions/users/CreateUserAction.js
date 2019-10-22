@@ -5,6 +5,7 @@ const UserDAO = require('../../dao/UserDAO')
 const UserModel = require('../../models/UserModel')
 const WelcomeEmail = require('../../emails/WelcomeEmail')
 const { makePasswordHashHelper, makeEmailConfirmTokenHelper } = require('../../auth')
+const logger = require('../../logger')
 
 class CreateUserAction extends BaseAction {
   static get accessTag () {
@@ -40,10 +41,10 @@ class CreateUserAction extends BaseAction {
         username: user.username,
         emailConfirmToken
       }))
-      __logger.info('Registration email, delivered', { to: user.email, ...result, ctx: this.name })
+      logger.info('Registration email, delivered', { to: user.email, ...result, ctx: this.name })
     } catch (error) {
       if (error.statusCode) { // log mailGun errors
-        __logger.error(error.message, error, { ctx: this.name })
+        logger.error(error.message, error, { ctx: this.name })
       } else {
         throw error
       }

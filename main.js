@@ -1,5 +1,4 @@
 require('dotenv').config()
-require('./globals')()
 
 const { Model } = require('objection')
 const Knex = require('knex')
@@ -19,7 +18,7 @@ new Server({
   errorMiddleware,
   logger
 }).then(serverParams => {
-  logger.trace('Server initialized...', serverParams)
+  logger.info('Server initialized...', serverParams)
   logger.trace('--- Configs ---')
   logger.trace('App config:', config.app)
   logger.trace('Refresh token:', config.token.refresh)

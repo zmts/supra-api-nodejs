@@ -1,8 +1,9 @@
 const { BaseMiddleware } = require('supra-core')
+const logger = require('../logger')
 
 class CorsMiddleware extends BaseMiddleware {
   async init () {
-    __logger.info(`${this.constructor.name} initialized...`)
+    logger.trace(`${this.constructor.name} initialized...`)
   }
 
   handler () {

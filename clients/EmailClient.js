@@ -1,12 +1,12 @@
 /**
  * https://documentation.mailgun.com/en/latest/api-sending.html#examples
  */
-
-const $ = Symbol('private scope')
 const mailgun = require('mailgun-js')
+const { assert } = require('supra-core')
+const logger = require('../logger')
+
 const emailRegEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-const assert = require('../assert')
-const Logger = require('../Logger')
+const $ = Symbol('private scope')
 
 class EmailClient {
   constructor (options = {}) {
@@ -14,18 +14,16 @@ class EmailClient {
     assert.string(options.domain, { notEmpty: true })
     assert.string(options.host, { notEmpty: true })
     assert.string(options.from)
-    assert.instanceOf(options.logger, Logger)
 
     this[$] = {
       client: mailgun({
         apiKey: options.apiKey,
         domain: options.domain
       }),
-      from: options.from || '<no-reply@supra.com>',
-      logger: options.logger
+      from: options.from || '<no-reply@supra.com>'
     }
 
-    this[$].logger.info(`${this.constructor.name} constructed...`)
+    logger.trace(`${this.constructor.name} constructed...`)
   }
 
   /**
