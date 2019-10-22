@@ -31,7 +31,9 @@ class ResetPasswordAction extends BaseAction {
     const tokenUserId = tokenData.sub
     const user = await UserDAO.baseGetById(tokenUserId)
 
-    if (user.resetPasswordToken !== ctx.body.resetPasswordToken) throw new ErrorWrapper({ ...errorCodes.WRONG_RESET_PASSWORD_TOKEN })
+    if (user.resetPasswordToken !== ctx.body.resetPasswordToken) {
+      throw new ErrorWrapper({ ...errorCodes.WRONG_RESET_PASSWORD_TOKEN })
+    }
     const passwordHash = await makePasswordHashHelper(ctx.body.password)
 
     await Promise.all([

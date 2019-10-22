@@ -16,6 +16,7 @@ class UsersController extends BaseController {
     router.post('/users/send-reset-password-email', this.actionRunner(actions.SendResetPasswordEmailAction))
     router.post('/users/reset-password', this.actionRunner(actions.ResetPasswordAction))
 
+    router.post('/users/confirm-registration', this.actionRunner(actions.ConfirmRegistrationAction))
     router.post('/users/change-email', this.actionRunner(actions.ChangeEmailAction))
     router.post('/users/confirm-email', this.actionRunner(actions.ConfirmEmailAction))
     router.post('/users/send-email-confirm-token', this.actionRunner(actions.SendEmailConfirmTokenAction))

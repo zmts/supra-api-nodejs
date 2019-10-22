@@ -31,13 +31,22 @@ class CreateUserAction extends BaseAction {
       passwordHash: hash
     })
 
-    // const emailConfirmToken = await makeEmailConfirmTokenHelper(user)
-    // await UserDAO.baseUpdate(user.id, { emailConfirmToken })
+    const emailConfirmToken = await makeEmailConfirmTokenHelper(user)
+    await UserDAO.baseUpdate(user.id, { emailConfirmToken })
 
     try {
-      await emailClient.send(new WelcomeEmail({ to: user.email, username: user.username }))
+      const result = await emailClient.send(new WelcomeEmail({
+        to: user.email,
+        username: user.username,
+        emailConfirmToken
+      }))
+      __logger.info('Registration email, delivered', { to: user.email, ...result, ctx: this.name })
     } catch (error) {
-      __logger.error(error.message, error)
+      if (error.statusCode) { // log mailGun errors
+        __logger.error(error.message, error, { ctx: this.name })
+      } else {
+        throw error
+      }
     }
 
     return this.result({ data: user })

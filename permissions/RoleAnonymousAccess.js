@@ -4,6 +4,7 @@ class RoleAnonymousAccess {
       'users:list': true,
       'users:get-by-id': true,
       'users:create': true,
+      'users:confirm-registration': true,
       'users:confirm-email': true,
       'users:send-reset-password-email': true,
       'users:reset-password': true,
