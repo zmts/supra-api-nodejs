@@ -75,8 +75,41 @@ npm run start // prod mode
 npm run dev // dev mode
 ```
 
-#### Implemented endpoints:
-![endpoints](https://i.imgur.com/GCW47z5.png)
+### Implemented endpoints:
+
+#### /auth
+Path | Method | Description
+---|---|---
+/auth/login | POST | LoginAction
+/auth/logout | POST | LogoutAction
+/auth/refresh-tokens | POST | RefreshTokensAction
+
+#### /users
+Path | Method | Description
+---|---|---
+/users | GET | ListUsersAction
+/users/current | GET | GetCurrentUserAction
+/users/:id | GET | GetUserByIdAction
+/users | POST | CreateUserAction
+/users | PATCH | UpdateUserAction
+/users/:id | DELETE | RemoveUserAction
+/users/change-password | POST | ChangePasswordAction
+/users/send-reset-password-email | POST | SendResetPasswordEmailAction
+/users/reset-password | POST | ResetPasswordAction
+/users/confirm-registration | POST | ConfirmRegistrationAction
+/users/change-email | POST | ChangeEmailAction
+/users/confirm-email | POST | ConfirmEmailAction
+/users/send-email-confirm-token | POST | SendEmailConfirmTokenAction
+/users/cancel-email-changing | POST | CancelEmailChangingAction
+
+#### /posts
+Path | Method | Description
+---|---|---
+/posts | GET | ListPostsAction
+/posts | POST | GetPostByIdAction
+/posts/:id | GET | CreatePostAction
+/posts/:id | PATCH | UpdatePostAction
+/posts/:id | DELETE | RemovePostAction
 
 __!!! Project still in progress !!!__
 
