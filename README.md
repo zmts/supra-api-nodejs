@@ -105,8 +105,8 @@ Path | Method | Description
 Path | Method | Description
 ---|---|---
 /posts | GET | ListPostsAction
-/posts | POST | GetPostByIdAction
-/posts/:id | GET | CreatePostAction
+/posts | POST | CreatePostAction
+/posts/:id | GET | GetPostByIdAction
 /posts/:id | PATCH | UpdatePostAction
 /posts/:id | DELETE | RemovePostAction
 
