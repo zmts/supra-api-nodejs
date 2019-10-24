@@ -8,23 +8,23 @@ Piece of my thoughts about Node.js architecture.
 - RESTful API
 - ES6 Classes
 - Action based
-- Service based
 - SQL based (PostgreSQL with objection.js)
 - Migrations(knex.js)
 - Auth (JWT/Access-token/Refresh-token)
 - Role based access control
-- Request validation (Joi.js)
+- Request validation
 - CRUD(users, posts resources)
 - Automated API documentation
+- Full authentication/authorization and user registration flow implemented
 
 ## Key points:
 ### 0. Monolith first
-Supra-api-nodejs its about monolith first approach.
+Supra-api-nodejs its about monolith first approach. But this does not prevent you from using it in a microservice architecture as well.
 
-### 1. Routing
-Each entity have own router class that implement RESTful interface to work with it.
+### 1. Controller layer
+Each entity have own controller class it slim layer representing resource mapping(routing) 
 ```
-class PostsRouter extends BaseRouter {
+class PostsController extends BaseController {
   static get router () {
     router.get('/', this.actionRunner(actions.ListAction))
     router.get('/:id', this.actionRunner(actions.GetByIdAction))
@@ -36,17 +36,16 @@ class PostsRouter extends BaseRouter {
   }
 }
 ``` 
-For example `PostsRouter` implement base CRUD routes to `post` entity. Each route fires own `action`. 
+For example `PostsController` implement routes of `post` entity. Each route fires own `action`. 
 
-### 2. Action
-It's a class that encapsulated request validation, permission verification and business logic. One file, one class, one REST operation.
+### 2. Action layer
+It's a class that encapsulated request validation, permission verification and business logic. One file, one class, one REST operation, one use case.
 
-### 3. Service
-It's much more like utility layer thats provide some helpful promisfitated functions like check access, hash password or generate jwt's.
-
-### 4. DAO
+### 3. DAO layer
 Implement data access methods.
 
+### 4. Model layer
+Represent models schemas and validation rules. There is no other logic __only model fields and validation rules__.
 ## Development:
 
 ### Install global dependencies:
