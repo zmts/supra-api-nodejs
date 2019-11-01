@@ -1,3 +1,4 @@
+const stdout = require('stdout-stream')
 const chalk = require('chalk')
 const stackTrace = require('stack-trace')
 const ErrorResponse = require('./ErrorResponse')
@@ -14,21 +15,9 @@ class DevErrorMiddleware extends BaseMiddleware {
       if (error.status === 404) {
         const errorRes = new ErrorResponse({
           ...error,
-          env: 'dev/regular'
+          src: `${process.env.NODE_ENV}:err:middleware`
         })
 
-        res.status(errorRes.status).json(errorRes)
-      } else if (error.isJoi) {
-        const errorRes = new ErrorResponse({
-          valid: false,
-          message: error.message || error.details[0].message,
-          code: errorCodes.VALIDATION.code,
-          key: error.details[0].context.key,
-          status: error.status || 400,
-          env: 'dev/regular'
-        })
-
-        logger.error(errorRes.message, error, { ...errorRes })
         res.status(errorRes.status).json(errorRes)
       } else {
         const errorRes = new ErrorResponse({
@@ -37,7 +26,7 @@ class DevErrorMiddleware extends BaseMiddleware {
           status: error.status || errorCodes.SERVER.status,
           message: error.message || error,
           stack: ![400, 401, 403, 422].includes(error.status) ? stackTrace.parse(error) : false,
-          env: 'dev/regular'
+          src: `${process.env.NODE_ENV}:err:middleware`
         })
 
         logger.error(errorRes.message, error, { ...errorRes, req: error.req, meta: error.meta })
@@ -45,14 +34,13 @@ class DevErrorMiddleware extends BaseMiddleware {
       }
 
       if (error.stack) {
-        console.log(chalk.red('--------------- ERROR STACK BEGIN --------------'))
-        console.log(chalk.red(`${new Date()} env:dev/regular error`))
-        console.log(chalk.blue(error.stack))
-        console.log(chalk.red('---------------- ERROR STACK END ---------------'))
+        stdout.write(chalk.red('--------------- ERROR STACK BEGIN --------------\n'))
+        stdout.write(`${new Date()} env:dev/regular error\n`)
+        stdout.write(chalk.blue(error.stack))
+        stdout.write(chalk.red('\n---------------- ERROR STACK END ---------------\n\n'))
       }
     }
   }
 }
 
 module.exports = new DevErrorMiddleware()
-

@@ -17,6 +17,7 @@
     "moment": "^2.24.0",
     "ms": "^2.1.2",
     "stack-trace": "0.0.10",
+    "stdout-stream": "^1.4.1",
     "supra-core": "./core",
     "type-check": "^0.3.2",
     "uuid": "^3.3.3",

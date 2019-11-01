@@ -12,7 +12,7 @@ class ErrorResponse {
     this.meta = options.meta || undefined
     this.layer = options.layer || undefined
     this.stack = options.stack || undefined
-    this.env = options.env || undefined
+    this.src = options.src || undefined
   }
 }
 
