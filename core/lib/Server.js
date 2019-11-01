@@ -78,7 +78,7 @@ function start ({ port, host, controllers, middlewares, errorMiddleware, logger 
      */
     app.use((req, res) => {
       res.status(404).json({
-        message: 'Route not found',
+        message: `Route: '${req.url}' not found`,
         code: 'ROUTE_NOT_FOUND_ERROR'
       })
     })
