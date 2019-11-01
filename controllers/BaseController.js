@@ -49,7 +49,7 @@ class BaseController {
         /**
          * check access to action by access tag
          */
-        await actionTagPolicy(action.accessTag, ctx.currentUser)
+        // await actionTagPolicy(action.accessTag, ctx.currentUser)
 
         /**
          * verify empty body
@@ -76,6 +76,11 @@ class BaseController {
          * set headers
          */
         if (response.headers) res.set(response.headers)
+
+        /**
+         * optional redirect
+         */
+        if (response.redirect) return res.redirect(response.redirect.status, response.redirect.url)
 
         /**
          * set status and return result to client
