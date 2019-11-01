@@ -1,10 +1,5 @@
-const joi = require('@hapi/joi')
-const { BaseMiddleware } = require('supra-core')
+const { BaseMiddleware, ErrorWrapper, errorCodes } = require('supra-core')
 const logger = require('../logger')
-
-const headersSchema = joi.object({
-  'content-type': joi.string().valid('application/json', 'multipart/form-data').required()
-}).options({ allowUnknown: true })
 
 class QueryMiddleware extends BaseMiddleware {
   async init () {
@@ -14,7 +9,11 @@ class QueryMiddleware extends BaseMiddleware {
   handler () {
     return async (req, res, next) => {
       try {
-        await joi.assert(req.headers, headersSchema)
+        // validate content-type
+        const contentType = req.headers['Content-Type'] || req.headers['content-type']
+        if (!contentType || !['application/json', 'multipart/form-data'].includes(contentType)) {
+          throw new ErrorWrapper({ ...errorCodes.BAD_REQUEST, message: 'Invalid content type' })
+        }
 
         // get method default query
         req.query = req.method === 'GET' ? {
