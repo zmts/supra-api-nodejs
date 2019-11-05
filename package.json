@@ -8,7 +8,8 @@
     "dev": "NODE_ENV=development nodemon ./main.js",
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
-    "seed": "knex seed:run"
+    "seed": "knex seed:run",
+    "test": "echo \">>> Keep in mind: to enshure right test you should set seed data <<<\" && mocha test/*.test.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -24,7 +25,10 @@
     "validator": "^11.1.0"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "eslint": "^6.3.0",
+    "mocha": "^6.2.2",
     "standart": "^6.1.0"
   }
 }
