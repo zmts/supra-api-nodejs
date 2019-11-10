@@ -1,15 +1,14 @@
-const NodeCache = require('node-cache')
+const LruCache = require('lru-cache')
 const assert = require('./assert')
 
 const $ = Symbol('private scope')
 
 class InMemoryCache {
-  constructor (ttlSeconds) {
+  constructor ({ maxAgeMs, maxItems }) {
     this[$] = {
-      cache: new NodeCache({
-        stdTTL: ttlSeconds,
-        checkperiod: ttlSeconds * 0.2,
-        useClones: false
+      cache: new LruCache({
+        maxAge: maxAgeMs,
+        maxItems
       })
     }
   }
@@ -17,9 +16,7 @@ class InMemoryCache {
   get (key) {
     assert.string(key, { notEmpty: true })
 
-    const value = this[$].cache.get(key)
-    if (value) return value
-    return null
+    return this[$].cache.get(key) || null
   }
 
   set (key, data) {
@@ -34,8 +31,8 @@ class InMemoryCache {
     this[$].cache.del(key)
   }
 
-  flush () {
-    this[$].cache.flushAll()
+  reset () {
+    this[$].cache.reset()
   }
 }
 

@@ -9,7 +9,7 @@
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
     "seed": "knex seed:run",
-    "test": "echo \">>> Keep in mind: to enshure right test you should set seed data <<<\" && mocha test/*.test.js"
+    "test": "echo \">>> Keep in mind: to enshure right test you should set seed data and run server :) <<<\" && mocha test/*.test.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
