@@ -10,6 +10,7 @@ describe('AUTH CONTROLLER', function () {
   const appUrl = `${host}:${port}`
   const fingerprint = '12345678901234567890'
   let refreshToken = ''
+  let accessToken = ''
 
   describe('[POST] /auth/login', () => {
     it('it should return access/refresh tokens', done => {
@@ -25,6 +26,7 @@ describe('AUTH CONTROLLER', function () {
           expect(res.body.data.refreshToken).to.be.a('string').that.is.not.empty
 
           refreshToken = res.body.data.refreshToken
+          accessToken = res.body.data.accessToken
           done()
         })
     })
@@ -53,6 +55,7 @@ describe('AUTH CONTROLLER', function () {
     it('it should return success message', done => {
       chai.request(appUrl)
         .post('/auth/logout')
+        .set('authorization', `Bearer ${accessToken}`)
         .send({ refreshToken })
         .end((err, res) => {
           expect(err).to.be.null
