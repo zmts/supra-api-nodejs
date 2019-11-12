@@ -49,22 +49,25 @@ class BaseController {
         /**
          * check access to action by access tag
          */
-        // await actionTagPolicy(action.accessTag, ctx.currentUser)
+        await actionTagPolicy(action.accessTag, ctx.currentUser)
 
         /**
          * verify empty body
          */
         if (action.validationRules && action.validationRules.notEmptyBody && !Object.keys(ctx.body).length) {
-          return next(new ErrorWrapper({ ...errorCodes.EMPTY_BODY }))
+          return next(new ErrorWrapper({
+            ...errorCodes.EMPTY_BODY,
+            layer: this.constructor.name
+          }))
         }
 
         /**
          * validate action input data
          */
         if (action.validationRules) {
-          if (action.validationRules.query) validateSchema(ctx.query, action.validationRules.query, 'query')
-          if (action.validationRules.params) validateSchema(ctx.params, action.validationRules.params, 'params')
-          if (action.validationRules.body) validateSchema(ctx.body, action.validationRules.body, 'body')
+          if (action.validationRules.query) this.validateSchema(ctx.query, action.validationRules.query, 'query')
+          if (action.validationRules.params) this.validateSchema(ctx.params, action.validationRules.params, 'params')
+          if (action.validationRules.body) this.validateSchema(ctx.body, action.validationRules.body, 'body')
         }
 
         /**
@@ -96,49 +99,69 @@ class BaseController {
       }
     }
   }
-}
 
-function validateSchema (src, requestSchema, schemaTitle) {
-  assert.object(src, { required: true, message: `Invalid request validation payload. Only object allowed. Actual type: ${Object.prototype.toString.call(src)}` })
-  assert.object(requestSchema, { required: true })
-  assert.string(schemaTitle, { required: true })
+  validateSchema (src, requestSchema, schemaTitle) {
+    assert.object(src, { required: true, message: `Invalid request validation payload. Only object allowed. Actual type: ${Object.prototype.toString.call(src)}` })
+    assert.object(requestSchema, { required: true })
+    assert.string(schemaTitle, { required: true })
 
-  const schemaKeys = Object.keys(requestSchema)
-  const srcKeys = Object.keys(src)
+    const schemaKeys = Object.keys(requestSchema)
+    const srcKeys = Object.keys(src)
 
-  const defaultValidKeys = ['offset', 'page', 'limit', 'filter', 'orderBy']
-  const invalidExtraKeys = srcKeys.filter(srcKey => !schemaKeys.includes(srcKey) && !defaultValidKeys.includes(srcKey))
-  if (invalidExtraKeys.length) {
-    throw new ErrorWrapper({ ...errorCodes.VALIDATION, message: `Extra keys found in '${schemaTitle}' payload: [${invalidExtraKeys}]` })
+    const defaultValidKeys = ['offset', 'page', 'limit', 'filter', 'orderBy']
+    const invalidExtraKeys = srcKeys.filter(srcKey => !schemaKeys.includes(srcKey) && !defaultValidKeys.includes(srcKey))
+    if (invalidExtraKeys.length) {
+      throw new ErrorWrapper({
+        ...errorCodes.VALIDATION,
+        message: `Extra keys found in '${schemaTitle}' payload: [${invalidExtraKeys}]`,
+        layer: this.constructor.name
+      })
+    }
+
+    if (!schemaKeys.length) return
+
+    schemaKeys.forEach(propName => {
+      const validationSrc = src[propName]
+
+      const { schemaRule, options } = requestSchema[propName]
+      const { validator, description } = schemaRule
+      const hasAllowedDefaultData = options.allowed.includes(validationSrc)
+
+      if (options.required && !src.hasOwnProperty(propName) && !hasAllowedDefaultData) {
+        throw new ErrorWrapper({
+          ...errorCodes.VALIDATION,
+          message: `'${schemaTitle}.${propName}' field is required.`,
+          layer: this.constructor.name
+        })
+      }
+
+      if (src.hasOwnProperty(propName)) {
+        const tmpValidationResult = validator(validationSrc)
+        if (!['boolean', 'string'].includes(typeof tmpValidationResult)) {
+          throw new ErrorWrapper({
+            ...errorCodes.DEV_IMPLEMENTATION,
+            message: `Invalid '${schemaTitle}.${propName}' validation result. Validator should return boolean or string. Fix it !`,
+            layer: this.constructor.name
+          })
+        }
+
+        const validationResult = tmpValidationResult || hasAllowedDefaultData
+        if (typeof validationResult === 'string') {
+          throw new ErrorWrapper({
+            ...errorCodes.VALIDATION,
+            message: `Invalid '${schemaTitle}.${propName}' field. Description: ${validationResult}`,
+            layer: this.constructor.name
+          })
+        } if (validationResult === false) {
+          throw new ErrorWrapper({
+            ...errorCodes.VALIDATION,
+            message: `Invalid '${schemaTitle}.${propName}' field. Description: ${description}`,
+            layer: this.constructor.name
+          })
+        }
+      }
+    })
   }
-
-  if (!schemaKeys.length) return
-
-  schemaKeys.forEach(propName => {
-    const validationSrc = src[propName]
-
-    const { schemaRule, options } = requestSchema[propName]
-    const { validator, description } = schemaRule
-    const hasAllowedDefaultData = options.allowed.includes(validationSrc)
-
-    if (options.required && !src.hasOwnProperty(propName) && !hasAllowedDefaultData) {
-      throw new ErrorWrapper({ ...errorCodes.VALIDATION, message: `'${schemaTitle}.${propName}' field is required.` })
-    }
-
-    if (src.hasOwnProperty(propName)) {
-      const tmpValidationResult = validator(validationSrc)
-      if (!['boolean', 'string'].includes(typeof tmpValidationResult)) {
-        throw new ErrorWrapper({ ...errorCodes.DEV_IMPLEMENTATION, message: `Invalid '${schemaTitle}.${propName}' validation result. Validator should return boolean or string. Fix it !` })
-      }
-
-      const validationResult = tmpValidationResult || hasAllowedDefaultData
-      if (typeof validationResult === 'string') {
-        throw new ErrorWrapper({ ...errorCodes.VALIDATION, message: `Invalid '${schemaTitle}.${propName}' field. Description: ${validationResult}` })
-      } if (validationResult === false) {
-        throw new ErrorWrapper({ ...errorCodes.VALIDATION, message: `Invalid '${schemaTitle}.${propName}' field. Description: ${description}` })
-      }
-    }
-  })
 }
 
 function getSchemaDescription (validationRules = {}) {
