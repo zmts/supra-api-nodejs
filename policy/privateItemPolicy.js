@@ -1,4 +1,4 @@
-const { errorCodes, ErrorWrapper, assert } = require('supra-core')
+const { errorCodes, AppError, assert } = require('supra-core')
 const roles = require('../config').roles
 
 /**
@@ -21,10 +21,10 @@ module.exports = (model, currentUser) => {
     if (!model.private) return resolve(model)
     // reject if model is private
     if (model.private) {
-      return reject(new ErrorWrapper({ ...errorCodes.ACCESS, message: `User ${currentUser.id} don't have access to model ${model.id}` }))
+      return reject(new AppError({ ...errorCodes.ACCESS, message: `User ${currentUser.id} don't have access to model ${model.id}` }))
     }
     // else reject
-    return reject(new ErrorWrapper({ ...errorCodes.ACCESS }))
+    return reject(new AppError({ ...errorCodes.ACCESS }))
   })
 }
 

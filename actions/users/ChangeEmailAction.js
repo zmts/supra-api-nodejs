@@ -1,4 +1,4 @@
-const { errorCodes, ErrorWrapper, RequestRule } = require('supra-core')
+const { errorCodes, AppError, RequestRule } = require('supra-core')
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
 const UserModel = require('../../models/UserModel')
@@ -24,7 +24,7 @@ class ChangeEmailAction extends BaseAction {
     const { newEmail } = ctx.body
 
     const isExist = await UserDAO.isEmailExist(newEmail)
-    if (isExist) throw new ErrorWrapper({ ...errorCodes.EMAIL_ALREADY_TAKEN })
+    if (isExist) throw new AppError({ ...errorCodes.EMAIL_ALREADY_TAKEN })
 
     const emailConfirmToken = await makeEmailConfirmTokenHelper({ ...currentUser, newEmail })
     await emailClient.send(new ChangeEmail({ newEmail, emailConfirmToken }))

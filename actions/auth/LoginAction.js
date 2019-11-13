@@ -1,4 +1,4 @@
-const { RequestRule, ErrorWrapper, errorCodes } = require('supra-core')
+const { RequestRule, AppError, errorCodes } = require('supra-core')
 const addSession = require('./common/addSession')
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
@@ -28,7 +28,7 @@ class LoginAction extends BaseAction {
       user = await UserDAO.getByEmail(ctx.body.email)
       await checkPasswordHelper(ctx.body.password, user.passwordHash)
     } catch (e) {
-      throw new ErrorWrapper({ ...errorCodes.INVALID_CREDENTIALS })
+      throw new AppError({ ...errorCodes.INVALID_CREDENTIALS })
     }
 
     const newSession = new SessionEntity({

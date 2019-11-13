@@ -1,4 +1,4 @@
-const { errorCodes, ErrorWrapper, RequestRule } = require('supra-core')
+const { errorCodes, AppError, RequestRule } = require('supra-core')
 const BaseAction = require('../BaseAction')
 const { jwtHelper, makePasswordHashHelper } = require('../../auth')
 const config = require('../../config')
@@ -32,7 +32,7 @@ class ResetPasswordAction extends BaseAction {
     const user = await UserDAO.baseGetById(tokenUserId)
 
     if (user.resetPasswordToken !== ctx.body.resetPasswordToken) {
-      throw new ErrorWrapper({ ...errorCodes.WRONG_RESET_PASSWORD_TOKEN })
+      throw new AppError({ ...errorCodes.WRONG_RESET_PASSWORD_TOKEN })
     }
     const passwordHash = await makePasswordHashHelper(ctx.body.password)
 

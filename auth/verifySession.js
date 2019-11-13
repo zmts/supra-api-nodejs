@@ -1,4 +1,4 @@
-const { errorCodes, ErrorWrapper, assert } = require('supra-core')
+const { errorCodes, AppError, assert } = require('supra-core')
 
 module.exports = (session, newFingerprint) => {
   assert.object(session, { notEmpty: true })
@@ -11,9 +11,9 @@ module.exports = (session, newFingerprint) => {
     const oldFingerprint = session.fingerprint
     const nowTime = new Date().getTime()
 
-    if (nowTime > sessionExpiredAt) return reject(new ErrorWrapper({ ...errorCodes.TOKEN_EXPIRED }))
-    // if (oldIp !== newIp) return reject(new ErrorWrapper({ ...errorCodes.INVALID_SESSION })) // for best security
-    if (oldFingerprint !== newFingerprint) return reject(new ErrorWrapper({ ...errorCodes.INVALID_SESSION }))
+    if (nowTime > sessionExpiredAt) return reject(new AppError({ ...errorCodes.TOKEN_EXPIRED }))
+    // if (oldIp !== newIp) return reject(new AppError({ ...errorCodes.INVALID_SESSION })) // for best security
+    if (oldFingerprint !== newFingerprint) return reject(new AppError({ ...errorCodes.INVALID_SESSION }))
     return resolve()
   })
 }

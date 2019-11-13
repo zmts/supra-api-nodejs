@@ -1,4 +1,4 @@
-const { RequestRule, errorCodes, ErrorWrapper } = require('supra-core')
+const { RequestRule, errorCodes, AppError } = require('supra-core')
 const BaseAction = require('../BaseAction')
 const UserModel = require('../../models/UserModel')
 const UserDAO = require('../../dao/UserDAO')
@@ -25,7 +25,7 @@ class ConfirmRegistrationAction extends BaseAction {
 
     const user = await UserDAO.baseGetById(userId)
     if (user.emailConfirmToken !== ctx.body.emailConfirmToken) {
-      throw new ErrorWrapper({ ...errorCodes.WRONG_EMAIL_CONFIRM_TOKEN })
+      throw new AppError({ ...errorCodes.WRONG_EMAIL_CONFIRM_TOKEN })
     }
 
     await UserDAO.baseUpdate(userId, { isConfirmedRegistration: true, emailConfirmToken: null })

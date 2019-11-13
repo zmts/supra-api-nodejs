@@ -1,4 +1,4 @@
-const { errorCodes, ErrorWrapper, assert } = require('supra-core')
+const { errorCodes, AppError, assert } = require('supra-core')
 
 const permissions = require('../permissions')
 const roles = require('../config').roles
@@ -21,6 +21,6 @@ module.exports = (accessTag, currentUser) => {
     if (permissions[currentUser.role][accessTagAll]) return resolve()
     if (permissions[currentUser.role][accessTag]) return resolve()
     // else reject
-    return reject(new ErrorWrapper({ ...errorCodes.ACCESS, message: 'Access denied, don\'t have permissions.' }))
+    return reject(new AppError({ ...errorCodes.ACCESS, message: 'Access denied, don\'t have permissions.' }))
   })
 }

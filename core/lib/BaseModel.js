@@ -1,4 +1,4 @@
-const ErrorWrapper = require('./ErrorWrapper')
+const AppError = require('./AppError')
 const errorCodes = require('./errorCodes')
 const Rule = require('./Rule')
 
@@ -34,7 +34,7 @@ class BaseModel {
       }
 
       if (!validationResult) {
-        throw new ErrorWrapper({ ...errorCodes.UNPROCESSABLE_ENTITY, message: `Invalid '${propName}' field. Expect: ${description}` })
+        throw new AppError({ ...errorCodes.UNPROCESSABLE_ENTITY, message: `Invalid '${propName}' field. Expect: ${description}` })
       }
     })
 
@@ -61,7 +61,7 @@ function buildModelProps (src, schema, context) {
       get: () => src[propName],
       set: value => {
         if (!validator(value)) {
-          throw new ErrorWrapper({ ...errorCodes.UNPROCESSABLE_ENTITY, message: `Invalid '${propName}' field. Expect: ${description}` })
+          throw new AppError({ ...errorCodes.UNPROCESSABLE_ENTITY, message: `Invalid '${propName}' field. Expect: ${description}` })
         }
         src[propName] = value
       },

@@ -1,4 +1,4 @@
-const { ErrorWrapper, errorCodes } = require('supra-core')
+const { AppError, errorCodes } = require('supra-core')
 const BaseAction = require('../BaseAction')
 const { emailClient } = require('../RootProvider')
 const UserDAO = require('../../dao/UserDAO')
@@ -15,7 +15,7 @@ class SendEmailConfirmTokenAction extends BaseAction {
 
     const user = await UserDAO.baseGetById(currentUser.id)
     if (!user.newEmail) {
-      throw new ErrorWrapper({ ...errorCodes.NOT_FOUND, message: 'There is no new email confirmation.' })
+      throw new AppError({ ...errorCodes.NOT_FOUND, message: 'There is no new email confirmation.' })
     }
     const { newEmail } = user
 

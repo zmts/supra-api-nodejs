@@ -7,7 +7,7 @@ const BaseDAO = require('./lib/BaseDAO')
 const BaseMiddleware = require('./lib/BaseMiddleware')
 const BaseModel = require('./lib/BaseModel')
 
-const ErrorWrapper = require('./lib/ErrorWrapper')
+const AppError = require('./lib/AppError')
 const InMemoryCache = require('./lib/InMemoryCache')
 const Rule = require('./lib/Rule')
 const RequestRule = require('./lib/RequestRule')
@@ -25,7 +25,7 @@ module.exports = {
   BaseMiddleware,
   BaseModel,
 
-  ErrorWrapper,
+  AppError,
   InMemoryCache,
   Rule,
   RequestRule,

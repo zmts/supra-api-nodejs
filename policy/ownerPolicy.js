@@ -1,4 +1,4 @@
-const { errorCodes, ErrorWrapper, assert } = require('supra-core')
+const { errorCodes, AppError, assert } = require('supra-core')
 
 const roles = require('../config').roles
 
@@ -17,7 +17,7 @@ module.exports = (model, currentUser) => {
     // pass owner
     if (currentUser.id === model.userId) return resolve()
     // else reject
-    return reject(new ErrorWrapper({ ...errorCodes.ACCESS }))
+    return reject(new AppError({ ...errorCodes.ACCESS }))
   })
 }
 

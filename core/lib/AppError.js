@@ -1,4 +1,4 @@
-class ErrorWrapper extends Error {
+class AppError extends Error {
   constructor (options) {
     if (!options || !options.message) throw new Error('message param required')
 
@@ -12,4 +12,4 @@ class ErrorWrapper extends Error {
   }
 }
 
-module.exports = ErrorWrapper
+module.exports = AppError

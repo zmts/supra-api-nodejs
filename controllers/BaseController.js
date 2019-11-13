@@ -1,5 +1,5 @@
 const { actionTagPolicy } = require('../policy')
-const { errorCodes, ErrorWrapper, assert, RequestRule } = require('supra-core')
+const { errorCodes, AppError, assert, RequestRule } = require('supra-core')
 
 class BaseController {
   constructor () {
@@ -55,7 +55,7 @@ class BaseController {
          * verify empty body
          */
         if (action.validationRules && action.validationRules.notEmptyBody && !Object.keys(ctx.body).length) {
-          return next(new ErrorWrapper({
+          return next(new AppError({
             ...errorCodes.EMPTY_BODY,
             layer: this.constructor.name
           }))
@@ -111,7 +111,7 @@ class BaseController {
     const defaultValidKeys = ['offset', 'page', 'limit', 'filter', 'orderBy']
     const invalidExtraKeys = srcKeys.filter(srcKey => !schemaKeys.includes(srcKey) && !defaultValidKeys.includes(srcKey))
     if (invalidExtraKeys.length) {
-      throw new ErrorWrapper({
+      throw new AppError({
         ...errorCodes.VALIDATION,
         message: `Extra keys found in '${schemaTitle}' payload: [${invalidExtraKeys}]`,
         layer: this.constructor.name
@@ -128,7 +128,7 @@ class BaseController {
       const hasAllowedDefaultData = options.allowed.includes(validationSrc)
 
       if (options.required && !src.hasOwnProperty(propName) && !hasAllowedDefaultData) {
-        throw new ErrorWrapper({
+        throw new AppError({
           ...errorCodes.VALIDATION,
           message: `'${schemaTitle}.${propName}' field is required.`,
           layer: this.constructor.name
@@ -138,7 +138,7 @@ class BaseController {
       if (src.hasOwnProperty(propName)) {
         const tmpValidationResult = validator(validationSrc)
         if (!['boolean', 'string'].includes(typeof tmpValidationResult)) {
-          throw new ErrorWrapper({
+          throw new AppError({
             ...errorCodes.DEV_IMPLEMENTATION,
             message: `Invalid '${schemaTitle}.${propName}' validation result. Validator should return boolean or string. Fix it !`,
             layer: this.constructor.name
@@ -147,13 +147,13 @@ class BaseController {
 
         const validationResult = tmpValidationResult || hasAllowedDefaultData
         if (typeof validationResult === 'string') {
-          throw new ErrorWrapper({
+          throw new AppError({
             ...errorCodes.VALIDATION,
             message: `Invalid '${schemaTitle}.${propName}' field. Description: ${validationResult}`,
             layer: this.constructor.name
           })
         } if (validationResult === false) {
-          throw new ErrorWrapper({
+          throw new AppError({
             ...errorCodes.VALIDATION,
             message: `Invalid '${schemaTitle}.${propName}' field. Description: ${description}`,
             layer: this.constructor.name

@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const { errorCodes, ErrorWrapper, assert } = require('supra-core')
+const { errorCodes, AppError, assert } = require('supra-core')
 
 /**
  * @return {Promise} true/Error
@@ -12,9 +12,9 @@ module.exports.verify = (token, SECRET) => {
     jwt.verify(token, SECRET, (error, decoded) => {
       if (error) {
         if (error.name === 'TokenExpiredError') {
-          return reject(new ErrorWrapper({ ...errorCodes.TOKEN_EXPIRED }))
+          return reject(new AppError({ ...errorCodes.TOKEN_EXPIRED }))
         }
-        return reject(new ErrorWrapper({ ...errorCodes.TOKEN_VERIFY, message: error.message }))
+        return reject(new AppError({ ...errorCodes.TOKEN_VERIFY, message: error.message }))
       }
       return resolve(decoded)
     })
@@ -31,7 +31,7 @@ module.exports.sign = (playload, SECRET, options) => {
 
   return new Promise((resolve, reject) => {
     jwt.sign(playload, SECRET, options, (error, token) => {
-      if (error) return reject(new ErrorWrapper({ ...errorCodes.TOKEN_NOT_SIGNED, message: error.message }))
+      if (error) return reject(new AppError({ ...errorCodes.TOKEN_NOT_SIGNED, message: error.message }))
       return resolve(token)
     })
   })

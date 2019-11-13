@@ -4,7 +4,7 @@ const UserDAO = require('../../dao/UserDAO')
 const UserModel = require('../../models/UserModel')
 const { jwtHelper } = require('../../auth')
 const config = require('../../config')
-const { errorCodes, ErrorWrapper } = require('supra-core')
+const { errorCodes, AppError } = require('supra-core')
 const logger = require('../../logger')
 
 class ConfirmEmailAction extends BaseAction {
@@ -27,7 +27,7 @@ class ConfirmEmailAction extends BaseAction {
     const user = await UserDAO.baseGetById(userId)
     const newEmail = user.newEmail
     if (user.emailConfirmToken !== ctx.body.emailConfirmToken) {
-      throw new ErrorWrapper({ ...errorCodes.WRONG_EMAIL_CONFIRM_TOKEN })
+      throw new AppError({ ...errorCodes.WRONG_EMAIL_CONFIRM_TOKEN })
     }
     await UserDAO.baseUpdate(userId, {
       email: newEmail,

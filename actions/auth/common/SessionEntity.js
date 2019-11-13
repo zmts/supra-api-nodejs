@@ -1,4 +1,4 @@
-const { assert, ErrorWrapper, errorCodes } = require('supra-core')
+const { assert, AppError, errorCodes } = require('supra-core')
 const ms = require('ms')
 const uuidV4 = require('uuid/v4')
 const config = require('../../../config')
@@ -14,7 +14,7 @@ class SessionEntity {
     assert.validate(src.ip, SessionModel.schema.ip, { required: true })
     assert.validate(src.ua, SessionModel.schema.ua)
     if (src.expiredAt !== undefined && !Number(src.expiredAt)) {
-      throw new ErrorWrapper({ ...errorCodes.UNPROCESSABLE_ENTITY, message: 'Invalid expiredAt value' })
+      throw new AppError({ ...errorCodes.UNPROCESSABLE_ENTITY, message: 'Invalid expiredAt value' })
     }
 
     this.refreshToken = uuidV4()

@@ -2,7 +2,7 @@ const Model = require('objection').Model
 // https://github.com/Vincit/objection-db-errors
 const { wrapError, UniqueViolationError, NotNullViolationError } = require('db-errors')
 const errorCodes = require('./errorCodes')
-const ErrorWrapper = require('./ErrorWrapper')
+const AppError = require('./AppError')
 const assert = require('./assert')
 
 class BaseDAO extends Model {
@@ -13,7 +13,7 @@ class BaseDAO extends Model {
    */
 
   static errorEmptyResponse () {
-    return new ErrorWrapper({ ...errorCodes.NOT_FOUND, layer: 'DAO' })
+    return new AppError({ ...errorCodes.NOT_FOUND, layer: 'DAO' })
   }
 
   static emptyPageResponse () {
@@ -33,20 +33,20 @@ class BaseDAO extends Model {
       return Promise.reject(wrapError(error))
         .catch(error => {
           if (error instanceof UniqueViolationError) {
-            throw new ErrorWrapper({
+            throw new AppError({
               ...errorCodes.DB_DUPLICATE_CONFLICT,
               message: `Column '${error.columns}' duplicate in '${error.table}' table`,
               layer: 'DAO'
             })
           }
           if (error instanceof NotNullViolationError) {
-            throw new ErrorWrapper({
+            throw new AppError({
               ...errorCodes.DB_NOTNULL_CONFLICT,
               message: `Not null conflict failed for table '${error.table}' and column '${error.column}'`,
               layer: 'DAO'
             })
           }
-          throw new ErrorWrapper({ ...errorCodes.DB, message: error.message, layer: 'DAO' })
+          throw new AppError({ ...errorCodes.DB, message: error.message, layer: 'DAO' })
         })
     })
   }
@@ -75,7 +75,7 @@ class BaseDAO extends Model {
      * except user entity
      */
     if (!entity.email && !entity.userId) {
-      throw new ErrorWrapper({
+      throw new AppError({
         ...errorCodes.UNPROCESSABLE_ENTITY,
         message: 'Please provide in action class \'userId\' field',
         layer: 'DAO'

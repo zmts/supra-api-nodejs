@@ -1,4 +1,4 @@
-const { BaseMiddleware, ErrorWrapper, errorCodes } = require('supra-core')
+const { BaseMiddleware, AppError, errorCodes } = require('supra-core')
 const logger = require('../logger')
 
 class QueryMiddleware extends BaseMiddleware {
@@ -13,7 +13,7 @@ class QueryMiddleware extends BaseMiddleware {
         const contentType = req.headers['Content-Type'] || req.headers['content-type']
         const validContentType = ['application/json', 'multipart/form-data']
         if (!contentType || !validContentType.includes(contentType)) {
-          throw new ErrorWrapper({ ...errorCodes.BAD_REQUEST, message: `Invalid content type. Expect one of: [${validContentType}]` })
+          throw new AppError({ ...errorCodes.BAD_REQUEST, message: `Invalid content type. Expect one of: [${validContentType}]` })
         }
 
         // get method default query
