@@ -10,7 +10,7 @@ class BaseRoleAccess {
       'users:change-password': true,
       'users:change-email': true,
       'users:confirm-email': true,
-      'users:send-email-confirm-token': true,
+      'users:resend-confirm-new-email-token': true,
       'users:send-reset-password-email': true,
       'users:reset-password': true,
 

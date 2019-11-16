@@ -5,9 +5,9 @@ const UserDAO = require('../../dao/UserDAO')
 const { makeEmailConfirmTokenHelper } = require('../../auth')
 const ChangeEmail = require('../../emails/ChangeEmail')
 
-class SendEmailConfirmTokenAction extends BaseAction {
+class ResendConfirmNewEmailTokenAction extends BaseAction {
   static get accessTag () {
-    return 'users:send-email-confirm-token'
+    return 'users:resend-confirm-new-email-token'
   }
 
   static async run (ctx) {
@@ -27,4 +27,4 @@ class SendEmailConfirmTokenAction extends BaseAction {
   }
 }
 
-module.exports = SendEmailConfirmTokenAction
+module.exports = ResendConfirmNewEmailTokenAction

@@ -98,7 +98,7 @@ Path | Method | Description
 /users/confirm-registration | POST | ConfirmRegistrationAction
 /users/change-email | POST | ChangeEmailAction
 /users/confirm-email | POST | ConfirmEmailAction
-/users/send-email-confirm-token | POST | SendEmailConfirmTokenAction
+/users/resend-confirm-new-email-token | POST | ResendConfirmNewEmailTokenAction
 /users/cancel-email-changing | POST | CancelEmailChangingAction
 
 #### /posts

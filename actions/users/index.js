@@ -12,7 +12,7 @@ const ResetPasswordAction = require('./ResetPasswordAction')
 
 const ConfirmRegistrationAction = require('./ConfirmRegistrationAction')
 const ConfirmEmailAction = require('./ConfirmEmailAction')
-const SendEmailConfirmTokenAction = require('./SendEmailConfirmTokenAction')
+const ResendConfirmNewEmailTokenAction = require('./ResendConfirmNewEmailTokenAction')
 const ChangeEmailAction = require('./ChangeEmailAction')
 const CancelEmailChangingAction = require('./CancelEmailChangingAction')
 
@@ -31,7 +31,7 @@ module.exports = {
 
   ConfirmRegistrationAction,
   ConfirmEmailAction,
-  SendEmailConfirmTokenAction,
+  ResendConfirmNewEmailTokenAction,
   ChangeEmailAction,
   CancelEmailChangingAction
 }

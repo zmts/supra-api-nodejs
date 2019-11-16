@@ -20,7 +20,7 @@ class UsersController extends BaseController {
     router.post('/users/confirm-registration', this.actionRunner(actions.ConfirmRegistrationAction))
     router.post('/users/change-email', this.actionRunner(actions.ChangeEmailAction))
     router.post('/users/confirm-email', this.actionRunner(actions.ConfirmEmailAction))
-    router.post('/users/send-email-confirm-token', this.actionRunner(actions.SendEmailConfirmTokenAction))
+    router.post('/users/resend-confirm-new-email-token', this.actionRunner(actions.ResendConfirmNewEmailTokenAction))
     router.post('/users/cancel-email-changing', this.actionRunner(actions.CancelEmailChangingAction))
 
     return router

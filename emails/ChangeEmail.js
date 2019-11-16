@@ -11,7 +11,7 @@ class ChangeEmail {
     assert.validate(emailConfirmToken, UserModel.schema.emailConfirmToken, { required: true })
 
     this.to = newEmail
-    this.subject = `[${app.name}] Confirm email`
+    this.subject = `[${app.name}] Confirm new email`
     this.text = `To confirm email: ${newEmail} please follow this link >> ${app.url}/a/confirm-email?emailConfirmToken=${emailConfirmToken}
 
 If you don’t use this link within ${expiresIn}, it will expire.
