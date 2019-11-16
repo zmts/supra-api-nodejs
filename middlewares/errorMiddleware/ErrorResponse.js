@@ -6,8 +6,6 @@ class ErrorResponse {
     this.success = false
     this.status = options.status || undefined
     this.code = options.code || undefined
-    this.valid = options.valid || undefined
-    this.key = options.key || undefined
     this.message = options.message || undefined
     this.meta = options.meta || undefined
     this.layer = options.layer || undefined
