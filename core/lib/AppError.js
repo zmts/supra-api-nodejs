@@ -5,7 +5,7 @@ class AppError extends Error {
     super()
     this.message = options.message
     this.status = options.status || 500
-    this.code = options.code || 'UNPREDICTABLE_ERROR'
+    this.code = options.code || 'UNEXPECTED_ERROR'
     this.layer = options.layer || undefined
     this.meta = options.meta || undefined
     this.req = options.req || undefined
