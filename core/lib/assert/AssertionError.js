@@ -7,4 +7,4 @@ class AssertionError extends Error {
   }
 }
 
-module.exports = AssertionError
+module.exports = { AssertionError }

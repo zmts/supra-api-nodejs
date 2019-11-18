@@ -1,6 +1,6 @@
-const AppError = require('./AppError')
+const { AppError } = require('./AppError')
 const errorCodes = require('./errorCodes')
-const Rule = require('./Rule')
+const { Rule } = require('./Rule')
 
 const genericSchema = {
   id: new Rule({
@@ -78,4 +78,4 @@ function isInt (int) {
   return !!(tmpInt && Number.isInteger(tmpInt) && tmpInt >= 1)
 }
 
-module.exports = BaseModel
+module.exports = { BaseModel }

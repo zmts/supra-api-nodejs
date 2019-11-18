@@ -1,5 +1,5 @@
 const LruCache = require('lru-cache')
-const assert = require('./assert')
+const { Assert: assert } = require('./assert')
 
 const $ = Symbol('private scope')
 
@@ -36,4 +36,4 @@ class InMemoryCache {
   }
 }
 
-module.exports = InMemoryCache
+module.exports = { InMemoryCache }

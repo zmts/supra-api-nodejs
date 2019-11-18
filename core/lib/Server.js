@@ -5,9 +5,9 @@ const morganLogger = require('morgan')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 
-const assert = require('./assert')
-const BaseMiddleware = require('./BaseMiddleware')
-const Logger = require('./Logger')
+const { Assert: assert } = require('./assert')
+const { BaseMiddleware } = require('./BaseMiddleware')
+const { Logger } = require('./Logger')
 
 class Server {
   constructor ({ port, host, controllers, middlewares, errorMiddleware, logger }) {
@@ -104,4 +104,4 @@ function start ({ port, host, controllers, middlewares, errorMiddleware, logger 
   })
 }
 
-module.exports = Server
+module.exports = { Server }

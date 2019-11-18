@@ -1,4 +1,4 @@
-const AssertionError = require('./AssertionError')
+const { AssertionError } = require('./AssertionError')
 const Rule = require('../Rule')
 
 const util = require('util')
@@ -148,4 +148,4 @@ if (process.env.NODE_NOASSERT) {
   Object.getOwnPropertyNames(Assert).forEach(key => (Assert[key] = function noAssert () {}))
 }
 
-module.exports = Assert
+module.exports = { Assert }

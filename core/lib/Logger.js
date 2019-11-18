@@ -1,5 +1,5 @@
-const assert = require('./assert')
-const SentryCatch = require('./SentryCatch')
+const { Assert: assert } = require('./assert')
+const { SentryCatch } = require('./SentryCatch')
 const pino = require('pino')
 
 const $ = Symbol('private scope')
@@ -97,4 +97,4 @@ class Logger {
   }
 }
 
-module.exports = Logger
+module.exports = { Logger }

@@ -8,4 +8,4 @@ class BaseMiddleware {
   }
 }
 
-module.exports = BaseMiddleware
+module.exports = { BaseMiddleware }

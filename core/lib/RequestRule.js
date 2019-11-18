@@ -1,5 +1,5 @@
-const assert = require('./assert')
-const Rule = require('./Rule')
+const { Assert: assert } = require('./assert')
+const { Rule } = require('./Rule')
 
 /**
  * schemaRule - Rule instance class
@@ -18,4 +18,4 @@ class RequestRule {
   }
 }
 
-module.exports = RequestRule
+module.exports = { RequestRule }

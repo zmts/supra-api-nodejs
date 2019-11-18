@@ -2,8 +2,8 @@ const Model = require('objection').Model
 // https://github.com/Vincit/objection-db-errors
 const { wrapError, UniqueViolationError, NotNullViolationError } = require('db-errors')
 const errorCodes = require('./errorCodes')
-const AppError = require('./AppError')
-const assert = require('./assert')
+const { AppError } = require('./AppError')
+const { Assert: assert } = require('./assert')
 
 class BaseDAO extends Model {
   /**
@@ -139,4 +139,4 @@ class BaseDAO extends Model {
   }
 }
 
-module.exports = BaseDAO
+module.exports = { BaseDAO }

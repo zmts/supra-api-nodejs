@@ -28,4 +28,4 @@ class SentryCatch {
   }
 }
 
-module.exports = SentryCatch
+module.exports = { SentryCatch }

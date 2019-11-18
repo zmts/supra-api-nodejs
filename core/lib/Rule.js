@@ -12,4 +12,4 @@ class Rule {
   }
 }
 
-module.exports = Rule
+module.exports = { Rule }

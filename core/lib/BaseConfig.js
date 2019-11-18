@@ -54,4 +54,4 @@ class BaseConfig {
   }
 }
 
-module.exports = BaseConfig
+module.exports = { BaseConfig }

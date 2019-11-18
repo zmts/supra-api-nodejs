@@ -119,4 +119,4 @@ class ValidatorNano {
   }
 }
 
-module.exports = ValidatorNano
+module.exports = { ValidatorNano }
