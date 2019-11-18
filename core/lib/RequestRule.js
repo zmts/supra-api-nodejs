@@ -4,7 +4,7 @@ const Rule = require('./Rule')
 /**
  * schemaRule - Rule instance class
  * options.required - is required flag
- * options.allowed - allowed values (like null or empty string)
+ * options.allowed - allowed values (like [null, ''])
  */
 class RequestRule {
   constructor (schemaRule, { required = false, allowed = [] } = {}) {
@@ -14,10 +14,7 @@ class RequestRule {
     assert.array(allowed)
 
     this.schemaRule = schemaRule
-    this.options = {
-      ...(required ? { required: true } : { required: false }),
-      ...(allowed ? { allowed: allowed } : { allowed: [] })
-    }
+    this.options = { required, allowed }
   }
 }
 
