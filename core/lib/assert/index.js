@@ -6,6 +6,11 @@ var { Stream } = require('stream')
 
 const UUID_REGEXP = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
 const URL_REGEXP = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i
+const validTypes = [Number, String, Object, Array, Boolean, Function]
+
+function isObject (v) {
+  return v && (typeof v === 'object') && !Array.isArray(v)
+}
 
 class Assert {
   static fail (actual, expected, message) {
@@ -46,31 +51,25 @@ class Assert {
   }
 
   static typeOf (value, type, message) {
-    const types = [Number, String, Object, Array, Boolean, Function]
-    if (!types.includes(type)) {
-      Assert.fail(value, type, message || `Assert.typeOf accept one of [${types.map(t => t.name)}] types. Use another method to validate "${type}"`)
+    if (!validTypes.includes(type)) {
+      Assert.fail(value, type, message || `Assert.typeOf accept one of [${validTypes.map(t => t.name)}] types. Use another method to validate "${type}"`)
     }
 
-    if (value === undefined) Assert.fail(value, type, message)
-    if (value === null) Assert.fail(value, type, message)
     if (typeof value === 'number' && isNaN(value)) Assert.fail(value, type, message)
-
-    if ((type === Number) && Object.prototype.toString.call(value) === '[object Number]') return
-    if ((type === String) && Object.prototype.toString.call(value) === '[object String]') return
-    if ((type === Object) && Object.prototype.toString.call(value) === '[object Object]') return
-    if ((type === Array) && Object.prototype.toString.call(value) === '[object Array]') return
-    if ((type === Boolean) && Object.prototype.toString.call(value) === '[object Boolean]') return
-    if ((type === Function) && Object.prototype.toString.call(value) === '[object Function]') return
-    if ((type === Function) && Object.prototype.toString.call(value) === '[object AsyncFunction]') return
+    if ((type === Number) && typeof value === 'number') return
+    if ((type === String) && typeof value === 'string') return
+    if ((type === Object) && isObject(value)) return
+    if ((type === Array) && Array.isArray(value)) return
+    if ((type === Boolean) && typeof value === 'boolean') return
+    if ((type === Function) && typeof value === 'function') return
 
     Assert.fail(value, type, message)
   }
 
   static array (value, { required = false, notEmpty = false, message = '', of = [] } = {}) {
-    const validArrayTypes = [Number, String, Object, Array, Boolean, Function]
     if (!Array.isArray(of)) Assert.fail(of, 'of option expect an Array type')
-    if (!of.every(i => validArrayTypes.includes(i))) {
-      Assert.fail(value, of, message || `Assert.array 'of' option accept only one of [${validArrayTypes.map(t => t.name)}] types`)
+    if (!of.every(i => validTypes.includes(i))) {
+      Assert.fail(value, of, message || `Assert.array 'of' option accept only one of [${validTypes.map(t => t.name)}] types`)
     }
     if (required || notEmpty) Assert.typeOf(value, Array, message)
     if (value !== undefined) Assert.typeOf(value, Array, message)
