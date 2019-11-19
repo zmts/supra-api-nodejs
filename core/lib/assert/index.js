@@ -55,8 +55,7 @@ class Assert {
       Assert.fail(value, type, message || `Assert.typeOf accept one of [${validTypes.map(t => t.name)}] types. Use another method to validate "${type}"`)
     }
 
-    if (typeof value === 'number' && isNaN(value)) Assert.fail(value, type, message)
-    if ((type === Number) && typeof value === 'number') return
+    if ((type === Number) && (typeof value === 'number') && !isNaN(value)) return
     if ((type === String) && typeof value === 'string') return
     if ((type === Object) && isObject(value)) return
     if ((type === Array) && Array.isArray(value)) return
