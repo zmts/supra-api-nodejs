@@ -1,5 +1,5 @@
 const { AssertionError } = require('./AssertionError')
-const Rule = require('../Rule')
+const { Rule } = require('../Rule')
 
 const util = require('util')
 var { Stream } = require('stream')
