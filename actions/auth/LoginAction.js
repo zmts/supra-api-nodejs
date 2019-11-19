@@ -28,7 +28,10 @@ class LoginAction extends BaseAction {
       user = await UserDAO.getByEmail(ctx.body.email)
       await checkPasswordHelper(ctx.body.password, user.passwordHash)
     } catch (e) {
-      throw new AppError({ ...errorCodes.INVALID_CREDENTIALS })
+      if ([errorCodes.NOT_FOUND.code, errorCodes.INVALID_PASSWORD].includes(e.code)) {
+        throw new AppError({ ...errorCodes.INVALID_CREDENTIALS })
+      }
+      throw e
     }
 
     const newSession = new SessionEntity({
