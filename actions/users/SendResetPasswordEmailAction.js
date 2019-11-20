@@ -3,7 +3,7 @@ const BaseAction = require('../BaseAction')
 const { emailClient } = require('../RootProvider')
 const UserDAO = require('../../dao/UserDAO')
 const UserModel = require('../../models/UserModel')
-const { makeResetPasswordTokenHelper } = require('../../auth')
+const { makeResetPasswordToken } = require('./common/makeResetPasswordToken')
 const ResetPasswordEmail = require('../../emails/ResetPasswordEmail')
 
 /**
@@ -27,7 +27,7 @@ class SendResetPasswordEmailAction extends BaseAction {
 
   static async run (ctx) {
     const user = await UserDAO.getByEmail(ctx.body.email)
-    const resetPasswordToken = await makeResetPasswordTokenHelper(user)
+    const resetPasswordToken = await makeResetPasswordToken(user)
     await UserDAO.baseUpdate(user.id, { resetPasswordToken })
 
     await emailClient.send(new ResetPasswordEmail({ to: user.email, resetPasswordToken }))

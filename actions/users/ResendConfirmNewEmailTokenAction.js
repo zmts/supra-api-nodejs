@@ -2,7 +2,7 @@ const { AppError, errorCodes } = require('supra-core')
 const BaseAction = require('../BaseAction')
 const { emailClient } = require('../RootProvider')
 const UserDAO = require('../../dao/UserDAO')
-const { makeEmailConfirmTokenHelper } = require('../../auth')
+const { makeEmailConfirmToken } = require('./common/makeEmailConfirmToken')
 const ChangeEmail = require('../../emails/ChangeEmail')
 
 class ResendConfirmNewEmailTokenAction extends BaseAction {
@@ -19,7 +19,7 @@ class ResendConfirmNewEmailTokenAction extends BaseAction {
     }
     const { newEmail } = user
 
-    const emailConfirmToken = await makeEmailConfirmTokenHelper(user)
+    const emailConfirmToken = await makeEmailConfirmToken(user)
     await emailClient.send(new ChangeEmail({ newEmail, emailConfirmToken }))
     await UserDAO.baseUpdate(currentUser.id, { emailConfirmToken })
 

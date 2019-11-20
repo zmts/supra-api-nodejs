@@ -5,7 +5,7 @@ const { errorCodes, AppError, assert } = require('supra-core')
  * @description make from req.body.password hash and compare it with existing password hash
  * @return {Promise} true/Error
  */
-module.exports = (password, hash) => {
+function checkPassword (password, hash) {
   assert.string(password, { notEmpty: true })
   assert.string(hash, { notEmpty: true })
 
@@ -17,3 +17,5 @@ module.exports = (password, hash) => {
     })
   })
 }
+
+module.exports = { checkPassword }

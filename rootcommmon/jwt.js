@@ -4,7 +4,7 @@ const { errorCodes, AppError, assert } = require('supra-core')
 /**
  * @return {Promise} true/Error
  */
-module.exports.verify = (token, SECRET) => {
+function jwtVerify (token, SECRET) {
   assert.string(token, { notEmpty: true })
   assert.string(SECRET, { notEmpty: true })
 
@@ -24,7 +24,7 @@ module.exports.verify = (token, SECRET) => {
 /**
  * @return {Promise} string (token)
  */
-module.exports.sign = (playload, SECRET, options) => {
+function jwtSign (playload, SECRET, options) {
   assert.object(playload, { required: true })
   assert.string(SECRET, { notEmpty: true })
   assert.object(options, { notEmpty: true })
@@ -36,3 +36,5 @@ module.exports.sign = (playload, SECRET, options) => {
     })
   })
 }
+
+module.exports = { jwtVerify, jwtSign }

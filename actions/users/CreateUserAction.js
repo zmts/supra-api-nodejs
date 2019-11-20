@@ -4,7 +4,8 @@ const { emailClient } = require('../RootProvider')
 const UserDAO = require('../../dao/UserDAO')
 const UserModel = require('../../models/UserModel')
 const WelcomeEmail = require('../../emails/WelcomeEmail')
-const { makePasswordHashHelper, makeEmailConfirmTokenHelper } = require('../../auth')
+const { makeEmailConfirmToken } = require('./common/makeEmailConfirmToken')
+const { makePasswordHash } = require('./common/makePasswordHash')
 const logger = require('../../logger')
 
 class CreateUserAction extends BaseAction {
@@ -25,14 +26,14 @@ class CreateUserAction extends BaseAction {
   }
 
   static async run (ctx) {
-    const hash = await makePasswordHashHelper(ctx.body.password)
+    const hash = await makePasswordHash(ctx.body.password)
     delete ctx.body.password
     const user = await UserDAO.create({
       ...ctx.body,
       passwordHash: hash
     })
 
-    const emailConfirmToken = await makeEmailConfirmTokenHelper(user)
+    const emailConfirmToken = await makeEmailConfirmToken(user)
     await UserDAO.baseUpdate(user.id, { emailConfirmToken })
 
     try {

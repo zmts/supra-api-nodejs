@@ -2,7 +2,7 @@ const { RequestRule, errorCodes, AppError } = require('supra-core')
 const BaseAction = require('../BaseAction')
 const UserModel = require('../../models/UserModel')
 const UserDAO = require('../../dao/UserDAO')
-const { jwtHelper } = require('../../auth')
+const { jwtVerify } = require('../../rootcommmon/jwt')
 const config = require('../../config')
 const logger = require('../../logger')
 
@@ -20,7 +20,7 @@ class ConfirmRegistrationAction extends BaseAction {
   }
 
   static async run (ctx) {
-    const tokenData = await jwtHelper.verify(ctx.body.emailConfirmToken, config.token.emailConfirm.secret)
+    const tokenData = await jwtVerify(ctx.body.emailConfirmToken, config.token.emailConfirm.secret)
     const { sub: userId } = tokenData
 
     const user = await UserDAO.baseGetById(userId)

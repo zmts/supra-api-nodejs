@@ -4,7 +4,8 @@ const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
 const AuthModel = require('../../models/AuthModel')
 const { SessionEntity } = require('./common/SessionEntity')
-const { checkPasswordHelper, makeAccessTokenHelper } = require('../../auth')
+const { makeAccessToken } = require('./common/makeAccessToken')
+const { checkPassword } = require('../../rootcommmon/checkPassword')
 
 class LoginAction extends BaseAction {
   static get accessTag () {
@@ -26,7 +27,7 @@ class LoginAction extends BaseAction {
 
     try {
       user = await UserDAO.getByEmail(ctx.body.email)
-      await checkPasswordHelper(ctx.body.password, user.passwordHash)
+      await checkPassword(ctx.body.password, user.passwordHash)
     } catch (e) {
       if ([errorCodes.NOT_FOUND.code, errorCodes.INVALID_PASSWORD.code].includes(e.code)) {
         throw new AppError({ ...errorCodes.INVALID_CREDENTIALS })
@@ -45,7 +46,7 @@ class LoginAction extends BaseAction {
 
     return this.result({
       data: {
-        accessToken: await makeAccessTokenHelper(user),
+        accessToken: await makeAccessToken(user),
         refreshToken: newSession.refreshToken
       }
     })

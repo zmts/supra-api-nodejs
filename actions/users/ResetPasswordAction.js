@@ -1,6 +1,7 @@
 const { errorCodes, AppError, RequestRule } = require('supra-core')
 const BaseAction = require('../BaseAction')
-const { jwtHelper, makePasswordHashHelper } = require('../../auth')
+const { makePasswordHash } = require('./common/makePasswordHash')
+const { jwtVerify } = require('../../rootcommmon/jwt')
 const config = require('../../config')
 const UserDAO = require('../../dao/UserDAO')
 const UserModel = require('../../models/UserModel')
@@ -27,14 +28,14 @@ class ResetPasswordAction extends BaseAction {
   }
 
   static async run (ctx) {
-    const tokenData = await jwtHelper.verify(ctx.body.resetPasswordToken, config.token.resetPassword.secret)
+    const tokenData = await jwtVerify(ctx.body.resetPasswordToken, config.token.resetPassword.secret)
     const tokenUserId = tokenData.sub
     const user = await UserDAO.baseGetById(tokenUserId)
 
     if (user.resetPasswordToken !== ctx.body.resetPasswordToken) {
       throw new AppError({ ...errorCodes.WRONG_RESET_PASSWORD_TOKEN })
     }
-    const passwordHash = await makePasswordHashHelper(ctx.body.password)
+    const passwordHash = await makePasswordHash(ctx.body.password)
 
     await Promise.all([
       UserDAO.baseUpdate(tokenUserId, { passwordHash, resetPasswordToken: '' }),

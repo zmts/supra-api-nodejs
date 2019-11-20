@@ -4,7 +4,7 @@ const { assert } = require('supra-core')
 /**
  * @return {Promise} string
  */
-module.exports = password => {
+function makePasswordHash (password) {
   assert.string(password, { notEmpty: true })
 
   return new Promise((resolve, reject) => {
@@ -18,3 +18,6 @@ module.exports = password => {
     })
   })
 }
+
+module.exports = { makePasswordHash }
+
