@@ -4,7 +4,7 @@ const UserDAO = require('../../dao/UserDAO')
 const UserModel = require('../../models/UserModel')
 const { makeEmailConfirmToken } = require('./common/makeEmailConfirmToken')
 const { emailClient } = require('../RootProvider')
-const ChangeEmail = require('../../emails/ChangeEmail')
+const { ChangeEmail } = require('./common/emails/ChangeEmail')
 
 class ChangeEmailAction extends BaseAction {
   static get accessTag () {

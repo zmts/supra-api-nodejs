@@ -1,7 +1,7 @@
 const { assert } = require('supra-core')
 
-const UserModel = require('../models/UserModel')
-const { app } = require('../config')
+const UserModel = require('../../../../models/UserModel')
+const { app } = require('../../../../config')
 
 class WelcomeEmail {
   constructor ({ to, username, emailConfirmToken } = {}) {
@@ -25,4 +25,4 @@ The ${app.name} Team`
   }
 }
 
-module.exports = WelcomeEmail
+module.exports = { WelcomeEmail }

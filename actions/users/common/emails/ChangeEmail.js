@@ -1,8 +1,8 @@
 const { assert } = require('supra-core')
 
-const UserModel = require('../models/UserModel')
-const { app } = require('../config')
-const { expiresIn } = require('../config').token.emailConfirm
+const UserModel = require('../../../../models/UserModel')
+const { app } = require('../../../../config')
+const { expiresIn } = require('../../../../config').token.emailConfirm
 
 class ChangeEmail {
   constructor ({ newEmail, emailConfirmToken } = {}) {
@@ -21,4 +21,4 @@ The ${app.name} Team`
   }
 }
 
-module.exports = ChangeEmail
+module.exports = { ChangeEmail }

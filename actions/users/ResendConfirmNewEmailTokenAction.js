@@ -3,7 +3,7 @@ const BaseAction = require('../BaseAction')
 const { emailClient } = require('../RootProvider')
 const UserDAO = require('../../dao/UserDAO')
 const { makeEmailConfirmToken } = require('./common/makeEmailConfirmToken')
-const ChangeEmail = require('../../emails/ChangeEmail')
+const { ChangeEmail } = require('./common/emails/ChangeEmail')
 
 class ResendConfirmNewEmailTokenAction extends BaseAction {
   static get accessTag () {

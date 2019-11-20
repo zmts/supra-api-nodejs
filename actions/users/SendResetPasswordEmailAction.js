@@ -4,7 +4,7 @@ const { emailClient } = require('../RootProvider')
 const UserDAO = require('../../dao/UserDAO')
 const UserModel = require('../../models/UserModel')
 const { makeResetPasswordToken } = require('./common/makeResetPasswordToken')
-const ResetPasswordEmail = require('../../emails/ResetPasswordEmail')
+const { ResetPasswordEmail } = require('./common/emails/ResetPasswordEmail')
 
 /**
  * 1) get email from body request

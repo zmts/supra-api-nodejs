@@ -1,8 +1,8 @@
 const { assert } = require('supra-core')
 
-const UserModel = require('../models/UserModel')
-const { app } = require('../config')
-const { expiresIn } = require('../config').token.resetPassword
+const UserModel = require('../../../../models/UserModel')
+const { app } = require('../../../../config')
+const { expiresIn } = require('../../../../config').token.resetPassword
 
 class ResetPasswordEmail {
   constructor ({ to, resetPasswordToken } = {}) {
@@ -24,4 +24,4 @@ The ${app.name} Team`
   }
 }
 
-module.exports = ResetPasswordEmail
+module.exports = { ResetPasswordEmail }
