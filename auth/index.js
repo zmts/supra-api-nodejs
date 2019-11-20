@@ -5,7 +5,6 @@ const makeResetPasswordTokenHelper = require('./makeResetPasswordTokenHelper')
 const makeEmailConfirmTokenHelper = require('./makeEmailConfirmTokenHelper')
 const parseTokenHelper = require('./parseTokenHelper')
 const jwtHelper = require('./jwtHelper')
-const verifySession = require('./verifySession')
 
 module.exports = {
   checkPasswordHelper,
@@ -14,6 +13,5 @@ module.exports = {
   makeResetPasswordTokenHelper,
   makeEmailConfirmTokenHelper,
   parseTokenHelper,
-  jwtHelper,
-  verifySession
+  jwtHelper
 }

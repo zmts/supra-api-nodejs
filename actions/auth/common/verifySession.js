@@ -1,6 +1,6 @@
 const { errorCodes, AppError, assert } = require('supra-core')
 
-module.exports = (session, newFingerprint) => {
+function verifySession (session, newFingerprint) {
   assert.object(session, { notEmpty: true })
   assert.integer(session.expiredAt, { required: true })
   assert.string(session.fingerprint, { notEmpty: true })
@@ -17,3 +17,5 @@ module.exports = (session, newFingerprint) => {
     return resolve()
   })
 }
+
+module.exports = { verifySession }

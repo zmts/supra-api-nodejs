@@ -26,4 +26,4 @@ class SessionEntity {
   }
 }
 
-module.exports = SessionEntity
+module.exports = { SessionEntity }

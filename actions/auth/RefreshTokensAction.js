@@ -1,11 +1,12 @@
 const { RequestRule } = require('supra-core')
-const addSession = require('./common/addSession')
+const { addSession } = require('./common/addSession')
+const { verifySession } = require('./common/verifySession')
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
 const AuthModel = require('../../models/AuthModel')
 const SessionDAO = require('../../dao/SessionDAO')
-const SessionEntity = require('./common/SessionEntity')
-const { makeAccessTokenHelper, verifySession } = require('../../auth')
+const { SessionEntity } = require('./common/SessionEntity')
+const { makeAccessTokenHelper } = require('../../auth')
 
 class RefreshTokensAction extends BaseAction {
   static get accessTag () {

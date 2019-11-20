@@ -1,9 +1,9 @@
 const { RequestRule, AppError, errorCodes } = require('supra-core')
-const addSession = require('./common/addSession')
+const { addSession } = require('./common/addSession')
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
 const AuthModel = require('../../models/AuthModel')
-const SessionEntity = require('./common/SessionEntity')
+const { SessionEntity } = require('./common/SessionEntity')
 const { checkPasswordHelper, makeAccessTokenHelper } = require('../../auth')
 
 class LoginAction extends BaseAction {
