@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const BaseController = require('./BaseController')
+const { BaseController } = require('./BaseController')
 const RootProvider = require('../actions/RootProvider')
 const logger = require('../logger')
 

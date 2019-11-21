@@ -1,6 +1,6 @@
 const router = require('express').Router()
 
-const BaseController = require('./BaseController')
+const { BaseController } = require('./BaseController')
 const actions = require('../actions/auth')
 const logger = require('../logger')
 

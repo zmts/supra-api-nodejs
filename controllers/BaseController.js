@@ -190,4 +190,4 @@ function getSchemaDescription (validationRules = {}) {
   return result
 }
 
-module.exports = BaseController
+module.exports = { BaseController }
