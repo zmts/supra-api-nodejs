@@ -3,7 +3,7 @@ const isJWT = require('validator/lib/isJWT')
 const isUUID = require('validator/lib/isUUID')
 const { BaseModel, Rule } = require('supra-core')
 
-const { roles } = require('../config')
+const roles = require('../permissions/roles')
 const rolesList = Object.values(roles)
 
 const schema = {

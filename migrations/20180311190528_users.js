@@ -1,4 +1,4 @@
-const roles = require('../config').roles
+const roles = require('../permissions/roles')
 
 exports.up = knex => {
   return knex.schema

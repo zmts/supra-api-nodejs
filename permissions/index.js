@@ -1,4 +1,4 @@
-const roles = require('../config').roles
+const roles = require('./roles')
 const RoleAdminAccess = require('./RoleAdminAccess')
 const RoleModeratorAccess = require('./RoleModeratorAccess')
 const RoleEditorAccess = require('./RoleEditorAccess')
