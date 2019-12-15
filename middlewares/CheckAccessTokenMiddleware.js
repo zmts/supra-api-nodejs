@@ -1,7 +1,7 @@
 const { errorCodes, BaseMiddleware } = require('supra-core')
 const { jwtVerify } = require('../rootcommmon/jwt')
 const SECRET = require('../config').token.access.secret
-const roles = require('../config').roles
+const roles = require('../permissions/roles')
 const logger = require('../logger')
 
 class CheckAccessTokenMiddleware extends BaseMiddleware {
