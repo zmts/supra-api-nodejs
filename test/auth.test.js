@@ -4,6 +4,7 @@ const chaiHttp = require('chai-http')
 chai.use(chaiHttp)
 
 const { host, port } = require('../config').app
+const TEST_EMAIL = process.env.TEST_EMAIL
 
 describe('AUTH CONTROLLER', function () {
   this.slow(0)
@@ -16,7 +17,7 @@ describe('AUTH CONTROLLER', function () {
     it('it should return access/refresh tokens', done => {
       chai.request(appUrl)
         .post('/auth/login')
-        .send({ password: '123456Aa', email: 'test@test.com', fingerprint })
+        .send({ password: '123456Aa', email: TEST_EMAIL, fingerprint })
         .end((err, res) => {
           expect(err).to.be.null
           expect(res.status).to.equal(200)
@@ -45,6 +46,7 @@ describe('AUTH CONTROLLER', function () {
           expect(res.body.data.accessToken).to.be.a('string').that.is.not.empty
           expect(res.body.data.refreshToken).to.be.a('string').that.is.not.empty
 
+          accessToken = res.body.data.accessToken
           refreshToken = res.body.data.refreshToken
           done()
         })
