@@ -6,11 +6,13 @@ const RoleUserAccess = require('./RoleUserAccess')
 const RoleAnonymousAccess = require('./RoleAnonymousAccess')
 
 module.exports = {
-  [roles.superadmin]: [
-    // [roles.superadmin] have all permissions
-    // so we don't need to list it
-    // just check [roles.superadmin] in access services
-  ],
+  [roles.superadmin]: {
+    ...RoleAdminAccess.can,
+    ...RoleModeratorAccess.can,
+    ...RoleEditorAccess.can,
+    ...RoleUserAccess.can,
+    ...RoleAnonymousAccess.can
+  },
   [roles.admin]: RoleAdminAccess.can,
   [roles.moderator]: RoleModeratorAccess.can,
   [roles.editor]: RoleEditorAccess.can,

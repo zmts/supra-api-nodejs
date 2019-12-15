@@ -1,7 +1,5 @@
 const { errorCodes, AppError, assert } = require('supra-core')
-
 const permissions = require('../permissions')
-const roles = require('../permissions/roles')
 
 /**
  * @description check permissions to action by access tag
@@ -15,8 +13,6 @@ module.exports = (accessTag, currentUser) => {
   const accessTagAll = `${accessTagBaseName}:all`
 
   return new Promise((resolve, reject) => {
-    // pass superadmin
-    if (currentUser.role === roles.superadmin) return resolve()
     // if current user role have access tag >> pass
     if (permissions[currentUser.role][accessTagAll]) return resolve()
     if (permissions[currentUser.role][accessTag]) return resolve()
