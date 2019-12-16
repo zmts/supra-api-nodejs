@@ -9,7 +9,7 @@ const { appUrl, testEmail, testPassword, fingerprint } = require('./common')
 
 describe('POSTS CONTROLLER', function () {
   this.slow(0)
-  let accessToken = ''
+  let bearer = 'Bearer'
   let postId
 
   before(done => {
@@ -18,7 +18,7 @@ describe('POSTS CONTROLLER', function () {
       .send({ password: testPassword, email: testEmail, fingerprint })
       .end((err, res) => {
         expect(err).to.be.null
-        accessToken = res.body.data.accessToken
+        bearer = `Bearer ${res.body.data.accessToken}`
         done()
       })
   })
@@ -27,7 +27,7 @@ describe('POSTS CONTROLLER', function () {
     it('it should return new post entity', done => {
       chai.request(appUrl)
         .post('/posts')
-        .set('Authorization', `Bearer ${accessToken}`)
+        .set('Authorization', bearer)
         .set('content-type', 'application/json')
         .send({ title: 'test title', content: 'test content' })
         .end((err, res) => {
@@ -47,7 +47,7 @@ describe('POSTS CONTROLLER', function () {
     it('it should return validation error if request data is wrong', done => {
       chai.request(appUrl)
         .post('/posts')
-        .set('Authorization', `Bearer ${accessToken}`)
+        .set('Authorization', bearer)
         .set('content-type', 'application/json')
         .send({ title: null })
         .end((err, res) => {
@@ -64,7 +64,7 @@ describe('POSTS CONTROLLER', function () {
     it('it should return post entity by id', done => {
       chai.request(appUrl)
         .get(`/posts/${postId}`)
-        .set('Authorization', `Bearer ${accessToken}`)
+        .set('Authorization', bearer)
         .set('content-type', 'application/json')
         .end((err, res) => {
           expect(err).to.be.null
@@ -81,7 +81,7 @@ describe('POSTS CONTROLLER', function () {
     it('it should return not found error if the post does not exist', done => {
       chai.request(appUrl)
         .get(`/posts/${9999999}`)
-        .set('Authorization', `Bearer ${accessToken}`)
+        .set('Authorization', bearer)
         .set('content-type', 'application/json')
         .end((err, res) => {
           expect(err).to.be.null
@@ -97,7 +97,7 @@ describe('POSTS CONTROLLER', function () {
     it('it should return posts list', done => {
       chai.request(appUrl)
         .get('/posts')
-        .set('Authorization', `Bearer ${accessToken}`)
+        .set('Authorization', bearer)
         .set('content-type', 'application/json')
         .end((err, res) => {
           expect(err).to.be.null
@@ -113,7 +113,7 @@ describe('POSTS CONTROLLER', function () {
     it('it should return updated post entity', done => {
       chai.request(appUrl)
         .patch(`/posts/${postId}`)
-        .set('Authorization', `Bearer ${accessToken}`)
+        .set('Authorization', bearer)
         .set('content-type', 'application/json')
         .send({ title: 'test title updated', content: 'test content updated' })
         .end((err, res) => {
@@ -134,7 +134,7 @@ describe('POSTS CONTROLLER', function () {
     it('it should remove post entity by id', done => {
       chai.request(appUrl)
         .delete(`/posts/${postId}`)
-        .set('Authorization', `Bearer ${accessToken}`)
+        .set('Authorization', bearer)
         .set('content-type', 'application/json')
         .end((err, res) => {
           expect(err).to.be.null
