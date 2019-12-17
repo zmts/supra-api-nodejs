@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "dotenv": "^8.1.0",
+    "dotenv": "^8.2.0",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.24.0",
     "ms": "^2.1.2",
@@ -27,12 +27,12 @@
     "supra-core": "./core",
     "type-check": "^0.3.2",
     "uuid": "^3.3.3",
-    "validator": "^12.0.0"
+    "validator": "^12.1.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
-    "eslint": "^6.6.0",
+    "eslint": "^6.7.2",
     "husky": "^3.1.0",
     "mocha": "^6.2.2",
     "standart": "^6.1.0",
