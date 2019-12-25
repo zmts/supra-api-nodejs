@@ -20,7 +20,7 @@ class RootProvider {
     })
   }
   async init () {
-    logger.trace(`${this.constructor.name} initialized...`)
+    logger.debug(`${this.constructor.name} initialized...`)
   }
 }
 

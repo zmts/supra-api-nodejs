@@ -21,7 +21,7 @@ class RedisClient {
     })
 
     this[$].client.on('connect', () => {
-      logger.trace(`${this.constructor.name} connected...`)
+      logger.debug(`${this.constructor.name} connected...`)
     })
   }
 

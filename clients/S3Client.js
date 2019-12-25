@@ -21,7 +21,7 @@ class S3Client {
       bucket: options.bucket
     }
 
-    logger.trace(`${this.constructor.name} constructed...`)
+    logger.debug(`${this.constructor.name} constructed...`)
   }
 
   async uploadImage (buffer, fileName) {

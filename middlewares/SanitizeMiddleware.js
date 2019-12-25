@@ -3,7 +3,7 @@ const logger = require('../logger')
 
 class SanitizeMiddleware extends BaseMiddleware {
   async init () {
-    logger.trace(`${this.constructor.name} initialized...`)
+    logger.debug(`${this.constructor.name} initialized...`)
   }
 
   handler () {

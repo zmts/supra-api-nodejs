@@ -23,7 +23,7 @@ class EmailClient {
       from: options.from || '<no-reply@supra.com>'
     }
 
-    logger.trace(`${this.constructor.name} constructed...`)
+    logger.debug(`${this.constructor.name} constructed...`)
   }
 
   /**

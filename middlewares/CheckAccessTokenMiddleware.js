@@ -6,7 +6,7 @@ const logger = require('../logger')
 
 class CheckAccessTokenMiddleware extends BaseMiddleware {
   async init () {
-    logger.trace(`${this.constructor.name} initialized...`)
+    logger.debug(`${this.constructor.name} initialized...`)
   }
 
   handler () {
