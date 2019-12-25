@@ -1,5 +1,6 @@
 const { BaseConfig } = require('supra-core')
 const expiresInRegexp = /^(\d\d?m$|\d\d?h$|\d\d?d$)/ // valid minutes, hours, days like: 1m, 1h, 1d, 11m, 11h, 11d
+const logger = require('../logger')
 
 class TokenConfig extends BaseConfig {
   constructor () {
@@ -49,6 +50,10 @@ class TokenConfig extends BaseConfig {
         })
       }
     }
+  }
+
+  async init () {
+    logger.debug(`${this.constructor.name}: Initialization finish...`)
   }
 }
 

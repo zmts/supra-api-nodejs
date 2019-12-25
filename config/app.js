@@ -1,4 +1,5 @@
 const { BaseConfig } = require('supra-core')
+const logger = require('../logger')
 
 class AppConfig extends BaseConfig {
   constructor () {
@@ -9,6 +10,15 @@ class AppConfig extends BaseConfig {
     this.name = this.set('APP_NAME', this.joi.string().required(), 'SupraAPI')
     this.url = this.set('APP_URL', this.joi.string().required())
     this.sentryDns = this.set('SENTRY_DNS', this.joi.string().required())
+  }
+
+  async init () {
+    return new Promise(resolve => { // just for example
+      setTimeout(() => {
+        logger.debug(`${this.constructor.name}: Initialization finish...`)
+        resolve()
+      }, 100)
+    })
   }
 }
 

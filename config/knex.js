@@ -1,5 +1,6 @@
 const path = require('path')
 require('dotenv').config({ path: path.join(__dirname, '../.env') })
+const logger = require('../logger')
 
 const { BaseConfig } = require('supra-core')
 
@@ -20,6 +21,10 @@ class KnexConfig extends BaseConfig {
       max: 10
     }
     // this.debug = true
+  }
+
+  async init () {
+    logger.debug(`${this.constructor.name}: Initialization finish...`)
   }
 }
 
