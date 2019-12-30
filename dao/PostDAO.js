@@ -34,7 +34,7 @@ class PostDAO extends BaseDAO {
       .where({ userId })
       .page(page, limit)
       .orderBy(orderBy.field, orderBy.direction)
-    if (!data.results.length) throw this.errorEmptyResponse()
+    if (!data.results.length) return this.emptyPageResponse
     return data
   }
 }
