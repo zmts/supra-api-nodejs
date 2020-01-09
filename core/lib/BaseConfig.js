@@ -4,13 +4,16 @@ require('dotenv').config()
 const joi = require('@hapi/joi')
 
 const warnLogger = pino({
-  name: 'env-warning',
+  name: 'config-env-warning',
   prettyPrint: {
     translateTime: 'SYS:standard'
   }
 })
 
 class BaseConfig {
+  async init () {
+    throw new Error(`${this.constructor.name} should implement 'init' method.`)
+  }
   /**
    * get environment variable
    * if env variable missing: log warn and get default value
