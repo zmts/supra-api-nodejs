@@ -11,7 +11,8 @@ const schema = {
 
   id: new Rule({
     validator: v => isUUID(v),
-    description: 'UUID;'
+    description: 'UUID;',
+    example: '16eefa82-491f-497a-8e9b-abfaf2872bf8'
   }),
   name: new Rule({
     validator: v => (typeof v === 'string') && v.length >= 3 && v.length <= 50,

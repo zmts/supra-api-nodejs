@@ -1,5 +1,5 @@
-const { actionTagPolicy } = require('../policy')
 const { errorCodes, AppError, assert, RequestRule } = require('supra-core')
+const { actionTagPolicy } = require('../policy')
 
 class BaseController {
   constructor () {
@@ -124,7 +124,7 @@ class BaseController {
       const validationSrc = src[propName]
 
       const { schemaRule, options } = requestSchema[propName]
-      const { validator, description } = schemaRule
+      const { validator, description, example } = schemaRule
       const hasAllowedDefaultData = options.allowed.includes(validationSrc)
 
       if (options.required && !src.hasOwnProperty(propName) && !hasAllowedDefaultData) {
@@ -149,13 +149,15 @@ class BaseController {
         if (typeof validationResult === 'string') {
           throw new AppError({
             ...errorCodes.VALIDATION,
-            message: `Invalid '${schemaTitle}.${propName}' field. Description: ${validationResult}`,
+            message: `Invalid '${schemaTitle}.${propName}' field, ${validationResult}`,
+            meta: { example, expect: description },
             layer: this.constructor.name
           })
         } if (validationResult === false) {
           throw new AppError({
             ...errorCodes.VALIDATION,
-            message: `Invalid '${schemaTitle}.${propName}' field. Description: ${description}`,
+            message: `Invalid '${schemaTitle}.${propName}' field`,
+            meta: { example, expect: description },
             layer: this.constructor.name
           })
         }

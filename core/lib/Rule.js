@@ -4,11 +4,12 @@ class Rule {
       throw new Error('Invalid validator type')
     }
     if (!src.description || typeof src.description !== 'string') {
-      throw new Error('Invalid validation rule description.')
+      throw new Error('Invalid rule description')
     }
 
     this.validator = src.validator
     this.description = src.description
+    this.example = src.example || undefined
   }
 }
 
