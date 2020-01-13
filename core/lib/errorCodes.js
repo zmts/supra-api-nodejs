@@ -11,7 +11,7 @@ module.exports = {
   BAD_ROLE: { message: 'Bad role', status: 403, code: 'BAD_ROLE_ERROR' },
   INVALID_CREDENTIALS: { message: 'Invalid credentials', status: 403, code: 'INVALID_CREDENTIALS_ERROR' },
   INVALID_PASSWORD: { message: 'Invalid password', status: 403, code: 'INVALID_PASSWORD_ERROR' },
-  TOKEN_EXPIRED: { message: 'Token expired', status: 401, code: 'TOKEN_EXPIRED_ERROR' },
+  TOKEN_EXPIRED: { message: 'Token expired', status: 419, code: 'TOKEN_EXPIRED_ERROR' },
   INVALID_SESSION: { message: 'Invalid session. Wrong fingerprint', status: 401, code: 'INVALID_SESSION_ERROR' },
   TOKEN_NOT_SIGNED: { message: 'Token not signed', status: 500, code: 'TOKEN_NOT_SIGNED_ERROR' },
   TOKEN_VERIFY: { message: 'Token verify error', status: 401, code: 'TOKEN_VERIFY_ERROR' },
