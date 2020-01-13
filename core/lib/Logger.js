@@ -1,16 +1,21 @@
 const { Assert: assert } = require('./assert')
 const { SentryCatch } = require('./SentryCatch')
+const { AbstractLogger, getMetadata } = require('./AbstractLogger')
 const pino = require('pino')
+// const serializers = require('pino-std-serializers')
 
 const $ = Symbol('private scope')
 
-class Logger {
+class Logger extends AbstractLogger {
   constructor ({ appName, capture = false, sentryDns, raw = false } = {}) {
+    super()
+
     assert.string(appName, { required: true })
     assert.boolean(capture)
     assert.string(sentryDns)
+
     if (capture && !sentryDns) {
-      throw new Error(`${this.constructor.name}: Please define "sentryDns" param`)
+      throw new Error(`${this.constructor.name}: Please define 'sentryDns' param`)
     }
 
     this[$] = {
@@ -47,12 +52,20 @@ class Logger {
     }
   }
 
+  _captureException (error, meta) {
+    if (this[$].sentryCatch) this[$].sentryCatch.captureException(error, meta)
+  }
+
+  _captureMessage (message, meta) {
+    if (this[$].sentryCatch) this[$].sentryCatch.captureMessage(message, meta)
+  }
+
   fatal (message, error, meta) {
     assert.string(message, { required: true })
     assert.isOk(error, { required: true })
     assert.object(meta)
 
-    if (this[$].sentryCatch) this[$].sentryCatch.captureException(error, meta)
+    this._captureException(error, meta)
     this[$].fatalLogger.fatal(message, meta || error.toString())
   }
 
@@ -61,7 +74,7 @@ class Logger {
     assert.isOk(error, { required: true })
     assert.object(meta)
 
-    if (this[$].sentryCatch) this[$].sentryCatch.captureException(error, meta)
+    this._captureException(error, meta)
     this[$].errorLogger.error(message, meta || error.toString())
   }
 
@@ -70,30 +83,30 @@ class Logger {
     assert.isOk(error, { required: true })
     assert.object(meta)
 
-    if (this[$].sentryCatch) this[$].sentryCatch.captureException(error, meta)
+    this._captureException(error, meta)
     this[$].warnLogger.warn(message, meta || error.toString())
   }
 
-  info (message, meta = {}) {
+  info (message, meta) {
     assert.string(message, { required: true })
     assert.isOk(meta)
 
-    if (this[$].sentryCatch) this[$].sentryCatch.captureMessage(message, meta)
-    this[$].infoLogger.info(message, Object.keys(meta).length ? meta : '')
+    this._captureMessage(message, meta)
+    this[$].infoLogger.info(message, getMetadata(meta))
   }
 
-  debug (message, meta = {}) {
+  debug (message, meta) {
     assert.string(message, { required: true })
     assert.isOk(meta)
 
-    this[$].debugLogger.trace(message, Object.keys(meta).length ? meta : '')
+    this[$].debugLogger.debug(message, getMetadata(meta))
   }
 
-  trace (message, meta = {}) {
+  trace (message, meta) {
     assert.string(message, { required: true })
     assert.isOk(meta)
 
-    this[$].traceLogger.trace(message, Object.keys(meta).length ? meta : '')
+    this[$].traceLogger.trace(message, getMetadata(meta))
   }
 }
 
