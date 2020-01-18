@@ -6,6 +6,7 @@ const { BaseConfig } = require('./lib/BaseConfig')
 const { BaseDAO } = require('./lib/BaseDAO')
 const { BaseMiddleware } = require('./lib/BaseMiddleware')
 const { BaseModel } = require('./lib/BaseModel')
+const { AbstractLogger } = require('./lib/AbstractLogger')
 
 const { AppError } = require('./lib/AppError')
 const { InMemoryCache } = require('./lib/InMemoryCache')
@@ -24,6 +25,8 @@ module.exports = {
   BaseDAO,
   BaseMiddleware,
   BaseModel,
+
+  AbstractLogger,
 
   AppError,
   InMemoryCache,

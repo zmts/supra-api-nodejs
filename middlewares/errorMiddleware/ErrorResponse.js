@@ -7,6 +7,7 @@ class ErrorResponse {
     this.status = options.status || undefined
     this.code = options.code || undefined
     this.message = options.message || undefined
+    this.description = options.description || undefined
     this.meta = options.meta || undefined
     this.layer = options.layer || undefined
     this.stack = options.stack || undefined
