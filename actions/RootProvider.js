@@ -9,14 +9,16 @@ class RootProvider {
     // this.s3Client = new S3Client({
     //   access: config.s3.access,
     //   secret: config.s3.secret,
-    //   bucket: config.s3.bucket
+    //   bucket: config.s3.bucket,
+    //   logger
     // })
 
     this.emailClient = new EmailClient({
       apiKey: config.email.mailgunApiKey,
       domain: config.email.mailgunDomain,
       host: config.email.mailgunHost,
-      from: config.email.from
+      from: config.email.from,
+      logger
     })
   }
   async init () {
