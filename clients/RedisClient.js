@@ -1,13 +1,12 @@
 const redis = require('redis')
-const { assert } = require('supra-core')
+const { assert, AbstractLogger } = require('supra-core')
 const $ = Symbol('private scope')
-
-const logger = require('../logger')
 
 class RedisClient {
   constructor (options = {}) {
     assert.integer(options.port)
     assert.string(options.host)
+    assert.instanceOf(options.logger, AbstractLogger)
 
     this[$] = {
       client: redis.createClient({
@@ -21,7 +20,7 @@ class RedisClient {
     })
 
     this[$].client.on('connect', () => {
-      logger.debug(`${this.constructor.name} connected...`)
+      this[$].logger.debug(`${this.constructor.name} connected...`)
     })
   }
 
