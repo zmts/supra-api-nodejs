@@ -1,6 +1,5 @@
 const AWS = require('aws-sdk')
-const { assert } = require('supra-core')
-const logger = require('../logger')
+const { assert, AbstractLogger } = require('supra-core')
 
 const $ = Symbol('private scope')
 
@@ -10,6 +9,7 @@ class S3Client {
     assert.string(options.access, { notEmpty: true })
     assert.string(options.secret, { notEmpty: true })
     assert.string(options.bucket, { notEmpty: true })
+    assert.instanceOf(options.logger, AbstractLogger)
 
     AWS.config.update({
       accessKeyId: options.access,
@@ -18,29 +18,31 @@ class S3Client {
 
     this[$] = {
       client: new AWS.S3(),
-      bucket: options.bucket
+      bucket: options.bucket,
+      logger: options.logger
     }
 
-    logger.debug(`${this.constructor.name} constructed...`)
+    this[$].logger.debug(`${this.constructor.name} constructed...`)
   }
 
-  async uploadImage (buffer, fileName) {
+  async uploadFile ({ buffer, fileName, mimetype = 'application/octet-stream' } = {}) {
     if (!Buffer.isBuffer(buffer)) {
       throw new Error(`${this.constructor.name}: buffer param is not a Buffer type`)
     }
     assert.string(fileName, { notEmpty: true })
+    assert.string(mimetype, { notEmpty: true })
 
     return new Promise((resolve, reject) => {
       const params = {
         Bucket: this[$].bucket,
         Key: fileName,
         Body: buffer,
-        ContentType: 'image/jpeg'
+        ContentType: mimetype
       }
 
       this[$].client.upload(params, (error, data) => {
         if (error) {
-          logger.error(`${this.constructor.name}: unable to upload objects`, error)
+          this[$].logger.error(`${this.constructor.name}: unable to upload object`, error)
           return reject(error)
         }
         resolve(data.Location)
@@ -62,11 +64,64 @@ class S3Client {
 
       this[$].client.deleteObjects(params, (error, data) => {
         if (error) {
-          logger.error(`${this.constructor.name}: unable to remove objects`, error)
+          this[$].logger.error(`${this.constructor.name}: unable to remove objects`, error)
           return reject(error)
         }
 
         resolve(data)
+      })
+    })
+  }
+
+  /**
+   * Get file as stream from S3
+   * Use it for pipe stream directly into response
+   */
+  getFileAsStream (fileName) {
+    return new Promise(async (resolve, reject) => {
+      const params = {
+        Bucket: this[$].bucket,
+        Key: fileName
+      }
+      let head
+
+      try {
+        head = await this.headObject(fileName)
+      } catch (e) {
+        return reject(e)
+      }
+
+      const stream = this[$].client.getObject(params).createReadStream()
+
+      stream.on('error', error => {
+        this[$].logger.error(`${this.constructor.name}: error downloading file from S3`, error)
+        return reject(error)
+      })
+
+      return resolve({
+        mimetype: head.ContentType ? head.ContentType : 'application/octet-stream',
+        stream
+      })
+    })
+  }
+
+  /**
+   * Get metadata from an object without returning the object itself
+   */
+  headFile (fileName) {
+    return new Promise((resolve, reject) => {
+      const params = {
+        Bucket: this[$].bucket,
+        Key: fileName
+      }
+
+      this[$].client.headObject(params, (error, data) => {
+        if (error) {
+          this[$].logger.error(`${this.constructor.name}: error getting file head from S3`, error)
+          return reject(error)
+        }
+
+        return resolve(data)
       })
     })
   }
