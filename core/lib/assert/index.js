@@ -87,10 +87,18 @@ class Assert {
     if (value !== undefined) Assert.typeOf(value, Number, message)
   }
 
-  static integer (value, { required = false, positive = false, message = '' } = {}) {
-    if (required && !Number.isInteger(value)) Assert.fail(value, 'Integer', message)
-    if (value !== undefined && !Number.isInteger(value)) Assert.fail(value, 'Integer', message)
-    if (value !== undefined && Number.isInteger(value) && positive && value < 0) Assert.fail(value, 'Positive integer', message)
+  static integer (value, { required = false, min, max, message = '' } = {}) {
+    const isInteger = Number.isInteger(value)
+
+    if (required && !isInteger) Assert.fail(value, 'Integer', message)
+    if (value !== undefined && !isInteger) Assert.fail(value, 'Integer', message)
+
+    if (typeof min === 'number') {
+      if (value !== undefined && isInteger && value < min) Assert.fail(value, `Minimal value: ${min}`, message)
+    }
+    if (typeof max === 'number') {
+      if (value !== undefined && isInteger && value > max) Assert.fail(value, `Maximum value: ${max}`, message)
+    }
   }
 
   static string (value, { required = false, notEmpty = false, message = '' } = {}) {

@@ -13,7 +13,7 @@ class Abstract {
   __abstractMethod (ctx, methodName, argsQuantity) {
     assert.object(ctx, { required: true })
     assert.string(methodName, { notEmpty: true })
-    assert.integer(argsQuantity, { required: true, positive: true })
+    assert.integer(argsQuantity, { required: true, min: 1 })
 
     if (!ctx[methodName]) {
       throw new Error(`${ctx.constructor.name}: ${methodName} method not implemented`)
