@@ -126,7 +126,10 @@ class Assert {
   }
 
   static id (value, { required = false, message = '' } = {}) {
-    const isValidId = typeof value === 'number' || UUID_REGEXP.test(value)
+    const int = Number(value)
+    const isPositiveInteger = Number.isInteger(int) && (int !== 0) && int > 0
+    const isUiid = UUID_REGEXP.test(value)
+    const isValidId = isPositiveInteger || isUiid
     if (!isValidId && required) Assert.fail(value, 'UUID or Number', message)
     if (value !== undefined && !isValidId) Assert.fail(value, 'UUID or Number', message)
   }

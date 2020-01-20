@@ -96,7 +96,7 @@ class BaseDAO extends Model {
     assert.integer(page, { required: true })
     assert.integer(limit, { required: true })
     assert.object(filter, { required: true })
-    assert.integer(filter.userId)
+    assert.id(filter.userId)
 
     const data = await this.query()
       .where({ ...filter })
