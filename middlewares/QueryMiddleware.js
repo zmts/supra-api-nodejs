@@ -12,7 +12,9 @@ class QueryMiddleware extends BaseMiddleware {
         // validate content-type
         const contentType = req.headers['Content-Type'] || req.headers['content-type']
         const validContentType = ['application/json', 'multipart/form-data']
-        if (!contentType || !validContentType.includes(contentType)) {
+        const isValidContentType = contentType.includes('application/json') || contentType.includes('multipart/form-data')
+
+        if (!isValidContentType) {
           throw new AppError({ ...errorCodes.BAD_REQUEST, message: `Invalid content type. Expect one of: [${validContentType}]` })
         }
 
