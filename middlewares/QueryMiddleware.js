@@ -1,4 +1,4 @@
-const { BaseMiddleware, AppError, errorCodes } = require('supra-core')
+const { BaseMiddleware } = require('supra-core')
 const logger = require('../logger')
 
 class QueryMiddleware extends BaseMiddleware {
@@ -8,32 +8,19 @@ class QueryMiddleware extends BaseMiddleware {
 
   handler () {
     return async (req, res, next) => {
-      try {
-        // validate content-type
-        const contentType = req.headers['Content-Type'] || req.headers['content-type']
-        const validContentType = ['application/json', 'multipart/form-data']
-        const isValidContentType = contentType.includes('application/json') || contentType.includes('multipart/form-data')
-
-        if (!isValidContentType) {
-          throw new AppError({ ...errorCodes.BAD_REQUEST, message: `Invalid content type. Expect one of: [${validContentType}]` })
+      // set default query
+      req.query = req.method === 'GET' ? {
+        ...req.query,
+        page: Number(req.query.page) || 0,
+        limit: Number(req.query.limit) || 10,
+        filter: req.query.filter || {},
+        orderBy: {
+          ...((req.query.orderBy && req.query.orderBy.field && { field: req.query.orderBy.field }) || { field: 'createdAt' }),
+          ...((req.query.orderBy && req.query.orderBy.direction && { direction: req.query.orderBy.direction }) || { direction: 'asc' })
         }
+      } : { ...req.query }
 
-        // get method default query
-        req.query = req.method === 'GET' ? {
-          ...req.query,
-          page: Number(req.query.page) || 0,
-          limit: Number(req.query.limit) || 10,
-          filter: req.query.filter || {},
-          orderBy: {
-            ...((req.query.orderBy && req.query.orderBy.field && { field: req.query.orderBy.field }) || { field: 'createdAt' }),
-            ...((req.query.orderBy && req.query.orderBy.direction && { direction: req.query.orderBy.direction }) || { direction: 'asc' })
-          }
-        } : { ...req.query }
-
-        next()
-      } catch (error) {
-        next(error)
-      }
+      next()
     }
   }
 }

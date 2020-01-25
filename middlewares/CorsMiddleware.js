@@ -9,10 +9,9 @@ class CorsMiddleware extends BaseMiddleware {
   handler () {
     return (req, res, next) => {
       res.header('Access-Control-Allow-Origin', '*')
-      res.header('Access-Control-Allow-Methods', 'GET,PATCH,POST,DELETE,OPTIONS')
+      res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE')
       res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, token, authorization, Authorization')
       res.header('Access-Control-Expose-Headers', 'X-Total-Count')
-      if (req.method === 'OPTIONS') return res.status(200).end()
       next()
     }
   }
