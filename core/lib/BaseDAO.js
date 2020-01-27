@@ -32,6 +32,8 @@ class BaseDAO extends Model {
     return super.query.apply(this, arguments).onError(error => {
       return Promise.reject(wrapError(error))
         .catch(error => {
+          error = error.nativeError || error
+
           if (error instanceof UniqueViolationError) {
             throw new AppError({
               ...errorCodes.DB_DUPLICATE_CONFLICT,
@@ -39,6 +41,7 @@ class BaseDAO extends Model {
               layer: 'DAO'
             })
           }
+
           if (error instanceof NotNullViolationError) {
             throw new AppError({
               ...errorCodes.DB_NOTNULL_CONFLICT,
@@ -46,6 +49,7 @@ class BaseDAO extends Model {
               layer: 'DAO'
             })
           }
+
           throw new AppError({ ...errorCodes.DB, message: error.message, layer: 'DAO' })
         })
     })
