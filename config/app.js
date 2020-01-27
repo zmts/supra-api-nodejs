@@ -13,9 +13,15 @@ class AppConfig extends BaseConfig {
   }
 
   async init () {
-    return new Promise(resolve => { // just for example
+    await this.fetchAndSetAsyncValue()
+    logger.debug(`${this.constructor.name}: Initialization finish...`)
+  }
+
+  fetchAndSetAsyncValue () { // just tor example
+    return new Promise(resolve => {
       setTimeout(() => {
-        logger.debug(`${this.constructor.name}: Initialization finish...`)
+        this.testAsyncValue = this.setDirect('some async value', this.joi.string().required(), 'async value')
+        this.testDefaultAsyncValue = this.setDirect(undefined, this.joi.string().required(), 'default async value')
         resolve()
       }, 100)
     })
