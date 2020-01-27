@@ -7,19 +7,19 @@ const pino = require('pino')
 const $ = Symbol('private scope')
 
 class Logger extends AbstractLogger {
-  constructor ({ appName, capture = false, sentryDns, raw = false } = {}) {
+  constructor ({ appName, capture = false, sentryDsn, raw = false } = {}) {
     super()
 
     assert.string(appName, { required: true })
     assert.boolean(capture)
-    assert.string(sentryDns)
+    assert.string(sentryDsn)
 
-    if (capture && !sentryDns) {
-      throw new Error(`${this.constructor.name}: Please define 'sentryDns' param`)
+    if (capture && !sentryDsn) {
+      throw new Error(`${this.constructor.name}: Please define 'sentryDsn' param`)
     }
 
     this[$] = {
-      sentryCatch: capture ? new SentryCatch(sentryDns) : null,
+      sentryCatch: capture ? new SentryCatch(sentryDsn) : null,
 
       fatalLogger: pino({
         name: `${appName.toLowerCase()}::fatal`,
