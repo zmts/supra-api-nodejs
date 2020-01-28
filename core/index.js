@@ -1,6 +1,6 @@
 const errorCodes = require('./lib/errorCodes')
 const { Assert } = require('./lib/assert')
-const { ValidatorNano } = require('./lib/ValidatorNano')
+const { ValidatorNano } = require('./lib/validator/ValidatorNano')
 
 const { BaseConfig } = require('./lib/BaseConfig')
 const { BaseDAO } = require('./lib/BaseDAO')
