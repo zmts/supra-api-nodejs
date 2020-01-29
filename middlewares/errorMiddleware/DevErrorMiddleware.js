@@ -5,6 +5,8 @@ const ErrorResponse = require('./ErrorResponse')
 const { errorCodes, BaseMiddleware } = require('supra-core')
 const logger = require('../../logger')
 
+const notImportantCodes = [400, 401, 403, 404, 422]
+
 class DevErrorMiddleware extends BaseMiddleware {
   async init () {
     logger.debug(`${this.constructor.name} initialized...`)
@@ -25,11 +27,11 @@ class DevErrorMiddleware extends BaseMiddleware {
           code: error.code || errorCodes.SERVER.code,
           status: error.status || errorCodes.SERVER.status,
           message: error.message || error,
-          stack: ![400, 401, 403, 422].includes(error.status) ? stackTrace.parse(error) : false,
+          stack: !notImportantCodes.includes(error.status) ? stackTrace.parse(error) : false,
           src: `${process.env.NODE_ENV}:err:middleware`
         })
 
-        logger.error(errorRes.message, error, { ...errorRes, req: error.req, meta: error.meta })
+        logger.error(errorRes.message, error)
         res.status(errorRes.status).json(errorRes)
       }
 

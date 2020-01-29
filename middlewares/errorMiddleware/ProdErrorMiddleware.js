@@ -2,6 +2,8 @@ const ErrorResponse = require('./ErrorResponse')
 const { errorCodes, BaseMiddleware } = require('supra-core')
 const logger = require('../../logger')
 
+const notImportantCodes = [400, 401, 403, 404, 422]
+
 class ProdErrorMiddleware extends BaseMiddleware {
   async init () {
     logger.debug(`${this.constructor.name} initialized...`)
@@ -26,8 +28,8 @@ class ProdErrorMiddleware extends BaseMiddleware {
         })
 
         // log only significant errors
-        if (![400, 401, 403, 422].includes(error.status)) {
-          logger.error(errorRes.message, error, { ...errorRes, req: error.req, meta: error.meta })
+        if (!notImportantCodes.includes(error.status)) {
+          logger.error(errorRes.message, error)
         }
         delete errorRes.stack
         res.status(errorRes.status).json(errorRes)
