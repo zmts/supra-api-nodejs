@@ -15,15 +15,15 @@ class SentryCatch {
 
   captureException (error, meta = {}) {
     Sentry.withScope(scope => {
-      scope.setUser({ ...meta })
+      scope.setExtras({ ...meta })
       Sentry.captureException(error)
     })
   }
 
   captureMessage (message, meta = {}) {
     Sentry.withScope(scope => {
-      scope.setUser({ ...meta })
-      Sentry.captureMessage(message, 'debug')
+      scope.setExtras({ ...meta })
+      Sentry.captureMessage(message, Sentry.Severity.Info)
     })
   }
 }
