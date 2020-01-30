@@ -28,7 +28,8 @@ class DevErrorMiddleware extends BaseMiddleware {
           status: error.status || errorCodes.SERVER.status,
           message: error.message || error,
           stack: !notImportantCodes.includes(error.status) ? stackTrace.parse(error) : false,
-          src: `${process.env.NODE_ENV}:err:middleware`
+          src: `${process.env.NODE_ENV}:err:middleware`,
+          origin: error.origin ? { ...error.origin, message: error.origin.message } : false
         })
 
         logger.error(errorRes.message, error)
