@@ -12,6 +12,7 @@ class ErrorResponse {
     this.layer = options.layer || undefined
     this.stack = options.stack || undefined
     this.src = options.src || undefined
+    this.origin = options.origin || undefined
   }
 }
 
