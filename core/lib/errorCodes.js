@@ -1,5 +1,6 @@
 module.exports = {
   SERVER: { description: 'Server error occurred', status: 500, code: 'SERVER_ERROR' },
+  EXTERNAL: { description: 'External service error', status: 500, code: 'EXTERNAL_ERROR' },
   DEV_IMPLEMENTATION: { description: 'Development implementation error', status: 500, code: 'DEV_IMPLEMENTATION_ERROR' },
   NO_ARGUMENT: { description: 'Required arguments not supplied', status: 500, code: 'NO_ARGUMENT_ERROR' },
   ARGUMENT_TYPE: { description: 'Wrong argument type', status: 500, code: 'ARGUMENT_TYPE_ERROR' },

@@ -10,6 +10,7 @@ class AppError extends Error {
     this.layer = options.layer || undefined
     this.meta = options.meta || undefined
     this.req = options.req || undefined
+    this.origin = options.origin || undefined // origin error data
   }
 }
 
