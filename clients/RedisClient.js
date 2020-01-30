@@ -1,5 +1,5 @@
 const redis = require('redis')
-const { assert, AbstractLogger } = require('supra-core')
+const { assert, AbstractLogger, AppError, errorCodes } = require('supra-core')
 const $ = Symbol('private scope')
 
 class RedisClient {
@@ -39,7 +39,13 @@ class RedisClient {
     return new Promise((resolve, reject) => {
       listOfUuids.forEach(uuid => {
         this[$].client.set(`upload-token::${uuid}`, true, 'EX', ttl, (error, reply) => {
-          if (error) return reject(error)
+          if (error) {
+            return reject(new AppError({
+              ...errorCodes.EXTERNAL,
+              message: `${this.constructor.name}: ${error.message}`,
+              origin: error
+            }))
+          }
         })
       })
 
@@ -52,7 +58,13 @@ class RedisClient {
 
     return new Promise((resolve, reject) => {
       this[$].client.get(`upload-token::${uuid}`, (error, reply) => {
-        if (error) return reject(error)
+        if (error) {
+          return reject(new AppError({
+            ...errorCodes.EXTERNAL,
+            message: `${this.constructor.name}: ${error.message}`,
+            origin: error
+          }))
+        }
         if (reply) return resolve(reply)
         return resolve(false)
       })
@@ -64,7 +76,13 @@ class RedisClient {
 
     return new Promise((resolve, reject) => {
       this[$].client.del(`upload-token::${uuid}`, (error, reply) => {
-        if (error) return reject(error)
+        if (error) {
+          return reject(new AppError({
+            ...errorCodes.EXTERNAL,
+            message: `${this.constructor.name}: ${error.message}`,
+            origin: error
+          }))
+        }
         return resolve()
       })
     })
@@ -83,7 +101,13 @@ class RedisClient {
 
     return new Promise((resolve, reject) => {
       this[$].client.get(`user-uploads-count::${userId}`, (error, count) => {
-        if (error) return reject(error)
+        if (error) {
+          return reject(new AppError({
+            ...errorCodes.EXTERNAL,
+            message: `${this.constructor.name}: ${error.message}`,
+            origin: error
+          }))
+        }
         if (count) return resolve(Number(count))
         return resolve(0)
       })
@@ -97,7 +121,13 @@ class RedisClient {
 
     return new Promise((resolve, reject) => {
       this[$].client.set(`user-uploads-count::${userId}`, count, 'EX', ttl, (error, reply) => {
-        if (error) return reject(error)
+        if (error) {
+          return reject(new AppError({
+            ...errorCodes.EXTERNAL,
+            message: `${this.constructor.name}: ${error.message}`,
+            origin: error
+          }))
+        }
       })
 
       return resolve()
@@ -109,7 +139,13 @@ class RedisClient {
 
     return new Promise((resolve, reject) => {
       this[$].client.ttl(`user-uploads-count::${userId}`, (error, sec) => {
-        if (error) return reject(error)
+        if (error) {
+          return reject(new AppError({
+            ...errorCodes.EXTERNAL,
+            message: `${this.constructor.name}: ${error.message}`,
+            origin: error
+          }))
+        }
         if (Number(sec) > 0) return resolve(Number(sec))
         return resolve(0)
       })
@@ -122,7 +158,13 @@ class RedisClient {
 
     return new Promise((resolve, reject) => {
       this[$].client.incrby(`user-uploads-count::${userId}`, count, (error, reply) => {
-        if (error) return reject(error)
+        if (error) {
+          return reject(new AppError({
+            ...errorCodes.EXTERNAL,
+            message: `${this.constructor.name}: ${error.message}`,
+            origin: error
+          }))
+        }
       })
 
       return resolve()

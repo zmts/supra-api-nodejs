@@ -2,7 +2,7 @@
  * https://documentation.mailgun.com/en/latest/api-sending.html#examples
  */
 const mailgun = require('mailgun-js')
-const { assert, AbstractLogger } = require('supra-core')
+const { assert, AbstractLogger, AppError, errorCodes } = require('supra-core')
 
 const emailRegEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 const $ = Symbol('private scope')
@@ -54,7 +54,13 @@ class EmailClient {
 
     return new Promise((resolve, reject) => {
       this[$].client.messages().send(data, (error, response) => {
-        if (error) return reject(error)
+        if (error) {
+          return reject(new AppError({
+            ...errorCodes.EXTERNAL,
+            message: `${this.constructor.name}: ${error.message}`,
+            origin: error
+          }))
+        }
         return resolve(response)
       })
     })

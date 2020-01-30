@@ -1,5 +1,5 @@
 const AWS = require('aws-sdk')
-const { assert, AbstractLogger } = require('supra-core')
+const { assert, AbstractLogger, AppError, errorCodes } = require('supra-core')
 
 const $ = Symbol('private scope')
 
@@ -42,8 +42,11 @@ class S3Client {
 
       this[$].client.upload(params, (error, data) => {
         if (error) {
-          this[$].logger.error(`${this.constructor.name}: unable to upload object`, error)
-          return reject(error)
+          return reject(new AppError({
+            ...errorCodes.EXTERNAL,
+            message: `${this.constructor.name}: unable to upload object. ${error.message}`,
+            origin: error
+          }))
         }
         resolve(data.Location)
       })
@@ -64,8 +67,11 @@ class S3Client {
 
       this[$].client.deleteObjects(params, (error, data) => {
         if (error) {
-          this[$].logger.error(`${this.constructor.name}: unable to remove objects`, error)
-          return reject(error)
+          return reject(new AppError({
+            ...errorCodes.EXTERNAL,
+            message: `${this.constructor.name}: unable to remove objects. ${error.message}`,
+            origin: error
+          }))
         }
 
         resolve(data)
@@ -94,8 +100,11 @@ class S3Client {
       const stream = this[$].client.getObject(params).createReadStream()
 
       stream.on('error', error => {
-        this[$].logger.error(`${this.constructor.name}: error downloading file from S3`, error)
-        return reject(error)
+        return reject(new AppError({
+          ...errorCodes.EXTERNAL,
+          message: `${this.constructor.name}: error downloading file. ${error.message}`,
+          origin: error
+        }))
       })
 
       return resolve({
@@ -117,8 +126,11 @@ class S3Client {
 
       this[$].client.headObject(params, (error, data) => {
         if (error) {
-          this[$].logger.error(`${this.constructor.name}: error getting file head from S3`, error)
-          return reject(error)
+          return reject(new AppError({
+            ...errorCodes.EXTERNAL,
+            message: `${this.constructor.name}: error getting file head. ${error.message}`,
+            origin: error
+          }))
         }
 
         return resolve(data)
