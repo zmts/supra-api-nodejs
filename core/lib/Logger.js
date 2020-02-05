@@ -1,8 +1,9 @@
-const { Assert: assert } = require('./assert')
-const { SentryCatch } = require('./SentryCatch')
-const { AbstractLogger, getMetadata } = require('./AbstractLogger')
 const pino = require('pino')
-// const serializers = require('pino-std-serializers')
+
+const { Assert: assert } = require('./assert')
+const { ValidatorNano: validator } = require('./validator/ValidatorNano')
+const { SentryCatch } = require('./SentryCatch')
+const { AbstractLogger } = require('./AbstractLogger')
 
 const $ = Symbol('private scope')
 
@@ -52,61 +53,91 @@ class Logger extends AbstractLogger {
     }
   }
 
-  _captureException (error, meta) {
-    if (this[$].sentryCatch) this[$].sentryCatch.captureException(error, meta)
+  /**
+   * ------------------------------
+   * @PRIVATE_HELPERS
+   * ------------------------------
+   */
+
+  _captureException (error, payload) {
+    if (this[$].sentryCatch) this[$].sentryCatch.captureException(error, payload)
   }
 
-  _captureMessage (message, meta) {
-    if (this[$].sentryCatch) this[$].sentryCatch.captureMessage(message, meta)
+  _captureMessage (message, payload) {
+    if (this[$].sentryCatch) this[$].sentryCatch.captureMessage(message, payload)
   }
+
+  /**
+   * ------------------------------
+   * @ERROR_METHODS
+   * ------------------------------
+   */
 
   fatal (message, error, meta) {
     assert.string(message, { required: true })
     assert.isOk(error, { required: true })
-    assert.object(meta)
+    assert.isOk(meta)
 
-    this._captureException(error, meta)
-    this[$].fatalLogger.fatal(message, meta || error.toString())
+    const payload = validator.isObject(meta) ? { ...error, ...meta } : { ...error, meta }
+
+    this._captureException(error, payload)
+    this[$].fatalLogger.fatal(message, payload)
   }
 
   error (message, error, meta) {
     assert.string(message, { required: true })
     assert.isOk(error, { required: true })
-    assert.object(meta)
+    assert.isOk(meta)
 
-    this._captureException(error, meta)
-    this[$].errorLogger.error(message, meta || error.toString())
+    const payload = validator.isObject(meta) ? { ...error, ...meta } : { ...error, meta }
+
+    this._captureException(error, payload)
+    this[$].errorLogger.error(message, payload)
   }
 
   warn (message, error, meta) {
     assert.string(message, { required: true })
     assert.isOk(error, { required: true })
-    assert.object(meta)
+    assert.isOk(meta)
 
-    this._captureException(error, meta)
-    this[$].warnLogger.warn(message, meta || error.toString())
+    const payload = validator.isObject(meta) ? { ...error, ...meta } : { ...error, meta }
+
+    this._captureException(error, payload)
+    this[$].warnLogger.warn(message, payload)
   }
+
+  /**
+   * ------------------------------
+   * @INFO_METHODS
+   * ------------------------------
+   */
 
   info (message, meta) {
     assert.string(message, { required: true })
     assert.isOk(meta)
 
-    this._captureMessage(message, meta)
-    this[$].infoLogger.info(message, getMetadata(meta))
+    const payload = validator.isObject(meta) ? meta : { meta }
+
+    this._captureMessage(message, payload)
+    this[$].infoLogger.info(message, payload)
   }
 
   debug (message, meta) {
     assert.string(message, { required: true })
     assert.isOk(meta)
 
-    this[$].debugLogger.debug(message, getMetadata(meta))
+    const payload = validator.isObject(meta) ? meta : { meta }
+
+    this[$].debugLogger.debug(message, payload)
   }
 
   trace (message, meta) {
     assert.string(message, { required: true })
     assert.isOk(meta)
 
-    this[$].traceLogger.trace(message, getMetadata(meta))
+    const payload = validator.isObject(meta) ? meta : { meta }
+
+    this[$].traceLogger.trace(message, payload)
   }
 }
 

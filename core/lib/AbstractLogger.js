@@ -17,8 +17,4 @@ class AbstractLogger extends Abstract {
   }
 }
 
-function getMetadata (data) {
-  return data !== undefined ? JSON.stringify(data) : ''
-}
-
-module.exports = { AbstractLogger, getMetadata }
+module.exports = { AbstractLogger }
