@@ -96,7 +96,7 @@ function start ({ port, host, controllers, middlewares, errorMiddleware, logger 
     })
 
     process.on('uncaughtException', error => {
-      logger.fatal('uncaughtException', error.stack)
+      logger.fatal('uncaughtException', error)
       process.exit(1)
     })
 
