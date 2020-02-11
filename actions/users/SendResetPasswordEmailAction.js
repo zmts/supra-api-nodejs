@@ -1,6 +1,6 @@
 const { RequestRule } = require('supra-core')
 const BaseAction = require('../BaseAction')
-const { emailClient } = require('../RootProvider')
+const { emailAgent } = require('../RootProvider')
 const UserDAO = require('../../dao/UserDAO')
 const UserModel = require('../../models/UserModel')
 const { makeResetPasswordToken } = require('./common/makeResetPasswordToken')
@@ -30,7 +30,7 @@ class SendResetPasswordEmailAction extends BaseAction {
     const resetPasswordToken = await makeResetPasswordToken(user)
     await UserDAO.baseUpdate(user.id, { resetPasswordToken })
 
-    await emailClient.send(new ResetPasswordEmail({ to: user.email, resetPasswordToken }))
+    await emailAgent.send(new ResetPasswordEmail({ to: user.email, resetPasswordToken }))
 
     return this.result({ message: 'Reset password email delivered' })
   }

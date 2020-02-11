@@ -3,7 +3,7 @@ const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
 const UserModel = require('../../models/UserModel')
 const { makeEmailConfirmToken } = require('./common/makeEmailConfirmToken')
-const { emailClient } = require('../RootProvider')
+const { emailAgent } = require('../RootProvider')
 const { ChangeEmail } = require('./common/emails/ChangeEmail')
 
 class ChangeEmailAction extends BaseAction {
@@ -27,7 +27,7 @@ class ChangeEmailAction extends BaseAction {
     if (isExist) throw new AppError({ ...errorCodes.EMAIL_ALREADY_TAKEN })
 
     const emailConfirmToken = await makeEmailConfirmToken({ ...currentUser, newEmail })
-    await emailClient.send(new ChangeEmail({ newEmail, emailConfirmToken }))
+    await emailAgent.send(new ChangeEmail({ newEmail, emailConfirmToken }))
     await UserDAO.baseUpdate(currentUser.id, { newEmail, emailConfirmToken })
 
     return this.result({ message: `User requested change email to ${newEmail}!` })

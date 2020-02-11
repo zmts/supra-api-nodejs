@@ -7,7 +7,7 @@ const { assert, AbstractLogger, AppError, errorCodes } = require('supra-core')
 const emailRegEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 const $ = Symbol('private scope')
 
-class EmailClient {
+class EmailAgent {
   constructor (options = {}) {
     assert.string(options.apiKey, { notEmpty: true })
     assert.string(options.domain, { notEmpty: true })
@@ -67,4 +67,4 @@ class EmailClient {
   }
 }
 
-module.exports = EmailClient
+module.exports = { EmailAgent }

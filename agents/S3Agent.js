@@ -3,7 +3,7 @@ const { assert, AbstractLogger, AppError, errorCodes } = require('supra-core')
 
 const $ = Symbol('private scope')
 
-class S3Client {
+class S3Agent {
   constructor (options) {
     assert.object(options, { required: true })
     assert.string(options.access, { notEmpty: true })
@@ -139,4 +139,4 @@ class S3Client {
   }
 }
 
-module.exports = S3Client
+module.exports = { S3Agent }

@@ -1,19 +1,19 @@
-const { EmailClient, S3Client, RedisClient } = require('../clients')
+const { EmailAgent, S3Agent, RedisAgent } = require('../agents')
 const config = require('../config')
 const logger = require('../logger')
 
 class RootProvider {
   constructor () {
-    // this.redisClient = new RedisClient()
+    // this.redisClient = new RedisAgent()
 
-    // this.s3Client = new S3Client({
+    // this.s3Agent = new S3Agent({
     //   access: config.s3.access,
     //   secret: config.s3.secret,
     //   bucket: config.s3.bucket,
     //   logger
     // })
 
-    this.emailClient = new EmailClient({
+    this.emailAgent = new EmailAgent({
       apiKey: config.email.mailgunApiKey,
       domain: config.email.mailgunDomain,
       host: config.email.mailgunHost,

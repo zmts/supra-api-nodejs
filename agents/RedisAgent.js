@@ -2,7 +2,7 @@ const redis = require('redis')
 const { assert, AbstractLogger, AppError, errorCodes } = require('supra-core')
 const $ = Symbol('private scope')
 
-class RedisClient {
+class RedisAgent {
   constructor (options = {}) {
     assert.integer(options.port)
     assert.string(options.host)
@@ -172,4 +172,4 @@ class RedisClient {
   }
 }
 
-module.exports = RedisClient
+module.exports = { RedisAgent }

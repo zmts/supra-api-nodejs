@@ -16,6 +16,7 @@ Piece of my thoughts about Node.js architecture.
 - CRUD(users, posts resources)
 - Automated API documentation
 - Full authentication/authorization and user registration flow implemented
+- Tests(e2e)
 
 ## Key points:
 ### 0. Monolith first
@@ -36,7 +37,7 @@ class PostsController extends BaseController {
   }
 }
 ``` 
-For example `PostsController` implement routes of `post` entity. Each route fires own `action`. 
+For example `PostsController` implements `post` entity routes. Each route fires own `action`. 
 
 ### 2. Action layer
 It's a class that encapsulated request validation, permission verification and business logic. One file, one class, one REST operation, one use case.
@@ -112,4 +113,4 @@ Path | Method | Description
 
 __!!! Project still in progress !!!__
 
-_2017 - 2018 - 2019 - 2020..._
+_2017 - 2018 - 2019 - 2020 ..._

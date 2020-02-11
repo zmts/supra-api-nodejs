@@ -1,6 +1,6 @@
 const { RequestRule } = require('supra-core')
 const BaseAction = require('../BaseAction')
-const { emailClient } = require('../RootProvider')
+const { emailAgent } = require('../RootProvider')
 const UserDAO = require('../../dao/UserDAO')
 const UserModel = require('../../models/UserModel')
 const { WelcomeEmail } = require('./common/emails/WelcomeEmail')
@@ -37,7 +37,7 @@ class CreateUserAction extends BaseAction {
     await UserDAO.baseUpdate(user.id, { emailConfirmToken })
 
     try {
-      const result = await emailClient.send(new WelcomeEmail({
+      const result = await emailAgent.send(new WelcomeEmail({
         to: user.email,
         username: user.username,
         emailConfirmToken
