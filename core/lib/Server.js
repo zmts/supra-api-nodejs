@@ -3,7 +3,6 @@ const path = require('path')
 // const favicon = require('serve-favicon')
 const morganLogger = require('morgan')
 const cookieParser = require('cookie-parser')
-const bodyParser = require('body-parser')
 
 const { Assert: assert } = require('./assert')
 const { BaseMiddleware } = require('./BaseMiddleware')
@@ -30,8 +29,8 @@ function start ({ port, host, controllers, middlewares, errorMiddleware, logger 
     // uncomment after placing your favicon in /public
     // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
     if (process.env.NODE_ENV !== 'production') app.use(morganLogger('dev'))
-    app.use(bodyParser.json())
-    app.use(bodyParser.urlencoded({ extended: false }))
+    app.use(express.json())
+    app.use(express.urlencoded({ extended: false }))
     app.use(cookieParser())
     // use static/public folder
     app.use(express.static(path.join(__dirname, 'public')))
