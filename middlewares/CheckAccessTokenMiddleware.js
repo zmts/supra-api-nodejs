@@ -54,4 +54,4 @@ class CheckAccessTokenMiddleware extends BaseMiddleware {
   }
 }
 
-module.exports = new CheckAccessTokenMiddleware()
+module.exports = { CheckAccessTokenMiddleware }

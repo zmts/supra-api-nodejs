@@ -1,10 +1,13 @@
-const { errorCodes, AppError, assert, RequestRule } = require('supra-core')
+const { errorCodes, AppError, assert, RequestRule, AbstractLogger } = require('supra-core')
 const { actionTagPolicy } = require('../policy')
 
 class BaseController {
-  constructor () {
+  constructor ({ logger } = {}) {
     if (!this.init) throw new Error(`${this.constructor.name} should implement 'init' method.`)
     if (!this.router) throw new Error(`${this.constructor.name} should implement 'router' getter.`)
+    assert.instanceOf(logger, AbstractLogger)
+
+    this.logger = logger
   }
 
   actionRunner (action) {

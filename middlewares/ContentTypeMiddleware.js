@@ -32,4 +32,4 @@ class ContentTypeMiddleware extends BaseMiddleware {
   }
 }
 
-module.exports = new ContentTypeMiddleware()
+module.exports = { ContentTypeMiddleware }

@@ -1,12 +1,12 @@
-const InitsMiddleware = require('./InitMiddleware')
-const CorsMiddleware = require('./CorsMiddleware')
-const CheckAccessTokenMiddleware = require('./CheckAccessTokenMiddleware')
-const SanitizeMiddleware = require('./SanitizeMiddleware')
-const QueryMiddleware = require('./QueryMiddleware')
-const ContentTypeMiddleware = require('./ContentTypeMiddleware')
+const { InitMiddleware } = require('./InitMiddleware')
+const { CorsMiddleware } = require('./CorsMiddleware')
+const { CheckAccessTokenMiddleware } = require('./CheckAccessTokenMiddleware')
+const { SanitizeMiddleware } = require('./SanitizeMiddleware')
+const { QueryMiddleware } = require('./QueryMiddleware')
+const { ContentTypeMiddleware } = require('./ContentTypeMiddleware')
 
 module.exports = [
-  InitsMiddleware,
+  InitMiddleware,
   CorsMiddleware,
   CheckAccessTokenMiddleware,
   SanitizeMiddleware,

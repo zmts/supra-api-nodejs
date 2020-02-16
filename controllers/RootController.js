@@ -3,7 +3,6 @@ const router = express.Router()
 
 const { BaseController } = require('./BaseController')
 const RootProvider = require('../actions/RootProvider')
-const logger = require('../logger')
 
 class RootController extends BaseController {
   get router () {
@@ -15,9 +14,9 @@ class RootController extends BaseController {
   }
 
   async init () {
-    logger.debug(`${this.constructor.name} initialized...`)
+    this.logger.debug(`${this.constructor.name} initialized...`)
     await RootProvider.init()
   }
 }
 
-module.exports = new RootController()
+module.exports = { RootController }

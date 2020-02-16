@@ -17,4 +17,4 @@ class CorsMiddleware extends BaseMiddleware {
   }
 }
 
-module.exports = new CorsMiddleware()
+module.exports = { CorsMiddleware }

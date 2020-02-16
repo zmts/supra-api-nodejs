@@ -2,7 +2,6 @@ const router = require('express').Router()
 
 const actions = require('../actions/posts')
 const { BaseController } = require('./BaseController')
-const logger = require('../logger')
 
 class PostsController extends BaseController {
   get router () {
@@ -18,7 +17,7 @@ class PostsController extends BaseController {
   }
 
   async init () {
-    logger.debug(`${this.constructor.name} initialized...`)
+    this.logger.debug(`${this.constructor.name} initialized...`)
   }
 }
 
@@ -28,4 +27,4 @@ function preparePostId (req, res, next) {
   next()
 }
 
-module.exports = new PostsController()
+module.exports = { PostsController }

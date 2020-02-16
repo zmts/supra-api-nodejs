@@ -3,13 +3,12 @@ const chalk = require('chalk')
 const stackTrace = require('stack-trace')
 const ErrorResponse = require('./ErrorResponse')
 const { errorCodes, BaseMiddleware } = require('supra-core')
-const logger = require('../../logger')
 
 const notImportantCodes = [400, 401, 403, 404, 422]
 
 class DevErrorMiddleware extends BaseMiddleware {
   async init () {
-    logger.debug(`${this.constructor.name} initialized...`)
+    this.logger.debug(`${this.constructor.name} initialized...`)
   }
 
   handler () {
@@ -32,7 +31,7 @@ class DevErrorMiddleware extends BaseMiddleware {
           origin: error.origin ? { ...error.origin, message: error.origin.message } : false
         })
 
-        logger.error(errorRes.message, error)
+        this.logger.error(errorRes.message, error)
         res.status(errorRes.status).json(errorRes)
       }
 
@@ -46,4 +45,4 @@ class DevErrorMiddleware extends BaseMiddleware {
   }
 }
 
-module.exports = new DevErrorMiddleware()
+module.exports = { DevErrorMiddleware }

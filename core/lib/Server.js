@@ -1,12 +1,11 @@
 const express = require('express')
 const path = require('path')
-// const favicon = require('serve-favicon')
 const morganLogger = require('morgan')
 const cookieParser = require('cookie-parser')
 
 const { Assert: assert } = require('./assert')
 const { BaseMiddleware } = require('./BaseMiddleware')
-const { Logger } = require('./Logger')
+const { AbstractLogger } = require('./AbstractLogger')
 
 class Server {
   constructor ({ port, host, controllers, middlewares, errorMiddleware, logger }) {
@@ -14,62 +13,57 @@ class Server {
     assert.string(host, { required: true, notEmpty: true })
     assert.array(controllers, { required: true, notEmpty: true, message: 'controllers param expects not empty array' })
     assert.array(middlewares, { required: true, notEmpty: true, message: 'middlewares param expects not empty array' })
-    assert.instanceOf(errorMiddleware, BaseMiddleware)
-    assert.instanceOf(logger, Logger)
+    assert.instanceOf(errorMiddleware.prototype, BaseMiddleware)
+    assert.instanceOf(logger, AbstractLogger)
 
     logger.info('Server start initialization...')
-    return start({ port, host, controllers, middlewares, errorMiddleware, logger })
+    return start({ port, host, controllers, middlewares, ErrorMiddleware: errorMiddleware, logger })
   }
 }
 
-function start ({ port, host, controllers, middlewares, errorMiddleware, logger }) {
+function start ({ port, host, controllers, middlewares, ErrorMiddleware, logger }) {
   return new Promise(async (resolve, reject) => {
     const app = express()
 
-    // uncomment after placing your favicon in /public
-    // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
     if (process.env.NODE_ENV !== 'production') app.use(morganLogger('dev'))
     app.use(express.json())
     app.use(express.urlencoded({ extended: false }))
     app.use(cookieParser())
-    // use static/public folder
     app.use(express.static(path.join(__dirname, 'public')))
 
     /**
      * middlewares initialization
      */
-    for (const middleware of middlewares) {
-      try {
+    try {
+      for (const middleware of middlewares.map(Middleware => new Middleware({ logger }))) {
         await middleware.init()
         app.use(middleware.handler())
-      } catch (e) {
-        return reject(e)
       }
+    } catch (e) {
+      return reject(e)
     }
 
     /**
      * controllers initialization
      */
-    for (const item of controllers) {
-      try {
-        assert.func(item.init, { required: true })
-        assert.func(item.router, { required: true })
-
-        await item.init()
-        app.use(item.router)
-      } catch (e) {
-        return reject(e)
+    try {
+      for (const controller of controllers.map(Controller => new Controller({ logger }))) {
+        await controller.init()
+        app.use(controller.router)
       }
+    } catch (e) {
+      reject(e)
     }
 
     /**
      * error handler
      */
     try {
-      await errorMiddleware.init()
-      app.use(errorMiddleware.handler())
+      const middleware = new ErrorMiddleware({ logger })
+      await middleware.init()
+      app.use(middleware.handler())
     } catch (e) {
-      return reject(`Default error middleware failed. ${e}`)
+      return reject(e)
     }
 
     /**

@@ -15,4 +15,4 @@ class InitMiddleware extends BaseMiddleware {
   }
 }
 
-module.exports = new InitMiddleware()
+module.exports = { InitMiddleware }

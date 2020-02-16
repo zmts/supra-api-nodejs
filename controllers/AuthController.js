@@ -18,4 +18,4 @@ class AuthController extends BaseController {
   }
 }
 
-module.exports = new AuthController()
+module.exports = { AuthController }

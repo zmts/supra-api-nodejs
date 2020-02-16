@@ -13,4 +13,4 @@ class SanitizeMiddleware extends BaseMiddleware {
   }
 }
 
-module.exports = new SanitizeMiddleware()
+module.exports = { SanitizeMiddleware }

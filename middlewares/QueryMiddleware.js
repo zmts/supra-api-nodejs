@@ -25,4 +25,4 @@ class QueryMiddleware extends BaseMiddleware {
   }
 }
 
-module.exports = new QueryMiddleware()
+module.exports = { QueryMiddleware }
