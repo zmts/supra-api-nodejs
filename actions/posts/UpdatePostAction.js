@@ -22,12 +22,12 @@ class UpdatePostAction extends BaseAction {
     }
   }
 
-  static async run (req) {
-    const { currentUser } = req
+  static async run (ctx) {
+    const { currentUser } = ctx
 
-    const model = await PostDAO.baseGetById(+req.params.id)
+    const model = await PostDAO.baseGetById(ctx.params.id)
     await ownerPolicy(model, currentUser)
-    const data = await PostDAO.baseUpdate(+req.params.id, req.body)
+    const data = await PostDAO.baseUpdate(ctx.params.id, ctx.body)
 
     return this.result({ data })
   }

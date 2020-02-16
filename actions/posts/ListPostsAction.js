@@ -24,8 +24,8 @@ class ListPostsAction extends BaseAction {
     }
   }
 
-  static async run (req) {
-    const { query } = req
+  static async run (ctx) {
+    const { query } = ctx
     const data = await PostDAO.baseGetList({ ...query })
 
     return this.result({

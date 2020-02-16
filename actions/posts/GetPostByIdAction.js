@@ -17,10 +17,10 @@ class GetPostByIdAction extends BaseAction {
     }
   }
 
-  static async run (req) {
-    const { currentUser } = req
+  static async run (ctx) {
+    const { currentUser } = ctx
 
-    const model = await PostDAO.baseGetById(req.params.id)
+    const model = await PostDAO.baseGetById(ctx.params.id)
     await privateItemPolicy(model, currentUser)
 
     return this.result({ data: model })
