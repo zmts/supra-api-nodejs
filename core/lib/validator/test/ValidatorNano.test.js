@@ -177,6 +177,7 @@ describe('ValidatorNano', function () {
       expect(ValidatorNano.isId('58fd9f49-825e-4f20-880d-496795560dfb')).to.be.true
     })
     it('it should return false', () => {
+      expect(ValidatorNano.isId(0)).to.be.false
       expect(ValidatorNano.isId(-100)).to.be.false
       expect(ValidatorNano.isId(100.1)).to.be.false
       expect(ValidatorNano.isId('100.1')).to.be.false

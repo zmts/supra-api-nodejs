@@ -97,7 +97,7 @@ class ValidatorNano {
 
   static isId (value) {
     const int = Number(value)
-    const isPositiveInteger = Number.isInteger(int) && (int !== 0) && int > 0
+    const isPositiveInteger = Number.isInteger(int) && int >= 1
     const isUiid = UUID_REGEXP.test(value)
     return isPositiveInteger || isUiid
   }
