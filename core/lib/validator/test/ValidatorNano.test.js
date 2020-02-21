@@ -36,13 +36,25 @@ describe('ValidatorNano', function () {
     it('it should return true', () => {
       expect(ValidatorNano.isArray([])).to.be.true
       expect(ValidatorNano.isArray([1], { notEmpty: true })).to.be.true
-      expect(ValidatorNano.isArray([{}], { of: [Object] })).to.be.true
     })
     it('it should return false', () => {
       expect(ValidatorNano.isArray(undefined)).to.be.false
       expect(ValidatorNano.isArray({})).to.be.false
       expect(ValidatorNano.isArray([], { notEmpty: true })).to.be.false
-      expect(ValidatorNano.isArray([1], { of: [String] })).to.be.false
+    })
+  })
+
+  describe('ValidatorNano.isArrayOf', () => {
+    it('it should return true', () => {
+      expect(ValidatorNano.isArrayOf([], [Number])).to.be.true
+      expect(ValidatorNano.isArrayOf([1], [Number], { notEmpty: true })).to.be.true
+      expect(ValidatorNano.isArrayOf([{}], [Object])).to.be.true
+    })
+    it('it should return false', () => {
+      expect(ValidatorNano.isArrayOf(undefined, [Object])).to.be.false
+      expect(ValidatorNano.isArrayOf({}, [Object])).to.be.false
+      expect(ValidatorNano.isArrayOf([], [Object], { notEmpty: true })).to.be.false
+      expect(ValidatorNano.isArrayOf([1], [String])).to.be.false
     })
   })
 

@@ -65,15 +65,20 @@ class Assert {
     Assert.fail(value, type, message)
   }
 
-  static array (value, { required = false, notEmpty = false, message = '', of = [] } = {}) {
+  static array (value, { required = false, notEmpty = false, message = '' } = {}) {
+    if (required || notEmpty) Assert.typeOf(value, Array, message)
+    if (value !== undefined) Assert.typeOf(value, Array, message)
+    if (value && !value.length && notEmpty) Assert.fail(value, 'Not empty array')
+  }
+
+  static arrayOf (value, of = [], { required = false, notEmpty = false, message = '' } = {}) {
+    Assert.array(value, { required, notEmpty, message })
+
     if (!Array.isArray(of)) Assert.fail(of, 'of option expect an Array type')
     if (!of.every(i => validTypes.includes(i))) {
       Assert.fail(value, of, message || `Assert.array 'of' option accept only one of [${validTypes.map(t => t.name)}] types`)
     }
-    if (required || notEmpty) Assert.typeOf(value, Array, message)
-    if (value !== undefined) Assert.typeOf(value, Array, message)
-    if (value && !value.length && notEmpty) Assert.fail(value, 'Not empty array')
-    if (value && value.length && of.length && !value.every(i => of.includes(i.constructor))) Assert.fail(value, `Array of some [${of.map(t => t.name)}] types`)
+    if (value && value.length && of.length && !value.every(i => i && of.includes(i.constructor))) Assert.fail(value, `Array one of [${of.map(t => t.name)}] types`, message)
   }
 
   static object (value, { required = false, notEmpty = false, message = '' } = {}) {

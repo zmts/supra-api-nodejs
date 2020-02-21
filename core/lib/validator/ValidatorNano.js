@@ -29,9 +29,18 @@ class ValidatorNano {
     return false
   }
 
-  static isArray (value, { notEmpty = false, of = [] } = {}) {
+  static isArray (value, { notEmpty = false } = {}) {
+    const isArray = this.isTypeOf(value, Array)
+    if (notEmpty && isArray && !value.length) return false
+    return isArray
+  }
+
+  static isArrayOf (value, of = [], { notEmpty = false } = {}) {
     if (!Array.isArray(of)) {
       throw new TypeError('"of" option expect an Array type')
+    }
+    if (!of.length) {
+      throw new TypeError('"of" option expect some types')
     }
     if (!of.every(i => validTypes.includes(i))) {
       throw new TypeError(`ValidatorNano.array 'of' option accept only one of [${validTypes.map(t => t.name)}] types`)
@@ -39,7 +48,7 @@ class ValidatorNano {
 
     const isArray = this.isTypeOf(value, Array)
     if (notEmpty && isArray && !value.length) return false
-    if (isArray && value.length && of.length && !value.every(i => of.includes(i.constructor))) return false
+    if (isArray && value.length && of.length && !value.every(i => i && of.includes(i.constructor))) return false
     return isArray
   }
 
