@@ -12,48 +12,35 @@ describe('ValidatorNano', function () {
     })
   })
 
-  describe('ValidatorNano.isTypeOf', () => {
-    it('it should return true', () => {
-      expect(ValidatorNano.isTypeOf(1, Number)).to.be.true
-      expect(ValidatorNano.isTypeOf('hello', String)).to.be.true
-      expect(ValidatorNano.isTypeOf({}, Object)).to.be.true
-      expect(ValidatorNano.isTypeOf([], Array)).to.be.true
-      expect(ValidatorNano.isTypeOf(true, Boolean)).to.be.true
-      expect(ValidatorNano.isTypeOf(() => {}, Function)).to.be.true
-    })
-    it('it should return false', () => {
-      expect(ValidatorNano.isTypeOf('hello', Number)).to.be.false
-      expect(ValidatorNano.isTypeOf(NaN, Number)).to.be.false
-      expect(ValidatorNano.isTypeOf(1000, String)).to.be.false
-      expect(ValidatorNano.isTypeOf([], Object)).to.be.false
-      expect(ValidatorNano.isTypeOf({}, Array)).to.be.false
-      expect(ValidatorNano.isTypeOf('hello', Boolean)).to.be.false
-      expect(ValidatorNano.isTypeOf('hello', Function)).to.be.false
-    })
-  })
-
   describe('ValidatorNano.isArray', () => {
     it('it should return true', () => {
       expect(ValidatorNano.isArray([])).to.be.true
-      expect(ValidatorNano.isArray([1], { notEmpty: true })).to.be.true
     })
     it('it should return false', () => {
       expect(ValidatorNano.isArray(undefined)).to.be.false
       expect(ValidatorNano.isArray({})).to.be.false
-      expect(ValidatorNano.isArray([], { notEmpty: true })).to.be.false
+    })
+  })
+
+  describe('ValidatorNano.isArrayNotEmpty', () => {
+    it('it should return true', () => {
+      expect(ValidatorNano.isArrayNotEmpty([1])).to.be.true
+    })
+    it('it should return false', () => {
+      expect(ValidatorNano.isArrayNotEmpty([])).to.be.false
+      expect(ValidatorNano.isArrayNotEmpty({})).to.be.false
+      expect(ValidatorNano.isArrayNotEmpty(undefined)).to.be.false
     })
   })
 
   describe('ValidatorNano.isArrayOf', () => {
     it('it should return true', () => {
       expect(ValidatorNano.isArrayOf([], [Number])).to.be.true
-      expect(ValidatorNano.isArrayOf([1], [Number], { notEmpty: true })).to.be.true
       expect(ValidatorNano.isArrayOf([{}], [Object])).to.be.true
     })
     it('it should return false', () => {
       expect(ValidatorNano.isArrayOf(undefined, [Object])).to.be.false
       expect(ValidatorNano.isArrayOf({}, [Object])).to.be.false
-      expect(ValidatorNano.isArrayOf([], [Object], { notEmpty: true })).to.be.false
       expect(ValidatorNano.isArrayOf([1], [String])).to.be.false
     })
   })
@@ -61,11 +48,9 @@ describe('ValidatorNano', function () {
   describe('ValidatorNano.isObject', () => {
     it('it should return true', () => {
       expect(ValidatorNano.isObject({})).to.be.true
-      expect(ValidatorNano.isObject({ hello: 'hello' }, { notEmpty: true })).to.be.true
     })
     it('it should return false', () => {
       expect(ValidatorNano.isObject([])).to.be.false
-      expect(ValidatorNano.isObject({}, { notEmpty: true })).to.be.false
     })
   })
 
@@ -84,50 +69,44 @@ describe('ValidatorNano', function () {
     })
   })
 
-  describe('ValidatorNano.isInteger', () => {
+  describe('ValidatorNano.isInt', () => {
     it('it should return true', () => {
-      expect(ValidatorNano.isInteger(0)).to.be.true
-      expect(ValidatorNano.isInteger(1)).to.be.true
-      expect(ValidatorNano.isInteger(1)).to.be.true
-      expect(ValidatorNano.isInteger(100, { min: 10 })).to.be.true
-      expect(ValidatorNano.isInteger(1, { max: 10 })).to.be.true
-      expect(ValidatorNano.isInteger(7, { min: 5, max: 10 })).to.be.true
-      expect(ValidatorNano.isInteger(5, { min: 5, max: 10 })).to.be.true
+      expect(ValidatorNano.isInt(0)).to.be.true
+      expect(ValidatorNano.isInt(1)).to.be.true
     })
     it('it should return false', () => {
-      expect(ValidatorNano.isInteger([])).to.be.false
-      expect(ValidatorNano.isInteger(NaN)).to.be.false
-      expect(ValidatorNano.isInteger('10')).to.be.false
-      expect(ValidatorNano.isInteger('10.1')).to.be.false
-      expect(ValidatorNano.isInteger(1.1)).to.be.false
-      expect(ValidatorNano.isInteger(-1.1)).to.be.false
-      expect(ValidatorNano.isInteger(1, { min: 10 })).to.be.false
-      expect(ValidatorNano.isInteger(100, { max: 10 })).to.be.false
-      expect(ValidatorNano.isInteger(1, { min: 5, max: 10 })).to.be.false
-      expect(ValidatorNano.isInteger(100, { min: 5, max: 10 })).to.be.false
+      expect(ValidatorNano.isInt([])).to.be.false
+      expect(ValidatorNano.isInt(NaN)).to.be.false
+      expect(ValidatorNano.isInt('10')).to.be.false
+      expect(ValidatorNano.isInt('10.1')).to.be.false
+      expect(ValidatorNano.isInt(1.1)).to.be.false
+      expect(ValidatorNano.isInt(-1.1)).to.be.false
+    })
+  })
 
-      try {
-        ValidatorNano.isInteger(100, { min: '5', max: 10 })
-      } catch (e) {
-        expect(e.message).to.equal('Invalid min param. Should be a number')
-      }
-
-      try {
-        ValidatorNano.isInteger(100, { min: 5, max: '10' })
-      } catch (e) {
-        expect(e.message).to.equal('Invalid max param. Should be a number')
-      }
+  describe('ValidatorNano.isUint', () => {
+    it('it should return true', () => {
+      expect(ValidatorNano.isUint(0)).to.be.true
+      expect(ValidatorNano.isUint(1)).to.be.true
+    })
+    it('it should return false', () => {
+      expect(ValidatorNano.isUint([])).to.be.false
+      expect(ValidatorNano.isUint(NaN)).to.be.false
+      expect(ValidatorNano.isUint('-10')).to.be.false
+      expect(ValidatorNano.isUint('10')).to.be.false
+      expect(ValidatorNano.isUint('10.1')).to.be.false
+      expect(ValidatorNano.isUint(-10)).to.be.false
+      expect(ValidatorNano.isUint(1.1)).to.be.false
+      expect(ValidatorNano.isUint(-1.1)).to.be.false
     })
   })
 
   describe('ValidatorNano.isString', () => {
     it('it should return true', () => {
       expect(ValidatorNano.isString('hello')).to.be.true
-      expect(ValidatorNano.isString('hello', { notEmpty: true })).to.be.true
     })
     it('it should return false', () => {
       expect(ValidatorNano.isString(100)).to.be.false
-      expect(ValidatorNano.isString('', { notEmpty: true })).to.be.false
     })
   })
 
@@ -151,7 +130,6 @@ describe('ValidatorNano', function () {
     })
     it('it should return false', () => {
       expect(ValidatorNano.isBuffer(100)).to.be.false
-      expect(ValidatorNano.isBuffer(emptyBuffer, { notEmpty: true })).to.be.false
     })
   })
 
