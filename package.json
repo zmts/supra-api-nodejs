@@ -11,6 +11,9 @@
     "seed": "knex seed:run",
     "test": "echo \">>> Keep in mind: to enshure right test you should set seed data and run server :) <<<\" && mocha test/*.test.js"
   },
+  "engines": {
+    "node": ">=12.0.0"
+  },
   "husky": {
     "hooks": {
       "pre-commit": "npm test"
