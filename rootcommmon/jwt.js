@@ -24,13 +24,13 @@ function jwtVerify (token, SECRET) {
 /**
  * @return {Promise} string (token)
  */
-function jwtSign (playload, SECRET, options) {
-  assert.object(playload, { required: true })
+function jwtSign (payload, SECRET, options) {
+  assert.object(payload, { required: true })
   assert.string(SECRET, { notEmpty: true })
   assert.object(options, { notEmpty: true })
 
   return new Promise((resolve, reject) => {
-    jwt.sign(playload, SECRET, options, (error, token) => {
+    jwt.sign(payload, SECRET, options, (error, token) => {
       if (error) return reject(new AppError({ ...errorCodes.TOKEN_NOT_SIGNED, message: error.message }))
       return resolve(token)
     })
