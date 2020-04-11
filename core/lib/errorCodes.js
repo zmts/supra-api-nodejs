@@ -7,7 +7,7 @@ module.exports = {
   BAD_REQUEST: { description: 'Bad request', status: 400, code: 'BAD_REQUEST_ERROR' },
   EMPTY_BODY: { description: 'Empty body is not allowed. Please fill the body', status: 400, code: 'EMPTY_BODY_ERROR' },
   VALIDATION: { description: 'Invalid request', status: 400, code: 'VALIDATION_ERROR' },
-  ACCESS: { description: 'Access denied', status: 403, code: 'ACCESS_ERROR' },
+  FORBIDDEN: { description: 'Access forbidden', status: 403, code: 'FORBIDDEN_ERROR' },
   NO_ANONYMOUS_ACCESS: { description: 'Access denied. No anonymous access', status: 403, code: 'NO_ANONYMOUS_ACCESS_ERROR' },
   BAD_ROLE: { description: 'Bad role', status: 403, code: 'BAD_ROLE_ERROR' },
   INVALID_CREDENTIALS: { description: 'Invalid credentials', status: 403, code: 'INVALID_CREDENTIALS_ERROR' },

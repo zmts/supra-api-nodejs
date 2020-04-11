@@ -17,6 +17,6 @@ module.exports = (accessTag, currentUser) => {
     if (permissions[currentUser.role][accessTagAll]) return resolve()
     if (permissions[currentUser.role][accessTag]) return resolve()
     // else reject
-    return reject(new AppError({ ...errorCodes.ACCESS, message: 'Access denied, don\'t have permissions.' }))
+    return reject(new AppError({ ...errorCodes.FORBIDDEN, message: 'Access denied, don\'t have permissions.' }))
   })
 }

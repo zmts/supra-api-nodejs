@@ -17,7 +17,7 @@ module.exports = (model, currentUser) => {
     // pass owner
     if (currentUser.id === model.userId) return resolve()
     // else reject
-    return reject(new AppError({ ...errorCodes.ACCESS }))
+    return reject(new AppError({ ...errorCodes.FORBIDDEN }))
   })
 }
 
