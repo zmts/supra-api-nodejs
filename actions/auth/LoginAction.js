@@ -1,4 +1,6 @@
+const ms = require('ms')
 const { RequestRule, AppError, errorCodes } = require('supra-core')
+
 const { addSession } = require('./common/addSession')
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
@@ -6,6 +8,7 @@ const AuthModel = require('../../models/AuthModel')
 const { SessionEntity } = require('./common/SessionEntity')
 const { makeAccessToken } = require('./common/makeAccessToken')
 const { checkPassword } = require('../../rootcommmon/checkPassword')
+const config = require('../../config')
 
 class LoginAction extends BaseAction {
   static get accessTag () {
@@ -39,7 +42,8 @@ class LoginAction extends BaseAction {
       userId: user.id,
       ip: ctx.ip,
       ua: ctx.headers['User-Agent'],
-      fingerprint: ctx.body.fingerprint
+      fingerprint: ctx.body.fingerprint,
+      expiresIn: new Date().getTime() + ms(config.token.refresh.expiresIn)
     })
 
     await addSession(newSession)

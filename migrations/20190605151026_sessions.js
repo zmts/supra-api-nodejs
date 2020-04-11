@@ -7,7 +7,7 @@ exports.up = knex => {
       table.string('ua', 200)
       table.string('fingerprint', 200)
       table.string('ip', 15).notNull()
-      table.bigInteger('expiredAt').notNull() // TODO rename to expiresIn
+      table.bigInteger('expiresIn').notNull()
 
       table.timestamp('createdAt').defaultTo(knex.fn.now()).notNull()
       table.timestamp('updatedAt').defaultTo(knex.fn.now()).notNull()

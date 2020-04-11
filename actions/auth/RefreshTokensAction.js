@@ -1,3 +1,4 @@
+const ms = require('ms')
 const { RequestRule } = require('supra-core')
 const { addSession } = require('./common/addSession')
 const { verifySession } = require('./common/verifySession')
@@ -7,6 +8,7 @@ const AuthModel = require('../../models/AuthModel')
 const SessionDAO = require('../../dao/SessionDAO')
 const { SessionEntity } = require('./common/SessionEntity')
 const { makeAccessToken } = require('./common/makeAccessToken')
+const config = require('../../config')
 
 class RefreshTokensAction extends BaseAction {
   static get accessTag () {
@@ -35,7 +37,8 @@ class RefreshTokensAction extends BaseAction {
       userId: user.id,
       ip: ctx.ip,
       ua: ctx.headers['User-Agent'],
-      fingerprint: reqFingerprint
+      fingerprint: reqFingerprint,
+      expiresIn: new Date().getTime() + ms(config.token.refresh.expiresIn)
     })
 
     await addSession(newSession)

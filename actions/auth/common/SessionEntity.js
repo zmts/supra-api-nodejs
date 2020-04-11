@@ -1,28 +1,22 @@
-const { assert, AppError, errorCodes } = require('supra-core')
-const ms = require('ms')
+const { assert } = require('supra-core')
 const uuidV4 = require('uuid/v4')
-const config = require('../../../config')
 const UserModel = require('../../../models/UserModel')
 const SessionModel = require('../../../models/SessionModel')
 
-const expiredAtPeriodSec = ms(config.token.refresh.expiresIn)
-
 class SessionEntity {
-  constructor (src = {}) {
-    assert.validate(src.userId, UserModel.schema.id, { required: true })
-    assert.validate(src.fingerprint, SessionModel.schema.fingerprint, { required: true })
-    assert.validate(src.ip, SessionModel.schema.ip, { required: true })
-    assert.validate(src.ua, SessionModel.schema.ua)
-    if (src.expiredAt !== undefined && !Number(src.expiredAt)) {
-      throw new AppError({ ...errorCodes.UNPROCESSABLE_ENTITY, message: 'Invalid expiredAt value' })
-    }
+  constructor ({ userId, fingerprint, ip, ua, expiresIn } = {}) {
+    assert.validate(userId, UserModel.schema.id, { required: true })
+    assert.validate(fingerprint, SessionModel.schema.fingerprint, { required: true })
+    assert.validate(ip, SessionModel.schema.ip, { required: true })
+    assert.validate(expiresIn, SessionModel.schema.expiresIn, { required: true })
+    assert.validate(ua, SessionModel.schema.ua)
 
     this.refreshToken = uuidV4()
-    this.userId = src.userId
-    this.fingerprint = src.fingerprint
-    this.ip = src.ip
-    this.ua = src.ua || null
-    this.expiredAt = Number(src.expiredAt) || new Date().getTime() + expiredAtPeriodSec
+    this.userId = userId
+    this.fingerprint = fingerprint
+    this.ip = ip
+    this.expiresIn = expiresIn
+    this.ua = ua || null
   }
 }
 

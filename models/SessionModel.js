@@ -22,8 +22,8 @@ const schema = {
     validator: v => isIP(v),
     description: 'string; IP;'
   }),
-  expiredAt: new Rule({
-    validator: v => Number.isInteger(v),
+  expiresIn: new Rule({
+    validator: v => Boolean(v) && Number.isInteger(Number(v)),
     description: 'number;'
   })
 }
