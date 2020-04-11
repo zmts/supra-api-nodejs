@@ -24,9 +24,9 @@ config.rootInit().then(() => {
 }).then(serverParams => {
   logger.info('Server initialized...', serverParams)
   logger.debug('--- APP CONFIG ---')
-  logger.info(`HOST: ${config.app.host}`)
-  logger.info(`PORT: ${config.app.port}`)
-  logger.info(`NAME: ${config.app.name}`)
+  logger.debug(`HOST: ${config.app.host}`)
+  logger.debug(`PORT: ${config.app.port}`)
+  logger.debug(`NAME: ${config.app.name}`)
   logger.debug('--- TOKENS CONFIGS ---')
   logger.debug('REFRESH:', config.token.refresh)
   logger.debug('ACCESS:', config.token.access.toString())
