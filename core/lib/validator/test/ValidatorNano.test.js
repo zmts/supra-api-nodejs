@@ -3,6 +3,23 @@ const { expect } = require('chai')
 const { ValidatorNano } = require('../ValidatorNano')
 
 describe('ValidatorNano', function () {
+  describe('ValidatorNano.isDefined', () => {
+    it('it should return true', () => {
+      expect(ValidatorNano.isDefined('')).to.be.true
+      expect(ValidatorNano.isDefined('hello')).to.be.true
+      expect(ValidatorNano.isDefined(true)).to.be.true
+      expect(ValidatorNano.isDefined(false)).to.be.true
+      expect(ValidatorNano.isDefined(null)).to.be.true
+      expect(ValidatorNano.isDefined(NaN)).to.be.true
+      expect(ValidatorNano.isDefined(0)).to.be.true
+      expect(ValidatorNano.isDefined({})).to.be.true
+      expect(ValidatorNano.isDefined([])).to.be.true
+    })
+    it('it should return false', () => {
+      expect(ValidatorNano.isDefined(undefined)).to.be.false
+    })
+  })
+
   describe('ValidatorNano.isInstanceOf', () => {
     it('it should return true', () => {
       expect(ValidatorNano.isInstanceOf(new Date(), Date)).to.be.true

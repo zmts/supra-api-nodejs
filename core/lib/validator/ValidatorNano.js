@@ -5,6 +5,10 @@ const URL_REGEXP = /^(https?|ftps?):\/\/[^\s/$.?#].[^\s]*$/i
 const IP_REGEXP = /^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.|$)){4}$/i
 
 class ValidatorNano {
+  static isDefined (value) {
+    return typeof value !== 'undefined'
+  }
+
   static isInstanceOf (value, parent) {
     return value instanceof parent
   }
