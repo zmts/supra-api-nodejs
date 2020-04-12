@@ -39,7 +39,7 @@ class BaseAction {
     assert.integer(result.status)
     assert.object(result.headers)
     assert.string(result.message)
-    assert.isOk(result.data)
+    assert.ok(result.data)
 
     return {
       success: result.success || true,

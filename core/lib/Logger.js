@@ -75,8 +75,8 @@ class Logger extends AbstractLogger {
 
   fatal (message, error, meta) {
     assert.string(message, { required: true })
-    assert.isOk(error, { required: true })
-    assert.isOk(meta)
+    assert.ok(error, { required: true })
+    assert.ok(meta)
 
     const payload = validator.isObject(meta) ? { ...error, ...meta } : { ...error, meta }
 
@@ -86,8 +86,8 @@ class Logger extends AbstractLogger {
 
   error (message, error, meta) {
     assert.string(message, { required: true })
-    assert.isOk(error, { required: true })
-    assert.isOk(meta)
+    assert.ok(error, { required: true })
+    assert.ok(meta)
 
     const payload = validator.isObject(meta) ? { ...error, ...meta } : { ...error, meta }
 
@@ -97,8 +97,8 @@ class Logger extends AbstractLogger {
 
   warn (message, error, meta) {
     assert.string(message, { required: true })
-    assert.isOk(error, { required: true })
-    assert.isOk(meta)
+    assert.ok(error, { required: true })
+    assert.ok(meta)
 
     const payload = validator.isObject(meta) ? { ...error, ...meta } : { ...error, meta }
 
@@ -114,7 +114,7 @@ class Logger extends AbstractLogger {
 
   info (message, meta) {
     assert.string(message, { required: true })
-    assert.isOk(meta)
+    assert.ok(meta)
 
     const payload = validator.isObject(meta) ? meta : { meta }
 
@@ -124,7 +124,7 @@ class Logger extends AbstractLogger {
 
   debug (message, meta) {
     assert.string(message, { required: true })
-    assert.isOk(meta)
+    assert.ok(meta)
 
     const payload = validator.isObject(meta) ? meta : { meta }
 
@@ -133,7 +133,7 @@ class Logger extends AbstractLogger {
 
   trace (message, meta) {
     assert.string(message, { required: true })
-    assert.isOk(meta)
+    assert.ok(meta)
 
     const payload = validator.isObject(meta) ? meta : { meta }
 
