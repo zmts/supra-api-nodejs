@@ -1,5 +1,5 @@
 const ms = require('ms')
-const { RequestRule, AppError, errorCodes } = require('supra-core')
+const { RequestRule, AppError, errorCodes, CookieEntity } = require('supra-core')
 
 const { addSession } = require('./common/addSession')
 const BaseAction = require('../BaseAction')
@@ -27,6 +27,8 @@ class LoginAction extends BaseAction {
 
   static async run (ctx) {
     let user = {}
+    const refTokenExpiresInMilliseconds = new Date().getTime() + ms(config.token.refresh.expiresIn)
+    const refTokenExpiresInSeconds = parseInt(refTokenExpiresInMilliseconds / 1000)
 
     try {
       user = await UserDAO.getByEmail(ctx.body.email)
@@ -43,7 +45,7 @@ class LoginAction extends BaseAction {
       ip: ctx.ip,
       ua: ctx.headers['User-Agent'],
       fingerprint: ctx.body.fingerprint,
-      expiresIn: new Date().getTime() + ms(config.token.refresh.expiresIn)
+      expiresIn: refTokenExpiresInMilliseconds
     })
 
     await addSession(newSession)
@@ -51,8 +53,19 @@ class LoginAction extends BaseAction {
     return this.result({
       data: {
         accessToken: await makeAccessToken(user),
+        // return refresh token also in request body, just for debug
         refreshToken: newSession.refreshToken
-      }
+      },
+      cookies: [
+        new CookieEntity({
+          name: 'refreshToken',
+          value: newSession.refreshToken,
+          domain: 'localhost',
+          path: '/auth',
+          maxAge: refTokenExpiresInSeconds,
+          secure: false // temp: should be deleted
+        })
+      ]
     })
   }
 }

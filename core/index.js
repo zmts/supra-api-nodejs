@@ -15,6 +15,7 @@ const { RequestRule } = require('./lib/RequestRule')
 const { SentryCatch } = require('./lib/SentryCatch')
 const { Server } = require('./lib/Server')
 const { Logger } = require('./lib/Logger')
+const { CookieEntity } = require('./lib/CookieEntity')
 
 module.exports = {
   errorCodes,
@@ -34,5 +35,6 @@ module.exports = {
   RequestRule,
   SentryCatch,
   Server,
-  Logger
+  Logger,
+  CookieEntity
 }

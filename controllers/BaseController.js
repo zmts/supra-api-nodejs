@@ -34,6 +34,7 @@ class BaseController {
         ip: req.ip,
         method: req.method,
         url: req.url,
+        cookies: { ...req.cookies, ...req.signedCookies },
         headers: {
           'Content-Type': req.get('Content-Type'),
           Referer: req.get('referer'),
@@ -71,6 +72,7 @@ class BaseController {
           if (action.validationRules.query) this.validateSchema(ctx.query, action.validationRules.query, 'query')
           if (action.validationRules.params) this.validateSchema(ctx.params, action.validationRules.params, 'params')
           if (action.validationRules.body) this.validateSchema(ctx.body, action.validationRules.body, 'body')
+          if (action.validationRules.cookies) this.validateSchema(ctx.cookies, action.validationRules.cookies, 'cookies')
         }
 
         /**
@@ -82,6 +84,15 @@ class BaseController {
          * set headers
          */
         if (response.headers) res.set(response.headers)
+
+        /**
+         * set cookie
+         */
+        if (response.cookies && response.cookies.length) {
+          for (const cookie of response.cookies) {
+            res.cookie(cookie.name, cookie.value, cookie.options)
+          }
+        }
 
         /**
          * optional redirect

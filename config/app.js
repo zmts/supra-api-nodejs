@@ -10,6 +10,7 @@ class AppConfig extends BaseConfig {
     this.name = this.set('APP_NAME', this.joi.string().required(), 'supra-api')
     this.url = this.set('APP_URL', this.joi.string().required())
     this.sentryDsn = this.set('SENTRY_DSN', this.joi.string().required())
+    this.cookieSecret = this.set('COOKIE_SECRET', this.joi.string().min(10))
   }
 
   async init () {

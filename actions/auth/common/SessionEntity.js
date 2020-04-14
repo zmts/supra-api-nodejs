@@ -1,5 +1,5 @@
 const { assert } = require('supra-core')
-const uuidV4 = require('uuid/v4')
+const { v4: uuidv4 } = require('uuid')
 const UserModel = require('../../../models/UserModel')
 const SessionModel = require('../../../models/SessionModel')
 
@@ -11,7 +11,7 @@ class SessionEntity {
     assert.validate(expiresIn, SessionModel.schema.expiresIn, { required: true })
     assert.validate(ua, SessionModel.schema.ua)
 
-    this.refreshToken = uuidV4()
+    this.refreshToken = uuidv4()
     this.userId = userId
     this.fingerprint = fingerprint
     this.ip = ip

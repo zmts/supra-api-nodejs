@@ -8,27 +8,28 @@ const { BaseMiddleware } = require('./BaseMiddleware')
 const { AbstractLogger } = require('./AbstractLogger')
 
 class Server {
-  constructor ({ port, host, controllers, middlewares, errorMiddleware, logger }) {
+  constructor ({ port, host, controllers, middlewares, errorMiddleware, cookieSecret, logger }) {
     assert.integer(port, { required: true, min: 1000 })
     assert.string(host, { required: true, notEmpty: true })
     assert.array(controllers, { required: true, notEmpty: true, message: 'controllers param expects not empty array' })
     assert.array(middlewares, { required: true, notEmpty: true, message: 'middlewares param expects not empty array' })
     assert.instanceOf(errorMiddleware.prototype, BaseMiddleware)
+    assert.string(cookieSecret)
     assert.instanceOf(logger, AbstractLogger)
 
     logger.info('Server start initialization...')
-    return start({ port, host, controllers, middlewares, ErrorMiddleware: errorMiddleware, logger })
+    return start({ port, host, controllers, middlewares, ErrorMiddleware: errorMiddleware, cookieSecret, logger })
   }
 }
 
-function start ({ port, host, controllers, middlewares, ErrorMiddleware, logger }) {
+function start ({ port, host, controllers, middlewares, ErrorMiddleware, cookieSecret, logger }) {
   return new Promise(async (resolve, reject) => {
     const app = express()
 
     if (process.env.NODE_ENV !== 'production') app.use(morganLogger('dev'))
     app.use(express.json())
     app.use(express.urlencoded({ extended: false }))
-    app.use(cookieParser())
+    app.use(cookieParser(cookieSecret))
     app.use(express.static(path.join(__dirname, 'public')))
 
     /**

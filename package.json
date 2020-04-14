@@ -20,6 +20,8 @@
     }
   },
   "dependencies": {
+    "@sentry/node": "^5.15.4",
+    "aws-sdk": "^2.656.0",
     "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",
     "jsonwebtoken": "^8.5.1",
@@ -28,9 +30,11 @@
     "stack-trace": "0.0.10",
     "stdout-stream": "^1.4.1",
     "supra-core": "./core",
-    "type-check": "^0.3.2",
-    "uuid": "^3.3.3",
-    "validator": "^12.1.0"
+    "type-check": "^0.4.0",
+    "uuid": "^7.0.3",
+    "validator": "^13.0.0",
+    "redis": "^3.0.2",
+    "mailgun-js": "^0.22.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
