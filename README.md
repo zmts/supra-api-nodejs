@@ -11,6 +11,7 @@ Piece of my thoughts about Node.js architecture.
 - SQL based (PostgreSQL with objection.js)
 - Migrations(knex.js)
 - Auth (JWT/Access-token/Refresh-token)
+- Cookie support
 - Role based access control
 - Request validation
 - CRUD(users, posts resources)
@@ -40,7 +41,7 @@ class PostsController extends BaseController {
 For example `PostsController` implements `post` entity routes. Each route fires own `action`. 
 
 ### 2. Action layer
-It's a class that encapsulated request validation, permission verification and business logic. One file, one class, one REST operation, one use case.
+It's a class encapsulated request validation, permission verification and business logic. One file, one class, one REST operation, one use case.
 
 ### 3. DAO layer
 Implement data access methods.
