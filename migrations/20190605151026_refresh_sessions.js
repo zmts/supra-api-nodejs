@@ -1,6 +1,6 @@
 exports.up = knex => {
   return knex.schema
-    .createTable('refreshSessions', table => {
+    .createTable('refresh_sessions', table => {
       table.increments()
       table.uuid('userId').references('id').inTable('users').onDelete('CASCADE')
       table.uuid('refreshToken', 36).notNull()
@@ -14,4 +14,4 @@ exports.up = knex => {
     })
 }
 
-exports.down = knex => knex.schema.dropTable('refreshSessions')
+exports.down = knex => knex.schema.dropTable('refresh_sessions')
