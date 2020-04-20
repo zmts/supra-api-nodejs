@@ -11,7 +11,7 @@ class CookieEntity {
     assert.boolean(httpOnly)
     assert.boolean(signed)
     assert.boolean(secure)
-    if (validator.isDefined(sameSite) && !validSameSiteValues.includes(validSameSiteValues)) {
+    if (validator.isDefined(sameSite) && !validSameSiteValues.includes(sameSite)) {
       assert.fail(sameSite, validSameSiteValues)
     }
 
