@@ -1,6 +1,6 @@
 const { BaseDAO, assert } = require('supra-core')
 
-class SessionDAO extends BaseDAO {
+class RefreshSessionDAO extends BaseDAO {
   static get tableName () {
     return 'sessions'
   }
@@ -16,4 +16,4 @@ class SessionDAO extends BaseDAO {
   }
 }
 
-module.exports = SessionDAO
+module.exports = { RefreshSessionDAO }

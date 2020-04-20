@@ -3,7 +3,7 @@ const { v4: uuidv4 } = require('uuid')
 const UserModel = require('../../../models/UserModel')
 const SessionModel = require('../../../models/SessionModel')
 
-class SessionEntity {
+class RefreshSessionEntity {
   constructor ({ userId, fingerprint, ip, ua, expiresIn } = {}) {
     assert.validate(userId, UserModel.schema.id, { required: true })
     assert.validate(fingerprint, SessionModel.schema.fingerprint, { required: true })
@@ -20,4 +20,4 @@ class SessionEntity {
   }
 }
 
-module.exports = { SessionEntity }
+module.exports = { RefreshSessionEntity }

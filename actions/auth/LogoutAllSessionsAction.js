@@ -1,5 +1,5 @@
 const BaseAction = require('../BaseAction')
-const SessionDAO = require('../../dao/SessionDAO')
+const { RefreshSessionDAO } = require('../../dao/RefreshSessionDAO')
 
 class LogoutAllSessionsAction extends BaseAction { // TODO logout from all sessions except current
   static get accessTag () {
@@ -8,7 +8,7 @@ class LogoutAllSessionsAction extends BaseAction { // TODO logout from all sessi
 
   static async run (ctx) {
     const { currentUser } = ctx
-    await SessionDAO.baseRemoveWhere({ userId: currentUser.id })
+    await RefreshSessionDAO.baseRemoveWhere({ userId: currentUser.id })
 
     return this.result({ message: 'User is logged out from all sessions.' })
   }

@@ -1,11 +1,11 @@
 const ms = require('ms')
 const { RequestRule, AppError, errorCodes, CookieEntity } = require('supra-core')
 
-const { addSession } = require('./common/addSession')
+const { addRefreshSession } = require('./common/addRefreshSession')
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
 const AuthModel = require('../../models/AuthModel')
-const { SessionEntity } = require('./common/SessionEntity')
+const { RefreshSessionEntity } = require('./common/RefreshSessionEntity')
 const { makeAccessToken } = require('./common/makeAccessToken')
 const { checkPassword } = require('../../rootcommmon/checkPassword')
 const config = require('../../config')
@@ -40,7 +40,7 @@ class LoginAction extends BaseAction {
       throw e
     }
 
-    const newSession = new SessionEntity({
+    const newRefreshSession = new RefreshSessionEntity({
       userId: user.id,
       ip: ctx.ip,
       ua: ctx.headers['User-Agent'],
@@ -48,18 +48,18 @@ class LoginAction extends BaseAction {
       expiresIn: refTokenExpiresInMilliseconds
     })
 
-    await addSession(newSession)
+    await addRefreshSession(newRefreshSession)
 
     return this.result({
       data: {
         accessToken: await makeAccessToken(user),
         // return refresh token also in request body, just for debug
-        refreshToken: newSession.refreshToken
+        refreshToken: newRefreshSession.refreshToken
       },
       cookies: [
         new CookieEntity({
           name: 'refreshToken',
-          value: newSession.refreshToken,
+          value: newRefreshSession.refreshToken,
           domain: 'localhost',
           path: '/auth',
           maxAge: refTokenExpiresInSeconds,

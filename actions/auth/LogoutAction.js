@@ -1,6 +1,6 @@
 const { RequestRule, AppError, errorCodes } = require('supra-core')
 const BaseAction = require('../BaseAction')
-const SessionDAO = require('../../dao/SessionDAO')
+const { RefreshSessionDAO } = require('../../dao/RefreshSessionDAO')
 const AuthModel = require('../../models/AuthModel')
 
 /**
@@ -29,7 +29,7 @@ class LogoutAction extends BaseAction {
       throw new AppError({ ...errorCodes.VALIDATION, message: 'Refresh token not provided' })
     }
 
-    await SessionDAO.baseRemoveWhere({ refreshToken })
+    await RefreshSessionDAO.baseRemoveWhere({ refreshToken })
 
     return this.result({ message: 'User is logged out from current session.' })
   }

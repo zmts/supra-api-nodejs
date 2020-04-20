@@ -1,14 +1,14 @@
 const ms = require('ms')
 const { RequestRule, CookieEntity, AppError, errorCodes } = require('supra-core')
 
-const { addSession } = require('./common/addSession')
+const { addRefreshSession } = require('./common/addRefreshSession')
 const { verifySession } = require('./common/verifySession')
 const { makeAccessToken } = require('./common/makeAccessToken')
-const { SessionEntity } = require('./common/SessionEntity')
+const { RefreshSessionEntity } = require('./common/RefreshSessionEntity')
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
 const AuthModel = require('../../models/AuthModel')
-const SessionDAO = require('../../dao/SessionDAO')
+const { RefreshSessionDAO } = require('../../dao/RefreshSessionDAO')
 const config = require('../../config')
 
 class RefreshTokensAction extends BaseAction {
@@ -40,12 +40,12 @@ class RefreshTokensAction extends BaseAction {
     const refTokenExpiresInMilliseconds = new Date().getTime() + ms(config.token.refresh.expiresIn)
     const refTokenExpiresInSeconds = parseInt(refTokenExpiresInMilliseconds / 1000)
 
-    const oldSession = await SessionDAO.getByRefreshToken(reqRefreshToken)
-    await SessionDAO.baseRemoveWhere({ refreshToken: reqRefreshToken })
-    await verifySession(new SessionEntity(oldSession), reqFingerprint)
-    const user = await UserDAO.baseGetById(oldSession.userId)
+    const oldRefreshSession = await RefreshSessionDAO.getByRefreshToken(reqRefreshToken)
+    await RefreshSessionDAO.baseRemoveWhere({ refreshToken: reqRefreshToken })
+    await verifySession(new RefreshSessionEntity(oldRefreshSession), reqFingerprint)
+    const user = await UserDAO.baseGetById(oldRefreshSession.userId)
 
-    const newSession = new SessionEntity({
+    const newRefreshSession = new RefreshSessionEntity({
       userId: user.id,
       ip: ctx.ip,
       ua: ctx.headers['User-Agent'],
@@ -53,18 +53,18 @@ class RefreshTokensAction extends BaseAction {
       expiresIn: refTokenExpiresInMilliseconds
     })
 
-    await addSession(newSession)
+    await addRefreshSession(newRefreshSession)
 
     return this.result({
       data: {
         accessToken: await makeAccessToken(user),
         // return refresh token also in request body, just for debug
-        refreshToken: newSession.refreshToken
+        refreshToken: newRefreshSession.refreshToken
       },
       cookies: [
         new CookieEntity({
           name: 'refreshToken',
-          value: newSession.refreshToken,
+          value: newRefreshSession.refreshToken,
           domain: 'localhost',
           path: '/auth',
           maxAge: refTokenExpiresInSeconds,

@@ -5,7 +5,7 @@ const { jwtVerify } = require('../../rootcommmon/jwt')
 const config = require('../../config')
 const UserDAO = require('../../dao/UserDAO')
 const UserModel = require('../../models/UserModel')
-const SessionDAO = require('../../dao/SessionDAO')
+const { RefreshSessionDAO } = require('../../dao/RefreshSessionDAO')
 
 /**
  * 1) verify resetPasswordToken
@@ -39,7 +39,7 @@ class ResetPasswordAction extends BaseAction {
 
     await Promise.all([
       UserDAO.baseUpdate(tokenUserId, { passwordHash, resetPasswordToken: '' }),
-      SessionDAO.baseRemoveWhere({ userId: tokenUserId })
+      RefreshSessionDAO.baseRemoveWhere({ userId: tokenUserId })
     ])
 
     return this.result({ message: 'Reset password process was successfully applied' })

@@ -2,7 +2,7 @@ const { RequestRule } = require('supra-core')
 const BaseAction = require('../BaseAction')
 const UserDAO = require('../../dao/UserDAO')
 const UserModel = require('../../models/UserModel')
-const SessionDAO = require('../../dao/SessionDAO')
+const { RefreshSessionDAO } = require('../../dao/RefreshSessionDAO')
 const { makePasswordHash } = require('./common/makePasswordHash')
 const { checkPassword } = require('../../rootcommmon/checkPassword')
 
@@ -28,7 +28,7 @@ class ChangePasswordAction extends BaseAction {
     const newHash = await makePasswordHash(ctx.body.newPassword)
 
     await Promise.all([
-      SessionDAO.baseRemoveWhere({ userId: currentUser.id }), // Changing password will remove all logged in sessions.
+      RefreshSessionDAO.baseRemoveWhere({ userId: currentUser.id }), // Changing password will remove all logged in refresh sessions
       UserDAO.baseUpdate(currentUser.id, { passwordHash: newHash })
     ])
 
