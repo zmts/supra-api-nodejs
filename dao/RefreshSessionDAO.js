@@ -2,7 +2,7 @@ const { BaseDAO, assert } = require('supra-core')
 
 class RefreshSessionDAO extends BaseDAO {
   static get tableName () {
-    return 'sessions'
+    return 'refreshSessions'
   }
 
   static async getByRefreshToken (refreshToken) {

@@ -28,10 +28,10 @@ const schema = {
   })
 }
 
-class SessionModel extends BaseModel {
+class RefreshSessionModel extends BaseModel {
   static get schema () {
     return schema
   }
 }
 
-module.exports = { SessionModel }
+module.exports = { RefreshSessionModel }
