@@ -1,7 +1,7 @@
 const { errorCodes, AppError, assert } = require('supra-core')
 const { RefreshSessionEntity } = require('./RefreshSessionEntity')
 
-function verifySession (oldRefreshSession, newFingerprint) {
+function verifyRefreshSession (oldRefreshSession, newFingerprint) {
   assert.instanceOf(oldRefreshSession, RefreshSessionEntity)
   assert.string(newFingerprint, { notEmpty: true })
 
@@ -15,4 +15,4 @@ function verifySession (oldRefreshSession, newFingerprint) {
   })
 }
 
-module.exports = { verifySession }
+module.exports = { verifyRefreshSession }

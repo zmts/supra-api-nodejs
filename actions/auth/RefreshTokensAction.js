@@ -2,7 +2,7 @@ const ms = require('ms')
 const { RequestRule, CookieEntity, AppError, errorCodes } = require('supra-core')
 
 const { addRefreshSession } = require('./common/addRefreshSession')
-const { verifySession } = require('./common/verifySession')
+const { verifyRefreshSession } = require('./common/verifyRefreshSession')
 const { makeAccessToken } = require('./common/makeAccessToken')
 const { RefreshSessionEntity } = require('./common/RefreshSessionEntity')
 const BaseAction = require('../BaseAction')
@@ -42,7 +42,7 @@ class RefreshTokensAction extends BaseAction {
 
     const oldRefreshSession = await RefreshSessionDAO.getByRefreshToken(reqRefreshToken)
     await RefreshSessionDAO.baseRemoveWhere({ refreshToken: reqRefreshToken })
-    await verifySession(new RefreshSessionEntity(oldRefreshSession), reqFingerprint)
+    await verifyRefreshSession(new RefreshSessionEntity(oldRefreshSession), reqFingerprint)
     const user = await UserDAO.baseGetById(oldRefreshSession.userId)
 
     const newRefreshSession = new RefreshSessionEntity({
