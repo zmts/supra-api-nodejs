@@ -1,7 +1,7 @@
 const { AppError, errorCodes } = require('supra-core')
 const BaseAction = require('../BaseAction')
 const { emailAgent } = require('../RootProvider')
-const UserDAO = require('../../dao/UserDAO')
+const { UserDAO } = require('../../dao/UserDAO')
 const { makeEmailConfirmToken } = require('./common/makeEmailConfirmToken')
 const { ChangeEmail } = require('./common/emails/ChangeEmail')
 

@@ -1,5 +1,5 @@
 const { BaseDAO, assert } = require('supra-core')
-const UserModel = require('../models/UserModel')
+const { UserModel } = require('../models/UserModel')
 
 class UserDAO extends BaseDAO {
   static get tableName () {
@@ -96,4 +96,4 @@ class UserDAO extends BaseDAO {
   }
 }
 
-module.exports = UserDAO
+module.exports = { UserDAO }

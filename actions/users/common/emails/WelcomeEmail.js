@@ -1,6 +1,6 @@
 const { assert } = require('supra-core')
 
-const UserModel = require('../../../../models/UserModel')
+const { UserModel } = require('../../../../models/UserModel')
 const { app } = require('../../../../config')
 
 class WelcomeEmail {
@@ -16,7 +16,7 @@ class WelcomeEmail {
 ${username} we just created new account for you. Your login: ${to}
 
 To finish registration process click the link below to confirm your account.
-${app.url}/a/confirm-registration?emailConfirmToken=${emailConfirmToken} 
+${app.url}/a/confirm-registration?emailConfirmToken=${emailConfirmToken}
 
 Looking forward to working with you!
 

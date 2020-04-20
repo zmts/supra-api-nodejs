@@ -3,8 +3,8 @@ const BaseAction = require('../BaseAction')
 const { makePasswordHash } = require('./common/makePasswordHash')
 const { jwtVerify } = require('../../rootcommmon/jwt')
 const config = require('../../config')
-const UserDAO = require('../../dao/UserDAO')
-const UserModel = require('../../models/UserModel')
+const { UserDAO } = require('../../dao/UserDAO')
+const { UserModel } = require('../../models/UserModel')
 const { RefreshSessionDAO } = require('../../dao/RefreshSessionDAO')
 
 /**

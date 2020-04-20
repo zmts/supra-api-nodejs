@@ -27,4 +27,4 @@ class AuthModel extends BaseModel {
   }
 }
 
-module.exports = AuthModel
+module.exports = { AuthModel }

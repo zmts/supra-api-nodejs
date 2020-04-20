@@ -46,4 +46,4 @@ class PostModel extends BaseModel {
   }
 }
 
-module.exports = PostModel
+module.exports = { PostModel }

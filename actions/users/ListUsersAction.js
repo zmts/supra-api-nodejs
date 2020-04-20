@@ -2,7 +2,7 @@ const { RequestRule } = require('supra-core')
 const joi = require('@hapi/joi')
 
 const BaseAction = require('../BaseAction')
-const UserDAO = require('../../dao/UserDAO')
+const { UserDAO } = require('../../dao/UserDAO')
 const { Rule } = require('supra-core')
 
 /**

@@ -1,7 +1,7 @@
 const { RequestRule } = require('supra-core')
 const BaseAction = require('../BaseAction')
-const PostDAO = require('../../dao/PostDAO')
-const PostModel = require('../../models/PostModel')
+const { PostDAO } = require('../../dao/PostDAO')
+const { PostModel } = require('../../models/PostModel')
 
 class CreatePostAction extends BaseAction {
   static get accessTag () {

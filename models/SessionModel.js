@@ -2,7 +2,7 @@ const isUUID = require('validator/lib/isUUID')
 const isIP = require('validator/lib/isIP')
 const { BaseModel, Rule } = require('supra-core')
 
-const UserModel = require('./UserModel')
+const { UserModel } = require('./UserModel')
 
 const schema = {
   userId: UserModel.schema.id,
@@ -34,4 +34,4 @@ class SessionModel extends BaseModel {
   }
 }
 
-module.exports = SessionModel
+module.exports = { SessionModel }

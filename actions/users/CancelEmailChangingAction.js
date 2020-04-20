@@ -1,5 +1,5 @@
 const BaseAction = require('../BaseAction')
-const UserDAO = require('../../dao/UserDAO')
+const { UserDAO } = require('../../dao/UserDAO')
 
 class CancelEmailChangingAction extends BaseAction {
   static get accessTag () {

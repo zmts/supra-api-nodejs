@@ -1,7 +1,7 @@
 const { assert } = require('supra-core')
 const { RefreshSessionDAO } = require('../../../dao/RefreshSessionDAO')
 const { RefreshSessionEntity } = require('./RefreshSessionEntity')
-const UserModel = require('../../../models/UserModel')
+const { UserModel } = require('../../../models/UserModel')
 
 const MAX_SESSIONS_COUNT = 5
 

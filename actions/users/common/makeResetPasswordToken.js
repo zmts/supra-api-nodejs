@@ -5,7 +5,7 @@ const SECRET = require('../../../config').token.resetPassword.secret
 const expiresIn = require('../../../config').token.resetPassword.expiresIn
 const type = require('../../../config').token.resetPassword.type
 const iss = require('../../../config').token.jwtIss
-const UserModel = require('../../../models/UserModel')
+const { UserModel } = require('../../../models/UserModel')
 
 /**
  * @return {Promise} string

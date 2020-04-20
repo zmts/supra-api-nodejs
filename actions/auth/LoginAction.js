@@ -3,8 +3,8 @@ const { RequestRule, AppError, errorCodes, CookieEntity } = require('supra-core'
 
 const { addRefreshSession } = require('./common/addRefreshSession')
 const BaseAction = require('../BaseAction')
-const UserDAO = require('../../dao/UserDAO')
-const AuthModel = require('../../models/AuthModel')
+const { UserDAO } = require('../../dao/UserDAO')
+const { AuthModel } = require('../../models/AuthModel')
 const { RefreshSessionEntity } = require('./common/RefreshSessionEntity')
 const { makeAccessToken } = require('./common/makeAccessToken')
 const { checkPassword } = require('../../rootcommmon/checkPassword')

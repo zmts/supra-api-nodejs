@@ -58,4 +58,4 @@ class UserModel extends BaseModel {
   }
 }
 
-module.exports = UserModel
+module.exports = { UserModel }

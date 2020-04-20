@@ -1,8 +1,8 @@
 const { RequestRule } = require('supra-core')
 const BaseAction = require('../BaseAction')
 const { emailAgent } = require('../RootProvider')
-const UserDAO = require('../../dao/UserDAO')
-const UserModel = require('../../models/UserModel')
+const { UserDAO } = require('../../dao/UserDAO')
+const { UserModel } = require('../../models/UserModel')
 const { makeResetPasswordToken } = require('./common/makeResetPasswordToken')
 const { ResetPasswordEmail } = require('./common/emails/ResetPasswordEmail')
 

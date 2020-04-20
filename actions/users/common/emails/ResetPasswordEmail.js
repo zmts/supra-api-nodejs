@@ -1,6 +1,6 @@
 const { assert } = require('supra-core')
 
-const UserModel = require('../../../../models/UserModel')
+const { UserModel } = require('../../../../models/UserModel')
 const { app } = require('../../../../config')
 const { expiresIn } = require('../../../../config').token.resetPassword
 

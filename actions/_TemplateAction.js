@@ -1,7 +1,7 @@
 const { RequestRule } = require('supra-core')
 const BaseAction = require('../BaseAction')
 const Rule = require('../core/Rule')
-const UserModel = require('../models/UserModel')
+const { UserModel } = require('../models/UserModel')
 
 class TemplateAction extends BaseAction {
   static get accessTag () {

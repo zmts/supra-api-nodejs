@@ -1,7 +1,7 @@
 const { assert } = require('supra-core')
 const { v4: uuidv4 } = require('uuid')
-const UserModel = require('../../../models/UserModel')
-const SessionModel = require('../../../models/SessionModel')
+const { UserModel } = require('../../../models/UserModel')
+const { SessionModel } = require('../../../models/SessionModel')
 
 class RefreshSessionEntity {
   constructor ({ userId, fingerprint, ip, ua, expiresIn } = {}) {

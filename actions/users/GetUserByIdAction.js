@@ -1,7 +1,7 @@
 const { RequestRule } = require('supra-core')
 const BaseAction = require('../BaseAction')
-const UserDAO = require('../../dao/UserDAO')
-const UserModel = require('../../models/UserModel')
+const { UserDAO } = require('../../dao/UserDAO')
+const { UserModel } = require('../../models/UserModel')
 
 /**
  * @description return user by id

@@ -1,7 +1,7 @@
 const { RequestRule, AppError, errorCodes } = require('supra-core')
 const BaseAction = require('../BaseAction')
 const { RefreshSessionDAO } = require('../../dao/RefreshSessionDAO')
-const AuthModel = require('../../models/AuthModel')
+const { AuthModel } = require('../../models/AuthModel')
 
 /**
  * remove current session

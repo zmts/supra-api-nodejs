@@ -48,4 +48,4 @@ class TemplateModel extends BaseModel {
   }
 }
 
-module.exports = TemplateModel
+module.exports = { TemplateModel }
