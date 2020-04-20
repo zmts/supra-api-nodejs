@@ -10,13 +10,12 @@ POST /api/auth/login
 - Server check max session count (MAX_SESSIONS_COUNT === 5)
 - If condition is Ok, creates new `SessionEntity`
 - If not server wipe all user sessions and creates new one 
-
+- Response with `SessionEntity.refreshToken` in cookie and `accessToken` in body
 
 # Refresh tokens (RefreshTokensAction)
 ```
-POST /api/auth/refresh-tokens
+POST /api/auth/refresh-tokens (with refreshToken in cookie)
 {
-    "refreshToken": "",
     "fingerprint": ""
 }
 ```
@@ -25,10 +24,10 @@ POST /api/auth/refresh-tokens
 - Verify old session fingerprint with fingerprint taken from request
 - Create and store new `SessionEntity`
 - Create `access token`
-- Send { accessToken, refreshToken }
+- Response with `SessionEntity.refreshToken` in cookie and `accessToken` in body 
 
 # Logout (current session)
 ```
-POST /api/auth/logout
+POST /api/auth/logout (with refreshToken in cookie)
 ```
 - Remove session by `refreshToken` id
