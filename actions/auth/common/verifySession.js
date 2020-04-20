@@ -9,8 +9,8 @@ function verifySession (oldRefreshSession, newFingerprint) {
     const nowTime = new Date().getTime()
 
     if (nowTime > oldRefreshSession.expiresIn) return reject(new AppError({ ...errorCodes.SESSION_EXPIRED }))
-    // if (oldIp !== newIp) return reject(new AppError({ ...errorCodes.INVALID_SESSION })) // for best security
-    if (oldRefreshSession.fingerprint !== newFingerprint) return reject(new AppError({ ...errorCodes.INVALID_SESSION }))
+    // if (oldIp !== newIp) return reject(new AppError({ ...errorCodes.INVALID_REFRESH_SESSION })) // for best security
+    if (oldRefreshSession.fingerprint !== newFingerprint) return reject(new AppError({ ...errorCodes.INVALID_REFRESH_SESSION }))
     return resolve()
   })
 }

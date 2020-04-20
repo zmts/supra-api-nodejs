@@ -15,7 +15,7 @@ module.exports = {
   INVALID_PASSWORD: { description: 'Invalid password', status: 403, code: 'INVALID_PASSWORD_ERROR' },
   TOKEN_EXPIRED: { description: 'Token expired', status: 419, code: 'TOKEN_EXPIRED_ERROR' },
   SESSION_EXPIRED: { description: 'Session(refresh token) expired', status: 419, code: 'SESSION_EXPIRED_ERROR' },
-  INVALID_SESSION: { description: 'Invalid session. Wrong fingerprint', status: 401, code: 'INVALID_SESSION_ERROR' },
+  INVALID_REFRESH_SESSION: { description: 'Invalid session. Wrong fingerprint', status: 401, code: 'INVALID_REFRESH_SESSION_ERROR' },
   TOKEN_NOT_SIGNED: { description: 'Token not signed', status: 500, code: 'TOKEN_NOT_SIGNED_ERROR' },
   TOKEN_VERIFY: { description: 'Token verify error', status: 401, code: 'TOKEN_VERIFY_ERROR' },
   BAD_REFRESH_TOKEN: { description: 'Bad Refresh token', status: 401, code: 'BAD_REFRESH_TOKEN_ERROR' },
