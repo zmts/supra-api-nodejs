@@ -12,12 +12,12 @@ class TokenConfig extends BaseConfig {
       type: 'TOKEN_TYPE_ACCESS',
       secret: this.set('TOKEN_ACCESS_SECRET', this.joi.string().min(30).max(100).required()),
       expiresIn: this.set('TOKEN_ACCESS_EXP', this.joi.string().regex(expiresInRegexp).required()),
-      toString () {
-        return JSON.stringify({
+      clear () {
+        return {
           type: this.type,
           secret: `${this.secret.substr(0, 1)}****${this.secret.substr(this.secret.length - 1)}`,
           expiresIn: this.expiresIn
-        })
+        }
       }
     }
 
@@ -29,12 +29,12 @@ class TokenConfig extends BaseConfig {
       type: 'TOKEN_TYPE_RESET_PASSWORD',
       secret: this.set('TOKEN_RESET_PASSWORD_SECRET', this.joi.string().min(30).max(100).required()),
       expiresIn: this.set('TOKEN_RESET_PASSWORD_EXP', this.joi.string().regex(expiresInRegexp)),
-      toString () {
-        return JSON.stringify({
+      clear () {
+        return {
           type: this.type,
           secret: `${this.secret.substr(0, 1)}****${this.secret.substr(this.secret.length - 1)}`,
           expiresIn: this.expiresIn
-        })
+        }
       }
     }
 
@@ -42,12 +42,12 @@ class TokenConfig extends BaseConfig {
       type: 'TOKEN_TYPE_EMAIL_CONFIRM',
       secret: this.set('TOKEN_EMAIL_CONFIRM_SECRET', this.joi.string().min(30).max(100).required()),
       expiresIn: this.set('TOKEN_EMAIL_CONFIRM_EXP', this.joi.string().regex(expiresInRegexp).required()),
-      toString () {
-        return JSON.stringify({
+      clear () {
+        return {
           type: this.type,
           secret: `${this.secret.substr(0, 1)}****${this.secret.substr(this.secret.length - 1)}`,
           expiresIn: this.expiresIn
-        })
+        }
       }
     }
   }

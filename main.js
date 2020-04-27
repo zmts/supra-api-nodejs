@@ -30,9 +30,9 @@ config.rootInit().then(() => {
   logger.debug(`NAME: ${config.app.name}`)
   logger.debug('--- TOKENS CONFIGS ---')
   logger.debug('REFRESH:', config.token.refresh)
-  logger.debug('ACCESS:', config.token.access.toString())
-  logger.debug('RESET PASSWORD:', config.token.resetPassword.toString())
-  logger.debug('EMAIL CONFIRM:', config.token.emailConfirm.toString())
+  logger.debug('ACCESS:', config.token.access.clear())
+  logger.debug('RESET PASSWORD:', config.token.resetPassword.clear())
+  logger.debug('EMAIL CONFIRM:', config.token.emailConfirm.clear())
   logger.debug(`ISSUER: ${config.token.jwtIss}`)
 }).catch(error => {
   stdout.write(chalk.blue(error.stack))
