@@ -16,9 +16,15 @@
     "pg": "^8.0.2",
     "pino": "^6.2.0",
     "pino-pretty": "^4.0.0",
-    "serve-favicon": "^2.5.0"
+    "serve-favicon": "^2.5.0",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {},
   "author": "Sasha Zmts",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
+  },
+  "snyk": true
 }
