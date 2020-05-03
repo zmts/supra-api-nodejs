@@ -1,4 +1,5 @@
 const Sentry = require('@sentry/node')
+const env = process.env.NODE_ENV
 
 class SentryCatch {
   constructor (dsn) {
@@ -7,7 +8,7 @@ class SentryCatch {
     }
 
     try {
-      Sentry.init({ dsn })
+      Sentry.init({ dsn, ...(env && { environment: env }) })
     } catch (e) {
       throw new Error(`${this.constructor.name}: fails to construct.`)
     }
