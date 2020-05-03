@@ -81,7 +81,7 @@ class Logger extends AbstractLogger {
     const payload = validator.isObject(meta) ? { ...error, ...meta } : { ...error, meta }
 
     this._captureException(error, payload)
-    this[$].fatalLogger.fatal(message, payload)
+    this[$].fatalLogger.fatal(payload, message)
   }
 
   error (message, error, meta) {
@@ -92,7 +92,7 @@ class Logger extends AbstractLogger {
     const payload = validator.isObject(meta) ? { ...error, ...meta } : { ...error, meta }
 
     this._captureException(error, payload)
-    this[$].errorLogger.error(message, payload)
+    this[$].errorLogger.error(payload, message)
   }
 
   warn (message, error, meta) {
@@ -103,7 +103,7 @@ class Logger extends AbstractLogger {
     const payload = validator.isObject(meta) ? { ...error, ...meta } : { ...error, meta }
 
     this._captureException(error, payload)
-    this[$].warnLogger.warn(message, payload)
+    this[$].warnLogger.warn(payload, message)
   }
 
   /**
@@ -119,7 +119,7 @@ class Logger extends AbstractLogger {
     const payload = validator.isObject(meta) ? meta : { meta }
 
     this._captureMessage(message, payload)
-    this[$].infoLogger.info(message, payload)
+    this[$].infoLogger.info(payload, message)
   }
 
   debug (message, meta) {
@@ -128,7 +128,7 @@ class Logger extends AbstractLogger {
 
     const payload = validator.isObject(meta) ? meta : { meta }
 
-    this[$].debugLogger.debug(message, payload)
+    this[$].debugLogger.debug(payload, message)
   }
 
   trace (message, meta) {
@@ -137,7 +137,7 @@ class Logger extends AbstractLogger {
 
     const payload = validator.isObject(meta) ? meta : { meta }
 
-    this[$].traceLogger.trace(message, payload)
+    this[$].traceLogger.trace(payload, message)
   }
 }
 
