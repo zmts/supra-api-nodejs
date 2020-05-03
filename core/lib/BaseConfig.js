@@ -3,11 +3,11 @@ const pino = require('pino')
 require('dotenv').config()
 const joi = require('@hapi/joi')
 
+// base logger should have own logger instance
+// because it runs before server starts, so we cant use root logger
 const warnLogger = pino({
   name: 'config-env-warning',
-  prettyPrint: {
-    translateTime: 'SYS:standard'
-  }
+  ...(process.env.NODE_ENV === 'development' && { prettyPrint: { translateTime: 'SYS:standard' } })
 })
 
 class BaseConfig {
