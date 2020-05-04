@@ -5,7 +5,7 @@ Piece of my thoughts about Node.js architecture.
 [supra-api-nodejs: A little bit about Node.js RESTful APIs Architecture (RU)](https://gist.github.com/zmts/6ac57301e2e8e8e9e059e9c087732c05)
 
 ## Highlights:
-- RESTful API
+- Modular RESTful API
 - ES6 Classes
 - Action based
 - SQL based (PostgreSQL with objection.js)

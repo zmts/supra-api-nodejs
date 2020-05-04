@@ -1,7 +1,7 @@
-const { RootController } = require('./RootController')
-const { AuthController } = require('./AuthController')
-const { PostsController } = require('./PostsController')
-const { UsersController } = require('./UsersController')
+const { RootController } = require('../modules/root/RootController')
+const { AuthController } = require('../modules/auth/AuthController')
+const { PostsController } = require('../modules/posts/PostsController')
+const { UsersController } = require('../modules/users/UsersController')
 
 module.exports = [
   RootController,

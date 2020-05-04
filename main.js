@@ -48,6 +48,10 @@ config.rootInit().then(() => {
     logger.debug(`HOST: ${config.knex.connection.host}`)
     logger.debug(`PORT: ${config.knex.connection.port}`)
     logger.debug(`DATABASE: ${config.knex.connection.database}`)
+  }).then(() => {
+    logger.debug('---------')
+    logger.debug(`Server listened at ${config.app.host}:${config.app.port}`)
+    logger.debug('---------')
   }).catch(error => {
     stdout.write(chalk.blue(error.stack))
     logger.error('Database fails to initialize...', error)
