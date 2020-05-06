@@ -10,7 +10,16 @@ POST /api/auth/login
 - Server check max session count (MAX_SESSIONS_COUNT === 5)
 - If condition is Ok, creates new `RefreshSessionEntity`
 - If not server wipe all user sessions and creates new one 
-- Response with `RefreshSessionEntity.refreshToken` in cookie and `accessToken` in body
+- Response with (example):
+```
+Set-Cookie: refreshToken='c84f18a2-c6c7-4850-be15-93f9cbaef3b3'; HttpOnly
+{
+  body: { 
+    accessToken: 'eyJhbGciOiJIUzUxMiIsI...',
+    refreshToken: 'c84f18a2-c6c7-4850-be15-93f9cbaef3b3'
+  }
+}
+``` 
 
 # Refresh tokens (RefreshTokensAction)
 ```
@@ -24,7 +33,16 @@ POST /api/auth/refresh-tokens (with refreshToken in cookie)
 - Verify old session fingerprint with fingerprint taken from request
 - Create and store new `RefreshSessionEntity`
 - Create `access token`
-- Response with `RefreshSessionEntity.refreshToken` in cookie and `accessToken` in body 
+- Response with (example):
+```
+Set-Cookie: refreshToken='c84f18a2-c6c7-4850-be15-93f9cbaef3b3'; HttpOnly
+{
+  body: { 
+    accessToken: 'eyJhbGciOiJIUzUxMiIsI...',
+    refreshToken: 'c84f18a2-c6c7-4850-be15-93f9cbaef3b3'
+  }
+}
+``` 
 
 # Logout (current session)
 ```

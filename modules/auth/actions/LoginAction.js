@@ -53,7 +53,6 @@ class LoginAction extends BaseAction {
     return this.result({
       data: {
         accessToken: await makeAccessToken(user),
-        // return refresh token also in request body, just for debug
         refreshToken: newRefreshSession.refreshToken
       },
       cookies: [
