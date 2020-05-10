@@ -20,28 +20,27 @@
     }
   },
   "dependencies": {
-    "@sentry/node": "^5.15.4",
-    "aws-sdk": "^2.656.0",
+    "@sentry/node": "^5.15.5",
+    "aws-sdk": "^2.673.0",
     "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",
     "jsonwebtoken": "^8.5.1",
-    "moment": "^2.24.0",
+    "mailgun-js": "^0.22.0",
     "ms": "^2.1.2",
+    "redis": "^3.0.2",
     "stack-trace": "0.0.10",
     "stdout-stream": "^1.4.1",
     "supra-core": "./core",
     "type-check": "^0.4.0",
-    "uuid": "^7.0.3",
-    "validator": "^13.0.0",
-    "redis": "^3.0.2",
-    "mailgun-js": "^0.22.0"
+    "uuid": "^8.0.0",
+    "validator": "^13.0.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
-    "eslint": "^6.7.2",
-    "husky": "^3.1.0",
-    "mocha": "^6.2.2",
+    "eslint": "^7.0.0",
+    "husky": "^4.2.5",
+    "mocha": "^7.1.2",
     "standart": "^6.1.0",
     "supertest": "^4.0.2"
   }
