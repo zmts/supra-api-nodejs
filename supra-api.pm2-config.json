@@ -1,7 +1,7 @@
 {
   "name" : "supra-api",
   "script": "npm",
-  "args": "run start",
+  "args": "run start:prod",
   "interpreter_args": "--max-old-space-size=1024",
   "instances": 4,
   "max_memory_restart": "1024M",
