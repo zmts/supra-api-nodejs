@@ -4,7 +4,7 @@
   "private": true,
   "author": "Sasha Zmts",
   "scripts": {
-    "start:dev": "NODE_ENV=development ./main.js",
+    "start:dev": "NODE_ENV=development node ./main.js",
     "start:dev-watch": "NODE_ENV=development nodemon ./main.js",
     "start:prod": "NODE_ENV=production node ./main.js",
     "migrate": "knex migrate:latest",
