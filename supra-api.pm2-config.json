@@ -1,9 +1,8 @@
 {
   "name" : "supra-api",
-  "script": "npm",
-  "args": "run start:prod",
+  "script": "./main.js",
   "interpreter_args": "--max-old-space-size=1024",
-  "instances": 4,
+  "instances": -1,
   "max_memory_restart": "1024M",
   "env_production": {
     "NODE_ENV": "production"
