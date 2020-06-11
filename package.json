@@ -33,7 +33,7 @@
     "stdout-stream": "^1.4.1",
     "supra-core": "./core",
     "type-check": "^0.4.0",
-    "uuid": "^8.0.0",
+    "uuid": "^8.1.0",
     "validator": "^13.0.0"
   },
   "devDependencies": {
