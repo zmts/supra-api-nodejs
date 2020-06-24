@@ -21,7 +21,7 @@
     }
   },
   "dependencies": {
-    "@sentry/node": "^5.15.5",
+    "@sentry/node": "^5.16.0",
     "aws-sdk": "^2.673.0",
     "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",
