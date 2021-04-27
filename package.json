@@ -28,7 +28,7 @@
     "jsonwebtoken": "^8.5.1",
     "mailgun-js": "^0.22.0",
     "ms": "^2.1.2",
-    "redis": "^3.0.2",
+    "redis": "^3.1.1",
     "stack-trace": "0.0.10",
     "stdout-stream": "^1.4.1",
     "supra-core": "./core",
