@@ -86,6 +86,22 @@ describe('ValidatorNano', function () {
     })
   })
 
+  describe('ValidatorNano.isStringNumber', () => {
+    it('it should return true', () => {
+      expect(ValidatorNano.isStringNumber('0')).to.be.true
+      expect(ValidatorNano.isStringNumber('1')).to.be.true
+      expect(ValidatorNano.isStringNumber('1.1')).to.be.true
+      expect(ValidatorNano.isStringNumber('-1.1')).to.be.true
+    })
+    it('it should return false', () => {
+      expect(ValidatorNano.isStringNumber([])).to.be.false
+      expect(ValidatorNano.isStringNumber({})).to.be.false
+      expect(ValidatorNano.isStringNumber(NaN)).to.be.false
+      expect(ValidatorNano.isStringNumber(1.1)).to.be.false
+      expect(ValidatorNano.isStringNumber(-1.1)).to.be.false
+    })
+  })
+
   describe('ValidatorNano.isInt', () => {
     it('it should return true', () => {
       expect(ValidatorNano.isInt(0)).to.be.true
@@ -115,6 +131,21 @@ describe('ValidatorNano', function () {
       expect(ValidatorNano.isUint(-10)).to.be.false
       expect(ValidatorNano.isUint(1.1)).to.be.false
       expect(ValidatorNano.isUint(-1.1)).to.be.false
+    })
+  })
+
+  describe('ValidatorNano.isStringInt', () => {
+    it('it should return true', () => {
+      expect(ValidatorNano.isStringInt('0')).to.be.true
+      expect(ValidatorNano.isStringInt('1')).to.be.true
+    })
+    it('it should return false', () => {
+      expect(ValidatorNano.isStringInt([])).to.be.false
+      expect(ValidatorNano.isStringInt({})).to.be.false
+      expect(ValidatorNano.isStringInt(NaN)).to.be.false
+      expect(ValidatorNano.isStringInt('10.1')).to.be.false
+      expect(ValidatorNano.isStringInt(1.1)).to.be.false
+      expect(ValidatorNano.isStringInt(-1.1)).to.be.false
     })
   })
 

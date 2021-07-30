@@ -33,12 +33,20 @@ class ValidatorNano {
     return typeof value === 'number' && !isNaN(value)
   }
 
+  static isStringNumber (value) {
+    return typeof value === 'string' && !isNaN(Number(value))
+  }
+
   static isInt (value) {
     return Number.isInteger(value)
   }
 
   static isUint (value) {
     return Number.isInteger(value) && value >= 0
+  }
+
+  static isStringInt (value) {
+    return typeof value === 'string' && Number.isInteger(Number(value))
   }
 
   static isString (value) {
