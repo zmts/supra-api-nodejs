@@ -1,4 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-npm test && node ./update-build.js
+npm test && node ./.husky/update-build.js

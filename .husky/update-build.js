@@ -1,7 +1,7 @@
 (async () => {
   const fs = require('fs')
   const { exec } = require('child_process')
-  const buildJson = require('./build.json')
+  const buildJson = require('../build.json')
 
   await checkGitConnection()
   buildJson.build++
