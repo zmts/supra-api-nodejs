@@ -1,4 +1,5 @@
-const { BaseDAO, assert } = require('supra-core')
+const { assert } = require('supra-core')
+const { BaseDAO } = require('./BaseDAO')
 
 class RefreshSessionDAO extends BaseDAO {
   static get tableName () {

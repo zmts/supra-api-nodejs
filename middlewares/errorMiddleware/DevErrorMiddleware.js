@@ -1,5 +1,4 @@
 const stdout = require('stdout-stream')
-const chalk = require('chalk')
 const stackTrace = require('stack-trace')
 const ErrorResponse = require('./ErrorResponse')
 const { errorCodes, BaseMiddleware } = require('supra-core')
@@ -36,10 +35,10 @@ class DevErrorMiddleware extends BaseMiddleware {
       }
 
       if (error.stack) {
-        stdout.write(chalk.red('--------------- ERROR STACK BEGIN --------------\n'))
+        stdout.write('--------------- ERROR STACK BEGIN --------------\n')
         stdout.write(`${new Date()} env:dev/regular error\n`)
-        stdout.write(chalk.blue(error.stack))
-        stdout.write(chalk.red('\n---------------- ERROR STACK END ---------------\n\n'))
+        stdout.write(error.stack)
+        stdout.write('\n---------------- ERROR STACK END ---------------\n\n')
       }
     }
   }

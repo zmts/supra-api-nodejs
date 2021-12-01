@@ -1,7 +1,7 @@
 const pino = require('pino')
 
 require('dotenv').config()
-const joi = require('@hapi/joi')
+const joi = require('joi')
 
 // base logger should have own logger instance
 // because it runs before server starts, so we cant use root logger

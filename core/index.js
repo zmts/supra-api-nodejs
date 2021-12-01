@@ -3,7 +3,6 @@ const { Assert } = require('./lib/assert')
 const { ValidatorNano } = require('./lib/validator/ValidatorNano')
 
 const { BaseConfig } = require('./lib/BaseConfig')
-const { BaseDAO } = require('./lib/BaseDAO')
 const { BaseMiddleware } = require('./lib/BaseMiddleware')
 const { BaseModel } = require('./lib/BaseModel')
 const { AbstractLogger } = require('./lib/AbstractLogger')
@@ -23,7 +22,6 @@ module.exports = {
   ValidatorNano,
 
   BaseConfig,
-  BaseDAO,
   BaseMiddleware,
   BaseModel,
 

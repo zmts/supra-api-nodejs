@@ -3,7 +3,6 @@ require('dotenv').config()
 const { Model } = require('objection')
 const Knex = require('knex')
 const stdout = require('stdout-stream')
-const chalk = require('chalk')
 
 const { Server, assert } = require('supra-core')
 const controllers = require('./controllers')
@@ -35,7 +34,7 @@ config.rootInit().then(() => {
   logger.debug('EMAIL CONFIRM:', config.token.emailConfirm.clear())
   logger.debug(`ISSUER: ${config.token.jwtIss}`)
 }).catch(error => {
-  stdout.write(chalk.blue(error.stack))
+  stdout.write(error.stack)
   logger.error('Server fails to initialize...', error)
 })
   .then(() => Model.knex(Knex(config.knex)))
@@ -53,7 +52,7 @@ config.rootInit().then(() => {
     logger.debug(`Server listened at ${config.app.host}:${config.app.port}`)
     logger.debug('---------')
   }).catch(error => {
-    stdout.write(chalk.blue(error.stack))
+    stdout.write(error.stack)
     logger.error('Database fails to initialize...', error)
     process.exit(1)
   })

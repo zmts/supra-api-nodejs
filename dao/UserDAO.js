@@ -1,5 +1,6 @@
-const { BaseDAO, assert } = require('supra-core')
+const { assert } = require('supra-core')
 const { UserModel } = require('../models/UserModel')
+const { BaseDAO } = require('./BaseDAO')
 
 class UserDAO extends BaseDAO {
   static get tableName () {

@@ -1,4 +1,5 @@
-const { BaseDAO, assert } = require('supra-core')
+const { assert } = require('supra-core')
+const { BaseDAO } = require('./BaseDAO')
 const { UserModel } = require('../models/UserModel')
 
 class PostDAO extends BaseDAO {
