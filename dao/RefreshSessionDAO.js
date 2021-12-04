@@ -1,9 +1,14 @@
 const { assert } = require('supra-core')
 const { BaseDAO } = require('./BaseDAO')
+const { RefreshSessionDbDto } = require('./dto/RefreshSessionDbDto')
 
 class RefreshSessionDAO extends BaseDAO {
   static get tableName () {
     return 'refresh_sessions'
+  }
+
+  static get dto () {
+    return RefreshSessionDbDto
   }
 
   static async getByRefreshToken (refreshToken) {
@@ -13,7 +18,7 @@ class RefreshSessionDAO extends BaseDAO {
       .where({ refreshToken })
       .first()
     if (!result) throw this.errorEmptyResponse()
-    return result
+    return this.mapObject(result)
   }
 }
 

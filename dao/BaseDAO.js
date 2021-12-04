@@ -26,6 +26,59 @@ class BaseDAO extends Model {
     return {}
   }
 
+  static get dto () {
+    return new AppError({
+      ...errorCodes.SERVER,
+      layer: 'DAO',
+      message: `${this.name}: missing dto getter`
+    })
+  }
+
+  /**
+   * @param data
+   * @returns {{total, results: *[]}}
+   */
+  static mapPage (data = {}) {
+    assert.array(data.results, { required: true })
+    assert.integer(data.total, { required: true })
+
+    const Dto = this.dto
+    assert.func(Dto, { required: true })
+
+    return {
+      results: data.results.map(i => new Dto(i)),
+      total: data.total || 0
+    }
+  }
+
+  /**
+   * @param data
+   * @returns {*}
+   */
+  static mapObject (data = {}) {
+    assert.object(data, { required: true })
+
+    const Dto = this.dto
+    assert.func(Dto, { required: true })
+
+    return new Dto(data)
+  }
+
+  static verifyUserId (data) {
+    assert.object(data, { required: true })
+
+    /**
+     * each entity that creates must have creator id (userId)
+     */
+    if (!data.email && !data.userId) {
+      throw new AppError({
+        ...errorCodes.UNPROCESSABLE_ENTITY,
+        message: 'Please provide in action class \'userId\' field',
+        layer: 'DAO'
+      })
+    }
+  }
+
   static query () {
     return super.query.apply(this, arguments).onError(error => {
       return Promise.reject(wrapError(error))
@@ -69,29 +122,22 @@ class BaseDAO extends Model {
    * ------------------------------
    */
 
-  static baseCreate (entity = {}) {
-    assert.object(entity, { required: true })
+  static async baseCreate (data = {}) {
+    assert.object(data, { required: true })
+    this.verifyUserId(data)
 
-    /**
-     * each entity that creates must to have creator id (userId)
-     * except user entity
-     */
-    if (!entity.email && !entity.userId) {
-      throw new AppError({
-        ...errorCodes.UNPROCESSABLE_ENTITY,
-        message: 'Please provide in action class \'userId\' field',
-        layer: 'DAO'
-      })
-    }
+    const result = await this.query().insert(data)
 
-    return this.query().insert(entity)
+    return this.mapObject(result)
   }
 
-  static baseUpdate (id, entity = {}) {
+  static async baseUpdate (id, data = {}) {
     assert.id(id, { required: true })
-    assert.object(entity, { required: true })
+    assert.object(data, { required: true })
 
-    return this.query().patchAndFetchById(id, entity)
+    const result = await this.query().patchAndFetchById(id, data)
+
+    return this.mapObject(result)
   }
 
   static async baseGetList ({ page, limit, filter, orderBy } = {}) {
@@ -106,7 +152,7 @@ class BaseDAO extends Model {
       .page(page, limit)
 
     if (!data.results.length) return this.emptyPageResponse()
-    return data
+    return this.mapPage(data)
   }
 
   static async baseGetCount (filter = {}) {
@@ -125,7 +171,8 @@ class BaseDAO extends Model {
 
     const data = await this.query().findById(id)
     if (!data) throw this.errorEmptyResponse()
-    return data
+
+    return this.mapObject(data)
   }
 
   static baseRemove (id) {

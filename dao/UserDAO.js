@@ -1,5 +1,6 @@
 const { assert } = require('supra-core')
 const { UserModel } = require('../models/UserModel')
+const { UserDbDto } = require('./dto/UserDbDto')
 const { BaseDAO } = require('./BaseDAO')
 
 class UserDAO extends BaseDAO {
@@ -7,8 +8,8 @@ class UserDAO extends BaseDAO {
     return 'users'
   }
 
-  static get jsonAttributes () {
-    return ['refreshTokensMap']
+  static get dto () {
+    return UserDbDto
   }
 
   static get relationMappings () {
@@ -31,14 +32,6 @@ class UserDAO extends BaseDAO {
    */
   $formatJson (json) {
     json = super.$formatJson(json)
-
-    // delete sensitive data from all queries
-    delete json.passwordHash
-    delete json.emailConfirmToken
-    delete json.resetPasswordToken
-    delete json.newEmail
-    delete json.email
-
     return json
   }
 
@@ -48,11 +41,13 @@ class UserDAO extends BaseDAO {
    * ------------------------------
    */
 
-  static create (data) {
+  static async create (data) {
     assert.object(data, { required: true })
     assert.string(data.passwordHash, { notEmpty: true })
 
-    return this.query().insert(data)
+    const result = await this.query().insert(data)
+
+    return this.mapObject(result)
   };
 
   static async getByEmail (email) {
@@ -60,16 +55,16 @@ class UserDAO extends BaseDAO {
 
     const data = await this.query().where({ email }).first()
     if (!data) throw this.errorEmptyResponse()
-    return data
+    return this.mapObject(data)
   }
 
   static async getCurrentUser (id) {
     assert.validate(id, UserModel.schema.id, { required: true })
 
-    const data = await this.knexQuery().from(this.tableName).where({ id }).first()
+    const data = await this.query().findById(id)
     if (!data) throw this.errorEmptyResponse()
 
-    // delete sensitive data from current user
+    // delete sensitive data from raw current user
     delete data.passwordHash
     delete data.emailConfirmToken
     delete data.resetPasswordToken

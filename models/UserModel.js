@@ -27,19 +27,19 @@ const schema = {
     description: `enum; one of: ${rolesList}`
   }),
   email: new Rule({
-    validator: v => isEmail(v) && v.length <= 50,
+    validator: v => (typeof v === 'string') && isEmail(v) && v.length <= 50,
     description: 'string; email; max 50 chars;'
   }),
   newEmail: new Rule({
-    validator: v => isEmail(v) && v.length <= 50,
+    validator: v => (typeof v === 'string') && isEmail(v) && v.length <= 50,
     description: 'string; email; max 50 chars;'
   }),
   emailConfirmToken: new Rule({
-    validator: v => isJWT(v),
+    validator: v => (typeof v === 'string') && isJWT(v),
     description: 'string; jwt;'
   }),
   resetPasswordToken: new Rule({
-    validator: v => isJWT(v),
+    validator: v => (typeof v === 'string') && isJWT(v),
     description: 'string; jwt;'
   }),
   passwordHash: new Rule({

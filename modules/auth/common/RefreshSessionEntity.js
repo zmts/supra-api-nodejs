@@ -1,22 +1,22 @@
 const { assert } = require('supra-core')
-const { v4: uuidv4 } = require('uuid')
-const { UserModel } = require('../../../models/UserModel')
 const { RefreshSessionModel } = require('../../../models/RefreshSessionModel')
 
 class RefreshSessionEntity {
-  constructor ({ userId, fingerprint, ip, ua, expiresIn } = {}) {
-    assert.validate(userId, UserModel.schema.id, { required: true })
+  constructor ({ refreshToken, userId, fingerprint, ip, ua, expiresIn } = {}) {
+    assert.validate(refreshToken, RefreshSessionModel.schema.refreshToken, { required: true })
+    assert.validate(userId, RefreshSessionModel.schema.userId, { required: true })
+    assert.validate(fingerprint, RefreshSessionModel.schema.fingerprint, { required: true })
     assert.validate(fingerprint, RefreshSessionModel.schema.fingerprint, { required: true })
     assert.validate(ip, RefreshSessionModel.schema.ip, { required: true })
     assert.validate(expiresIn, RefreshSessionModel.schema.expiresIn, { required: true })
-    assert.validate(ua, RefreshSessionModel.schema.ua)
+    assert.validate(ua, RefreshSessionModel.schema.ua, { allowed: [null] })
 
-    this.refreshToken = uuidv4()
+    this.refreshToken = refreshToken
     this.userId = userId
     this.fingerprint = fingerprint
     this.ip = ip
     this.expiresIn = expiresIn
-    this.ua = ua || null
+    this.ua = ua
   }
 }
 

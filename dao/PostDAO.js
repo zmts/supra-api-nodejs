@@ -1,10 +1,15 @@
 const { assert } = require('supra-core')
 const { BaseDAO } = require('./BaseDAO')
+const { PostDbDto } = require('./dto/PostDbDto')
 const { UserModel } = require('../models/UserModel')
 
 class PostDAO extends BaseDAO {
   static get tableName () {
     return 'posts'
+  }
+
+  static get dto () {
+    return PostDbDto
   }
 
   /**
@@ -35,8 +40,9 @@ class PostDAO extends BaseDAO {
       .where({ userId })
       .page(page, limit)
       .orderBy(orderBy.field, orderBy.direction)
+
     if (!data.results.length) return this.emptyPageResponse()
-    return data
+    return this.mapPage(data)
   }
 }
 

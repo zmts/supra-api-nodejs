@@ -1,4 +1,5 @@
 const ms = require('ms')
+const { v4: uuidv4 } = require('uuid')
 const { RequestRule, CookieEntity, AppError, errorCodes } = require('supra-core')
 
 const { BaseAction } = require('../../../rootcommmon/BaseAction')
@@ -46,6 +47,7 @@ class RefreshTokensAction extends BaseAction {
     const user = await UserDAO.baseGetById(oldRefreshSession.userId)
 
     const newRefreshSession = new RefreshSessionEntity({
+      refreshToken: uuidv4(),
       userId: user.id,
       ip: ctx.ip,
       ua: ctx.headers['User-Agent'],

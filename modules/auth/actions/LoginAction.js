@@ -1,4 +1,5 @@
 const ms = require('ms')
+const { v4: uuidv4 } = require('uuid')
 const { RequestRule, AppError, errorCodes, CookieEntity } = require('supra-core')
 
 const { BaseAction } = require('../../../rootcommmon/BaseAction')
@@ -41,6 +42,7 @@ class LoginAction extends BaseAction {
     }
 
     const newRefreshSession = new RefreshSessionEntity({
+      refreshToken: uuidv4(),
       userId: user.id,
       ip: ctx.ip,
       ua: ctx.headers['User-Agent'],
