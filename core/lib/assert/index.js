@@ -17,8 +17,11 @@ class Assert {
     throw new AssertionError(message || `Failed value: ${util.inspect(actual)}; ${expected !== undefined ? `Expect: ${util.inspect(expected.name || expected)}` : ''}`)
   }
 
-  static validate (value, rule, { required = false } = {}) {
+  static validate (value, rule, { required = false, allowed = [] } = {}) {
     Assert.instanceOf(rule, Rule)
+
+    if (allowed.includes(value)) return
+
     const validationResult = rule.validator(value)
     if (!['boolean', 'string'].includes(typeof validationResult)) {
       Assert.fail(validationResult, null, 'Validation result error. Validator should return string or boolean. Please check validation function')
