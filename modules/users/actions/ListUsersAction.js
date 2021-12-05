@@ -24,16 +24,18 @@ class ListUsersAction extends BaseAction {
             }).validate(v)
             return result.error && result.error.message || true
           },
-          description: 'Object; { field: username, direction: asc || desc }'
+          description: 'Object; { field: \'username\' || \'createdAt\', direction: \'asc\' || \'desc\' }',
+          example: 'orderBy[direction]=desc&orderBy[field]=username'
         })),
         filter: new RequestRule(new Rule({
           validator: v => {
             const result = joi.object({
               username: joi.string().min(2)
-            }, e => e ? e.message : true)
+            }).validate(v)
             return result.error && result.error.message || true
           },
-          description: 'String; min 2 chars;'
+          description: 'Object; { username: string; String; min 2 chars',
+          example: 'filter[username]=alex'
         }))
       }
     }
