@@ -10,6 +10,7 @@ class PostsController extends BaseController {
     router.get('/posts', this.actionRunner(actions.ListPostsAction))
     router.get('/posts/:id', this.actionRunner(actions.GetPostByIdAction))
     router.post('/posts', this.actionRunner(actions.CreatePostAction))
+    router.post('/posts/upload', this.actionRunner(actions.UploadFileAction))
     router.patch('/posts/:id', this.actionRunner(actions.UpdatePostAction))
     router.delete('/posts/:id', this.actionRunner(actions.RemovePostAction))
 

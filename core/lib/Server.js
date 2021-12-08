@@ -1,7 +1,9 @@
-const express = require('express')
 const path = require('path')
+const { PassThrough } = require('stream')
+const express = require('express')
 const morganLogger = require('morgan')
 const cookieParser = require('cookie-parser')
+const formidable = require('formidable')
 
 const { Assert: assert } = require('./assert')
 const { BaseMiddleware } = require('./BaseMiddleware')
@@ -44,6 +46,20 @@ function start ({ port, host, controllers, middlewares, ErrorMiddleware, cookieS
     } catch (e) {
       return reject(e)
     }
+
+    /**
+     * formData middleware
+     */
+    app.use(async (req, res, next) => {
+      try {
+        const contentType = (req.get('Content-Type') || '').toLowerCase()
+        const isMultipartForm = contentType.includes('multipart/form-data')
+        req.formData = isMultipartForm ? await parseFormDataAsStream(req) : { fields: [], files: [] }
+      } catch (e) {
+        return reject(e)
+      }
+      next()
+    })
 
     /**
      * controllers initialization
@@ -96,6 +112,51 @@ function start ({ port, host, controllers, middlewares, ErrorMiddleware, cookieS
     })
 
     return app.listen(port, host, () => resolve({ port, host }))
+  })
+}
+
+function parseFormDataAsStream (req) {
+  return new Promise((resolve, reject) => {
+    const form = formidable()
+
+    const filesMap = {}
+    const fieldsMap = {}
+
+    form.onPart = part => { // part its formData file or field, emits for each value
+      const { originalFilename, mimetype } = part
+      // put only file types to filesMap
+      // if part has mimetype it means its file type, so we can put it
+      if (!filesMap[originalFilename] && mimetype) {
+        filesMap[originalFilename] = {
+          key: part.name,
+          filename: originalFilename,
+          stream: new PassThrough(),
+          mime: mimetype
+        }
+      }
+
+      part.on('data', data => {
+        const fileStream = filesMap[originalFilename]?.stream
+        if (fileStream) {
+          try {
+            // write file to stream
+            fileStream.write(data)
+          } catch (e) {
+            reject(e)
+          }
+        } else {
+          // save field as string
+          fieldsMap[part.name] = data.toString()
+        }
+      })
+      part.on('end', () => filesMap[originalFilename]?.stream.end())
+      part.on('error', err => reject(err))
+    }
+
+    form.parse(req, err => {
+      if (err) return reject(err)
+      return resolve({ fields: fieldsMap, files: Object.values(filesMap) })
+    })
   })
 }
 
