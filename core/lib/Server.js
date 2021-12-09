@@ -123,7 +123,7 @@ function parseFormDataAsStream (req) {
     const fieldsMap = {}
 
     form.onPart = part => { // part its formData file or field, emits for each value
-      const { originalFilename, mimetype } = part
+      const { originalFilename, mimetype, transferEncoding } = part
       // put only file types to filesMap
       // if part has mimetype it means its file type, so we can put it
       if (!filesMap[originalFilename] && mimetype) {
@@ -131,22 +131,23 @@ function parseFormDataAsStream (req) {
           key: part.name,
           filename: originalFilename,
           stream: new PassThrough(),
-          mime: mimetype
+          mime: mimetype,
+          encoding: transferEncoding
         }
       }
 
-      part.on('data', data => {
+      part.on('data', data => { // data instanceof Buffer
         const fileStream = filesMap[originalFilename]?.stream
         if (fileStream) {
           try {
-            // write file to stream
+            // write file parts(buffer) to stream
             fileStream.write(data)
           } catch (e) {
             reject(e)
           }
         } else {
-          // save field as string
-          fieldsMap[part.name] = data.toString()
+          // save field data buffer as string
+          fieldsMap[part.name] = data.toString(transferEncoding)
         }
       })
       part.on('end', () => filesMap[originalFilename]?.stream.end())
