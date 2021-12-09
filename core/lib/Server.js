@@ -132,13 +132,16 @@ function parseFormDataAsStream (req) {
           filename: originalFilename,
           stream: new PassThrough(),
           mime: mimetype,
-          encoding: transferEncoding
+          encoding: transferEncoding,
+          size: 0
         }
       }
 
       part.on('data', data => { // data instanceof Buffer
         const fileStream = filesMap[originalFilename]?.stream
         if (fileStream) {
+          filesMap[originalFilename].size += data.length
+
           try {
             // write file parts(buffer) to stream
             fileStream.write(data)

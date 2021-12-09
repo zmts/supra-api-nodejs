@@ -10,12 +10,13 @@ class UploadFileAction extends BaseAction {
   }
 
   static async run (ctx) {
-    const { fields, files } = ctx.formData // TODO: test it
+    const { fields, files } = ctx.formData
 
     for (const file in files) {
       await new Promise((resolve, reject) => {
         const fileStream = files[file].stream
         const fileName = files[file].filename
+        const fileSize = files[file].size // TODO: research why it works and it accessible with proper value ?
 
         fileStream.pipe(fs.createWriteStream(fileName))
         fileStream.on('end', () => {
