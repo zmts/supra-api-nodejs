@@ -22,6 +22,7 @@ config.rootInit().then(() => {
     logger
   })
 }).then(serverParams => {
+  assert.object(serverParams, { required: true, notEmpty: true })
   logger.info('Server initialized...', serverParams)
   logger.debug('--- APP CONFIG ---')
   logger.debug(`HOST: ${config.app.host}`)
@@ -36,6 +37,7 @@ config.rootInit().then(() => {
 }).catch(error => {
   stdout.write(error.stack)
   logger.error('Server fails to initialize...', error)
+  process.exit(1)
 })
   .then(() => Model.knex(Knex(config.knex)))
   .then(() => testDbConnection(Knex(config.knex)))
