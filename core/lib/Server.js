@@ -54,7 +54,7 @@ function start ({ port, host, controllers, middlewares, ErrorMiddleware, cookieS
       try {
         const contentType = (req.get('Content-Type') || '').toLowerCase()
         const isMultipartForm = contentType.includes('multipart/form-data')
-        req.formData = isMultipartForm ? await parseFormDataAsStream(req) : { fields: [], files: [] }
+        req.formData = isMultipartForm ? parseFormDataAsStream.bind(null, req) : () => Promise.resolve({ fields: [], files: [] })
       } catch (e) {
         return reject(e)
       }
@@ -115,12 +115,15 @@ function start ({ port, host, controllers, middlewares, ErrorMiddleware, cookieS
   })
 }
 
-function parseFormDataAsStream (req) {
+function parseFormDataAsStream (req, fileHandler) {
+  assert.func(fileHandler, { required: true })
+
   return new Promise((resolve, reject) => {
     const form = formidable()
 
     const filesMap = {}
     const fieldsMap = {}
+    const handlers = []
 
     form.onPart = part => { // part its formData file or field, emits for each value
       const { originalFilename, mimetype, transferEncoding } = part
@@ -133,14 +136,16 @@ function parseFormDataAsStream (req) {
           stream: new PassThrough(),
           mime: mimetype,
           encoding: transferEncoding,
-          size: 0
+          size: 0 // TODO: use for debug (remove after fixing)
         }
       }
 
+      const fileObject = filesMap[originalFilename]
+      const fileStream = fileObject?.stream
+
       part.on('data', data => { // data instanceof Buffer
-        const fileStream = filesMap[originalFilename]?.stream
         if (fileStream) {
-          filesMap[originalFilename].size += data.length
+          filesMap[originalFilename].size += data.length // TODO: use for debug (remove after fixing)
 
           try {
             // write file parts(buffer) to stream
@@ -155,11 +160,17 @@ function parseFormDataAsStream (req) {
       })
       part.on('end', () => filesMap[originalFilename]?.stream.end())
       part.on('error', err => reject(err))
+
+      if (fileObject) {
+        handlers.push(Promise.resolve().then(() => fileHandler(fileObject)))
+      }
     }
 
     form.parse(req, err => {
-      if (err) return reject(err)
-      return resolve({ fields: fieldsMap, files: Object.values(filesMap) })
+      if (err) {
+        return reject(err)
+      }
+      Promise.all(handlers).then(() => resolve({ fields: fieldsMap })).catch(err => reject(err))
     })
   })
 }

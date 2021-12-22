@@ -10,27 +10,25 @@ class UploadFileAction extends BaseAction {
   }
 
   static async run (ctx) {
-    const { fields, files } = ctx.formData
+    let filesCount = 0
 
-    for (const file in files) {
-      await new Promise((resolve, reject) => {
-        const fileStream = files[file].stream
-        const fileName = files[file].filename
-        const fileSize = files[file].size // TODO: research why it works and it accessible with proper value ?
+    const { fields } = await ctx.formData(file => { // TODO: works unclear. Should take mush less memory, refact it
+      filesCount++
 
-        fileStream.pipe(fs.createWriteStream(fileName))
-        fileStream.on('end', () => {
-          logger.info(`${fileName} file processed`)
-          resolve()
-        })
-        fileStream.on('error', error => reject(error))
+      const fileStream = file.stream
+      const fileName = file.filename
+
+      fileStream.pipe(fs.createWriteStream(fileName))
+      fileStream.on('end', () => {
+        logger.info(`${fileName} file processed`)
+        fileStream.end()
       })
-    }
+      fileStream.on('error', error => {
+        console.log(error)
+      })
+    })
 
-    const message = `${files.length} files processed`
-    logger.info(message)
-
-    return this.result({ data: message })
+    return this.result({ data: { filesCount, fields } })
   }
 }
 

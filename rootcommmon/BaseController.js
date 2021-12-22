@@ -35,7 +35,7 @@ class BaseController {
         method: req.method,
         url: req.url,
         cookies: { ...req.cookies, ...req.signedCookies },
-        formData: { files: req.formData.files, fields: req.formData.fields },
+        formData: req.formData,
         headers: {
           'Content-Type': req.get('Content-Type'),
           Referer: req.get('referer'),
@@ -109,8 +109,6 @@ class BaseController {
           data: response.data
         })
       } catch (error) {
-        ctx.formData.files = ctx.formData.files
-          .map(({ stream, ...rest }) => rest) // remove stream from files
         error.req = ctx
         next(error)
       }
