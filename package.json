@@ -21,7 +21,7 @@
     "aws-sdk": "2.1040.0",
     "bcryptjs": "2.4.3",
     "dotenv": "10.0.0",
-    "jsonwebtoken": "8.5.1",
+    "jsonwebtoken": "9.0.0",
     "knex": "0.95.14",
     "mailgun-js": "0.22.0",
     "ms": "2.1.3",
